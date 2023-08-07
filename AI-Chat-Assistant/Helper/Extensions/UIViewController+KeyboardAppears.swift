@@ -9,6 +9,7 @@ import UIKit.UIViewController
 
 //MARK: - Keyboard Will Show
 extension UIViewController {
+    
     @objc func keyboardWillShow(sender: NSNotification) {
         guard let userInfo = sender.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
@@ -22,22 +23,34 @@ extension UIViewController {
         
         // if textView bottom is below keyboard bottom - bump the frame up
         if textViewBottomY > keyboardTopY {
-            let textBoxY = convertedTextViewFrame.origin.y
-            let newFrameY = ((textBoxY - keyboardTopY / 2) - 85) * -1
-            view.frame.origin.y = newFrameY
-//            navigationController?.navigationBar.isHidden = true
+            if let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                if UIScreen.main.bounds.height < 850 {
+                    let newFrameY = ((keyboardSize.height) - 50) * -1
+                    view.frame.origin.y = newFrameY
+                } else {
+                    let newFrameY = ((keyboardSize.height) - 85) * -1
+                    view.frame.origin.y = newFrameY
+                }
+                
+            }
         }
         
-        print("foo - currentTextFieldFrame: \(currentTextView.frame)")
-        print("foo - convertedTextFieldFrame: \(convertedTextViewFrame)")
+        navigationController?.navigationBar.isHidden = true
     }
+    
+    
     
     @objc func keyboardWillHide(notification: NSNotification) {
         view.frame.origin.y = 0
-//        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = false
     }
     
 }
+
+
+
+
+
 
 //MARK: - Hide Keyboard
 extension UIViewController {

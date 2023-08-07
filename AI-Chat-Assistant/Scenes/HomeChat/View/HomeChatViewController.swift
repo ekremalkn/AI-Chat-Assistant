@@ -49,6 +49,8 @@ final class HomeChatViewController: UIViewController {
         let titleItem: UIBarButtonItem = .init(customView: titleLbl)
         navigationItem.leftBarButtonItems = [titleItem]
         
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+
     }
     
     //MARK: - Setup Delegates
@@ -82,7 +84,7 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = collectionView.frame.width - 20
+        let cellWidth: CGFloat = collectionView.frame.width - 40
         let cellHeight: CGFloat = 75
         
         return .init(width: cellWidth, height: cellHeight)

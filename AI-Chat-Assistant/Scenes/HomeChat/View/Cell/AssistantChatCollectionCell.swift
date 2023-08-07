@@ -64,16 +64,15 @@ extension AssistantChatCollectionCell {
         textStackView.addArrangedSubview(assistantTextLabel)
         
         assistantImageView.snp.makeConstraints { make in
-            make.top.leading.equalTo(self.safeAreaLayoutGuide)
+            make.top.leading.equalTo(self.safeAreaLayoutGuide).offset(10)
             make.height.width.equalTo(36)
         }
         
         textStackView.snp.makeConstraints { make in
-            make.centerY.equalTo(assistantImageView.snp.centerY)
-            make.top.equalTo(assistantImageView.snp.top)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(assistantImageView.snp.trailing).offset(5)
-            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
     }
 }

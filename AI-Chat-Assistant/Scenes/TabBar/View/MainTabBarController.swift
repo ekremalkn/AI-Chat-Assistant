@@ -11,7 +11,10 @@ final class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tabBar.barTintColor = .vcBackground
+        tabBar.backgroundColor = .vcBackground
+        tabBar.isTranslucent = false
         // Do any additional setup after loading the view.
     }
     

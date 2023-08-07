@@ -74,7 +74,6 @@ extension HomeChatView {
         addSubview(sendButton)
         addSubview(messageTextView)
         
-        
         sendButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
@@ -90,7 +89,7 @@ extension HomeChatView {
         
         chatCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            make.bottom.equalTo(messageTextView.snp.top)
+            make.bottom.equalTo(messageTextView.snp.top).offset(-10)
         }
     }
 }
