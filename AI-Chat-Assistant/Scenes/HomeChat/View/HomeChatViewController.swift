@@ -6,9 +6,16 @@
 //
 
 import UIKit
+import ProgressHUD
 
 protocol HomeChatViewInterface: AnyObject {
     func configureViewController()
+    
+    func assistantResponsing()
+    func assistantResponsed()
+    func didOccurErrorWhileResponsing(_ errorMsg: String)
+    
+    func reloadMessages()
 }
 
 final class HomeChatViewController: UIViewController {
@@ -50,13 +57,16 @@ final class HomeChatViewController: UIViewController {
         navigationItem.leftBarButtonItems = [titleItem]
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-
+        
     }
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
         homeChatView.chatCollectionView.delegate = self
         homeChatView.chatCollectionView.dataSource = self
+        
+        homeChatView.delegate = self
+        homeChatView.messageTextView.delegate = self
     }
     
     
@@ -69,18 +79,41 @@ final class HomeChatViewController: UIViewController {
     
 }
 
+//MARK: - UITextViewDelegate
+extension HomeChatViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.currentInputText = textView.text
+    }
+}
+
 //MARK: - Configure Chat Collection View
 extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        viewModel.numberOfMessages()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
-            return .init()
+        let messages = viewModel.getUIMessages()
+        
+        if messages[indexPath.item].role == .user {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserChatCollectionCell.identifier, for: indexPath) as? UserChatCollectionCell else {
+                return .init()
+            }
+            let userMessage = messages[indexPath.item].content
+            
+            cell.configure(with: userMessage)
+            return cell
+        } else if messages[indexPath.item].role == .assistant {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
+                return .init()
+            }
+            let assistantMessage = messages[indexPath.item].content
+            
+            cell.configure(with: assistantMessage)
+            return cell
         }
         
-        return cell
+        return .init()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -102,7 +135,40 @@ extension HomeChatViewController: HomeChatViewInterface {
         setupKeyboardHiding()
     }
     
+    func assistantResponsing() {
+        ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
+        ProgressHUD.colorAnimation = .lightGray
+        ProgressHUD.show("Assistant typing...", interaction: false)
+    }
+    
+    func assistantResponsed() {
+        ProgressHUD.remove()
+    }
+    
+    func didOccurErrorWhileResponsing(_ errorMsg: String) {
+        ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
+        ProgressHUD.colorAnimation = .red
+        ProgressHUD.showError("Assistant confused", interaction: false)
+    }
+    
+    func reloadMessages() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            homeChatView.chatCollectionView.reloadData()
+        }
+    }
+    
 }
+
+//MARK: -  HomeChatViewButtonInterface
+extension HomeChatViewController: HomeChatViewButtonInterface {
+    func homeChatView(_ view: HomeChatView, sendButtonTapped button: UIButton) {
+        viewModel.sendButtonTapped()
+    }
+    
+    
+}
+
 
 
 

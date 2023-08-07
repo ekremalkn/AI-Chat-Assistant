@@ -30,7 +30,6 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         label.textAlignment = .left
         label.numberOfLines  = 0
         label.textColor = .white
-        label.text = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through "
         label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
@@ -50,7 +49,10 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         super.layoutSubviews()
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner]
-        
+    }
+    
+    func configure(with assistantMessage: String) {
+        assistantTextLabel.text = assistantMessage
     }
 
 }

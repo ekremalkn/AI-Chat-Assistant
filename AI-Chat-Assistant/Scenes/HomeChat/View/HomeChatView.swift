@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol HomeChatViewButtonInterface: AnyObject {
+    func homeChatView(_ view: HomeChatView, sendButtonTapped button: UIButton)
+}
+
 final class HomeChatView: UIView {
     
     //MARK: - Creating UI Elements
@@ -40,9 +44,12 @@ final class HomeChatView: UIView {
         button.setImage(.init(named: "chat_send"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .buttonBackground
+        button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
         return button
     }()
     
+    //MARK: - References
+    weak var delegate: HomeChatViewButtonInterface?
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -63,7 +70,11 @@ final class HomeChatView: UIView {
         messageTextView.layer.masksToBounds = true
     }
     
-    
+    //MARK: - Actions
+    @objc private func sendButtonTapped() {
+        delegate?.homeChatView(self, sendButtonTapped: sendButton)
+    }
+
 }
 
 //MARK: - Setup UI

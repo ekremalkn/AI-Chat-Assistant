@@ -10,7 +10,11 @@ import Foundation
 protocol HomeChatViewModelInterface {
     var view: HomeChatViewInterface? { get }
     func viewDidLoad()
-    func sendMessage(messages: [UIMessage])
+    
+    func numberOfMessages() -> Int
+    func getUIMessages() -> [UIMessage]
+    
+    func sendButtonTapped()
 }
 
 final class HomeChatViewModel {
@@ -18,12 +22,42 @@ final class HomeChatViewModel {
     //MARK: - References
     var view: HomeChatViewInterface?
     private let openAIChatService: OpenAIChatService
-
+    
+    private var uiMessages: [UIMessage] = [] {
+        didSet {
+            view?.reloadMessages()
+        }
+    }
+    var currentInputText: String = ""
+    
     //MARK: - Init Methods
     init(openAIChatService: OpenAIChatService) {
         self.openAIChatService = openAIChatService
     }
-
+    
+    private func sendMessage() {
+        view?.assistantResponsing()
+        openAIChatService.sendMessage(messages: uiMessages) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let openAIChatResponse):
+                if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
+                    let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
+                    uiMessages.append(recievedMessage)
+                    view?.assistantResponsed()
+                } else {
+                    view?.didOccurErrorWhileResponsing("Assistant Confused")
+                    print("No recieved Message from assistant")
+                }
+                
+                print(openAIChatResponse?.choices?[0].message?.role as Any)
+                print(openAIChatResponse?.choices?[0].message?.content as Any)
+            case .failure(let failure):
+                view?.didOccurErrorWhileResponsing(failure.localizedDescription)
+                print(failure.localizedDescription)
+            }
+        }
+    }
     
 }
 
@@ -31,20 +65,25 @@ final class HomeChatViewModel {
 extension HomeChatViewModel: HomeChatViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
-
+        
     }
     
-    func sendMessage(messages: [UIMessage]) {
-        openAIChatService.sendMessage(messages: messages) { result in
-            switch result {
-            case .success(let openAIChatResponse):
-                print(openAIChatResponse?.choices?[0].message?.role as Any)
-                print(openAIChatResponse?.choices?[0].message?.content as Any)
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
-        }
+    func numberOfMessages() -> Int {
+        uiMessages.count
     }
+    
+    
+    func getUIMessages() -> [UIMessage] {
+        uiMessages
+    }
+    
+    func sendButtonTapped() {
+        let newMessage = UIMessage(id: UUID(), role: .user, content: currentInputText, createAt: Date())
+        uiMessages.append(newMessage)
+        sendMessage()
+    }
+    
+    
     
     
 }

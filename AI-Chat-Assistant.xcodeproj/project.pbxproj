@@ -33,6 +33,7 @@
 		F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */; };
 		F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */; };
 		F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0E2A801CB600ACA10F /* ColorSet.swift */; };
+		F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DADC2E2A81893F00BFC78D /* ProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
 			);
@@ -328,6 +330,7 @@
 			packageProductDependencies = (
 				F07FBDDF2A7FD01B00ACA10F /* Moya */,
 				F07FBE012A7FE66C00ACA10F /* SnapKit */,
+				F0DADC2E2A81893F00BFC78D /* ProgressHUD */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -360,6 +363,7 @@
 			packageReferences = (
 				F07FBDDE2A7FD01B00ACA10F /* XCRemoteSwiftPackageReference "Moya" */,
 				F07FBE002A7FE66C00ACA10F /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -642,6 +646,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -654,6 +666,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F07FBE002A7FE66C00ACA10F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F0DADC2E2A81893F00BFC78D /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
