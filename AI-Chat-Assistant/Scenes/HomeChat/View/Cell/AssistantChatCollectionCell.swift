@@ -62,19 +62,19 @@ extension AssistantChatCollectionCell {
     private func setupViews() {
         backgroundColor = .cellBackground
         addSubview(assistantImageView)
-        addSubview(textStackView)
-        textStackView.addArrangedSubview(assistantTextLabel)
+        addSubview(assistantTextLabel)
         
         assistantImageView.snp.makeConstraints { make in
-            make.top.leading.equalTo(self.safeAreaLayoutGuide).offset(10)
-            make.height.width.equalTo(36)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
+            make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
+            make.width.height.equalTo(36)
         }
         
-        textStackView.snp.makeConstraints { make in
+        assistantTextLabel.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(assistantImageView.snp.trailing).offset(5)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-15)
-            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
     }
 }

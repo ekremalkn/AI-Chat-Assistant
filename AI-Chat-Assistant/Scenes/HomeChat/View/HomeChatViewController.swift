@@ -16,6 +16,9 @@ protocol HomeChatViewInterface: AnyObject {
     func didOccurErrorWhileResponsing(_ errorMsg: String)
     
     func reloadMessages()
+    
+    func resetTextViewMessageText()
+    func scrollToBottomCollectionVİew()
 }
 
 final class HomeChatViewController: UIViewController {
@@ -118,9 +121,24 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = collectionView.frame.width - 40
-        let cellHeight: CGFloat = 75
+        let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
+        var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
+
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth, CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = .systemFont(ofSize: 15)
+        
+        
+        let messageText = viewModel.getUIMessages()[indexPath.item].content
+        let spaceCount = messageText.components(separatedBy: "\n").count - 1
+        label.text = messageText
+        label.sizeToFit()
+        
+        cellHeight += label.frame.height + CGFloat((spaceCount * 15)) + 30
         
         return .init(width: cellWidth, height: cellHeight)
+
     }
     
 }
@@ -155,6 +173,20 @@ extension HomeChatViewController: HomeChatViewInterface {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             homeChatView.chatCollectionView.reloadData()
+        }
+    }
+    
+    func resetTextViewMessageText() {
+        homeChatView.messageTextView.text = nil
+    }
+    
+    func scrollToBottomCollectionVİew() {
+        let collectionView = homeChatView.chatCollectionView
+        let contentHeight = collectionView.contentSize.height
+        let collectionViewHeight = collectionView.bounds.height
+        let bottomOffset = CGPoint(x: 0, y: max(0, contentHeight - collectionViewHeight + collectionView.contentInset.bottom))
+        DispatchQueue.main.async {
+            collectionView.setContentOffset(bottomOffset, animated: true)
         }
     }
     
