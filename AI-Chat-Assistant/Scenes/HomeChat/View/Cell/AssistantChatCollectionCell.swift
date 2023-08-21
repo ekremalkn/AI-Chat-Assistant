@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Lottie
+import GhostTypewriter
 
 final class AssistantChatCollectionCell: UICollectionViewCell {
     static let identifier = "AssistantChatCollectionCell"
@@ -19,14 +21,20 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var typingAnimation: LottieAnimationView = {
+        let animation = LottieAnimationView(name: "AssistantTypingAnimation")
+        animation.loopMode = .loop
+        return animation
+    }()
+    
     private lazy var textStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         return stackView
     }()
     
-    private lazy var assistantTextLabel: UILabel = {
-        let label = UILabel()
+    private lazy var assistantTextLabel: TypewriterLabel = {
+        let label = TypewriterLabel()
         label.textAlignment = .left
         label.numberOfLines  = 0
         label.textColor = .white
@@ -44,15 +52,16 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Layout Subviews
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layer.cornerRadius = 18
-        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner]
-    }
-    
+
+    //MARK: - Configure
     func configure(with assistantMessage: String) {
-        assistantTextLabel.text = assistantMessage
+        if assistantMessage.isEmpty {
+            typingAnimation.play()
+        } else {
+            typingAnimation.isHidden = true
+            typingAnimation.stop()
+            assistantTextLabel.text = assistantMessage
+        }
     }
 
 }
@@ -62,12 +71,19 @@ extension AssistantChatCollectionCell {
     private func setupViews() {
         backgroundColor = .cellBackground
         addSubview(assistantImageView)
+        addSubview(typingAnimation)
         addSubview(assistantTextLabel)
         
         assistantImageView.snp.makeConstraints { make in
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
             make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
             make.width.height.equalTo(36)
+        }
+        
+        typingAnimation.snp.makeConstraints { make in
+            make.leading.equalTo(assistantImageView.snp.trailing).offset(10)
+            make.centerY.equalTo(assistantImageView.snp.centerY)
+            make.height.equalTo(assistantImageView.snp.height).multipliedBy(0.8)
         }
         
         assistantTextLabel.snp.makeConstraints { make in

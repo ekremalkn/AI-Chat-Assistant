@@ -97,8 +97,12 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let messages = viewModel.getUIMessages()
+        let role = messages[indexPath.item].role
         
-        if messages[indexPath.item].role == .user {
+        switch role {
+        case .system:
+            return .init()
+        case .user:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserChatCollectionCell.identifier, for: indexPath) as? UserChatCollectionCell else {
                 return .init()
             }
@@ -106,7 +110,7 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
             
             cell.configure(with: userMessage)
             return cell
-        } else if messages[indexPath.item].role == .assistant {
+        case .assistant:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
                 return .init()
             }
@@ -116,11 +120,10 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
             return cell
         }
         
-        return .init()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = collectionView.frame.width - 40
+        let cellWidth: CGFloat = collectionView.frame.width
         let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
         var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
 

@@ -43,13 +43,6 @@ final class UserChatCollectionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Layout Subviews
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layer.cornerRadius = 18
-        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMinXMaxYCorner]
-    }
 
     
     func configure(with userMessage: String) {
@@ -61,7 +54,7 @@ final class UserChatCollectionCell: UICollectionViewCell {
 //MARK: - Setup UI 
 extension UserChatCollectionCell {
     private func setupViews() {
-        backgroundColor = .cellBackground
+        backgroundColor = .vcBackground
         addSubview(userImageView)
         addSubview(userTextLabel)
         

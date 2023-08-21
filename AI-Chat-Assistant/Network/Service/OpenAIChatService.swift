@@ -15,6 +15,6 @@ extension NetworkService: OpenAIChatService {
     func sendMessage(messages: [UIMessage], completion: @escaping (Result<OpenAIChatResponse?, Error>) -> Void) {
         NetworkManager.shared.request(target: .sendMessage(messages: messages), completion: completion)
     }
-    
-    
+
+  
 }

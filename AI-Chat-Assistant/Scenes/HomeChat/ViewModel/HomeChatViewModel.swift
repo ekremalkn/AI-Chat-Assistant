@@ -37,7 +37,7 @@ final class HomeChatViewModel {
     
     private func sendMessage() {
 //        view?.assistantResponsing()
-        uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "Responding...", createAt: Date()))
+        uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         // add cell for waiting to response assistane
         openAIChatService.sendMessage(messages: uiMessages) { [weak self] result in
             guard let self else { return }
@@ -48,8 +48,7 @@ final class HomeChatViewModel {
                     uiMessages.removeLast()
                     uiMessages.append(recievedMessage)
                     view?.assistantResponsed()
-                    view?.scrollToBottomCollectionVİew()
-                    //remove cell  
+                    //remove cell
                 } else {
                     view?.didOccurErrorWhileResponsing("Assistant Confused")
                     uiMessages.removeLast()

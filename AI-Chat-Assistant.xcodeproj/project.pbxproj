@@ -33,6 +33,9 @@
 		F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */; };
 		F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */; };
 		F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0E2A801CB600ACA10F /* ColorSet.swift */; };
+		F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3912A93D036000AE129 /* GhostTypewriter */; };
+		F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */; };
+		F0A5E39A2A93E8D8000AE129 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3992A93E8D8000AE129 /* Lottie */; };
 		F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DADC2E2A81893F00BFC78D /* ProgressHUD */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +66,7 @@
 		F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantChatCollectionCell.swift; sourceTree = "<group>"; };
 		F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+KeyboardAppears.swift"; sourceTree = "<group>"; };
 		F07FBE0E2A801CB600ACA10F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
+		F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AssistantTypingAnimation.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,9 +74,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0A5E39A2A93E8D8000AE129 /* Lottie in Frameworks */,
 				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
+				F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +127,7 @@
 		F07FBDC42A7FBA4700ACA10F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F0A5E3952A93E868000AE129 /* LottieAnimation */,
 				F07FBDB82A7FBA1D00ACA10F /* Assets.xcassets */,
 				F07FBDBA2A7FBA1D00ACA10F /* LaunchScreen.storyboard */,
 			);
@@ -311,6 +318,14 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */,
+			);
+			path = LottieAnimation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -331,6 +346,8 @@
 				F07FBDDF2A7FD01B00ACA10F /* Moya */,
 				F07FBE012A7FE66C00ACA10F /* SnapKit */,
 				F0DADC2E2A81893F00BFC78D /* ProgressHUD */,
+				F0A5E3912A93D036000AE129 /* GhostTypewriter */,
+				F0A5E3992A93E8D8000AE129 /* Lottie */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -364,6 +381,8 @@
 				F07FBDDE2A7FD01B00ACA10F /* XCRemoteSwiftPackageReference "Moya" */,
 				F07FBE002A7FE66C00ACA10F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */,
+				F0A5E3982A93E8D8000AE129 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -380,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F07FBDBC2A7FBA1D00ACA10F /* LaunchScreen.storyboard in Resources */,
+				F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */,
 				F07FBDB92A7FBA1D00ACA10F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,6 +666,22 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wibosco/GhostTypewriter.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		F0A5E3982A93E8D8000AE129 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
@@ -666,6 +702,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F07FBE002A7FE66C00ACA10F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F0A5E3912A93D036000AE129 /* GhostTypewriter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */;
+			productName = GhostTypewriter;
+		};
+		F0A5E3992A93E8D8000AE129 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0A5E3982A93E8D8000AE129 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		F0DADC2E2A81893F00BFC78D /* ProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
