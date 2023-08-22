@@ -86,6 +86,12 @@ final class HomeChatViewController: UIViewController {
 extension HomeChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.currentInputText = textView.text
+        
+        if !textView.text.isEmpty {
+            homeChatView.setSendButtonTouchability(true)
+        } else {
+            homeChatView.setSendButtonTouchability(false)
+        }
     }
 }
 
@@ -106,9 +112,12 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserChatCollectionCell.identifier, for: indexPath) as? UserChatCollectionCell else {
                 return .init()
             }
+            
             let userMessage = messages[indexPath.item].content
             
             cell.configure(with: userMessage)
+            cell.delegate = self
+            
             return cell
         case .assistant:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
@@ -116,7 +125,14 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
             }
             let assistantMessage = messages[indexPath.item].content
             
+            if indexPath.item == messages.count - 1 {
+                cell.setMoreButtonToMenu(true)
+            } else {
+                cell.setMoreButtonToMenu(false)
+            }
+            
             cell.configure(with: assistantMessage)
+            cell.delegate = self
             return cell
         }
         
@@ -133,7 +149,8 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
         label.font = .systemFont(ofSize: 15)
         
         
-        let messageText = viewModel.getUIMessages()[indexPath.item].content
+        let messages = viewModel.getUIMessages()
+        let messageText = messages[indexPath.item].content
         let spaceCount = messageText.components(separatedBy: "\n").count - 1
         label.text = messageText
         label.sizeToFit()
@@ -203,6 +220,36 @@ extension HomeChatViewController: HomeChatViewButtonInterface {
     
     
 }
+
+//MARK: - UserChatCollectionCellDelegate
+extension HomeChatViewController: UserChatCollectionCellDelegate {
+    func userChatCollectionCell(_ cell: UserChatCollectionCell, copyButtonTapped copiedText: String) {
+        print(copiedText)
+    }
+    
+}
+
+//MARK: - AssistantChatCollectionCellDelegate
+extension HomeChatViewController: AssistantChatCollectionCellDelegate {
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, reGenerateButtonTapped: Void) {
+        viewModel.reGenerateButtonTapped()
+    }
+    
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, copyButtonTapped copiedText: String) {
+            
+    }
+    
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String) {
+            
+    }
+    
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, feedBackButtonTapped: Void) {
+            
+    }
+    
+    
+}
+
 
 
 

@@ -17,6 +17,7 @@ final class HomeChatView: UIView {
     lazy var chatCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(UserChatCollectionCell.self, forCellWithReuseIdentifier: UserChatCollectionCell.identifier)
         collection.register(AssistantChatCollectionCell.self, forCellWithReuseIdentifier: AssistantChatCollectionCell.identifier)
@@ -45,6 +46,7 @@ final class HomeChatView: UIView {
         button.tintColor = .white
         button.backgroundColor = .buttonBackground
         button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
@@ -70,12 +72,31 @@ final class HomeChatView: UIView {
         messageTextView.layer.masksToBounds = true
     }
     
-    //MARK: - Actions
+}
+
+//MARK: - Button Actions
+extension HomeChatView {
     @objc private func sendButtonTapped() {
         delegate?.homeChatView(self, sendButtonTapped: sendButton)
     }
-
 }
+
+//MARK: - Send Button Visibility
+extension HomeChatView {
+    func setSendButtonTouchability(_ isEnable: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            switch isEnable {
+            case true:
+                sendButton.isEnabled = true
+            case false:
+                sendButton.isEnabled = false
+            }
+        }
+        
+    }
+}
+
 
 //MARK: - Setup UI
 extension HomeChatView {

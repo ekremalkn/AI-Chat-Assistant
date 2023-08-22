@@ -15,6 +15,7 @@ protocol HomeChatViewModelInterface {
     func getUIMessages() -> [UIMessage]
     
     func sendButtonTapped()
+    func reGenerateButtonTapped()
 }
 
 final class HomeChatViewModel {
@@ -28,7 +29,9 @@ final class HomeChatViewModel {
             view?.reloadMessages()
         }
     }
+    
     var currentInputText: String = ""
+    var lastUserText: String = ""
     
     //MARK: - Init Methods
     init(openAIChatService: OpenAIChatService) {
@@ -86,10 +89,15 @@ extension HomeChatViewModel: HomeChatViewModelInterface {
     func sendButtonTapped() {
         let newMessage = UIMessage(id: UUID(), role: .user, content: currentInputText, createAt: Date())
         uiMessages.append(newMessage)
+        lastUserText = currentInputText
         sendMessage()
         view?.resetTextViewMessageText()
     }
     
+    func reGenerateButtonTapped() {
+        uiMessages.removeLast()
+        sendMessage()
+    }
     
     
     

@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol UserChatCollectionCellDelegate: AnyObject {
+    func userChatCollectionCell(_ cell: UserChatCollectionCell, copyButtonTapped copiedText: String)
+}
+
 final class UserChatCollectionCell: UICollectionViewCell {
     static let identifier = "UserChatCollectionCell"
     
@@ -34,21 +38,51 @@ final class UserChatCollectionCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var moreButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(.init(named: "chat_more"), for: .normal)
+        button.tintColor = .white
+        button.showsMenuAsPrimaryAction = true
+        return button
+    }()
+    
+    //MARK: - Reference
+    weak var delegate: UserChatCollectionCellDelegate?
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
+        setMoreButtonToMenu()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
     func configure(with userMessage: String) {
         userTextLabel.text = userMessage
     }
 
+}
+
+//MARK: - Configure More Button
+extension UserChatCollectionCell {
+    private func setMoreButtonToMenu() {
+        let copy = UIAction(title: "Copy", image: .init(systemName: "doc.on.doc.fill")) { [weak self] _ in
+            guard let self, let text = userTextLabel.text else { return }
+            delegate?.userChatCollectionCell(self, copyButtonTapped: text)
+        }
+        
+        let elements: [UIAction] = [copy]
+        
+        let moreMenu = UIMenu(title: "More About Text", children: elements)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            moreButton.menu = moreMenu
+        }
+    }
 }
 
 //MARK: - Setup UI 
@@ -57,11 +91,17 @@ extension UserChatCollectionCell {
         backgroundColor = .vcBackground
         addSubview(userImageView)
         addSubview(userTextLabel)
+        addSubview(moreButton)
         
         userImageView.snp.makeConstraints { make in
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
             make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
             make.width.height.equalTo(36)
+        }
+        
+        moreButton.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
         }
         
         userTextLabel.snp.makeConstraints { make in

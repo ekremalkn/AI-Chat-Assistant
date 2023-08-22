@@ -9,6 +9,13 @@ import UIKit
 import Lottie
 import GhostTypewriter
 
+protocol AssistantChatCollectionCellDelegate: AnyObject {
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, reGenerateButtonTapped: Void)
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, copyButtonTapped copiedText: String)
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String)
+    func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, feedBackButtonTapped: Void)
+}
+
 final class AssistantChatCollectionCell: UICollectionViewCell {
     static let identifier = "AssistantChatCollectionCell"
     
@@ -42,6 +49,17 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var moreButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(.init(named: "chat_more"), for: .normal)
+        button.tintColor = .white
+        button.showsMenuAsPrimaryAction = true
+        return button
+    }()
+    
+    //MARK: - References
+    weak var delegate: AssistantChatCollectionCellDelegate?
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -52,18 +70,61 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     //MARK: - Configure
     func configure(with assistantMessage: String) {
-        if assistantMessage.isEmpty {
-            typingAnimation.play()
-        } else {
-            typingAnimation.isHidden = true
-            typingAnimation.stop()
-            assistantTextLabel.text = assistantMessage
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            if assistantMessage.isEmpty {
+                typingAnimation.play()
+                moreButton.isEnabled = false
+            } else {
+                moreButton.isEnabled = true
+                typingAnimation.isHidden = true
+                typingAnimation.stop()
+                assistantTextLabel.text = assistantMessage
+            }
+        }
+        
+    }
+    
+}
+
+//MARK: - Configure More Button
+extension AssistantChatCollectionCell {
+    func setMoreButtonToMenu(_ showReGenerateButton: Bool) {
+        let share = UIAction(title: "Share", image: .init(systemName: "square.and.arrow.up.fill")) { [weak self] _ in
+            guard let self, let text = assistantTextLabel.text else { return }
+            delegate?.assistantChatCollectionCell(self, shareButtonTapped: text)
+        }
+        
+        let copy = UIAction(title: "Copy", image: .init(systemName: "doc.on.doc.fill")) { [weak self] _ in
+            guard let self, let text = assistantTextLabel.text else { return }
+            delegate?.assistantChatCollectionCell(self, copyButtonTapped: text)
+        }
+        
+        let feedback = UIAction(title: "Feedback", image: .init(systemName: "hand.thumbsup.fill")) { [weak self] _ in
+            guard let self else { return }
+            delegate?.assistantChatCollectionCell(self, feedBackButtonTapped: ())
+            
+        }
+        var elements: [UIAction] = [copy, share, feedback]
+        
+        if showReGenerateButton {
+            let reGenerate = UIAction(title: "Re-Generate", image: .init(systemName: "arrow.triangle.2.circlepath")) { [weak self] _ in
+                guard let self else { return }
+                delegate?.assistantChatCollectionCell(self, reGenerateButtonTapped: ())
+            }
+            
+            elements.insert(reGenerate, at: 0)
+        }
+        
+        let moreMenu = UIMenu(title: "More About Text", children: elements)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            moreButton.menu = moreMenu
         }
     }
-
 }
 
 //MARK: - Setup UI
@@ -73,6 +134,7 @@ extension AssistantChatCollectionCell {
         addSubview(assistantImageView)
         addSubview(typingAnimation)
         addSubview(assistantTextLabel)
+        addSubview(moreButton)
         
         assistantImageView.snp.makeConstraints { make in
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
@@ -84,6 +146,11 @@ extension AssistantChatCollectionCell {
             make.leading.equalTo(assistantImageView.snp.trailing).offset(10)
             make.centerY.equalTo(assistantImageView.snp.centerY)
             make.height.equalTo(assistantImageView.snp.height).multipliedBy(0.8)
+        }
+        
+        moreButton.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
         }
         
         assistantTextLabel.snp.makeConstraints { make in
