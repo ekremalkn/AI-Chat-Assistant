@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */; };
+		F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */; };
 		F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDAF2A7FBA1C00ACA10F /* AppDelegate.swift */; };
 		F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDB12A7FBA1C00ACA10F /* SceneDelegate.swift */; };
 		F07FBDB92A7FBA1D00ACA10F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F07FBDB82A7FBA1D00ACA10F /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CopyToClipboard.swift"; sourceTree = "<group>"; };
+		F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
 		F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI-Chat-Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F07FBDAF2A7FBA1C00ACA10F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F07FBDB12A7FBA1C00ACA10F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 			isa = PBXGroup;
 			children = (
 				F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */,
+				F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */,
+				F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -417,6 +423,7 @@
 				F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* HomeChatView.swift in Sources */,
+				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F07FBDD52A7FBC9400ACA10F /* HomeChatCoordinator.swift in Sources */,
@@ -431,6 +438,7 @@
 				F07FBDF22A7FD57B00ACA10F /* HomeModel.swift in Sources */,
 				F07FBDEE2A7FD2E900ACA10F /* OpenAIChatResponse.swift in Sources */,
 				F07FBDC92A7FBABD00ACA10F /* Coordinator.swift in Sources */,
+				F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* HomeChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 			);

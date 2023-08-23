@@ -54,15 +54,14 @@ final class HomeChatViewModel {
                     //remove cell
                 } else {
                     view?.didOccurErrorWhileResponsing("Assistant Confused")
-                    uiMessages.removeLast()
                     print("No recieved Message from assistant")
                 }
                 
                 print(openAIChatResponse?.choices?[0].message?.role as Any)
                 print(openAIChatResponse?.choices?[0].message?.content as Any)
             case .failure(let failure):
+                uiMessages.removeLast(2)
                 view?.didOccurErrorWhileResponsing(failure.localizedDescription)
-                uiMessages.removeLast()
                 print(failure.localizedDescription)
             }
         }
@@ -95,8 +94,12 @@ extension HomeChatViewModel: HomeChatViewModelInterface {
     }
     
     func reGenerateButtonTapped() {
-        uiMessages.removeLast()
-        sendMessage()
+        if let lastMessageRole = uiMessages.last?.role {
+            if lastMessageRole == .assistant {
+                uiMessages.removeLast()
+                sendMessage()
+            }
+        }
     }
     
     

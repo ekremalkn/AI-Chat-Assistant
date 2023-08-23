@@ -23,7 +23,7 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
     private lazy var assistantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = .init(systemName: "house.fill")
+        imageView.image = .init(systemName: "circle.fill")
         imageView.tintColor = .white
         return imageView
     }()
@@ -76,10 +76,13 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
             guard let self else { return }
             if assistantMessage.isEmpty {
                 typingAnimation.play()
+                assistantTextLabel.isHidden = true
+                typingAnimation.isHidden = false
                 moreButton.isEnabled = false
             } else {
                 moreButton.isEnabled = true
                 typingAnimation.isHidden = true
+                assistantTextLabel.isHidden = false
                 typingAnimation.stop()
                 assistantTextLabel.text = assistantMessage
             }
@@ -151,12 +154,13 @@ extension AssistantChatCollectionCell {
         moreButton.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
+            make.height.width.equalTo(36)
         }
         
         assistantTextLabel.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(assistantImageView.snp.trailing).offset(5)
-            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.trailing.equalTo(self.moreButton.snp.leading).offset(-5)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
     }

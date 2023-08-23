@@ -19,6 +19,7 @@ protocol HomeChatViewInterface: AnyObject {
     
     func resetTextViewMessageText()
     func scrollToBottomCollectionVİew()
+    
 }
 
 final class HomeChatViewController: UIViewController {
@@ -143,7 +144,7 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
         let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
         var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
 
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth, CGFloat.greatestFiniteMagnitude))
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = .systemFont(ofSize: 15)
@@ -151,11 +152,12 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
         
         let messages = viewModel.getUIMessages()
         let messageText = messages[indexPath.item].content
-        let spaceCount = messageText.components(separatedBy: "\n").count - 1
         label.text = messageText
         label.sizeToFit()
         
-        cellHeight += label.frame.height + CGFloat((spaceCount * 15)) + 30
+        if cellHeight < label.frame.height {
+            cellHeight += label.frame.height
+        }
         
         return .init(width: cellWidth, height: cellHeight)
 
@@ -185,8 +187,7 @@ extension HomeChatViewController: HomeChatViewInterface {
     
     func didOccurErrorWhileResponsing(_ errorMsg: String) {
         ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
-        ProgressHUD.colorAnimation = .red
-        ProgressHUD.showError("Assistant confused", interaction: false)
+        ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
     }
     
     func reloadMessages() {
@@ -198,6 +199,7 @@ extension HomeChatViewController: HomeChatViewInterface {
     
     func resetTextViewMessageText() {
         homeChatView.messageTextView.text = nil
+        homeChatView.setSendButtonTouchability(false)
     }
     
     func scrollToBottomCollectionVİew() {
@@ -224,7 +226,7 @@ extension HomeChatViewController: HomeChatViewButtonInterface {
 //MARK: - UserChatCollectionCellDelegate
 extension HomeChatViewController: UserChatCollectionCellDelegate {
     func userChatCollectionCell(_ cell: UserChatCollectionCell, copyButtonTapped copiedText: String) {
-        print(copiedText)
+        copyButtonTapped(copiedText: copiedText)
     }
     
 }
@@ -236,7 +238,7 @@ extension HomeChatViewController: AssistantChatCollectionCellDelegate {
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, copyButtonTapped copiedText: String) {
-            
+            copyButtonTapped(copiedText: copiedText)
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String) {
@@ -249,6 +251,22 @@ extension HomeChatViewController: AssistantChatCollectionCellDelegate {
     
     
 }
+
+//MARK: - Helper Methods
+extension HomeChatViewController {
+    private func copyButtonTapped(copiedText: String) {
+        copiedText.copyToClipboard { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success:
+                showToast(message: "Copied to clipboard", image: .init(systemName: "doc.on.doc.fill"), duration: 1.5)
+            case .failure:
+                showToast(message: "Failed to copy to clipboard", image: .init(systemName: "doc.on.doc.fill"), duration: 1.5)
+            }
+        }
+    }
+}
+
 
 
 

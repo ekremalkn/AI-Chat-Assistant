@@ -19,7 +19,8 @@ final class UserChatCollectionCell: UICollectionViewCell {
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = .init(named: "chat_user")
+        imageView.image = .init(systemName: "person.fill")
+        imageView.tintColor = .white
         return imageView
     }()
     
@@ -102,12 +103,13 @@ extension UserChatCollectionCell {
         moreButton.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
+            make.height.width.equalTo(36)
         }
         
         userTextLabel.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(userImageView.snp.trailing).offset(5)
-            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.trailing.equalTo(self.moreButton.snp.leading).offset(-5)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
     }
