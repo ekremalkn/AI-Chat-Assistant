@@ -115,7 +115,7 @@ extension ChatView {
         messageTextView.snp.makeConstraints { make in
             make.trailing.equalTo(sendButton.snp.leading).offset(-20)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
             make.height.greaterThanOrEqualTo(50)
         }
         

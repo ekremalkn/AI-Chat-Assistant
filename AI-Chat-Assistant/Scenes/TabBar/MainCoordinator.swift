@@ -14,17 +14,17 @@ final class MainCoordinator: Coordinator {
     var rootViewController = MainTabBarController()
     
     //MARK: - Init Methods
-
+    
     //MARK: - Methods
     func start() {
-        let homeChatCoordinator = ChatCoordinator()
-        homeChatCoordinator.start()
-        childCoordinators.append(homeChatCoordinator)
+        let homeCoordinator = HomeCoordinator()
+        homeCoordinator.start()
+        childCoordinators.append(homeCoordinator)
         
         rootViewController.viewControllers = [
-            homeChatCoordinator.navigationController
+            homeCoordinator.navigationController
         ]
     }
-
-
+    
+    
 }

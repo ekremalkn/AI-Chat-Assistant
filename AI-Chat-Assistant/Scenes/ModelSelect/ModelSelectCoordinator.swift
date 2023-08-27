@@ -15,7 +15,7 @@ protocol ModelSelectCoordinatorDelegate: AnyObject {
 final class ModelSelectCoordinator: NSObject, Coordinator {
     
     //MARK: - References
-    weak var homeChatParentCoordinator: ChatCoordinator?
+    weak var chatParentCoordinator: ChatCoordinator?
     private let navigationController: UINavigationController
     weak var delegate: ModelSelectCoordinatorDelegate?
     

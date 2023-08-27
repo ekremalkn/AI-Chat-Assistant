@@ -43,6 +43,12 @@
 		F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */; };
 		F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */; };
 		F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0E2A801CB600ACA10F /* ColorSet.swift */; };
+		F0817FF02A9BCEBB0054C15E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FEF2A9BCEBB0054C15E /* HomeCoordinator.swift */; };
+		F0817FF32A9BD1160054C15E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF22A9BD1160054C15E /* HomeView.swift */; };
+		F0817FF62A9BD1F00054C15E /* HomeCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF52A9BD1F00054C15E /* HomeCollectionHeader.swift */; };
+		F0817FF82A9BD49B0054C15E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF72A9BD49B0054C15E /* HomeViewController.swift */; };
+		F0817FFB2A9BD5090054C15E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFA2A9BD5090054C15E /* HomeViewModel.swift */; };
+		F0817FFE2A9BE5930054C15E /* SuggestionsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFD2A9BE5930054C15E /* SuggestionsCollectionCell.swift */; };
 		F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3912A93D036000AE129 /* GhostTypewriter */; };
 		F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */; };
 		F0A5E39A2A93E8D8000AE129 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3992A93E8D8000AE129 /* Lottie */; };
@@ -86,6 +92,12 @@
 		F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantChatCollectionCell.swift; sourceTree = "<group>"; };
 		F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+KeyboardAppears.swift"; sourceTree = "<group>"; };
 		F07FBE0E2A801CB600ACA10F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
+		F0817FEF2A9BCEBB0054C15E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		F0817FF22A9BD1160054C15E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F0817FF52A9BD1F00054C15E /* HomeCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionHeader.swift; sourceTree = "<group>"; };
+		F0817FF72A9BD49B0054C15E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F0817FFA2A9BD5090054C15E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F0817FFD2A9BE5930054C15E /* SuggestionsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionCell.swift; sourceTree = "<group>"; };
 		F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AssistantTypingAnimation.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -237,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				F07FBDCD2A7FBB5F00ACA10F /* TabBar */,
+				F0817FEE2A9BCE510054C15E /* Home */,
 				F07FBDD32A7FBBE700ACA10F /* Chat */,
 				F066E9992A9B8EB9004A6964 /* ModelSelect */,
 			);
@@ -396,6 +409,51 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		F0817FEE2A9BCE510054C15E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FEF2A9BCEBB0054C15E /* HomeCoordinator.swift */,
+				F0817FF12A9BD1030054C15E /* View */,
+				F0817FF92A9BD4FD0054C15E /* ViewModel */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F0817FF12A9BD1030054C15E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FF42A9BD1AD0054C15E /* Header */,
+				F0817FF22A9BD1160054C15E /* HomeView.swift */,
+				F0817FF72A9BD49B0054C15E /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0817FF42A9BD1AD0054C15E /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FFC2A9BE56F0054C15E /* Cell */,
+				F0817FF52A9BD1F00054C15E /* HomeCollectionHeader.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		F0817FF92A9BD4FD0054C15E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FFA2A9BD5090054C15E /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0817FFC2A9BE56F0054C15E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FFD2A9BE5930054C15E /* SuggestionsCollectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,10 +552,12 @@
 				F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */,
 				F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */,
 				F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */,
+				F0817FF32A9BD1160054C15E /* HomeView.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
+				F0817FFB2A9BD5090054C15E /* HomeViewModel.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
@@ -507,11 +567,14 @@
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
 				F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */,
+				F0817FF62A9BD1F00054C15E /* HomeCollectionHeader.swift in Sources */,
 				F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */,
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */,
+				F0817FF82A9BD49B0054C15E /* HomeViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
+				F0817FFE2A9BE5930054C15E /* SuggestionsCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* HomeModel.swift in Sources */,
 				F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */,
 				F07FBDEE2A7FD2E900ACA10F /* OpenAIChatResponse.swift in Sources */,
@@ -521,6 +584,7 @@
 				F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
+				F0817FF02A9BCEBB0054C15E /* HomeCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

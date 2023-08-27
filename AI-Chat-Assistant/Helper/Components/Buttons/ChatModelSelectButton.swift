@@ -70,7 +70,7 @@ extension ChatModelSelectButton {
         }
         
         appAndModelLabel.snp.makeConstraints { make in
-            make.leading.equalTo(appLogoImageView.snp.trailing)
+            make.leading.equalTo(appLogoImageView.snp.trailing).offset(5)
             make.trailing.equalTo(rightImageView.snp.leading).offset(-10)
             make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
         }
