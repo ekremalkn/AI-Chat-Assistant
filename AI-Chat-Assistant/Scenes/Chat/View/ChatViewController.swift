@@ -1,5 +1,5 @@
 //
-//  HomeChatViewController.swift
+//  ChatViewController.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 6.08.2023.
@@ -8,7 +8,7 @@
 import UIKit
 import ProgressHUD
 
-protocol HomeChatViewInterface: AnyObject {
+protocol ChatViewInterface: AnyObject {
     func configureViewController()
     
     func assistantResponsing()
@@ -17,20 +17,21 @@ protocol HomeChatViewInterface: AnyObject {
     
     func reloadMessages()
     
+    func configureModelSelectButton(with currentModel: GPTModel)
     func resetTextViewMessageText()
     func scrollToBottomCollectionVİew()
     
 }
 
-final class HomeChatViewController: UIViewController {
+final class ChatViewController: UIViewController {
     
     //MARK: - References
-    weak var homeChatCoordinator: HomeChatCoordinator?
-    private let viewModel: HomeChatViewModel
-    private let homeChatView = HomeChatView()
+    weak var homeChatCoordinator: ChatCoordinator?
+    private let viewModel: ChatViewModel
+    private let chatView = ChatView()
     
     //MARK: - Life Cycle Methods
-    init(viewModel: HomeChatViewModel) {
+    init(viewModel: ChatViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,7 +42,7 @@ final class HomeChatViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view = homeChatView
+        view = chatView
     }
     
     override func viewDidLoad() {
@@ -52,25 +53,31 @@ final class HomeChatViewController: UIViewController {
     
     //MARK: - Configure Navigation Items
     private func configureNavItems() {
-        let titleLbl = UILabel()
-        titleLbl.text = "AI Chat Assistant"
-        titleLbl.textColor = .white
-        titleLbl.font = .systemFont(ofSize: 20, weight: .black)
+        let modelSelectButton = ChatModelSelectButton(model: viewModel.currentModel)
+        modelSelectButton.addTarget(self, action: #selector(modelSelectButtonTapped), for: .touchUpInside)
+        let modelSelectBarButton = UIBarButtonItem(customView: modelSelectButton)
         
-        let titleItem: UIBarButtonItem = .init(customView: titleLbl)
-        navigationItem.leftBarButtonItems = [titleItem]
+        let shareChatButton = UIButton(type: .system)
+        shareChatButton.tintColor = .white
+        shareChatButton.setImage(.init(systemName: "square.and.arrow.up"), for: .normal)
+        shareChatButton.addTarget(self, action: #selector(shareChatButtonTapped), for: .touchUpInside)
+        
+        let shareChatBarButton = UIBarButtonItem(customView: shareChatButton)
+        navigationItem.rightBarButtonItem = shareChatBarButton
+        navigationItem.leftBarButtonItem = modelSelectBarButton
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        
     }
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
-        homeChatView.chatCollectionView.delegate = self
-        homeChatView.chatCollectionView.dataSource = self
+        homeChatCoordinator?.delegate = self
         
-        homeChatView.delegate = self
-        homeChatView.messageTextView.delegate = self
+        chatView.chatCollectionView.delegate = self
+        chatView.chatCollectionView.dataSource = self
+        
+        chatView.delegate = self
+        chatView.messageTextView.delegate = self
     }
     
     
@@ -83,28 +90,39 @@ final class HomeChatViewController: UIViewController {
     
 }
 
+//MARK: - Button Actions
+extension ChatViewController {
+    @objc private func modelSelectButtonTapped() {
+        homeChatCoordinator?.openModelSelectVC(with: viewModel.currentModel)
+    }
+    
+    @objc private func shareChatButtonTapped() {
+        
+    }
+
+}
+
 //MARK: - UITextViewDelegate
-extension HomeChatViewController: UITextViewDelegate {
+extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.currentInputText = textView.text
         
         if !textView.text.isEmpty {
-            homeChatView.setSendButtonTouchability(true)
+            chatView.setSendButtonTouchability(true)
         } else {
-            homeChatView.setSendButtonTouchability(false)
+            chatView.setSendButtonTouchability(false)
         }
     }
 }
 
 //MARK: - Configure Chat Collection View
-extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfMessages()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let messages = viewModel.getUIMessages()
-        let role = messages[indexPath.item].role
+        let role = viewModel.uiMessages[indexPath.item].role
         
         switch role {
         case .system:
@@ -114,7 +132,7 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
                 return .init()
             }
             
-            let userMessage = messages[indexPath.item].content
+            let userMessage = viewModel.uiMessages[indexPath.item].content
             
             cell.configure(with: userMessage)
             cell.delegate = self
@@ -124,9 +142,9 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
                 return .init()
             }
-            let assistantMessage = messages[indexPath.item].content
+            let assistantMessage = viewModel.uiMessages[indexPath.item].content
             
-            if indexPath.item == messages.count - 1 {
+            if indexPath.item == viewModel.uiMessages.count - 1 {
                 cell.setMoreButtonToMenu(true)
             } else {
                 cell.setMoreButtonToMenu(false)
@@ -143,15 +161,15 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
         let cellWidth: CGFloat = collectionView.frame.width
         let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
         var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
-
+        
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = .systemFont(ofSize: 15)
         
         
-        let messages = viewModel.getUIMessages()
-        let messageText = messages[indexPath.item].content
+        
+        let messageText = viewModel.uiMessages[indexPath.item].content
         label.text = messageText
         label.sizeToFit()
         
@@ -160,14 +178,13 @@ extension HomeChatViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
         return .init(width: cellWidth, height: cellHeight)
-
     }
     
 }
 
 
-//MARK: - HomeChatViewInterface
-extension HomeChatViewController: HomeChatViewInterface {
+//MARK: - ChatViewInterface
+extension ChatViewController: ChatViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
@@ -176,6 +193,7 @@ extension HomeChatViewController: HomeChatViewInterface {
     }
     
     func assistantResponsing() {
+
         ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
         ProgressHUD.colorAnimation = .lightGray
         ProgressHUD.show("Assistant typing...", interaction: false)
@@ -193,17 +211,23 @@ extension HomeChatViewController: HomeChatViewInterface {
     func reloadMessages() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            homeChatView.chatCollectionView.reloadData()
+            chatView.chatCollectionView.reloadData()
+        }
+    }
+    
+    func configureModelSelectButton(with currentModel: GPTModel) {
+        if let modelSelectButton = navigationController?.navigationItem.leftBarButtonItem as? ChatModelSelectButton {
+            modelSelectButton.configure(with: currentModel)
         }
     }
     
     func resetTextViewMessageText() {
-        homeChatView.messageTextView.text = nil
-        homeChatView.setSendButtonTouchability(false)
+        chatView.messageTextView.text = nil
+        chatView.setSendButtonTouchability(false)
     }
     
     func scrollToBottomCollectionVİew() {
-        let collectionView = homeChatView.chatCollectionView
+        let collectionView = chatView.chatCollectionView
         let contentHeight = collectionView.contentSize.height
         let collectionViewHeight = collectionView.bounds.height
         let bottomOffset = CGPoint(x: 0, y: max(0, contentHeight - collectionViewHeight + collectionView.contentInset.bottom))
@@ -215,8 +239,8 @@ extension HomeChatViewController: HomeChatViewInterface {
 }
 
 //MARK: -  HomeChatViewButtonInterface
-extension HomeChatViewController: HomeChatViewButtonInterface {
-    func homeChatView(_ view: HomeChatView, sendButtonTapped button: UIButton) {
+extension ChatViewController: ChatViewDelegate {
+    func chatView(_ view: ChatView, sendButtonTapped button: UIButton) {
         viewModel.sendButtonTapped()
     }
     
@@ -224,7 +248,7 @@ extension HomeChatViewController: HomeChatViewButtonInterface {
 }
 
 //MARK: - UserChatCollectionCellDelegate
-extension HomeChatViewController: UserChatCollectionCellDelegate {
+extension ChatViewController: UserChatCollectionCellDelegate {
     func userChatCollectionCell(_ cell: UserChatCollectionCell, copyButtonTapped copiedText: String) {
         copyButtonTapped(copiedText: copiedText)
     }
@@ -232,28 +256,39 @@ extension HomeChatViewController: UserChatCollectionCellDelegate {
 }
 
 //MARK: - AssistantChatCollectionCellDelegate
-extension HomeChatViewController: AssistantChatCollectionCellDelegate {
+extension ChatViewController: AssistantChatCollectionCellDelegate {
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, reGenerateButtonTapped: Void) {
         viewModel.reGenerateButtonTapped()
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, copyButtonTapped copiedText: String) {
-            copyButtonTapped(copiedText: copiedText)
+        copyButtonTapped(copiedText: copiedText)
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String) {
-            
+        ProgressHUD.colorAnimation = .lightGray
+        ProgressHUD.show(interaction: false)
+        
+        let shareSheetVC = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+        shareSheetVC.popoverPresentationController?.sourceView = cell
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            present(shareSheetVC, animated: true) {
+                ProgressHUD.remove()
+            }
+        }
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, feedBackButtonTapped: Void) {
-            
+        
     }
     
     
 }
 
 //MARK: - Helper Methods
-extension HomeChatViewController {
+extension ChatViewController {
     private func copyButtonTapped(copiedText: String) {
         copiedText.copyToClipboard { [weak self] result in
             guard let self else { return }
@@ -265,6 +300,20 @@ extension HomeChatViewController {
             }
         }
     }
+}
+
+//MARK: - HomeChatCoordinatorDelegate
+extension ChatViewController: ChatCoordinatorDelegate {
+    func chatCoordinator(_ coordinator: ChatCoordinator, didSelectModel model: GPTModel) {
+        guard let modelSelectButton = navigationItem.leftBarButtonItem?.customView as? ChatModelSelectButton else {
+            return
+        }
+        
+        viewModel.currentModel = model
+        modelSelectButton.configure(with: viewModel.currentModel)
+    }
+    
+    
 }
 
 

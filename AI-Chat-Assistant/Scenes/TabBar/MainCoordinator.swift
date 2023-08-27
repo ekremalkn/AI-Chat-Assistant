@@ -17,7 +17,7 @@ final class MainCoordinator: Coordinator {
 
     //MARK: - Methods
     func start() {
-        let homeChatCoordinator = HomeChatCoordinator()
+        let homeChatCoordinator = ChatCoordinator()
         homeChatCoordinator.start()
         childCoordinators.append(homeChatCoordinator)
         

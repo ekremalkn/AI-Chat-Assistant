@@ -1,5 +1,5 @@
 //
-//  HomeChatViewModel.swift
+//  ChatViewModel.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 6.08.2023.
@@ -7,24 +7,27 @@
 
 import Foundation
 
-protocol HomeChatViewModelInterface {
-    var view: HomeChatViewInterface? { get }
+protocol ChatViewModelInterface {
+    var view: ChatViewInterface? { get }
     func viewDidLoad()
     
     func numberOfMessages() -> Int
-    func getUIMessages() -> [UIMessage]
     
     func sendButtonTapped()
     func reGenerateButtonTapped()
 }
 
-final class HomeChatViewModel {
+final class ChatViewModel {
     
     //MARK: - References
-    var view: HomeChatViewInterface?
+    weak var view: ChatViewInterface?
     private let openAIChatService: OpenAIChatService
-    
-    private var uiMessages: [UIMessage] = [] {
+    var currentModel: GPTModel = .gpt3_5Turbo {
+        didSet {
+            view?.configureModelSelectButton(with: currentModel)
+        }
+    }
+    var uiMessages: [UIMessage] = [] {
         didSet {
             view?.reloadMessages()
         }
@@ -42,7 +45,7 @@ final class HomeChatViewModel {
 //        view?.assistantResponsing()
         uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         // add cell for waiting to response assistane
-        openAIChatService.sendMessage(messages: uiMessages) { [weak self] result in
+        openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let openAIChatResponse):
@@ -69,8 +72,8 @@ final class HomeChatViewModel {
     
 }
 
-//MARK: - HomeChatViewModelInterface
-extension HomeChatViewModel: HomeChatViewModelInterface {
+//MARK: - ChatViewModelInterface
+extension ChatViewModel: ChatViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
         
@@ -78,11 +81,6 @@ extension HomeChatViewModel: HomeChatViewModelInterface {
     
     func numberOfMessages() -> Int {
         uiMessages.count
-    }
-    
-    
-    func getUIMessages() -> [UIMessage] {
-        uiMessages
     }
     
     func sendButtonTapped() {

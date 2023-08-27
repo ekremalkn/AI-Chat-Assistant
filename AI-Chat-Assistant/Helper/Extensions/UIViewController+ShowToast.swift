@@ -43,8 +43,7 @@ extension UIViewController {
             make.bottom.equalTo(self.view.snp.bottom).offset(-120)
         }
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+        DispatchQueue.main.async {
             UIView.animate(withDuration: duration, delay: 0.0, options: .curveEaseOut, animations: {
                 toastView.alpha = 0.0
             }, completion: { _ in

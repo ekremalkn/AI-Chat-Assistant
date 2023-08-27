@@ -1,5 +1,5 @@
 //
-//  HomeChatView.swift
+//  ChatView.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 6.08.2023.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol HomeChatViewButtonInterface: AnyObject {
-    func homeChatView(_ view: HomeChatView, sendButtonTapped button: UIButton)
+protocol ChatViewDelegate: AnyObject {
+    func chatView(_ view: ChatView, sendButtonTapped button: UIButton)
 }
 
-final class HomeChatView: UIView {
+final class ChatView: UIView {
     
     //MARK: - Creating UI Elements
     lazy var chatCollectionView: UICollectionView = {
@@ -51,7 +51,7 @@ final class HomeChatView: UIView {
     }()
     
     //MARK: - References
-    weak var delegate: HomeChatViewButtonInterface?
+    weak var delegate: ChatViewDelegate?
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -75,14 +75,14 @@ final class HomeChatView: UIView {
 }
 
 //MARK: - Button Actions
-extension HomeChatView {
+extension ChatView {
     @objc private func sendButtonTapped() {
-        delegate?.homeChatView(self, sendButtonTapped: sendButton)
+        delegate?.chatView(self, sendButtonTapped: sendButton)
     }
 }
 
 //MARK: - Send Button Visibility
-extension HomeChatView {
+extension ChatView {
     func setSendButtonTouchability(_ isEnable: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -99,7 +99,7 @@ extension HomeChatView {
 
 
 //MARK: - Setup UI
-extension HomeChatView {
+extension ChatView {
     private func setupViews() {
         backgroundColor = .vcBackground
         addSubview(chatCollectionView)

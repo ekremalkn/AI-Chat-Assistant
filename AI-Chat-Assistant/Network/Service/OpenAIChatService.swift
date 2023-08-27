@@ -8,12 +8,12 @@
 import Foundation
 
 protocol OpenAIChatService {
-    func sendMessage(messages: [UIMessage], completion: @escaping (Result<OpenAIChatResponse?, Error>) -> Void)
+    func sendMessage(messages: [UIMessage], model: GPTModel, completion: @escaping (Result<OpenAIChatResponse?, Error>) -> Void)
 }
 
 extension NetworkService: OpenAIChatService {
-    func sendMessage(messages: [UIMessage], completion: @escaping (Result<OpenAIChatResponse?, Error>) -> Void) {
-        NetworkManager.shared.request(target: .sendMessage(messages: messages), completion: completion)
+    func sendMessage(messages: [UIMessage], model: GPTModel, completion: @escaping (Result<OpenAIChatResponse?, Error>) -> Void) {
+        NetworkManager.shared.request(target: .sendMessage(messages: messages, model: model), completion: completion)
     }
 
   

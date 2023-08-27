@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */; };
 		F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */; };
+		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
+		F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */; };
+		F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */; };
+		F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A22A9B9654004A6964 /* ModelConstants.swift */; };
+		F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A42A9B9894004A6964 /* ModelSelectViewController.swift */; };
+		F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A72A9B9994004A6964 /* ModelSelectViewModel.swift */; };
+		F066E9AB2A9BA1DE004A6964 /* ChatModelSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9AA2A9BA1DE004A6964 /* ChatModelSelectButton.swift */; };
+		F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9AD2A9BB19E004A6964 /* CustomPresentationController.swift */; };
 		F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDAF2A7FBA1C00ACA10F /* AppDelegate.swift */; };
 		F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDB12A7FBA1C00ACA10F /* SceneDelegate.swift */; };
 		F07FBDB92A7FBA1D00ACA10F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F07FBDB82A7FBA1D00ACA10F /* Assets.xcassets */; };
@@ -17,8 +25,8 @@
 		F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDCA2A7FBADF00ACA10F /* AppCoordinator.swift */; };
 		F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDCF2A7FBB9D00ACA10F /* MainTabBarController.swift */; };
 		F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDD12A7FBBB700ACA10F /* MainCoordinator.swift */; };
-		F07FBDD52A7FBC9400ACA10F /* HomeChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDD42A7FBC9400ACA10F /* HomeChatCoordinator.swift */; };
-		F07FBDDB2A7FBD4A00ACA10F /* HomeChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDDA2A7FBD4A00ACA10F /* HomeChatViewController.swift */; };
+		F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDD42A7FBC9400ACA10F /* ChatCoordinator.swift */; };
+		F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDDA2A7FBD4A00ACA10F /* ChatViewController.swift */; };
 		F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = F07FBDDF2A7FD01B00ACA10F /* Moya */; };
 		F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDE12A7FD03E00ACA10F /* NetworkEndPointCases.swift */; };
 		F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDE32A7FD07900ACA10F /* NetworkManager.swift */; };
@@ -28,8 +36,8 @@
 		F07FBDF22A7FD57B00ACA10F /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDF12A7FD57B00ACA10F /* HomeModel.swift */; };
 		F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDF42A7FD72100ACA10F /* NetworkService.swift */; };
 		F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDF62A7FD74B00ACA10F /* OpenAIChatService.swift */; };
-		F07FBDFA2A7FD84F00ACA10F /* HomeChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDF92A7FD84F00ACA10F /* HomeChatViewModel.swift */; };
-		F07FBDFC2A7FE1F400ACA10F /* HomeChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDFB2A7FE1F400ACA10F /* HomeChatView.swift */; };
+		F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDF92A7FD84F00ACA10F /* ChatViewModel.swift */; };
+		F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDFB2A7FE1F400ACA10F /* ChatView.swift */; };
 		F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDFE2A7FE37E00ACA10F /* UserChatCollectionCell.swift */; };
 		F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F07FBE012A7FE66C00ACA10F /* SnapKit */; };
 		F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */; };
@@ -44,6 +52,14 @@
 /* Begin PBXFileReference section */
 		F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CopyToClipboard.swift"; sourceTree = "<group>"; };
 		F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
+		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
+		F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectView.swift; sourceTree = "<group>"; };
+		F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCollectionCell.swift; sourceTree = "<group>"; };
+		F066E9A22A9B9654004A6964 /* ModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConstants.swift; sourceTree = "<group>"; };
+		F066E9A42A9B9894004A6964 /* ModelSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectViewController.swift; sourceTree = "<group>"; };
+		F066E9A72A9B9994004A6964 /* ModelSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectViewModel.swift; sourceTree = "<group>"; };
+		F066E9AA2A9BA1DE004A6964 /* ChatModelSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModelSelectButton.swift; sourceTree = "<group>"; };
+		F066E9AD2A9BB19E004A6964 /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationController.swift; sourceTree = "<group>"; };
 		F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI-Chat-Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F07FBDAF2A7FBA1C00ACA10F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F07FBDB12A7FBA1C00ACA10F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,8 +70,8 @@
 		F07FBDCA2A7FBADF00ACA10F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F07FBDCF2A7FBB9D00ACA10F /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F07FBDD12A7FBBB700ACA10F /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		F07FBDD42A7FBC9400ACA10F /* HomeChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChatCoordinator.swift; sourceTree = "<group>"; };
-		F07FBDDA2A7FBD4A00ACA10F /* HomeChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChatViewController.swift; sourceTree = "<group>"; };
+		F07FBDD42A7FBC9400ACA10F /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		F07FBDDA2A7FBD4A00ACA10F /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		F07FBDE12A7FD03E00ACA10F /* NetworkEndPointCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndPointCases.swift; sourceTree = "<group>"; };
 		F07FBDE32A7FD07900ACA10F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F07FBDE62A7FD1B900ACA10F /* OpenAIChatBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIChatBody.swift; sourceTree = "<group>"; };
@@ -64,8 +80,8 @@
 		F07FBDF12A7FD57B00ACA10F /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		F07FBDF42A7FD72100ACA10F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F07FBDF62A7FD74B00ACA10F /* OpenAIChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIChatService.swift; sourceTree = "<group>"; };
-		F07FBDF92A7FD84F00ACA10F /* HomeChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChatViewModel.swift; sourceTree = "<group>"; };
-		F07FBDFB2A7FE1F400ACA10F /* HomeChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChatView.swift; sourceTree = "<group>"; };
+		F07FBDF92A7FD84F00ACA10F /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		F07FBDFB2A7FE1F400ACA10F /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		F07FBDFE2A7FE37E00ACA10F /* UserChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatCollectionCell.swift; sourceTree = "<group>"; };
 		F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantChatCollectionCell.swift; sourceTree = "<group>"; };
 		F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+KeyboardAppears.swift"; sourceTree = "<group>"; };
@@ -89,6 +105,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F066E9992A9B8EB9004A6964 /* ModelSelect */ = {
+			isa = PBXGroup;
+			children = (
+				F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */,
+				F066E99A2A9B8F55004A6964 /* View */,
+				F066E9A62A9B994F004A6964 /* ViewModel */,
+			);
+			path = ModelSelect;
+			sourceTree = "<group>";
+		};
+		F066E99A2A9B8F55004A6964 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F066E99F2A9B900F004A6964 /* Cell */,
+				F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */,
+				F066E9A42A9B9894004A6964 /* ModelSelectViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F066E99F2A9B900F004A6964 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F066E9A62A9B994F004A6964 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F066E9A72A9B9994004A6964 /* ModelSelectViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F066E9A92A9BA1C8004A6964 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F066E9AA2A9BA1DE004A6964 /* ChatModelSelectButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		F066E9AC2A9BB18E004A6964 /* PresentationController */ = {
+			isa = PBXGroup;
+			children = (
+				F066E9AD2A9BB19E004A6964 /* CustomPresentationController.swift */,
+			);
+			path = PresentationController;
+			sourceTree = "<group>";
+		};
 		F07FBDA32A7FBA1C00ACA10F = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				F07FBDCD2A7FBB5F00ACA10F /* TabBar */,
-				F07FBDD32A7FBBE700ACA10F /* HomeChat */,
+				F07FBDD32A7FBBE700ACA10F /* Chat */,
+				F066E9992A9B8EB9004A6964 /* ModelSelect */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -191,23 +260,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		F07FBDD32A7FBBE700ACA10F /* HomeChat */ = {
+		F07FBDD32A7FBBE700ACA10F /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				F07FBDD42A7FBC9400ACA10F /* HomeChatCoordinator.swift */,
+				F07FBDD42A7FBC9400ACA10F /* ChatCoordinator.swift */,
 				F07FBDF02A7FD57100ACA10F /* Model */,
 				F07FBDD62A7FBD0B00ACA10F /* View */,
 				F07FBDF82A7FD83D00ACA10F /* ViewModel */,
 			);
-			path = HomeChat;
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		F07FBDD62A7FBD0B00ACA10F /* View */ = {
 			isa = PBXGroup;
 			children = (
 				F07FBDFD2A7FE35900ACA10F /* Cell */,
-				F07FBDDA2A7FBD4A00ACA10F /* HomeChatViewController.swift */,
-				F07FBDFB2A7FE1F400ACA10F /* HomeChatView.swift */,
+				F07FBDDA2A7FBD4A00ACA10F /* ChatViewController.swift */,
+				F07FBDFB2A7FE1F400ACA10F /* ChatView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				F07FBDEA2A7FD28400ACA10F /* NetworkConstants.swift */,
+				F066E9A22A9B9654004A6964 /* ModelConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -285,7 +355,7 @@
 		F07FBDF82A7FD83D00ACA10F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F07FBDF92A7FD84F00ACA10F /* HomeChatViewModel.swift */,
+				F07FBDF92A7FD84F00ACA10F /* ChatViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -302,6 +372,8 @@
 		F07FBE052A7FED3500ACA10F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F066E9AC2A9BB18E004A6964 /* PresentationController */,
+				F066E9A92A9BA1C8004A6964 /* Buttons */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -417,29 +489,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */,
 				F07FBDEB2A7FD28400ACA10F /* NetworkConstants.swift in Sources */,
 				F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */,
 				F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */,
 				F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
-				F07FBDFC2A7FE1F400ACA10F /* HomeChatView.swift in Sources */,
+				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
-				F07FBDD52A7FBC9400ACA10F /* HomeChatCoordinator.swift in Sources */,
+				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
+				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
+				F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */,
+				F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
-				F07FBDFA2A7FD84F00ACA10F /* HomeChatViewModel.swift in Sources */,
+				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
 				F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */,
 				F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */,
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */,
+				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* HomeModel.swift in Sources */,
+				F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */,
 				F07FBDEE2A7FD2E900ACA10F /* OpenAIChatResponse.swift in Sources */,
 				F07FBDC92A7FBABD00ACA10F /* Coordinator.swift in Sources */,
+				F066E9AB2A9BA1DE004A6964 /* ChatModelSelectButton.swift in Sources */,
 				F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */,
-				F07FBDDB2A7FBD4A00ACA10F /* HomeChatViewController.swift in Sources */,
+				F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */,
+				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

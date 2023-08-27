@@ -23,4 +23,16 @@ extension UIColor {
     static var textViewBackground: UIColor {
         return .init(named: "TextViewBackground") ?? .tertiarySystemGroupedBackground
     }
+    
+    static var chatGPT3_5Background: UIColor {
+        return .init(named: "GPT-3.5-Turbo") ?? .black
+    }
+    
+    static var chatGPT4Background: UIColor {
+        return .init(named: "GPT4") ?? .black
+    }
+    
+    static var main: UIColor {
+        return .init(named: "Main") ?? .systemBlue
+    }
 }

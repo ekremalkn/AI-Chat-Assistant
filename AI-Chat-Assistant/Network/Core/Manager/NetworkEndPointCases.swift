@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum NetworkEndPointCases {
-    case sendMessage(messages: [UIMessage])
+    case sendMessage(messages: [UIMessage], model: GPTModel)
 }
 
 extension NetworkEndPointCases: TargetType {
@@ -33,9 +33,9 @@ extension NetworkEndPointCases: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .sendMessage(let messages):
+        case .sendMessage(let messages, let model):
             let requestMessages = messages.map({OpenAIChatMessages(role: $0.role, content: $0.content)})
-            let requestBody = OpenAIChatRequestBody(model: "gpt-3.5-turbo", messages: requestMessages)
+            let requestBody = OpenAIChatRequestBody(model: model.modelRequestName, messages: requestMessages)
             return .requestJSONEncodable(requestBody)
         }
     }
