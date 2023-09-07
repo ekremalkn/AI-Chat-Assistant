@@ -9,6 +9,8 @@ import UIKit
 
 protocol HomeViewInterface: AnyObject {
     func configureViewController()
+    
+    func reloadSuggestions()
 }
 
 final class HomeViewController: UIViewController {
@@ -57,8 +59,8 @@ final class HomeViewController: UIViewController {
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
-        homeView.homeCollectionView.delegate = self
-        homeView.homeCollectionView.dataSource = self
+        homeView.suggestionsCollectionView.delegate = self
+        homeView.suggestionsCollectionView.dataSource = self
     }
     
     
@@ -73,11 +75,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeCollectionHeader.identifier, for: indexPath) as? HomeCollectionHeader else {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SuggestionsCollectionHeader.identifier, for: indexPath) as? SuggestionsCollectionHeader else {
                 return .init()
             }
             
+            header.configure(with: viewModel.homeCollectionViewSuggestions)
             header.headerTextField.delegate = self
+            header.selectedSuggestionCellIndex = viewModel.selectedSuggestionCellIndex
+            header.delegate = self
             
             return header
             
@@ -103,10 +108,23 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        .init()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SuggestionsCollectionCell.identifier, for: indexPath) as? SuggestionsCollectionCell else {
+            return .init()
+        }
+        
+        let suggestions = viewModel.getSuggestions()
+        let suggestion = suggestions[indexPath.item]
+        cell.configure(with: suggestion)
+        
+        return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (collectionView.frame.width - 60) / 2
+        let cellHeight = cellWidth * 1.25
+        
+        return .init(width: cellWidth, height: cellHeight)
+    }
 }
 
 
@@ -115,6 +133,21 @@ extension HomeViewController: HomeViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
+    }
+    
+    func reloadSuggestions() {
+        let collectionView = homeView.suggestionsCollectionView
+        DispatchQueue.main.async {
+            collectionView.reloadData()
+        }
+    }
+    
+}
+
+//MARK: - SuggestionsCollectionHeader Delegate
+extension HomeViewController: HomeCollectionHeaderDelegate {
+    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndex: Int) {
+        viewModel.didSelectSuggestionCellInHeader(suggestionCellIndex: cellIndex)
     }
     
     

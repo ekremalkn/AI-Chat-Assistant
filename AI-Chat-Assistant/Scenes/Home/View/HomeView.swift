@@ -10,11 +10,16 @@ import UIKit
 final class HomeView: UIView {
 
     //MARK: - Creating UI Elements
-    lazy var homeCollectionView: UICollectionView = {
+    lazy var suggestionsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(HomeCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeCollectionHeader.identifier)
+        collection.register(SuggestionsCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SuggestionsCollectionHeader.identifier)
+        collection.register(SuggestionsCollectionCell.self, forCellWithReuseIdentifier: SuggestionsCollectionCell.identifier)
+        collection.contentInset = .init(top: 0, left: 20, bottom: 20, right: 20)
+        collection.showsVerticalScrollIndicator = false
         collection.backgroundColor = .clear
         return collection
     }()
@@ -37,9 +42,9 @@ final class HomeView: UIView {
 extension HomeView {
     private func setupViews() {
         backgroundColor = .vcBackground
-        addSubview(homeCollectionView)
+        addSubview(suggestionsCollectionView)
         
-        homeCollectionView.snp.makeConstraints { make in
+        suggestionsCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide.snp.edges)
         }
     }
