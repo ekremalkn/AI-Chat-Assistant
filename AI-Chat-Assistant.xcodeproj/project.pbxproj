@@ -63,11 +63,10 @@
 		F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEF9E2AA65C48008403CA /* AstrologySuggestions.swift */; };
 		F0ADEFA32AA65C94008403CA /* TravelSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA22AA65C94008403CA /* TravelSuggestions.swift */; };
 		F0ADEFA52AA65CB9008403CA /* BusinessMarketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA42AA65CB9008403CA /* BusinessMarketing.swift */; };
-		F0ADEFA72AA65CDD008403CA /* SocialSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA62AA65CDD008403CA /* SocialSuggestions.swift */; };
+		F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA62AA65CDD008403CA /* FashionSuggestions.swift */; };
 		F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA82AA65CFD008403CA /* SocialMediaSuggestions.swift */; };
 		F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */; };
 		F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */; };
-		F0ADEFAF2AA65D5C008403CA /* ScienceSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAE2AA65D5C008403CA /* ScienceSuggestions.swift */; };
 		F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */; };
 		F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DADC2E2A81893F00BFC78D /* ProgressHUD */; };
 /* End PBXBuildFile section */
@@ -127,11 +126,10 @@
 		F0ADEF9E2AA65C48008403CA /* AstrologySuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologySuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFA22AA65C94008403CA /* TravelSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFA42AA65CB9008403CA /* BusinessMarketing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessMarketing.swift; sourceTree = "<group>"; };
-		F0ADEFA62AA65CDD008403CA /* SocialSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSuggestions.swift; sourceTree = "<group>"; };
+		F0ADEFA62AA65CDD008403CA /* FashionSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFA82AA65CFD008403CA /* SocialMediaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSuggestions.swift; sourceTree = "<group>"; };
-		F0ADEFAE2AA65D5C008403CA /* ScienceSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScienceSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeIdeaSuggestions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,11 +161,10 @@
 				F0ADEF9E2AA65C48008403CA /* AstrologySuggestions.swift */,
 				F0ADEFA22AA65C94008403CA /* TravelSuggestions.swift */,
 				F0ADEFA42AA65CB9008403CA /* BusinessMarketing.swift */,
-				F0ADEFA62AA65CDD008403CA /* SocialSuggestions.swift */,
+				F0ADEFA62AA65CDD008403CA /* FashionSuggestions.swift */,
 				F0ADEFA82AA65CFD008403CA /* SocialMediaSuggestions.swift */,
 				F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */,
 				F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */,
-				F0ADEFAE2AA65D5C008403CA /* ScienceSuggestions.swift */,
 				F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */,
 			);
 			path = Model;
@@ -647,7 +644,6 @@
 				F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
-				F0ADEFAF2AA65D5C008403CA /* ScienceSuggestions.swift in Sources */,
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
 				F0ADEFA52AA65CB9008403CA /* BusinessMarketing.swift in Sources */,
@@ -663,7 +659,7 @@
 				F0817FF82A9BD49B0054C15E /* HomeViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
-				F0ADEFA72AA65CDD008403CA /* SocialSuggestions.swift in Sources */,
+				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,
 				F07F3E7A2AA7934500075CE5 /* AppName.swift in Sources */,
 				F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* HomeModel.swift in Sources */,

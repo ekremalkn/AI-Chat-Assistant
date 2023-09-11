@@ -79,9 +79,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return .init()
             }
             
-            header.configure(with: viewModel.homeCollectionViewSuggestions)
+            header.configure(with: viewModel.homeCollectionViewSuggestions, selectedSuggestionCellIndexPath: viewModel.selectedSuggestionCellIndexPath)
             header.headerTextField.delegate = self
-            header.selectedSuggestionCellIndex = viewModel.selectedSuggestionCellIndex
             header.delegate = self
             
             return header
@@ -138,7 +137,7 @@ extension HomeViewController: HomeViewInterface {
     func reloadSuggestions() {
         let collectionView = homeView.suggestionsCollectionView
         DispatchQueue.main.async {
-            collectionView.reloadData()
+                collectionView.reloadData()
         }
     }
     
@@ -146,8 +145,8 @@ extension HomeViewController: HomeViewInterface {
 
 //MARK: - SuggestionsCollectionHeader Delegate
 extension HomeViewController: HomeCollectionHeaderDelegate {
-    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndex: Int) {
-        viewModel.didSelectSuggestionCellInHeader(suggestionCellIndex: cellIndex)
+    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath) {
+        viewModel.didSelectSuggestionCellInHeader(suggestionCellIndexPath: cellIndexPath)
     }
     
     

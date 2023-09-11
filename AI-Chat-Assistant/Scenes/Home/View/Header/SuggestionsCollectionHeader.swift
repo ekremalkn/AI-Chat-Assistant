@@ -8,7 +8,7 @@
 import UIKit
 
 protocol HomeCollectionHeaderDelegate: AnyObject {
-    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndex: Int)
+    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath)
 }
 
 final class SuggestionsCollectionHeader: UICollectionReusableView {
@@ -59,7 +59,7 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
 
     //MARK: - Variables
     var suggestionModels: [SuggestionModel] = []
-    var selectedSuggestionCellIndex: Int?
+    var selectedSuggestionCellIndexPath: IndexPath?
      
     
     //MARK: - Init Methods
@@ -79,8 +79,9 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
         headerTextField.layer.masksToBounds = true
     }
 
-    func configure(with suggestionModels: [SuggestionModel]) {
+    func configure(with suggestionModels: [SuggestionModel], selectedSuggestionCellIndexPath: IndexPath) {
         self.suggestionModels = suggestionModels
+        self.selectedSuggestionCellIndexPath = selectedSuggestionCellIndexPath
     }
     
     //MARK: - Setup Delegates
@@ -88,8 +89,6 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
         suggestionCategoryCollectionView.delegate = self
         suggestionCategoryCollectionView.dataSource = self
     }
-
-    
     
 }
 
@@ -104,14 +103,14 @@ extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionVie
             return .init()
         }
         
-        if let selectedSuggestionCellIndex, selectedSuggestionCellIndex == indexPath.item {
+        if let selectedSuggestionCellIndexPath, selectedSuggestionCellIndexPath == indexPath {
             cell.selectCell()
         } else {
             cell.deselectCell()
         }
         
         let suggestion = suggestionModels[indexPath.item]
-        cell.configure(with: suggestion.suggestionCategory, cellIndex: indexPath.item)
+        cell.configure(with: suggestion.suggestionCategory)
         
         return cell
     }
@@ -119,18 +118,15 @@ extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SuggestionCategoryCollectionCell else { return }
         cell.selectCell()
-        
-        if let selectedSuggestionCellIndex {
-            guard let firstCellToDeselect = collectionView.cellForItem(at: IndexPath(item: selectedSuggestionCellIndex, section: 0)) as? SuggestionCategoryCollectionCell else {
-                self.selectedSuggestionCellIndex = indexPath.item
-                delegate?.suggestionsCollectionHeader(self, didSelectSuggestionCategory: indexPath.item)
-                return
-            }
-            firstCellToDeselect.deselectCell()
+        delegate?.suggestionsCollectionHeader(self, didSelectSuggestionCategory: indexPath)
+
+        if let selectedSuggestionCellIndexPath, !(selectedSuggestionCellIndexPath == indexPath) {
+            guard let cellToDeselect = collectionView.cellForItem(at: selectedSuggestionCellIndexPath) as? SuggestionCategoryCollectionCell else { return }
+            cellToDeselect.deselectCell()
         }
         
-        delegate?.suggestionsCollectionHeader(self, didSelectSuggestionCategory: indexPath.item)
-        self.selectedSuggestionCellIndex = indexPath.item
+        self.selectedSuggestionCellIndexPath = indexPath
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

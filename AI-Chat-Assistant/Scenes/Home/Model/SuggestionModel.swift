@@ -22,7 +22,6 @@ struct Suggestion {
 enum SuggestionCategory: CaseIterable {
     case travel
     case creativeIdeas
-    case science
     case beautyLifestyle
     case education
     case fun
@@ -30,7 +29,7 @@ enum SuggestionCategory: CaseIterable {
     case astrology
     case art
     case businessMarketing
-    case social
+    case fashion
     case socialMedia
     case career
     case email
@@ -43,8 +42,6 @@ extension SuggestionCategory {
             return "🧳 Travel & Explore"
         case .creativeIdeas:
             return "💡 Creative Ideas"
-        case .science:
-            return "🥼 Science"
         case .beautyLifestyle:
             return "🌞 Beauty & Lifestyle"
         case .education:
@@ -59,8 +56,8 @@ extension SuggestionCategory {
             return "🎨 Art"
         case .businessMarketing:
             return "📈 Business & Marketing"
-        case .social:
-            return "👯‍♂️ Social"
+        case .fashion:
+            return "👯‍♂️ Fashion"
         case .career:
             return "🧑‍💼 Career"
         case .email:

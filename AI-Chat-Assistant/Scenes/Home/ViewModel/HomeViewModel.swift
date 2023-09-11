@@ -13,7 +13,7 @@ protocol  HomeViewModelInterface {
     func viewDidLoad()
     func numberOfItems() -> Int
     
-    func didSelectSuggestionCellInHeader(suggestionCellIndex: Int)
+    func didSelectSuggestionCellInHeader(suggestionCellIndexPath: IndexPath)
     func getSuggestions() -> [Suggestion]
 }
 
@@ -31,17 +31,18 @@ final class HomeViewModel {
         .init(suggestionCategory: .astrology, suggestions: SuggestionProvider.astrologySuggestions),
         .init(suggestionCategory: .travel, suggestions: SuggestionProvider.travelSuggestions),
         .init(suggestionCategory: .businessMarketing, suggestions: SuggestionProvider.businessMarketing),
-        .init(suggestionCategory: .social, suggestions: SuggestionProvider.socialSuggestions),
+        .init(suggestionCategory: .fashion, suggestions: SuggestionProvider.fashionSuggestions),
         .init(suggestionCategory: .socialMedia, suggestions: SuggestionProvider.socialMediaSuggestions),
         .init(suggestionCategory: .career, suggestions: SuggestionProvider.careerSuggestions),
         .init(suggestionCategory: .email, suggestions: SuggestionProvider.emailSuggestions),
-        .init(suggestionCategory: .science, suggestions: SuggestionProvider.scienceSuggestions),
         .init(suggestionCategory: .creativeIdeas, suggestions: SuggestionProvider.creativeIdeaSuggestions),
     ]
     
-    var selectedSuggestionCellIndex: Int = 0 {
+    var selectedSuggestionCellIndexPath: IndexPath = .init(item: 0, section: 0) {
         didSet {
-            view?.reloadSuggestions()
+            if !(selectedSuggestionCellIndexPath == oldValue) {
+                view?.reloadSuggestions()
+            }
         }
     }
     
@@ -61,15 +62,15 @@ extension HomeViewModel: HomeViewModelInterface {
     }
     
     func numberOfItems() -> Int {
-        homeCollectionViewSuggestions[selectedSuggestionCellIndex].suggestions.count
+        homeCollectionViewSuggestions[selectedSuggestionCellIndexPath.item].suggestions.count
     }
     
     func getSuggestions() -> [Suggestion] {
-        homeCollectionViewSuggestions[selectedSuggestionCellIndex].suggestions
+        homeCollectionViewSuggestions[selectedSuggestionCellIndexPath.item].suggestions
     }
     
-    func didSelectSuggestionCellInHeader(suggestionCellIndex: Int) {
-        self.selectedSuggestionCellIndex = suggestionCellIndex
+    func didSelectSuggestionCellInHeader(suggestionCellIndexPath: IndexPath) {
+        self.selectedSuggestionCellIndexPath = suggestionCellIndexPath
     }
     
     

@@ -20,7 +20,6 @@ final class SuggestionCategoryCollectionCell: UICollectionViewCell {
     }()
 
     //MARK: - Variables
-    var cellIndex: Int?
 
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -40,12 +39,11 @@ final class SuggestionCategoryCollectionCell: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
     
-    func configure(with suggestion: SuggestionCategory, cellIndex: Int) {
+    func configure(with suggestion: SuggestionCategory) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             suggestionLabel.text =  suggestion.suggestionCategoryTitle
         }
-        self.cellIndex = cellIndex
     }
     
 }
