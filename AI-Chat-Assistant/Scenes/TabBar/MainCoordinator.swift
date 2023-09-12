@@ -17,12 +17,22 @@ final class MainCoordinator: Coordinator {
     
     //MARK: - Methods
     func start() {
-        let homeCoordinator = HomeCoordinator()
-        homeCoordinator.start()
-        childCoordinators.append(homeCoordinator)
+        let suggestionsCoordinator = SuggestionsCoordinator()
+        suggestionsCoordinator.start()
+        childCoordinators.append(suggestionsCoordinator)
+        
+        let chatCoordinator = ChatCoordinator()
+        chatCoordinator.start()
+        childCoordinators.append(chatCoordinator)
+        
+        let assistantsCoordinator  = AssistantsCoordinator()
+        assistantsCoordinator.start()
+        childCoordinators.append(assistantsCoordinator)
         
         rootViewController.viewControllers = [
-            homeCoordinator.navigationController
+            suggestionsCoordinator.navigationController,
+            chatCoordinator.navigationController,
+            assistantsCoordinator.navigationController
         ]
     }
     

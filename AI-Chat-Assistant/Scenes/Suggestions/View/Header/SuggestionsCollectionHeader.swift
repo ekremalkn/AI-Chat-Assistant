@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeCollectionHeaderDelegate: AnyObject {
+protocol SuggestionsCollectionHeaderDelegate: AnyObject {
     func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath)
 }
 
@@ -55,7 +55,7 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
     }()
     
     //MARK: - References
-    weak var delegate: HomeCollectionHeaderDelegate?
+    weak var delegate: SuggestionsCollectionHeaderDelegate?
 
     //MARK: - Variables
     var suggestionModels: [SuggestionModel] = []

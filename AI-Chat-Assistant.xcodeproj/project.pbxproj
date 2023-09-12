@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */; };
 		F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */; };
+		F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */; };
+		F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */; };
+		F02753362AB0C50C003220B9 /* AssistantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */; };
+		F02753382AB0CE80003220B9 /* AssistantsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753372AB0CE80003220B9 /* AssistantsView.swift */; };
+		F027533E2AB0ED20003220B9 /* AssistantsCategoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F027533D2AB0ED20003220B9 /* AssistantsCategoryTableCell.swift */; };
+		F02753422AB0F004003220B9 /* AssistantsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753412AB0F004003220B9 /* AssistantsModel.swift */; };
 		F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FA0852AA49A3A0089B680 /* SuggestionModel.swift */; };
 		F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FA08A2AA4D5810089B680 /* SuggestionsCollectionCell.swift */; };
 		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
@@ -47,11 +53,11 @@
 		F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */; };
 		F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */; };
 		F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0E2A801CB600ACA10F /* ColorSet.swift */; };
-		F0817FF02A9BCEBB0054C15E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FEF2A9BCEBB0054C15E /* HomeCoordinator.swift */; };
-		F0817FF32A9BD1160054C15E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF22A9BD1160054C15E /* HomeView.swift */; };
+		F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */; };
+		F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF22A9BD1160054C15E /* SuggestionsView.swift */; };
 		F0817FF62A9BD1F00054C15E /* SuggestionsCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF52A9BD1F00054C15E /* SuggestionsCollectionHeader.swift */; };
-		F0817FF82A9BD49B0054C15E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF72A9BD49B0054C15E /* HomeViewController.swift */; };
-		F0817FFB2A9BD5090054C15E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFA2A9BD5090054C15E /* HomeViewModel.swift */; };
+		F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */; };
+		F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */; };
 		F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */; };
 		F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3912A93D036000AE129 /* GhostTypewriter */; };
 		F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */; };
@@ -74,6 +80,12 @@
 /* Begin PBXFileReference section */
 		F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CopyToClipboard.swift"; sourceTree = "<group>"; };
 		F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
+		F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCoordinator.swift; sourceTree = "<group>"; };
+		F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsViewController.swift; sourceTree = "<group>"; };
+		F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsViewModel.swift; sourceTree = "<group>"; };
+		F02753372AB0CE80003220B9 /* AssistantsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsView.swift; sourceTree = "<group>"; };
+		F027533D2AB0ED20003220B9 /* AssistantsCategoryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCategoryTableCell.swift; sourceTree = "<group>"; };
+		F02753412AB0F004003220B9 /* AssistantsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsModel.swift; sourceTree = "<group>"; };
 		F02FA0852AA49A3A0089B680 /* SuggestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionModel.swift; sourceTree = "<group>"; };
 		F02FA08A2AA4D5810089B680 /* SuggestionsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionCell.swift; sourceTree = "<group>"; };
 		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
@@ -112,11 +124,11 @@
 		F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantChatCollectionCell.swift; sourceTree = "<group>"; };
 		F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+KeyboardAppears.swift"; sourceTree = "<group>"; };
 		F07FBE0E2A801CB600ACA10F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
-		F0817FEF2A9BCEBB0054C15E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		F0817FF22A9BD1160054C15E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCoordinator.swift; sourceTree = "<group>"; };
+		F0817FF22A9BD1160054C15E /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
 		F0817FF52A9BD1F00054C15E /* SuggestionsCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionHeader.swift; sourceTree = "<group>"; };
-		F0817FF72A9BD49B0054C15E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		F0817FFA2A9BD5090054C15E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
+		F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewModel.swift; sourceTree = "<group>"; };
 		F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
 		F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AssistantTypingAnimation.json; sourceTree = "<group>"; };
 		F0ADEF962AA65B2F008403CA /* EducationSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationSuggestions.swift; sourceTree = "<group>"; };
@@ -149,6 +161,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F027532E2AB0C1CA003220B9 /* Assistants */ = {
+			isa = PBXGroup;
+			children = (
+				F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */,
+				F02753402AB0EFE1003220B9 /* Model */,
+				F02753312AB0C4C5003220B9 /* View */,
+				F02753342AB0C4F7003220B9 /* ViewModel */,
+			);
+			path = Assistants;
+			sourceTree = "<group>";
+		};
+		F02753312AB0C4C5003220B9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F027533C2AB0ED0D003220B9 /* Cells */,
+				F027533F2AB0EDF1003220B9 /* Headers */,
+				F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */,
+				F02753372AB0CE80003220B9 /* AssistantsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F02753342AB0C4F7003220B9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F027533C2AB0ED0D003220B9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F027533D2AB0ED20003220B9 /* AssistantsCategoryTableCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F027533F2AB0EDF1003220B9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F02753402AB0EFE1003220B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F02753412AB0F004003220B9 /* AssistantsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F02FA0822AA496830089B680 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,7 +384,8 @@
 			isa = PBXGroup;
 			children = (
 				F07FBDCD2A7FBB5F00ACA10F /* TabBar */,
-				F0817FEE2A9BCE510054C15E /* Home */,
+				F0817FEE2A9BCE510054C15E /* Suggestions */,
+				F027532E2AB0C1CA003220B9 /* Assistants */,
 				F07FBDD32A7FBBE700ACA10F /* Chat */,
 				F066E9992A9B8EB9004A6964 /* ModelSelect */,
 			);
@@ -479,15 +545,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		F0817FEE2A9BCE510054C15E /* Home */ = {
+		F0817FEE2A9BCE510054C15E /* Suggestions */ = {
 			isa = PBXGroup;
 			children = (
-				F0817FEF2A9BCEBB0054C15E /* HomeCoordinator.swift */,
+				F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */,
 				F02FA0822AA496830089B680 /* Model */,
 				F0817FF12A9BD1030054C15E /* View */,
 				F0817FF92A9BD4FD0054C15E /* ViewModel */,
 			);
-			path = Home;
+			path = Suggestions;
 			sourceTree = "<group>";
 		};
 		F0817FF12A9BD1030054C15E /* View */ = {
@@ -495,8 +561,8 @@
 			children = (
 				F02FA0872AA4D50C0089B680 /* Cell */,
 				F0817FF42A9BD1AD0054C15E /* Header */,
-				F0817FF22A9BD1160054C15E /* HomeView.swift */,
-				F0817FF72A9BD49B0054C15E /* HomeViewController.swift */,
+				F0817FF22A9BD1160054C15E /* SuggestionsView.swift */,
+				F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -513,7 +579,7 @@
 		F0817FF92A9BD4FD0054C15E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F0817FFA2A9BD5090054C15E /* HomeViewModel.swift */,
+				F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -625,28 +691,32 @@
 				F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */,
 				F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */,
 				F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */,
-				F0817FF32A9BD1160054C15E /* HomeView.swift in Sources */,
+				F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
+				F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */,
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
 				F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
-				F0817FFB2A9BD5090054C15E /* HomeViewModel.swift in Sources */,
+				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
 				F0ADEF9B2AA65BF3008403CA /* BeautyLifestyleSuggestions.swift in Sources */,
 				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
 				F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */,
+				F02753422AB0F004003220B9 /* AssistantsModel.swift in Sources */,
 				F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */,
 				F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */,
+				F027533E2AB0ED20003220B9 /* AssistantsCategoryTableCell.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
 				F0ADEFA52AA65CB9008403CA /* BusinessMarketing.swift in Sources */,
+				F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */,
 				F0ADEF972AA65B2F008403CA /* EducationSuggestions.swift in Sources */,
 				F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */,
 				F06AA0802AA507B900B5B424 /* SuggestionsProvider.swift in Sources */,
@@ -656,13 +726,15 @@
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F0ADEF9D2AA65C26008403CA /* HealthNutritionSuggestions.swift in Sources */,
 				F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */,
-				F0817FF82A9BD49B0054C15E /* HomeViewController.swift in Sources */,
+				F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
 				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,
 				F07F3E7A2AA7934500075CE5 /* AppName.swift in Sources */,
 				F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* HomeModel.swift in Sources */,
+				F02753362AB0C50C003220B9 /* AssistantsViewModel.swift in Sources */,
+				F02753382AB0CE80003220B9 /* AssistantsView.swift in Sources */,
 				F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */,
 				F07FBDEE2A7FD2E900ACA10F /* OpenAIChatResponse.swift in Sources */,
 				F07FBDC92A7FBABD00ACA10F /* Coordinator.swift in Sources */,
@@ -672,7 +744,7 @@
 				F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
-				F0817FF02A9BCEBB0054C15E /* HomeCoordinator.swift in Sources */,
+				F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

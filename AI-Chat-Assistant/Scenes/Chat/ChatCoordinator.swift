@@ -14,27 +14,23 @@ protocol ChatCoordinatorDelegate: AnyObject {
 final class ChatCoordinator: Coordinator {
     
     //MARK: - References
-    private let  navigationController: UINavigationController
+    let  navigationController: UINavigationController = UINavigationController()
     weak var delegate: ChatCoordinatorDelegate?
-    weak var homeParentCoordinator: HomeCoordinator?
+    weak var homeParentCoordinator: SuggestionsCoordinator?
     
     //MARK: - Variables
     var childCoordinators: [Coordinator] = []
-
-    //MARK: - Init Methods
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-
+    
     //MARK: - Methods
     func start() {
         let openAIChatService: OpenAIChatService = NetworkService()
         let homeChatVM = ChatViewModel(openAIChatService: openAIChatService)
         let homeChatVC = ChatViewController(viewModel: homeChatVM)
         homeChatVC.homeChatCoordinator = self
-        navigationController.pushViewController(homeChatVC, animated: true)
+        homeChatVC.tabBarItem = .init(title: "Chat", image: .init(named: "chat_message"), selectedImage: .init(named: "chat_message_fill"))
+        navigationController.setViewControllers([homeChatVC], animated: false)
     }
-
+    
     func openModelSelectVC(with selectedModel: GPTModel) {
         let modelSelectCoordinator = ModelSelectCoordinator(navigationController: navigationController, model: selectedModel)
         childCoordinators.append(modelSelectCoordinator)
@@ -42,7 +38,7 @@ final class ChatCoordinator: Coordinator {
         modelSelectCoordinator.delegate = self
         modelSelectCoordinator.start()
     }
-
+    
 }
 
 //MARK: - ModelSelectCoordinatorDelegate

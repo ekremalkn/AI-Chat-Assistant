@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol  HomeViewModelInterface {
-    var view: HomeViewInterface? { get set }
+protocol  SuggestionsViewModelInterface {
+    var view: SuggestionsViewInterface? { get set }
     
     func viewDidLoad()
     func numberOfItems() -> Int
@@ -17,10 +17,10 @@ protocol  HomeViewModelInterface {
     func getSuggestions() -> [Suggestion]
 }
 
-final class HomeViewModel {
+final class SuggestionsViewModel {
     
     //MARK: - References
-    weak var view: HomeViewInterface?
+    weak var view: SuggestionsViewInterface?
     
     //MARK: - Variables
     var homeCollectionViewSuggestions: [SuggestionModel] = [
@@ -55,8 +55,8 @@ final class HomeViewModel {
 
 }
 
-//MARK: - HomeViewModelInterface
-extension HomeViewModel: HomeViewModelInterface {
+//MARK: - SuggestionsViewModelInterface
+extension SuggestionsViewModel: SuggestionsViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
     }

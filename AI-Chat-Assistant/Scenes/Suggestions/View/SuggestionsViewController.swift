@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  SuggestionsViewController.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 27.08.2023.
@@ -7,21 +7,21 @@
 
 import UIKit
 
-protocol HomeViewInterface: AnyObject {
+protocol SuggestionsViewInterface: AnyObject {
     func configureViewController()
     
     func reloadSuggestions()
 }
 
-final class HomeViewController: UIViewController {
+final class SuggestionsViewController: UIViewController {
     
     //MARK: - References
-    weak var homeCoordinator: HomeCoordinator?
-    private let homeView = HomeView()
-    private let viewModel: HomeViewModel
+    weak var homeCoordinator: SuggestionsCoordinator?
+    private let homeView = SuggestionsView()
+    private let viewModel: SuggestionsViewModel
     
     //MARK: - Init Methods
-    init(viewModel: HomeViewModel) {
+    init(viewModel: SuggestionsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -68,7 +68,7 @@ final class HomeViewController: UIViewController {
 }
 
 //MARK: - Configure Collection View
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Header
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -127,8 +127,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 
-//MARK: - HomeViewInterface
-extension HomeViewController: HomeViewInterface {
+//MARK: - SuggestionsViewInterface
+extension SuggestionsViewController: SuggestionsViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
@@ -144,7 +144,7 @@ extension HomeViewController: HomeViewInterface {
 }
 
 //MARK: - SuggestionsCollectionHeader Delegate
-extension HomeViewController: HomeCollectionHeaderDelegate {
+extension SuggestionsViewController: SuggestionsCollectionHeaderDelegate {
     func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath) {
         viewModel.didSelectSuggestionCellInHeader(suggestionCellIndexPath: cellIndexPath)
     }
@@ -153,7 +153,7 @@ extension HomeViewController: HomeCollectionHeaderDelegate {
 }
 
 //MARK: - Header TextField Delegate
-extension HomeViewController: UITextFieldDelegate {
+extension SuggestionsViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         homeCoordinator?.openChatVC()
         return false

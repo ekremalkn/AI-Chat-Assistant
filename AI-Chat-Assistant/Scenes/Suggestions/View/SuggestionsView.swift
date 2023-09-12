@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  SuggestionsView.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 27.08.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeView: UIView {
+final class SuggestionsView: UIView {
 
     //MARK: - Creating UI Elements
     lazy var suggestionsCollectionView: UICollectionView = {
@@ -39,7 +39,7 @@ final class HomeView: UIView {
 }
 
 //MARK: - AddSubview / Constraints
-extension HomeView {
+extension SuggestionsView {
     private func setupViews() {
         backgroundColor = .vcBackground
         addSubview(suggestionsCollectionView)
