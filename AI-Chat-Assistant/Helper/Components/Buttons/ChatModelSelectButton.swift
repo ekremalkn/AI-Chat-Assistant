@@ -45,7 +45,7 @@ final class ChatModelSelectButton: UIButton {
     func configure(with model: GPTModel) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            appAndModelLabel.text = "Chat A.E (\(model.modelUIName))"
+            appAndModelLabel.text = "\(AppName.name) (\(model.modelUIName))"
         }
     }
     

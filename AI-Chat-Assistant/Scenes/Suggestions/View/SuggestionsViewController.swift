@@ -46,7 +46,7 @@ final class SuggestionsViewController: UIViewController {
         let leftTitleButton = UIButton()
         leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
         leftTitleButton.tintColor = .main
-        leftTitleButton.setTitle("Chat A.E", for: .normal)
+        leftTitleButton.setTitle(AppName.name, for: .normal)
         leftTitleButton.setTitleColor(.white, for: .normal)
         leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
@@ -55,6 +55,7 @@ final class SuggestionsViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = leftTitleBarButton
         
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
     //MARK: - Setup Delegates
@@ -72,6 +73,7 @@ extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewD
     
     //MARK: - Header
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             

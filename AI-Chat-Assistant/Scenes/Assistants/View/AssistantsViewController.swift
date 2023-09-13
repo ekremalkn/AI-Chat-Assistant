@@ -9,6 +9,8 @@ import UIKit
 
 protocol AssistantsViewInterface: AnyObject {
     func configureViewController()
+    
+    func reloadAssistants()
 }
 
 final class AssistantsViewController: UIViewController {
@@ -39,35 +41,87 @@ final class AssistantsViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    //MARK: - Configure Nav Items
+    private func configureNavItems() {
+        let leftTitleButton = UIButton()
+        leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
+        leftTitleButton.tintColor = .main
+        leftTitleButton.setTitle(AppName.name, for: .normal)
+        leftTitleButton.setTitleColor(.white, for: .normal)
+        leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
+        
+        let leftTitleBarButton = UIBarButtonItem(customView: leftTitleButton)
+        
+        navigationItem.leftBarButtonItem = leftTitleBarButton
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+    
     //MARK: - Setup Delegates
     private func setupDelegates() {
-        assistantsView.assistantsCategoryTableView.delegate = self
-        assistantsView.assistantsCategoryTableView.dataSource = self
+        assistantsView.assistantsCollectionView.delegate = self
+        assistantsView.assistantsCollectionView.dataSource = self
     }
     
 }
 
-//MARK: - Configure TableView
-extension AssistantsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
+//MARK: - Configure Collection View
+extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    //MARK: - Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AssistantsCollectionHeader.identifier, for: indexPath) as? AssistantsCollectionHeader else {
+                return .init()
+            }
+            
+            header.configure(with: viewModel.assistantsCollectionViewAssistants, selectedAssistantCategoryCellIndexPath: viewModel.selectedAssistantCategoryCellIndexPath)
+            
+            header.delegate = self
+            
+            return header
+        case UICollectionView.elementKindSectionFooter:
+            break
+        default:
+            break
+        }
+        
+        return .init()
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        ""
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let headerHeight: CGFloat = 100
+        let headerWidth: CGFloat = collectionView.frame.width
+        
+        return .init(width: headerWidth, height: headerHeight)
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        20
+    //MARK: - Cell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.numberOfItems()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantsCollectionCell.identifier, for: indexPath) as? AssistantsCollectionCell else {
+            return .init()
+        }
+        
+        let assistants = viewModel.getAssistants()
+        let assistant = assistants[indexPath.item]
+        cell.configure(with: assistant)
+        
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        .init()
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.frame.width - 40
+        let cellHeight: CGFloat = 60
+        
+        return .init(width: cellWidth, height: cellHeight)
     }
+    
     
     
 }
@@ -75,7 +129,24 @@ extension AssistantsViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - AssistantsViewInterface
 extension AssistantsViewController: AssistantsViewInterface {
     func configureViewController() {
+        configureNavItems()
         setupDelegates()
+    }
+    
+    func reloadAssistants() {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.reloadData()
+        }
+    }
+    
+    
+}
+
+extension AssistantsViewController: AssistantsCollectionHeaderDelegate {
+    func assistantsCollectionHeader(_ header: AssistantsCollectionHeader, didSelectAssistantCategory cellIndexPath: IndexPath) {
+        viewModel.didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: cellIndexPath)
     }
     
     

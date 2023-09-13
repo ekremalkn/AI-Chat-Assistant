@@ -56,11 +56,11 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
     
     //MARK: - References
     weak var delegate: SuggestionsCollectionHeaderDelegate?
-
+    
     //MARK: - Variables
     var suggestionModels: [SuggestionModel] = []
     var selectedSuggestionCellIndexPath: IndexPath?
-     
+    
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -78,7 +78,7 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
         headerTextField.layer.cornerRadius = headerTextField.frame.height / 2
         headerTextField.layer.masksToBounds = true
     }
-
+    
     func configure(with suggestionModels: [SuggestionModel], selectedSuggestionCellIndexPath: IndexPath) {
         self.suggestionModels = suggestionModels
         self.selectedSuggestionCellIndexPath = selectedSuggestionCellIndexPath
@@ -119,19 +119,14 @@ extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.cellForItem(at: indexPath) as? SuggestionCategoryCollectionCell else { return }
         cell.selectCell()
         delegate?.suggestionsCollectionHeader(self, didSelectSuggestionCategory: indexPath)
-
+        
         if let selectedSuggestionCellIndexPath, !(selectedSuggestionCellIndexPath == indexPath) {
             guard let cellToDeselect = collectionView.cellForItem(at: selectedSuggestionCellIndexPath) as? SuggestionCategoryCollectionCell else { return }
             cellToDeselect.deselectCell()
         }
         
         self.selectedSuggestionCellIndexPath = indexPath
-
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? SuggestionCategoryCollectionCell else { return }
-        cell.deselectCell()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -144,7 +139,7 @@ extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionVie
         
         return .init(width: cellWidth, height: cellHeight)
     }
-
+    
     
     
 }

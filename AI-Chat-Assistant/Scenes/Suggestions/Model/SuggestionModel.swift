@@ -19,7 +19,7 @@ struct Suggestion {
     var suggestionQueryPrompt: String
 }
 
-enum SuggestionCategory: CaseIterable {
+enum SuggestionCategory {
     case travel
     case creativeIdeas
     case beautyLifestyle

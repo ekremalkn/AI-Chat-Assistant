@@ -8,5 +8,5 @@
 import Foundation
 
 enum AppName {
-    static let name = "Chat A.E"
+    static let name = "Chatvantage"
 }
