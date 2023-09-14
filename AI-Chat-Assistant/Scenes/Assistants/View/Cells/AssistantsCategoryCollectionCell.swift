@@ -20,6 +20,15 @@ final class AssistantsCategoryCollectionCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.hidesWhenStopped = true
+        indicator.color = .init(hex: "75AB9E")
+        indicator.tintColor = .init(hex: "75AB9E")
+        indicator.isHidden = true
+        return indicator
+    }()
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -38,16 +47,20 @@ final class AssistantsCategoryCollectionCell: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
     
-    func configure(assistant: AssistantsModel) {
+    func configure(assistant: AssistantTag) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            assistantCategoryTitleLabel.text = assistant.assistantCategory.assistantCategoryTitle
+            if let name = assistant.name {
+                assistantCategoryTitleLabel.text = assistant.name
+            }
         }
     }
     
     
 }
 
+
+//MARK: - Selections
 extension AssistantsCategoryCollectionCell {
     func selectCell() {
         DispatchQueue.main.async { [weak self] in
@@ -64,16 +77,41 @@ extension AssistantsCategoryCollectionCell {
     }
 }
 
+//MARK: - Indicators
+extension AssistantsCategoryCollectionCell {
+    func showLoadingIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            loadingIndicator.isHidden = false
+            loadingIndicator.startAnimating()
+        }
+    }
+    
+    func hideLoadingIndicator() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            loadingIndicator.stopAnimating()
+        }
+    }
+}
+
+
 //MARK: - AddSubview / Constraints
 extension AssistantsCategoryCollectionCell {
     private func setupViews() {
         backgroundColor = .cellBackground
         addSubview(assistantCategoryTitleLabel)
+        addSubview(loadingIndicator)
         
         assistantCategoryTitleLabel.snp.makeConstraints { make in
             make.center.equalTo(self.safeAreaLayoutGuide.snp.center)
             make.height.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.height).offset(-5)
             make.width.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).offset(-10)
+        }
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalTo(self.safeAreaLayoutGuide.snp.center)
+            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height)
         }
     }
 }

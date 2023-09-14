@@ -11,7 +11,7 @@ final class AssistantsCollectionCell: UICollectionViewCell {
     static let identifier = "AssistantsCollectionCell"
     
     //MARK: - Creating UI Elements
-    private lazy var assistantsTitleLabel: UILabel = {
+    lazy var assistantsTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .medium)
@@ -39,7 +39,9 @@ final class AssistantsCollectionCell: UICollectionViewCell {
     func configure(with assistant: Assistant) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            assistantsTitleLabel.text = assistant.assistantTitle
+            if let title = assistant.title {
+                assistantsTitleLabel.text = title.localizedCapitalized
+            }
         }
     }
     

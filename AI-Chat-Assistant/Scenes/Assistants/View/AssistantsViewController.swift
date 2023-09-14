@@ -6,11 +6,22 @@
 //
 
 import UIKit
+import ProgressHUD
 
 protocol AssistantsViewInterface: AnyObject {
     func configureViewController()
     
     func reloadAssistants()
+    func reloadTags()
+    
+    
+    func fetchingTags()
+    func fetchedTags()
+    func didOccurWhileFetchingTags(errorMsg: String)
+    
+    func fetchingAssistants()
+    func fetchedAssistants()
+    func didOccurWhileFetchingAssistants(errorMsg: String)
 }
 
 final class AssistantsViewController: UIViewController {
@@ -77,7 +88,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
                 return .init()
             }
             
-            header.configure(with: viewModel.assistantsCollectionViewAssistants, selectedAssistantCategoryCellIndexPath: viewModel.selectedAssistantCategoryCellIndexPath)
+            header.configure(with: viewModel.assistantTags, selectedAssistantCategoryCellIndexPath: viewModel.selectedAssistantCategoryCellIndexPath)
             
             header.delegate = self
             
@@ -100,7 +111,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
     
     //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.numberOfItems()
+        return viewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,7 +119,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
             return .init()
         }
         
-        let assistants = viewModel.getAssistants()
+        let assistants = viewModel.assistants
         let assistant = assistants[indexPath.item]
         cell.configure(with: assistant)
         
@@ -117,7 +128,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.frame.width - 40
-        let cellHeight: CGFloat = 60
+        var cellHeight: CGFloat = 60
         
         return .init(width: cellWidth, height: cellHeight)
     }
@@ -139,6 +150,64 @@ extension AssistantsViewController: AssistantsViewInterface {
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
+    }
+    
+    func reloadTags() {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: viewModel.selectedAssistantCategoryCellIndexPath) as? AssistantsCollectionHeader else {  return }
+            
+            header.assistantTags = viewModel.assistantTags
+            
+        }
+    }
+    
+    func fetchingTags() {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async {
+            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionHeader else {  return }
+            header.isLoadingTags = true
+            
+        }
+    }
+    
+    func fetchedTags() {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async {
+            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionHeader else {  return }
+            header.isLoadingTags = false
+            
+            
+            
+        }
+    }
+    
+    func didOccurWhileFetchingTags(errorMsg: String) {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async {
+            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionHeader else {  return }
+            header.isLoadingTags = false
+            
+        }
+    }
+    
+    func fetchingAssistants() {
+        ProgressHUD.colorHUD = .init(hex: "1F1F1F")
+        ProgressHUD.colorStatus = .init(hex: "1F1F1F")
+        ProgressHUD.colorAnimation = .init(hex: "1F1F1F")
+        ProgressHUD.show(interaction: false)
+    }
+    
+    func fetchedAssistants() {
+        ProgressHUD.remove()
+    }
+    
+    func didOccurWhileFetchingAssistants(errorMsg: String) {
+        ProgressHUD.showError("Something went wrong", image: .init(named: "chat_shocked"), interaction: false, delay: 1.5)
     }
     
     

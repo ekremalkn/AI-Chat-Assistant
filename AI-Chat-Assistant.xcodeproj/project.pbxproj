@@ -13,7 +13,6 @@
 		F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */; };
 		F02753362AB0C50C003220B9 /* AssistantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */; };
 		F02753382AB0CE80003220B9 /* AssistantsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753372AB0CE80003220B9 /* AssistantsView.swift */; };
-		F02753422AB0F004003220B9 /* AssistantsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753412AB0F004003220B9 /* AssistantsModel.swift */; };
 		F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FA0852AA49A3A0089B680 /* SuggestionModel.swift */; };
 		F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FA08A2AA4D5810089B680 /* SuggestionsCollectionCell.swift */; };
 		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
@@ -74,11 +73,13 @@
 		F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */; };
 		F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */; };
 		F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DADC2E2A81893F00BFC78D /* ProgressHUD */; };
+		F0E493712AB3718C00767FF2 /* AssistantTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */; };
+		F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493722AB37E3000767FF2 /* AssistantModel.swift */; };
+		F0E493752AB37FB200767FF2 /* AssistantsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493742AB37FB200767FF2 /* AssistantsService.swift */; };
+		F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */; };
 		F0F272EB2AB215BF00D63259 /* AssistantsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EA2AB215BF00D63259 /* AssistantsCollectionCell.swift */; };
 		F0F272ED2AB217DF00D63259 /* AssistantsCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EC2AB217DE00D63259 /* AssistantsCollectionHeader.swift */; };
 		F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EE2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift */; };
-		F0F272F12AB230B400D63259 /* AssistantsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272F02AB230B400D63259 /* AssistantsProvider.swift */; };
-		F0F272F32AB2310C00D63259 /* SalesAssistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272F22AB2310C00D63259 /* SalesAssistants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,7 +89,6 @@
 		F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsViewController.swift; sourceTree = "<group>"; };
 		F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsViewModel.swift; sourceTree = "<group>"; };
 		F02753372AB0CE80003220B9 /* AssistantsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsView.swift; sourceTree = "<group>"; };
-		F02753412AB0F004003220B9 /* AssistantsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsModel.swift; sourceTree = "<group>"; };
 		F02FA0852AA49A3A0089B680 /* SuggestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionModel.swift; sourceTree = "<group>"; };
 		F02FA08A2AA4D5810089B680 /* SuggestionsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionCell.swift; sourceTree = "<group>"; };
 		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
@@ -146,11 +146,13 @@
 		F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeIdeaSuggestions.swift; sourceTree = "<group>"; };
+		F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantTagModel.swift; sourceTree = "<group>"; };
+		F0E493722AB37E3000767FF2 /* AssistantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModel.swift; sourceTree = "<group>"; };
+		F0E493742AB37FB200767FF2 /* AssistantsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsService.swift; sourceTree = "<group>"; };
+		F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEXString.swift"; sourceTree = "<group>"; };
 		F0F272EA2AB215BF00D63259 /* AssistantsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionCell.swift; sourceTree = "<group>"; };
 		F0F272EC2AB217DE00D63259 /* AssistantsCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionHeader.swift; sourceTree = "<group>"; };
 		F0F272EE2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCategoryCollectionCell.swift; sourceTree = "<group>"; };
-		F0F272F02AB230B400D63259 /* AssistantsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsProvider.swift; sourceTree = "<group>"; };
-		F0F272F22AB2310C00D63259 /* SalesAssistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesAssistants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,7 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */,
-				F02753402AB0EFE1003220B9 /* Model */,
+				F0E4936F2AB3713F00767FF2 /* Model */,
 				F02753312AB0C4C5003220B9 /* View */,
 				F02753342AB0C4F7003220B9 /* ViewModel */,
 			);
@@ -214,16 +216,6 @@
 				F0F272EC2AB217DE00D63259 /* AssistantsCollectionHeader.swift */,
 			);
 			path = Headers;
-			sourceTree = "<group>";
-		};
-		F02753402AB0EFE1003220B9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F02753412AB0F004003220B9 /* AssistantsModel.swift */,
-				F0F272F02AB230B400D63259 /* AssistantsProvider.swift */,
-				F0F272F22AB2310C00D63259 /* SalesAssistants.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		F02FA0822AA496830089B680 /* Model */ = {
@@ -509,6 +501,7 @@
 			children = (
 				F07FBDF42A7FD72100ACA10F /* NetworkService.swift */,
 				F07FBDF62A7FD74B00ACA10F /* OpenAIChatService.swift */,
+				F0E493742AB37FB200767FF2 /* AssistantsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -545,6 +538,7 @@
 				F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */,
 				F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */,
 				F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */,
+				F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -610,6 +604,15 @@
 				F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */,
 			);
 			path = LottieAnimation;
+			sourceTree = "<group>";
+		};
+		F0E4936F2AB3713F00767FF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */,
+				F0E493722AB37E3000767FF2 /* AssistantModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -708,6 +711,7 @@
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
 				F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */,
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
+				F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
@@ -715,14 +719,13 @@
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
+				F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
-				F0F272F32AB2310C00D63259 /* SalesAssistants.swift in Sources */,
 				F0ADEF9B2AA65BF3008403CA /* BeautyLifestyleSuggestions.swift in Sources */,
 				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
 				F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */,
-				F02753422AB0F004003220B9 /* AssistantsModel.swift in Sources */,
 				F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */,
 				F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
@@ -753,11 +756,12 @@
 				F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */,
 				F07FBDEE2A7FD2E900ACA10F /* OpenAIChatResponse.swift in Sources */,
 				F07FBDC92A7FBABD00ACA10F /* Coordinator.swift in Sources */,
-				F0F272F12AB230B400D63259 /* AssistantsProvider.swift in Sources */,
+				F0E493712AB3718C00767FF2 /* AssistantTagModel.swift in Sources */,
 				F066E9AB2A9BA1DE004A6964 /* ChatModelSelectButton.swift in Sources */,
 				F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */,
 				F0ADEFA32AA65C94008403CA /* TravelSuggestions.swift in Sources */,
 				F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */,
+				F0E493752AB37FB200767FF2 /* AssistantsService.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 				F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */,

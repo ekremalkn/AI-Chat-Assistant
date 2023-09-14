@@ -17,7 +17,8 @@ final class AssistantsCoordinator: Coordinator {
     
     //MARK: - Methods
     func start() {
-        let assistantsVM = AssistantsViewModel()
+        let assistantService: AssistantsService = NetworkService()
+        let assistantsVM = AssistantsViewModel(assistantsService: assistantService)
         let assistantsVC = AssistantsViewController(viewModel: assistantsVM)
         assistantsVC.assistantsCoordinator = self
         assistantsVC.tabBarItem = .init(title: "Assistants", image: .init(named: "chat_assistants"), selectedImage: .init(named: "chat_assistants"))

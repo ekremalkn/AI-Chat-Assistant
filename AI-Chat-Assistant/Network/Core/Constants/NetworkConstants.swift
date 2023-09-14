@@ -10,6 +10,8 @@ import Foundation
 enum NetworkConstants {
     static let openAIBaseURL = "https://api.openai.com/v1/chat/completions"
     static let openAIapiKey = "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"
+    
+    static let assistantListBaseURL = "https://svc.tryarvin.com/api/prompts"
 }
 
 

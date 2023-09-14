@@ -13,64 +13,98 @@ protocol AssistantsViewModelInterface {
     func viewDidLoad()
     
     func numberOfItems() -> Int
-    func getAssistants() -> [Assistant]
     func didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: IndexPath)
-    
+
 }
 
 final class AssistantsViewModel {
     
     //MARK: - References
-    var view: AssistantsViewInterface?
-
+    weak var view: AssistantsViewInterface?
+    private let assistantsService: AssistantsService
+    
     //MARK: - Variables
-    var assistantsCollectionViewAssistants: [AssistantsModel] = [
-        .init(assistantCategory: .sales, assistants: AssistantsProvider.salesAssistants),
-        .init(assistantCategory: .general, assistants: []),
-        .init(assistantCategory: .writing, assistants: []),
-        .init(assistantCategory: .marketing, assistants: []),
-        .init(assistantCategory: .socialMedia, assistants: []),
-        .init(assistantCategory: .coding, assistants: []),
-        .init(assistantCategory: .design, assistants: []),
-        .init(assistantCategory: .language, assistants: []),
-        .init(assistantCategory: .music, assistants: []),
-        .init(assistantCategory: .teaching, assistants: []),
-        .init(assistantCategory: .research, assistants: []),
-        .init(assistantCategory: .speech, assistants: []),
-        .init(assistantCategory: .business, assistants: []),
-        .init(assistantCategory: .dataAnalysis, assistants: []),
-        .init(assistantCategory: .email, assistants: []),
-        .init(assistantCategory: .job, assistants: []),
-        .init(assistantCategory: .reading, assistants: []),
-        .init(assistantCategory: .paidAds, assistants: []),
-        .init(assistantCategory: .finance, assistants: []),
-        .init(assistantCategory: .health, assistants: []),
-        .init(assistantCategory: .fun, assistants: []),
-        .init(assistantCategory: .it, assistants: []),
-    ]
+    var assistantTags: [AssistantTag] = [] {
+        didSet {
+            view?.reloadTags()
+        }
+    }
+    var assistants: [Assistant] = [] {
+        didSet {
+            view?.reloadAssistants()
+        }
+    }
     
     var selectedAssistantCategoryCellIndexPath: IndexPath = .init(item: 0, section: 0) {
         didSet {
             if !(selectedAssistantCategoryCellIndexPath == oldValue) {
-                view?.reloadAssistants()
+                if let tag = assistantTags[selectedAssistantCategoryCellIndexPath.item].name {
+                    fetchPromptsList(for: tag)
+                }
             }
         }
     }
-
+    
+    
+    //MARK: - Init Methods
+    init(assistantsService: AssistantsService) {
+        self.assistantsService = assistantsService
+    }
+    
+    //MARK: - Methods
+    private func fetchAssistantTags() {
+        view?.fetchingTags()
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self else { return }
+            assistantsService.fetchAssistantTags { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let assistantModel):
+                    if let assistantTags = assistantModel?.data {
+                        self.assistantTags = assistantTags
+                        
+                        view?.fetchedTags()
+                        if let tag = assistantTags[selectedAssistantCategoryCellIndexPath.item].name {
+                            fetchPromptsList(for: tag)
+                        }
+                    }
+                case .failure(let failure):
+                    view?.didOccurWhileFetchingTags(errorMsg: failure.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func fetchPromptsList(for tag: String) {
+        view?.fetchingAssistants()
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self else { return }
+            assistantsService.fetchPromptsList(for: tag) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let assistantModel):
+                    if let assistants = assistantModel?.data {
+                        self.assistants = assistants
+                        view?.fetchedAssistants()
+                    }
+                case .failure(let failure):
+                    view?.didOccurWhileFetchingAssistants(errorMsg: failure.localizedDescription)
+                }
+            }
+        }
+    }
+    
 }
 
 //MARK: - AssistantsViewModelInterface
 extension AssistantsViewModel: AssistantsViewModelInterface {
-        func viewDidLoad() {
+    func viewDidLoad() {
         view?.configureViewController()
+        fetchAssistantTags()
     }
     
     func numberOfItems() -> Int {
-        assistantsCollectionViewAssistants[selectedAssistantCategoryCellIndexPath.item].assistants.count
-    }
-    
-    func getAssistants() -> [Assistant] {
-        assistantsCollectionViewAssistants[selectedAssistantCategoryCellIndexPath.item].assistants
+        assistants.count
     }
     
     func didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: IndexPath) {

@@ -39,7 +39,20 @@ final class AssistantsCollectionHeader: UICollectionReusableView {
     weak var delegate: AssistantsCollectionHeaderDelegate?
     
     //MARK: - Variabes
-    var assistantsModels: [AssistantsModel] = []
+    var assistantTags: [AssistantTag] = [] {
+        didSet {
+            reloadTags()
+        }
+    }
+    
+    var isLoadingTags: Bool = true {
+        didSet {
+            if oldValue {
+                reloadTags()
+            }
+        }
+    }
+    
     var selectedAssisantCategoryCellIndexPath: IndexPath?
     
     //MARK: - Init Methods
@@ -53,8 +66,8 @@ final class AssistantsCollectionHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with assistantsModels: [AssistantsModel], selectedAssistantCategoryCellIndexPath: IndexPath) {
-        self.assistantsModels = assistantsModels
+    func configure(with assistantTags: [AssistantTag], selectedAssistantCategoryCellIndexPath: IndexPath) {
+        self.assistantTags = assistantTags
         self.selectedAssisantCategoryCellIndexPath = selectedAssistantCategoryCellIndexPath
     }
     
@@ -64,29 +77,46 @@ final class AssistantsCollectionHeader: UICollectionReusableView {
         assistantCategoryCollectionView.dataSource = self
     }
     
-    
+    func reloadTags() {
+        let collectionView = assistantCategoryCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.reloadData()
+        }
+    }
+
 }
 
 //MARK: - Configure Collection View
 extension AssistantsCollectionHeader: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        assistantsModels.count
+        return isLoadingTags ? 1 : assistantTags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantsCategoryCollectionCell.identifier, for: indexPath) as? AssistantsCategoryCollectionCell else {
-            return .init()
-        }
-        
-        if let selectedAssisantCategoryCellIndexPath, selectedAssisantCategoryCellIndexPath == indexPath {
-            cell.selectCell()
+        if isLoadingTags {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantsCategoryCollectionCell.identifier, for: indexPath) as? AssistantsCategoryCollectionCell else {
+                return .init()
+            }
+            
+            cell.showLoadingIndicator()
+            
+            return cell
         } else {
-            cell.deselectCell()
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantsCategoryCollectionCell.identifier, for: indexPath) as? AssistantsCategoryCollectionCell else {
+                return .init()
+            }
+            
+            if let selectedAssisantCategoryCellIndexPath, selectedAssisantCategoryCellIndexPath == indexPath {
+                cell.selectCell()
+            } else {
+                cell.deselectCell()
+            }
+            
+            let assistant = assistantTags[indexPath.item]
+            cell.configure(assistant: assistant)
+            return cell
         }
-        
-        let assistant = assistantsModels[indexPath.item]
-        cell.configure(assistant: assistant)
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -104,13 +134,19 @@ extension AssistantsCollectionHeader: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellHeight: CGFloat = collectionView.frame.height
-        
-        let assistantTitle = assistantsModels[indexPath.item].assistantCategory.assistantCategoryTitle
-        let assistantsTitleWidth = assistantTitle.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]).width
-        
-        let cellWidth: CGFloat = assistantsTitleWidth + (2 * 15)
-        
-        return .init(width: cellWidth, height: cellHeight)
+
+        if isLoadingTags {
+            let cellWidth: CGFloat = 60
+            
+            return .init(width: cellWidth, height: cellHeight)
+        } else {
+            let assistantTitle = assistantTags[indexPath.item].name ?? ""
+            let assistantsTitleWidth = assistantTitle.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]).width
+            
+            let cellWidth: CGFloat = assistantsTitleWidth + (2 * 15)
+            
+            return .init(width: cellWidth, height: cellHeight)
+        }
     }
     
     
