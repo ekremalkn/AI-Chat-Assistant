@@ -19,11 +19,12 @@ final class AssistantsPromptEditCollectionCell: UICollectionViewCell {
         let textView = UITextView()
         textView.textColor = .white
         textView.isEditable = false
-        textView.isSelectable = true
+        textView.isSelectable = false
         textView.textAlignment = .left
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 16, weight: .medium)
         textView.contentInset = .init(top: 10, left: 0, bottom: 0, right: 0)
+        textView.dataDetectorTypes = .link
         return textView
     }()
     

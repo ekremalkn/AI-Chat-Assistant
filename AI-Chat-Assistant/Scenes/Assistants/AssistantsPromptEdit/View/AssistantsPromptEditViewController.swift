@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import ProgressHUD
 
 protocol AssistantsPromptEditViewInterface: AnyObject {
     func configureViewController()
+    
+    func chatServiceResponding()
+    func chatServiceResponded()
+    func didOccurErrorWhileChatServiceResponding(_ errorMsg: String)
+    func openAssistantsResponseVC(with uiMessages: [UIMessage])
 }
 
 final class AssistantsPromptEditViewController: UIViewController {
@@ -54,6 +60,8 @@ final class AssistantsPromptEditViewController: UIViewController {
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
+        assistantsPromptEditView.delegate = self
+        
         assistantsPromptEditView.assistantsPromptEditCollectionView.delegate = self
         assistantsPromptEditView.assistantsPromptEditCollectionView.dataSource = self
     }
@@ -161,6 +169,24 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
         setupDelegates()
     }
     
+    func chatServiceResponding() {
+        ProgressHUD.colorHUD = .init(hex: "1F1F1F")
+        ProgressHUD.colorStatus = .init(hex: "1F1F1F")
+        ProgressHUD.colorAnimation = .init(hex: "1F1F1F")
+        ProgressHUD.show(interaction: false)
+    }
+    
+    func chatServiceResponded() {
+        ProgressHUD.remove()
+    }
+    
+    func didOccurErrorWhileChatServiceResponding(_ errorMsg: String) {
+        ProgressHUD.showError(errorMsg, interaction: false, delay: 1.5)
+    }
+    
+    func openAssistantsResponseVC(with uiMessages: [UIMessage]) {
+        assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages)
+    }
     
 }
 
@@ -169,6 +195,15 @@ extension AssistantsPromptEditViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.promptTextDidChange(newPromptText: textView.text)
     }
+}
+
+//MARK: - AssistantsPromptEditViewDelegate
+extension AssistantsPromptEditViewController: AssistantsPromptEditViewDelegate {
+    func assistantsPromptEditView(_ view: AssistantsPromptEditView, submitButtonTapped button: UIButton) {
+        viewModel.submitButtonTapped()
+    }
+    
+    
 }
 
 
@@ -180,11 +215,13 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditCollectionCell
             
             if viewModel.promptIsEditing {
                 textView.isEditable = false
+                textView.isSelectable = false
                 textView.resignFirstResponder()
                 cell.promptEditButton.setTitle("Edit Prompt", for: .normal)
                 viewModel.promptIsEditing = false
             } else {
                 textView.isEditable = true
+                textView.isSelectable = true
                 textView.becomeFirstResponder()
                 cell.promptEditButton.isHidden = true
                 viewModel.promptIsEditing = true
@@ -207,6 +244,8 @@ extension AssistantsPromptEditViewController {
             guard let self else { return }
             guard let cell = collectionView.cellForItem(at: .init(item: 0, section: 0)) as? AssistantsPromptEditCollectionCell else { return }
             cell.promptEditButton.isHidden = false
+            cell.promptTextView.isEditable = false
+            cell.promptTextView.isSelectable = false
             viewModel.promptIsEditing = false
         }
     }

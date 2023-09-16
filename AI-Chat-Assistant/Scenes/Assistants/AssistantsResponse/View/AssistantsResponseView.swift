@@ -1,19 +1,18 @@
 //
-//  ChatView.swift
+//  AssistantsResponseView.swift
 //  AI-Chat-Assistant
 //
-//  Created by Ekrem Alkan on 6.08.2023.
+//  Created by Ekrem Alkan on 16.09.2023.
 //
 
 import UIKit
 
-protocol ChatViewDelegate: AnyObject {
-    func chatView(_ view: ChatView, sendButtonTapped button: UIButton)
+protocol AssistantsResponseViewDelegate: AnyObject {
+    func assistantsResponseView(_ view: AssistantsResponseView, sendButtonTapped button: UIButton)
 }
 
-final class ChatView: UIView {
-    
-    //MARK: - Creating UI Elements
+final class AssistantsResponseView: UIView {
+
     lazy var chatCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -27,6 +26,16 @@ final class ChatView: UIView {
         return collection
     }()
     
+    private lazy var continuneChatButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Continue Chatting", for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .buttonBackground
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
+        button.addTarget(self, action: #selector(continuneChatButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var messageTextView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 18, weight: .medium)
@@ -35,7 +44,7 @@ final class ChatView: UIView {
         textView.isScrollEnabled = false
         textView.isEditable = true
         textView.backgroundColor = .textViewBackground
-        
+        textView.isHidden = true
         return textView
     }()
     
@@ -46,13 +55,14 @@ final class ChatView: UIView {
         button.backgroundColor = .buttonBackground
         button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
         button.isEnabled = false
+        button.isHidden = true
         return button
     }()
     
-    
     //MARK: - References
-    weak var delegate: ChatViewDelegate?
-    
+    weak var delegate: AssistantsResponseViewDelegate?
+
+
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -65,24 +75,35 @@ final class ChatView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        continuneChatButton.layer.cornerRadius = 12
+        continuneChatButton.layer.masksToBounds = true
+        
         sendButton.layer.cornerRadius = 12
         sendButton.layer.masksToBounds = true
         
         messageTextView.layer.cornerRadius = 12
         messageTextView.layer.masksToBounds = true
     }
-    
 }
 
 //MARK: - Button Actions
-extension ChatView {
+extension AssistantsResponseView {
+    @objc private func continuneChatButtonTapped() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            continuneChatButton.isHidden = true
+            sendButton.isHidden = false
+            messageTextView.isHidden = false
+        }
+    }
+    
     @objc private func sendButtonTapped() {
-        delegate?.chatView(self, sendButtonTapped: sendButton)
+        delegate?.assistantsResponseView(self, sendButtonTapped: sendButton)
     }
 }
 
 //MARK: - Send Button Visibility
-extension ChatView {
+extension AssistantsResponseView {
     func setSendButtonTouchability(_ isEnable: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -97,31 +118,39 @@ extension ChatView {
     }
 }
 
-
-//MARK: - Setup UI
-extension ChatView {
+//MARK: - AddSubview / Constraints
+extension AssistantsResponseView {
     private func setupViews() {
         backgroundColor = .vcBackground
         addSubview(chatCollectionView)
+        addSubview(continuneChatButton)
         addSubview(sendButton)
         addSubview(messageTextView)
         
+        
+        continuneChatButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.height.equalTo(50)
+        }
+        
+        chatCollectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            make.bottom.equalTo(continuneChatButton.snp.top).offset(-20)
+        }
+                
         sendButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.centerY.equalTo(messageTextView.snp.centerY)
         }
         
         messageTextView.snp.makeConstraints { make in
             make.trailing.equalTo(sendButton.snp.leading).offset(-20)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.centerY.equalTo(sendButton.snp.centerY)
             make.height.greaterThanOrEqualTo(50)
-        }
-        
-        chatCollectionView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            make.bottom.equalTo(messageTextView.snp.top).offset(-10)
         }
     }
 }

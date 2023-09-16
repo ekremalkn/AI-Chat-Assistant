@@ -25,10 +25,18 @@ final class AssistantsPromptEditCoordinator: Coordinator {
     
     //MARK: - Methods
     func start() {
-        let assistantsPromptEditVM = AssistantsPromptEditViewModel(assistant: assistant)
+        let openAIChatService: OpenAIChatService = NetworkService()
+        let assistantsPromptEditVM = AssistantsPromptEditViewModel(openAIChatService: openAIChatService, assistant: assistant)
         let assistantsPromptEditVC = AssistantsPromptEditViewController(viewModel: assistantsPromptEditVM)
         assistantsPromptEditVC.assistantsPromptEditCoordinator = self
         navigationController.pushViewController(assistantsPromptEditVC, animated: true)
+    }
+    
+    func openAssistantsResponseVC(with uiMessages: [UIMessage]) {
+        let assistantsResponseCoordinator = AssistantsResponseCoordinator(navigationController: navigationController, uiMessages: uiMessages)
+        childCoordinators.append(assistantsResponseCoordinator)
+        assistantsResponseCoordinator.assistantsPromptEditParentCoordinator = self
+        assistantsResponseCoordinator.start()
     }
     
 }

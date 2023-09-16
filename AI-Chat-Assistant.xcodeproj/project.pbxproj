@@ -24,7 +24,10 @@
 		F04879E32AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */; };
 		F04879E62AB5D7680075A0C6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */; };
 		F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */; };
-		F04879EC2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879EB2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift */; };
+		F04879EC2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879EB2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift */; };
+		F04879EF2AB5E9590075A0C6 /* AssistantsResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879EE2AB5E9590075A0C6 /* AssistantsResponseViewController.swift */; };
+		F04879F22AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879F12AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift */; };
+		F04879F42AB5EE220075A0C6 /* AssistantsResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879F32AB5EE220075A0C6 /* AssistantsResponseView.swift */; };
 		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
 		F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */; };
 		F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */; };
@@ -108,7 +111,10 @@
 		F04879E02AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditCollectionSectionHeader.swift; sourceTree = "<group>"; };
 		F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitButtonPromptEditScreen.swift; sourceTree = "<group>"; };
 		F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
-		F04879EB2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistanceResponseCoordinator.swift; sourceTree = "<group>"; };
+		F04879EB2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsResponseCoordinator.swift; sourceTree = "<group>"; };
+		F04879EE2AB5E9590075A0C6 /* AssistantsResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsResponseViewController.swift; sourceTree = "<group>"; };
+		F04879F12AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsResponseViewModel.swift; sourceTree = "<group>"; };
+		F04879F32AB5EE220075A0C6 /* AssistantsResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsResponseView.swift; sourceTree = "<group>"; };
 		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
 		F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectView.swift; sourceTree = "<group>"; };
 		F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCollectionCell.swift; sourceTree = "<group>"; };
@@ -331,9 +337,28 @@
 		F04879EA2AB5E8150075A0C6 /* AssistantsResponse */ = {
 			isa = PBXGroup;
 			children = (
-				F04879EB2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift */,
+				F04879EB2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift */,
+				F04879ED2AB5E9300075A0C6 /* View */,
+				F04879F02AB5E97E0075A0C6 /* ViewModel */,
 			);
 			path = AssistantsResponse;
+			sourceTree = "<group>";
+		};
+		F04879ED2AB5E9300075A0C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F04879EE2AB5E9590075A0C6 /* AssistantsResponseViewController.swift */,
+				F04879F32AB5EE220075A0C6 /* AssistantsResponseView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F04879F02AB5E97E0075A0C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F04879F12AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F066E9992A9B8EB9004A6964 /* ModelSelect */ = {
@@ -793,7 +818,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */,
-				F04879EC2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift in Sources */,
+				F04879EC2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift in Sources */,
 				F04879E32AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift in Sources */,
 				F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */,
 				F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */,
@@ -811,8 +836,10 @@
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
+				F04879F22AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift in Sources */,
 				F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
+				F04879F42AB5EE220075A0C6 /* AssistantsResponseView.swift in Sources */,
 				F04879DE2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
@@ -864,6 +891,7 @@
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 				F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */,
+				F04879EF2AB5E9590075A0C6 /* AssistantsResponseViewController.swift in Sources */,
 				F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

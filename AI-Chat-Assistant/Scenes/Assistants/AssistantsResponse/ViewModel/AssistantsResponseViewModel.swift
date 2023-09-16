@@ -1,14 +1,15 @@
 //
-//  ChatViewModel.swift
+//  AssistantsResponseViewModel.swift
 //  AI-Chat-Assistant
 //
-//  Created by Ekrem Alkan on 6.08.2023.
+//  Created by Ekrem Alkan on 16.09.2023.
 //
 
 import Foundation
 
-protocol ChatViewModelInterface {
-    var view: ChatViewInterface? { get }
+protocol AssistantsResponseViewModelInterface {
+    var view: AssistantsResponseViewInterface? { get set }
+    
     func viewDidLoad()
     
     func numberOfMessages() -> Int
@@ -17,18 +18,14 @@ protocol ChatViewModelInterface {
     func reGenerateButtonTapped()
 }
 
-final class ChatViewModel {
+final class AssistantsResponseViewModel {
     
     //MARK: - References
-    weak var view: ChatViewInterface?
+    weak var view: AssistantsResponseViewInterface?
     private let openAIChatService: OpenAIChatService
     
     //MARK: - Variables
-    var currentModel: GPTModel = .gpt3_5Turbo {
-        didSet {
-            view?.configureModelSelectButton(with: currentModel)
-        }
-    }
+    var currentModel: GPTModel = .gpt3_5Turbo
     var uiMessages: [UIMessage] = [] {
         didSet {
             view?.reloadMessages()
@@ -36,15 +33,16 @@ final class ChatViewModel {
     }
     
     var currentInputText: String = ""
-//    var lastUserText: String = ""
     
     //MARK: - Init Methods
-    init(openAIChatService: OpenAIChatService) {
+    init(uiMessages: [UIMessage], openAIChatService: OpenAIChatService) {
+        self.uiMessages = uiMessages
         self.openAIChatService = openAIChatService
+        
     }
     
     private func sendMessage() {
-//        view?.assistantResponsing()
+        //        view?.assistantResponsing()
         uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         // add cell for waiting to response assistane
         openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
@@ -71,14 +69,12 @@ final class ChatViewModel {
             }
         }
     }
-    
 }
 
-//MARK: - ChatViewModelInterface
-extension ChatViewModel: ChatViewModelInterface {
+//MARK: - AssistantsResponseViewInterface
+extension AssistantsResponseViewModel: AssistantsResponseViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
-        
     }
     
     func numberOfMessages() -> Int {
@@ -88,7 +84,7 @@ extension ChatViewModel: ChatViewModelInterface {
     func sendButtonTapped() {
         let newMessage = UIMessage(id: UUID(), role: .user, content: currentInputText, createAt: Date())
         uiMessages.append(newMessage)
-//        lastUserText = currentInputText
+        //        lastUserText = currentInputText
         sendMessage()
         view?.resetTextViewMessageText()
     }
@@ -103,5 +99,5 @@ extension ChatViewModel: ChatViewModelInterface {
     }
     
     
-    
 }
+

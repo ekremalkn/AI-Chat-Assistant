@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AssistantsPromptEditViewDelegate: AnyObject {
+    func assistantsPromptEditView(_ view: AssistantsPromptEditView, submitButtonTapped button: UIButton)
+}
+
 final class AssistantsPromptEditView: UIView {
 
     //MARK: - Creating UI Elements
@@ -21,8 +25,15 @@ final class AssistantsPromptEditView: UIView {
         return collection
     }()
     
-    private lazy var submitButton = SubmitButtonPromptEditScreen(type: .system)
+    private lazy var submitButton: SubmitButtonPromptEditScreen = {
+        let button = SubmitButtonPromptEditScreen(type: .system)
+        button.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
+    //MARK: - References
+    weak var delegate: AssistantsPromptEditViewDelegate?
+
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -35,10 +46,17 @@ final class AssistantsPromptEditView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        submitButton.layer.cornerRadius = 8
+        submitButton.layer.cornerRadius = 12
         submitButton.layer.masksToBounds = true
     }
 
+}
+
+//MARK: - Actions
+extension AssistantsPromptEditView {
+    @objc private func submitButtonTapped() {
+        delegate?.assistantsPromptEditView(self, submitButtonTapped: submitButton)
+    }
 }
 
 //MARK: - AddSubview / Constraints
