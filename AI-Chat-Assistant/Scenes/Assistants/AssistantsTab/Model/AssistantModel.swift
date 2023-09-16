@@ -18,7 +18,7 @@ struct AssistantModel: Codable {
 struct Assistant: Codable {
     let uuid: String?
     let tag: String?
-    let title, prompt, promptID: String?
+    var title, prompt, promptID: String?
 
     enum CodingKeys: String, CodingKey {
         case uuid, tag, title, prompt

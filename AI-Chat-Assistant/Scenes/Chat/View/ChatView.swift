@@ -34,9 +34,8 @@ final class ChatView: UIView {
         textView.textContainerInset = .init(top: 14, left: 10, bottom: 14, right: 10)
         textView.isScrollEnabled = false
         textView.isEditable = true
-        textView.autocorrectionType = .no
-        textView.spellCheckingType = .no
         textView.backgroundColor = .textViewBackground
+        
         return textView
     }()
     
@@ -115,7 +114,7 @@ extension ChatView {
         messageTextView.snp.makeConstraints { make in
             make.trailing.equalTo(sendButton.snp.leading).offset(-20)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.height.greaterThanOrEqualTo(50)
         }
         

@@ -52,6 +52,12 @@ final class AssistantsViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isHidden = false
+        navigationController?.tabBarController?.tabBar.isTranslucent = false
+    }
+    
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let leftTitleButton = UIButton()
@@ -126,9 +132,27 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let assistant = viewModel.assistants[indexPath.item]
+        
+        assistantsCoordinator?.openAssistantsPromptEdit(with: assistant)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.frame.width - 40
-        var cellHeight: CGFloat = 60
+        let cellDefaultUIElementsHeightAndPadding: CGFloat = 32
+        var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
+        
+        let label: UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 40, CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        
+        let assistantTitle = viewModel.assistants[indexPath.item].title
+        label.text = assistantTitle
+        label.sizeToFit()
+        
+        cellHeight += label.frame.height
         
         return .init(width: cellWidth, height: cellHeight)
     }

@@ -34,12 +34,6 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
         return animation
     }()
     
-    private lazy var textStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
     private lazy var assistantTextLabel: TypewriterLabel = {
         let label = TypewriterLabel()
         label.textAlignment = .left

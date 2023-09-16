@@ -50,9 +50,7 @@ final class AssistantsCategoryCollectionCell: UICollectionViewCell {
     func configure(assistant: AssistantTag) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            if let name = assistant.name {
-                assistantCategoryTitleLabel.text = assistant.name
-            }
+            assistantCategoryTitleLabel.text = assistant.name
         }
     }
     

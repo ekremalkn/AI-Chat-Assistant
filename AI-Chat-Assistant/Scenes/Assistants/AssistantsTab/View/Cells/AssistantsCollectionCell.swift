@@ -39,9 +39,7 @@ final class AssistantsCollectionCell: UICollectionViewCell {
     func configure(with assistant: Assistant) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            if let title = assistant.title {
-                assistantsTitleLabel.text = title.localizedCapitalized
-            }
+            assistantsTitleLabel.text = assistant.title?.localizedCapitalized
         }
     }
     

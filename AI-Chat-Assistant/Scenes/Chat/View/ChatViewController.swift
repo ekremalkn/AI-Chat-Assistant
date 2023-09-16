@@ -81,13 +81,6 @@ final class ChatViewController: UIViewController {
     }
     
     
-    //MARK: - Keyboard Hiding
-    private func setupKeyboardHiding() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    
 }
 
 //MARK: - Button Actions
@@ -99,7 +92,7 @@ extension ChatViewController {
     @objc private func shareChatButtonTapped() {
         
     }
-
+    
 }
 
 //MARK: - UITextViewDelegate
@@ -188,12 +181,10 @@ extension ChatViewController: ChatViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
-        hideKeyboardWhenTappedAround()
-        setupKeyboardHiding()
     }
     
     func assistantResponsing() {
-
+        
         ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
         ProgressHUD.colorAnimation = .lightGray
         ProgressHUD.show("Assistant typing...", interaction: false)

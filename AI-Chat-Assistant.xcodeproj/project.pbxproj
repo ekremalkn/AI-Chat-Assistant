@@ -15,6 +15,16 @@
 		F02753382AB0CE80003220B9 /* AssistantsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753372AB0CE80003220B9 /* AssistantsView.swift */; };
 		F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FA0852AA49A3A0089B680 /* SuggestionModel.swift */; };
 		F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FA08A2AA4D5810089B680 /* SuggestionsCollectionCell.swift */; };
+		F04879D32AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879D22AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift */; };
+		F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879D62AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift */; };
+		F04879D92AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879D82AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift */; };
+		F04879DB2AB5997C0075A0C6 /* AssistantsPromptEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879DA2AB5997C0075A0C6 /* AssistantsPromptEditView.swift */; };
+		F04879DE2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879DD2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift */; };
+		F04879E12AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879E02AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift */; };
+		F04879E32AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */; };
+		F04879E62AB5D7680075A0C6 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */; };
+		F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */; };
+		F04879EC2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04879EB2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift */; };
 		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
 		F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */; };
 		F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */; };
@@ -49,7 +59,6 @@
 		F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBDFE2A7FE37E00ACA10F /* UserChatCollectionCell.swift */; };
 		F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F07FBE012A7FE66C00ACA10F /* SnapKit */; };
 		F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */; };
-		F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */; };
 		F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0E2A801CB600ACA10F /* ColorSet.swift */; };
 		F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */; };
 		F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF22A9BD1160054C15E /* SuggestionsView.swift */; };
@@ -91,6 +100,15 @@
 		F02753372AB0CE80003220B9 /* AssistantsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsView.swift; sourceTree = "<group>"; };
 		F02FA0852AA49A3A0089B680 /* SuggestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionModel.swift; sourceTree = "<group>"; };
 		F02FA08A2AA4D5810089B680 /* SuggestionsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionCell.swift; sourceTree = "<group>"; };
+		F04879D22AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditCoordinator.swift; sourceTree = "<group>"; };
+		F04879D62AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditViewModel.swift; sourceTree = "<group>"; };
+		F04879D82AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditViewController.swift; sourceTree = "<group>"; };
+		F04879DA2AB5997C0075A0C6 /* AssistantsPromptEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditView.swift; sourceTree = "<group>"; };
+		F04879DD2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditCollectionCell.swift; sourceTree = "<group>"; };
+		F04879E02AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsPromptEditCollectionSectionHeader.swift; sourceTree = "<group>"; };
+		F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitButtonPromptEditScreen.swift; sourceTree = "<group>"; };
+		F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
+		F04879EB2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistanceResponseCoordinator.swift; sourceTree = "<group>"; };
 		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
 		F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectView.swift; sourceTree = "<group>"; };
 		F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCollectionCell.swift; sourceTree = "<group>"; };
@@ -125,7 +143,6 @@
 		F07FBDFB2A7FE1F400ACA10F /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		F07FBDFE2A7FE37E00ACA10F /* UserChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatCollectionCell.swift; sourceTree = "<group>"; };
 		F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantChatCollectionCell.swift; sourceTree = "<group>"; };
-		F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+KeyboardAppears.swift"; sourceTree = "<group>"; };
 		F07FBE0E2A801CB600ACA10F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCoordinator.swift; sourceTree = "<group>"; };
 		F0817FF22A9BD1160054C15E /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
@@ -165,6 +182,7 @@
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
 				F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */,
+				F04879E62AB5D7680075A0C6 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,10 +192,9 @@
 		F027532E2AB0C1CA003220B9 /* Assistants */ = {
 			isa = PBXGroup;
 			children = (
-				F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */,
-				F0E4936F2AB3713F00767FF2 /* Model */,
-				F02753312AB0C4C5003220B9 /* View */,
-				F02753342AB0C4F7003220B9 /* ViewModel */,
+				F04879D02AB5982F0075A0C6 /* AssistantsTab */,
+				F04879D12AB5983C0075A0C6 /* AssistantsPromptEdit */,
+				F04879EA2AB5E8150075A0C6 /* AssistantsResponse */,
 			);
 			path = Assistants;
 			sourceTree = "<group>";
@@ -247,6 +264,78 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		F04879D02AB5982F0075A0C6 /* AssistantsTab */ = {
+			isa = PBXGroup;
+			children = (
+				F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */,
+				F0E4936F2AB3713F00767FF2 /* Model */,
+				F02753312AB0C4C5003220B9 /* View */,
+				F02753342AB0C4F7003220B9 /* ViewModel */,
+			);
+			path = AssistantsTab;
+			sourceTree = "<group>";
+		};
+		F04879D12AB5983C0075A0C6 /* AssistantsPromptEdit */ = {
+			isa = PBXGroup;
+			children = (
+				F04879D22AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift */,
+				F04879D42AB599030075A0C6 /* View */,
+				F04879D52AB599060075A0C6 /* ViewModel */,
+			);
+			path = AssistantsPromptEdit;
+			sourceTree = "<group>";
+		};
+		F04879D42AB599030075A0C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F04879DC2AB59BAF0075A0C6 /* Cell */,
+				F04879DF2AB5A92D0075A0C6 /* Header */,
+				F04879D82AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift */,
+				F04879DA2AB5997C0075A0C6 /* AssistantsPromptEditView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F04879D52AB599060075A0C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F04879D62AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F04879DC2AB59BAF0075A0C6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F04879DD2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F04879DF2AB5A92D0075A0C6 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				F04879E02AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		F04879E72AB5D8F00075A0C6 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		F04879EA2AB5E8150075A0C6 /* AssistantsResponse */ = {
+			isa = PBXGroup;
+			children = (
+				F04879EB2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift */,
+			);
+			path = AssistantsResponse;
+			sourceTree = "<group>";
+		};
 		F066E9992A9B8EB9004A6964 /* ModelSelect */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				F066E9AA2A9BA1DE004A6964 /* ChatModelSelectButton.swift */,
+				F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -368,6 +458,7 @@
 		F07FBDC62A7FBA8C00ACA10F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				F04879E72AB5D8F00075A0C6 /* Managers */,
 				F07FBE0C2A801C2800ACA10F /* Assets */,
 				F07FBE092A7FFADD00ACA10F /* Extensions */,
 				F07FBE052A7FED3500ACA10F /* Components */,
@@ -535,7 +626,6 @@
 		F07FBE092A7FFADD00ACA10F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F07FBE0A2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift */,
 				F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */,
 				F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */,
 				F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */,
@@ -637,6 +727,7 @@
 				F0DADC2E2A81893F00BFC78D /* ProgressHUD */,
 				F0A5E3912A93D036000AE129 /* GhostTypewriter */,
 				F0A5E3992A93E8D8000AE129 /* Lottie */,
+				F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -672,6 +763,7 @@
 				F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */,
 				F0A5E3982A93E8D8000AE129 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -701,7 +793,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */,
+				F04879EC2AB5E82B0075A0C6 /* AssistanceResponseCoordinator.swift in Sources */,
+				F04879E32AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift in Sources */,
 				F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */,
+				F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */,
 				F07FBDEB2A7FD28400ACA10F /* NetworkConstants.swift in Sources */,
 				F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */,
 				F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */,
@@ -709,6 +804,7 @@
 				F0F272ED2AB217DF00D63259 /* AssistantsCollectionHeader.swift in Sources */,
 				F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
+				F04879DB2AB5997C0075A0C6 /* AssistantsPromptEditView.swift in Sources */,
 				F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */,
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
 				F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */,
@@ -717,12 +813,14 @@
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
 				F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
+				F04879DE2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
 				F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
+				F04879D92AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift in Sources */,
 				F0ADEF9B2AA65BF3008403CA /* BeautyLifestyleSuggestions.swift in Sources */,
 				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
 				F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */,
@@ -740,10 +838,10 @@
 				F06AA0802AA507B900B5B424 /* SuggestionsProvider.swift in Sources */,
 				F0817FF62A9BD1F00054C15E /* SuggestionsCollectionHeader.swift in Sources */,
 				F0ADEF992AA65BAD008403CA /* FunSuggestions.swift in Sources */,
+				F04879E12AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift in Sources */,
 				F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */,
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F0ADEF9D2AA65C26008403CA /* HealthNutritionSuggestions.swift in Sources */,
-				F07FBE0B2A7FFAF300ACA10F /* UIViewController+KeyboardAppears.swift in Sources */,
 				F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
@@ -751,6 +849,7 @@
 				F07F3E7A2AA7934500075CE5 /* AppName.swift in Sources */,
 				F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* ChatModel.swift in Sources */,
+				F04879D32AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift in Sources */,
 				F02753362AB0C50C003220B9 /* AssistantsViewModel.swift in Sources */,
 				F02753382AB0CE80003220B9 /* AssistantsView.swift in Sources */,
 				F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */,
@@ -764,6 +863,7 @@
 				F0E493752AB37FB200767FF2 /* AssistantsService.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
+				F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */,
 				F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -982,6 +1082,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		F07FBDDE2A7FD01B00ACA10F /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -1025,6 +1133,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		F07FBDDF2A7FD01B00ACA10F /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F07FBDDE2A7FD01B00ACA10F /* XCRemoteSwiftPackageReference "Moya" */;

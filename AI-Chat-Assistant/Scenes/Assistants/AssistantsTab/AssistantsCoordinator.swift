@@ -25,7 +25,12 @@ final class AssistantsCoordinator: Coordinator {
         navigationController.setViewControllers([assistantsVC], animated: false)
     }
 
-    
+    func openAssistantsPromptEdit(with assistant: Assistant) {
+        let assistantsPromptEditCoordinator = AssistantsPromptEditCoordinator(navigationController: navigationController, assistant: assistant)
+        childCoordinators.append(assistantsPromptEditCoordinator)
+        assistantsPromptEditCoordinator.assistantsParentCoordinator = self
+        assistantsPromptEditCoordinator.start()
+    }
 
 
 }

@@ -23,13 +23,7 @@ final class UserChatCollectionCell: UICollectionViewCell {
         imageView.tintColor = .white
         return imageView
     }()
-    
-    private lazy var textStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
+
     private lazy var userTextLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
