@@ -32,8 +32,8 @@ final class AssistantsPromptEditCoordinator: Coordinator {
         navigationController.pushViewController(assistantsPromptEditVC, animated: true)
     }
     
-    func openAssistantsResponseVC(with uiMessages: [UIMessage]) {
-        let assistantsResponseCoordinator = AssistantsResponseCoordinator(navigationController: navigationController, uiMessages: uiMessages)
+    func openAssistantsResponseVC(with uiMessages: [UIMessage], selectedGPTModel: GPTModel) {
+        let assistantsResponseCoordinator = AssistantsResponseCoordinator(navigationController: navigationController, mainMessages: uiMessages, selectedGPTModel: selectedGPTModel, selectedAssistant: assistant)
         childCoordinators.append(assistantsResponseCoordinator)
         assistantsResponseCoordinator.assistantsPromptEditParentCoordinator = self
         assistantsResponseCoordinator.start()

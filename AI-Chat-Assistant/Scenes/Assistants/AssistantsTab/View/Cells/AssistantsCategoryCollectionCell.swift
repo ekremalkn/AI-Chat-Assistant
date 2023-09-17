@@ -63,7 +63,7 @@ extension AssistantsCategoryCollectionCell {
     func selectCell() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            layer.borderColor = UIColor.white.cgColor
+            layer.borderColor = UIColor.main.cgColor
         }
     }
     

@@ -75,6 +75,22 @@ extension AssistantsPromptEditCollectionCell {
     }
 }
 
+//MARK: - Animation
+extension AssistantsPromptEditCollectionCell {
+    func highlightEditButton() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self else { return }
+            let shake = CABasicAnimation(keyPath: "position")
+            shake.duration = 0.1
+            shake.repeatCount = 4
+            shake.autoreverses = true
+            shake.fromValue = NSValue(cgPoint: CGPoint(x: promptEditButton.center.x - 5, y: promptEditButton.center.y))
+            shake.toValue = NSValue(cgPoint: CGPoint(x: promptEditButton.center.x + 5, y: promptEditButton.center.y))
+            promptEditButton.layer.add(shake, forKey: "position")
+        }
+    }
+}
+
 //MARK: - AddSubview / Constraints
 extension AssistantsPromptEditCollectionCell {
     private func setupViews() {

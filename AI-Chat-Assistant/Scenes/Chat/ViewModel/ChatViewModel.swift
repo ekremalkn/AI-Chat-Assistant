@@ -36,7 +36,6 @@ final class ChatViewModel {
     }
     
     var currentInputText: String = ""
-//    var lastUserText: String = ""
     
     //MARK: - Init Methods
     init(openAIChatService: OpenAIChatService) {
@@ -44,7 +43,7 @@ final class ChatViewModel {
     }
     
     private func sendMessage() {
-//        view?.assistantResponsing()
+        view?.assistantResponsing()
         uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         // add cell for waiting to response assistane
         openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in

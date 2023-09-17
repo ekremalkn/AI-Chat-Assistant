@@ -14,6 +14,7 @@ final class MainTabBarController: UITabBarController {
         
         tabBar.barTintColor = .vcBackground
         tabBar.backgroundColor = .vcBackground
+        tabBar.tintColor = .main
         tabBar.isTranslucent = false
         // Do any additional setup after loading the view.
     }

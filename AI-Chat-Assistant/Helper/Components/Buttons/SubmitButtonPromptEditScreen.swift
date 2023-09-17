@@ -52,7 +52,7 @@ final class SubmitButtonPromptEditScreen: UIButton {
 //MARK: - AddSubview / Constraints
 extension SubmitButtonPromptEditScreen {
     private func setupViews() {
-        backgroundColor = .buttonBackground
+        backgroundColor = .main
         addSubview(buttonTitleLabel)
         addSubview(buttonImageView)
    

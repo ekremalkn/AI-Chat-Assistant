@@ -14,6 +14,7 @@ final class ChatModelSelectButton: UIButton {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = .init(named: "ChatGPT")
+        imageView.tintColor = .main
         return imageView
     }()
     

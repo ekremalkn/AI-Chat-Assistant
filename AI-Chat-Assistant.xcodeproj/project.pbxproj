@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */; };
 		F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */; };
+		F02563D92AB7369A00D10150 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = F02563D82AB7369A00D10150 /* BetterSegmentedControl */; };
+		F02563DD2AB7486000D10150 /* SuggestionsResponseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */; };
+		F02563E02AB7493B00D10150 /* SuggestionsResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */; };
+		F02563E22AB7497E00D10150 /* SuggestionsResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563E12AB7497E00D10150 /* SuggestionsResponseViewController.swift */; };
+		F02563E52AB7499300D10150 /* SuggestionsResponseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563E42AB7499300D10150 /* SuggestionsResponseViewModel.swift */; };
+		F02563E72AB74F0800D10150 /* UIViewController+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563E62AB74F0800D10150 /* UIViewController+CopyToClipboard.swift */; };
+		F02563E92AB7626900D10150 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563E82AB7626900D10150 /* UIView+Snapshot.swift */; };
 		F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */; };
 		F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */; };
 		F02753362AB0C50C003220B9 /* AssistantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */; };
@@ -78,7 +85,7 @@
 		F0ADEF9D2AA65C26008403CA /* HealthNutritionSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEF9C2AA65C26008403CA /* HealthNutritionSuggestions.swift */; };
 		F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEF9E2AA65C48008403CA /* AstrologySuggestions.swift */; };
 		F0ADEFA32AA65C94008403CA /* TravelSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA22AA65C94008403CA /* TravelSuggestions.swift */; };
-		F0ADEFA52AA65CB9008403CA /* BusinessMarketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA42AA65CB9008403CA /* BusinessMarketing.swift */; };
+		F0ADEFA52AA65CB9008403CA /* BusinessMarketingSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA42AA65CB9008403CA /* BusinessMarketingSuggestions.swift */; };
 		F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA62AA65CDD008403CA /* FashionSuggestions.swift */; };
 		F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFA82AA65CFD008403CA /* SocialMediaSuggestions.swift */; };
 		F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */; };
@@ -97,6 +104,12 @@
 /* Begin PBXFileReference section */
 		F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CopyToClipboard.swift"; sourceTree = "<group>"; };
 		F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
+		F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseCoordinator.swift; sourceTree = "<group>"; };
+		F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseView.swift; sourceTree = "<group>"; };
+		F02563E12AB7497E00D10150 /* SuggestionsResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseViewController.swift; sourceTree = "<group>"; };
+		F02563E42AB7499300D10150 /* SuggestionsResponseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseViewModel.swift; sourceTree = "<group>"; };
+		F02563E62AB74F0800D10150 /* UIViewController+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CopyToClipboard.swift"; sourceTree = "<group>"; };
+		F02563E82AB7626900D10150 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
 		F027532F2AB0C474003220B9 /* AssistantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCoordinator.swift; sourceTree = "<group>"; };
 		F02753322AB0C4DD003220B9 /* AssistantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsViewController.swift; sourceTree = "<group>"; };
 		F02753352AB0C50C003220B9 /* AssistantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsViewModel.swift; sourceTree = "<group>"; };
@@ -163,7 +176,7 @@
 		F0ADEF9C2AA65C26008403CA /* HealthNutritionSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthNutritionSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEF9E2AA65C48008403CA /* AstrologySuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologySuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFA22AA65C94008403CA /* TravelSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelSuggestions.swift; sourceTree = "<group>"; };
-		F0ADEFA42AA65CB9008403CA /* BusinessMarketing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessMarketing.swift; sourceTree = "<group>"; };
+		F0ADEFA42AA65CB9008403CA /* BusinessMarketingSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessMarketingSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFA62AA65CDD008403CA /* FashionSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFA82AA65CFD008403CA /* SocialMediaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerSuggestions.swift; sourceTree = "<group>"; };
@@ -187,6 +200,7 @@
 				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
+				F02563D92AB7369A00D10150 /* BetterSegmentedControl in Frameworks */,
 				F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */,
 				F04879E62AB5D7680075A0C6 /* IQKeyboardManagerSwift in Frameworks */,
 			);
@@ -195,6 +209,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F02563DA2AB7483E00D10150 /* SuggestionsTab */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */,
+				F02FA0822AA496830089B680 /* Model */,
+				F0817FF12A9BD1030054C15E /* View */,
+				F0817FF92A9BD4FD0054C15E /* ViewModel */,
+			);
+			path = SuggestionsTab;
+			sourceTree = "<group>";
+		};
+		F02563DB2AB7484D00D10150 /* SuggestionsResponse */ = {
+			isa = PBXGroup;
+			children = (
+				F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */,
+				F02563DE2AB7492800D10150 /* View */,
+				F02563E32AB7498600D10150 /* ViewModel */,
+			);
+			path = SuggestionsResponse;
+			sourceTree = "<group>";
+		};
+		F02563DE2AB7492800D10150 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */,
+				F02563E12AB7497E00D10150 /* SuggestionsResponseViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F02563E32AB7498600D10150 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F02563E42AB7499300D10150 /* SuggestionsResponseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F027532E2AB0C1CA003220B9 /* Assistants */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,7 +304,7 @@
 				F0ADEF9C2AA65C26008403CA /* HealthNutritionSuggestions.swift */,
 				F0ADEF9E2AA65C48008403CA /* AstrologySuggestions.swift */,
 				F0ADEFA22AA65C94008403CA /* TravelSuggestions.swift */,
-				F0ADEFA42AA65CB9008403CA /* BusinessMarketing.swift */,
+				F0ADEFA42AA65CB9008403CA /* BusinessMarketingSuggestions.swift */,
 				F0ADEFA62AA65CDD008403CA /* FashionSuggestions.swift */,
 				F0ADEFA82AA65CFD008403CA /* SocialMediaSuggestions.swift */,
 				F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */,
@@ -654,6 +706,8 @@
 				F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */,
 				F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */,
 				F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */,
+				F02563E62AB74F0800D10150 /* UIViewController+CopyToClipboard.swift */,
+				F02563E82AB7626900D10150 /* UIView+Snapshot.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -669,10 +723,8 @@
 		F0817FEE2A9BCE510054C15E /* Suggestions */ = {
 			isa = PBXGroup;
 			children = (
-				F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */,
-				F02FA0822AA496830089B680 /* Model */,
-				F0817FF12A9BD1030054C15E /* View */,
-				F0817FF92A9BD4FD0054C15E /* ViewModel */,
+				F02563DA2AB7483E00D10150 /* SuggestionsTab */,
+				F02563DB2AB7484D00D10150 /* SuggestionsResponse */,
 			);
 			path = Suggestions;
 			sourceTree = "<group>";
@@ -753,6 +805,7 @@
 				F0A5E3912A93D036000AE129 /* GhostTypewriter */,
 				F0A5E3992A93E8D8000AE129 /* Lottie */,
 				F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */,
+				F02563D82AB7369A00D10150 /* BetterSegmentedControl */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -789,6 +842,7 @@
 				F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */,
 				F0A5E3982A93E8D8000AE129 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -829,6 +883,7 @@
 				F0F272ED2AB217DF00D63259 /* AssistantsCollectionHeader.swift in Sources */,
 				F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
+				F02563E22AB7497E00D10150 /* SuggestionsResponseViewController.swift in Sources */,
 				F04879DB2AB5997C0075A0C6 /* AssistantsPromptEditView.swift in Sources */,
 				F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */,
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
@@ -847,6 +902,7 @@
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
+				F02563E52AB7499300D10150 /* SuggestionsResponseViewModel.swift in Sources */,
 				F04879D92AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift in Sources */,
 				F0ADEF9B2AA65BF3008403CA /* BeautyLifestyleSuggestions.swift in Sources */,
 				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
@@ -857,7 +913,7 @@
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
-				F0ADEFA52AA65CB9008403CA /* BusinessMarketing.swift in Sources */,
+				F0ADEFA52AA65CB9008403CA /* BusinessMarketingSuggestions.swift in Sources */,
 				F0F272EB2AB215BF00D63259 /* AssistantsCollectionCell.swift in Sources */,
 				F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */,
 				F0ADEF972AA65B2F008403CA /* EducationSuggestions.swift in Sources */,
@@ -866,6 +922,7 @@
 				F0817FF62A9BD1F00054C15E /* SuggestionsCollectionHeader.swift in Sources */,
 				F0ADEF992AA65BAD008403CA /* FunSuggestions.swift in Sources */,
 				F04879E12AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift in Sources */,
+				F02563E02AB7493B00D10150 /* SuggestionsResponseView.swift in Sources */,
 				F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */,
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F0ADEF9D2AA65C26008403CA /* HealthNutritionSuggestions.swift in Sources */,
@@ -874,8 +931,10 @@
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
 				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,
 				F07F3E7A2AA7934500075CE5 /* AppName.swift in Sources */,
+				F02563E72AB74F0800D10150 /* UIViewController+CopyToClipboard.swift in Sources */,
 				F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* ChatModel.swift in Sources */,
+				F02563E92AB7626900D10150 /* UIView+Snapshot.swift in Sources */,
 				F04879D32AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift in Sources */,
 				F02753362AB0C50C003220B9 /* AssistantsViewModel.swift in Sources */,
 				F02753382AB0CE80003220B9 /* AssistantsView.swift in Sources */,
@@ -888,6 +947,7 @@
 				F0ADEFA32AA65C94008403CA /* TravelSuggestions.swift in Sources */,
 				F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */,
 				F0E493752AB37FB200767FF2 /* AssistantsService.swift in Sources */,
+				F02563DD2AB7486000D10150 /* SuggestionsResponseCoordinator.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 				F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */,
@@ -1110,6 +1170,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gmarm/BetterSegmentedControl.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -1161,6 +1229,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F02563D82AB7369A00D10150 /* BetterSegmentedControl */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */;
+			productName = BetterSegmentedControl;
+		};
 		F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;

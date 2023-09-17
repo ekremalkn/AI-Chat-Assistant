@@ -72,6 +72,10 @@ final class AssistantsViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = leftTitleBarButton
         
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        backBarButtonItem.tintColor = .main
+        navigationItem.backBarButtonItem = backBarButtonItem
+        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
@@ -220,9 +224,9 @@ extension AssistantsViewController: AssistantsViewInterface {
     }
     
     func fetchingAssistants() {
-        ProgressHUD.colorHUD = .init(hex: "1F1F1F")
-        ProgressHUD.colorStatus = .init(hex: "1F1F1F")
-        ProgressHUD.colorAnimation = .init(hex: "1F1F1F")
+        ProgressHUD.colorHUD = .main
+        ProgressHUD.colorStatus = .main
+        ProgressHUD.colorAnimation = .main
         ProgressHUD.show(interaction: false)
     }
     

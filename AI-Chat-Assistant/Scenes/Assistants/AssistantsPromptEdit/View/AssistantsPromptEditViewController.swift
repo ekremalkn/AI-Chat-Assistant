@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import BetterSegmentedControl
 
 protocol AssistantsPromptEditViewInterface: AnyObject {
     func configureViewController()
@@ -43,7 +44,6 @@ final class AssistantsPromptEditViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +58,13 @@ final class AssistantsPromptEditViewController: UIViewController {
         KeyboardManager.shared.setKeyboardToolbar(enable: false, doneButtonText: nil)
     }
     
+    //MARK: - Configure Nav Items
+    private func configureNavItems() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        backBarButtonItem.tintColor = .main
+        navigationItem.backBarButtonItem = backBarButtonItem
+    }
+    
     //MARK: - Setup Delegates
     private func setupDelegates() {
         assistantsPromptEditView.delegate = self
@@ -65,7 +72,6 @@ final class AssistantsPromptEditViewController: UIViewController {
         assistantsPromptEditView.assistantsPromptEditCollectionView.delegate = self
         assistantsPromptEditView.assistantsPromptEditCollectionView.dataSource = self
     }
-    
     
 }
 
@@ -87,6 +93,11 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
         cell.promptTextView.delegate = self
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? AssistantsPromptEditCollectionCell else { return }
+        cell.highlightEditButton()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -113,7 +124,7 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: collectionView.frame.height - 90 - 20)) // son 20 content insetin bottom 20si
         
         
-        if newSize.height + cellDefaultUIElementsHeightAndPadding + sectionTitleLabel.frame.height >= collectionView.frame.height {
+        if newSize.height + cellDefaultUIElementsHeightAndPadding + sectionTitleLabel.frame.height + 20 + 20 >= collectionView.frame.height {
             cellHeight = collectionView.frame.height - (sectionTitleLabel.frame.height + 20 + 20) // son 20 content insetin bottom 20si
         } else {
             cellHeight += newSize.height
@@ -159,20 +170,46 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
         return .init(width: headerWidth, height: headerHeight)
     }
     
+}
+
+//MARK: - Configure Segmented Control
+extension AssistantsPromptEditViewController {
+    private func setupSegmentedControl() {
+        let navigationSegmentedControl = BetterSegmentedControl(
+            frame: CGRect(x: 0, y: 0, width: 200.0, height: 30.0),
+            segments: LabelSegment.segments(withTitles: viewModel.gptModels.map { $0.modelUIName },
+                                            normalTextColor: .white.withAlphaComponent(0.6),
+                                            selectedTextColor: .white),
+            options:[.backgroundColor(.cellBackground),
+                     .indicatorViewBackgroundColor(.main),
+                     .cornerRadius(6),
+                     .animationSpringDamping(1.0)])
+        navigationSegmentedControl.addTarget(self,
+                                             action: #selector(navigationSegmentedControlValueChanged),
+                                             for: .valueChanged)
+        navigationItem.titleView = navigationSegmentedControl
+    }
     
+    @objc private func navigationSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
+        let selectedModelIndex = sender.index
+        let selectedGPTModel = viewModel.gptModels[selectedModelIndex]
+        viewModel.currentModel = selectedGPTModel
+    }
 }
 
 //MARK: - AssistantsPromptEditViewInterface
 extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface {
     func configureViewController() {
         setKeyboardAppearNotifications()
+        configureNavItems()
+        setupSegmentedControl()
         setupDelegates()
     }
     
     func chatServiceResponding() {
-        ProgressHUD.colorHUD = .init(hex: "1F1F1F")
-        ProgressHUD.colorStatus = .init(hex: "1F1F1F")
-        ProgressHUD.colorAnimation = .init(hex: "1F1F1F")
+        ProgressHUD.colorHUD = .main
+        ProgressHUD.colorStatus = .main
+        ProgressHUD.colorAnimation = .main
         ProgressHUD.show(interaction: false)
     }
     
@@ -181,11 +218,13 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
     }
     
     func didOccurErrorWhileChatServiceResponding(_ errorMsg: String) {
-        ProgressHUD.showError(errorMsg, interaction: false, delay: 1.5)
+        ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
+        ProgressHUD.colorStatus = .darkGray
+        ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
     }
     
     func openAssistantsResponseVC(with uiMessages: [UIMessage]) {
-        assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages)
+        assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages, selectedGPTModel: viewModel.currentModel)
     }
     
 }
@@ -194,6 +233,12 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
 extension AssistantsPromptEditViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.promptTextDidChange(newPromptText: textView.text)
+        
+        if !textView.text.isEmpty {
+            assistantsPromptEditView.setSumbitButtonTouchability(true)
+        } else {
+            assistantsPromptEditView.setSumbitButtonTouchability(false)
+        }
     }
 }
 

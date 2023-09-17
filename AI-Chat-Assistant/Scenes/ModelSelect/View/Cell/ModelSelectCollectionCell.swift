@@ -98,7 +98,7 @@ extension ModelSelectCollectionCell {
     func cellSelected() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            layer.borderColor = UIColor.white.cgColor
+            layer.borderColor = UIColor.main.cgColor
         }
     }
     

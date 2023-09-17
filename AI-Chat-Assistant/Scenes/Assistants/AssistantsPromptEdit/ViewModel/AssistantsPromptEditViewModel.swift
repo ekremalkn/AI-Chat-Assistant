@@ -25,6 +25,7 @@ final class AssistantsPromptEditViewModel {
     //MARK: - Variables
     var assistant: Assistant
     var promptIsEditing: Bool = false
+    var gptModels: [GPTModel] = GPTModel.allCases
     var currentModel: GPTModel = .gpt3_5Turbo
     
     //MARK: - Init Methods
@@ -66,6 +67,8 @@ extension AssistantsPromptEditViewModel: AssistantsPromptEditViewModelInterface 
                     view?.chatServiceResponded()
                     
                     view?.openAssistantsResponseVC(with: uiMessages)
+                } else {
+                    view?.didOccurErrorWhileChatServiceResponding("Assistant Confused")
                 }
             case .failure(let failure):
                 view?.didOccurErrorWhileChatServiceResponding(failure.localizedDescription)

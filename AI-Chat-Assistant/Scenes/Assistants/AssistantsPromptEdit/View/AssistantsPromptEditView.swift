@@ -18,7 +18,7 @@ final class AssistantsPromptEditView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.contentInset = .init(top: 0, left: 20, bottom: 20, right: 20)
+        collection.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)
         collection.backgroundColor = .vcBackground
         collection.register(AssistantsPromptEditCollectionSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AssistantsPromptEditCollectionSectionHeader.identifier)
         collection.register(AssistantsPromptEditCollectionCell.self, forCellWithReuseIdentifier: AssistantsPromptEditCollectionCell.identifier)
@@ -56,6 +56,22 @@ final class AssistantsPromptEditView: UIView {
 extension AssistantsPromptEditView {
     @objc private func submitButtonTapped() {
         delegate?.assistantsPromptEditView(self, submitButtonTapped: submitButton)
+    }
+}
+
+//MARK: - Submit Button Visibility
+extension AssistantsPromptEditView {
+    func setSumbitButtonTouchability(_ isEnable: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            switch isEnable {
+            case true:
+                submitButton.isEnabled = true
+            case false:
+                submitButton.isEnabled = false
+            }
+        }
+        
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GPTModel {
+enum GPTModel: CaseIterable {
     case gpt3_5Turbo
     case gpt4
 }

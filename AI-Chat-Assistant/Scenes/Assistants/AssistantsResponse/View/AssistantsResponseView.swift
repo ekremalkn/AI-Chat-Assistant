@@ -20,7 +20,7 @@ final class AssistantsResponseView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(UserChatCollectionCell.self, forCellWithReuseIdentifier: UserChatCollectionCell.identifier)
         collection.register(AssistantChatCollectionCell.self, forCellWithReuseIdentifier: AssistantChatCollectionCell.identifier)
-        collection.contentInset = .init(top: 20, left: 0, bottom: 20, right: 0)
+        collection.contentInset = .init(top: 0, left: 0, bottom: 20, right: 0)
         collection.showsVerticalScrollIndicator = false
         collection.backgroundColor = .clear
         return collection
@@ -30,7 +30,7 @@ final class AssistantsResponseView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("Continue Chatting", for: .normal)
         button.tintColor = .white
-        button.backgroundColor = .buttonBackground
+        button.backgroundColor = .main
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
         button.addTarget(self, action: #selector(continuneChatButtonTapped), for: .touchUpInside)
         return button
@@ -52,7 +52,7 @@ final class AssistantsResponseView: UIView {
         let button = UIButton(type: .system)
         button.setImage(.init(named: "chat_send"), for: .normal)
         button.tintColor = .white
-        button.backgroundColor = .buttonBackground
+        button.backgroundColor = .main
         button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
         button.isEnabled = false
         button.isHidden = true

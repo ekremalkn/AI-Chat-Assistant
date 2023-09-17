@@ -21,7 +21,7 @@ protocol AssistantsResponseViewInterface: AnyObject {
 }
 
 final class AssistantsResponseViewController: UIViewController {
-
+    
     //MARK: - References
     weak var assistantsResponseCoordinator: AssistantsResponseCoordinator?
     private let viewModel: AssistantsResponseViewModel
@@ -47,6 +47,28 @@ final class AssistantsResponseViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
     }
+
+    //MARK: - Configure Nav Items
+    private func configureNavItems() {
+        let label = UILabel()
+        label.text = viewModel.assistant.title
+        label.numberOfLines = 2
+        label.textColor = .white
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textAlignment = .center
+        navigationItem.titleView = label
+        
+        let shareChatButton = UIButton(type: .system)
+        shareChatButton.tintColor = .white
+        shareChatButton.setImage(.init(systemName: "square.and.arrow.up"), for: .normal)
+        shareChatButton.addTarget(self, action: #selector(shareChatButtonTapped), for: .touchUpInside)
+        shareChatButton.isEnabled = false
+        
+        let shareChatBarButton = UIBarButtonItem(customView: shareChatButton)
+        
+        navigationItem.rightBarButtonItem = shareChatBarButton
+    }
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
@@ -57,8 +79,28 @@ final class AssistantsResponseViewController: UIViewController {
         assistantsResponseView.chatCollectionView.delegate = self
         assistantsResponseView.chatCollectionView.dataSource = self
     }
+    
+}
 
- 
+//MARK: - Button Actions
+extension AssistantsResponseViewController {
+    @objc private func shareChatButtonTapped() {
+        let collectionView = assistantsResponseView.chatCollectionView
+        
+        var collectionViewCellImages: [UIImage] = []
+        
+        for index in 0..<collectionView.numberOfItems(inSection: 0) {
+            let indexPath = IndexPath(item: index, section: 0)
+            if let cellImage = collectionView.cellForItem(at: indexPath)?.snapshot {
+                // Her hücreyi collectionViewContainer'a ekleyin
+                collectionViewCellImages.append(cellImage)
+            }
+        }
+        
+        let combinedImage = combineImagesVertically(collectionViewCellImages)
+        
+       shareCombinedImage(combinedImage)
+    }
 
 }
 
@@ -132,37 +174,54 @@ extension AssistantsResponseViewController: UICollectionViewDelegate, UICollecti
 
 //MARK: - AssistantsResponseViewInterface
 extension AssistantsResponseViewController: AssistantsResponseViewInterface {
-    func reloadMessages() {
-        let collectionView = assistantsResponseView.chatCollectionView
-        
-        DispatchQueue.main.async {
-            collectionView.reloadData()
-        }
-    }
-    
     func configureViewController() {
+        configureNavItems()
         setupDelegates()
     }
     
     func assistantResponsing() {
-        ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
-        ProgressHUD.colorAnimation = .lightGray
-        ProgressHUD.show("Assistant typing...", interaction: false)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            if let shareBarButton = navigationItem.rightBarButtonItem {
+                shareBarButton.isEnabled = false
+            }
+        }
     }
     
     func assistantResponsed() {
-        ProgressHUD.remove()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            if let shareBarButton = navigationItem.rightBarButtonItem {
+                shareBarButton.isEnabled = true
+            }
+        }
     }
     
     func didOccurErrorWhileResponsing(_ errorMsg: String) {
-        ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
-        ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            if let shareBarButton = navigationItem.rightBarButtonItem {
+                shareBarButton.isEnabled = true
+            }
+            ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
+            ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
+            
+        }
+        
     }
     
     func resetTextViewMessageText() {
         assistantsResponseView.messageTextView.text = nil
         assistantsResponseView.setSendButtonTouchability(false)
     }
+    
+    func reloadMessages() {
+        let collectionView = assistantsResponseView.chatCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.reloadData()
+        }
+    }    
     
 }
 
@@ -192,7 +251,7 @@ extension AssistantsResponseViewController: UITextViewDelegate {
 //MARK: - UserChatCollectionCellDelegate
 extension AssistantsResponseViewController: UserChatCollectionCellDelegate {
     func userChatCollectionCell(_ cell: UserChatCollectionCell, copyButtonTapped copiedText: String) {
-        copyButtonTapped(copiedText: copiedText)
+        copyTextToClipboard(copiedText: copiedText)
     }
     
 }
@@ -204,7 +263,7 @@ extension AssistantsResponseViewController: AssistantChatCollectionCellDelegate 
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, copyButtonTapped copiedText: String) {
-        copyButtonTapped(copiedText: copiedText)
+        copyTextToClipboard(copiedText: copiedText)
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String) {
@@ -229,17 +288,61 @@ extension AssistantsResponseViewController: AssistantChatCollectionCellDelegate 
     
 }
 
-//MARK: - Helper Methods
+//MARK: - Helper Methods(Share All Chat)
 extension AssistantsResponseViewController {
-    private func copyButtonTapped(copiedText: String) {
-        copiedText.copyToClipboard { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                showToast(message: "Copied to clipboard", image: .init(systemName: "doc.on.doc.fill"), duration: 1.5)
-            case .failure:
-                showToast(message: "Failed to copy to clipboard", image: .init(systemName: "doc.on.doc.fill"), duration: 1.5)
+    func combineImagesVertically(_ images: [UIImage]) -> UIImage? {
+        let totalHeight = images.reduce(0) { (result, image) in
+            return result + image.size.height
+        }
+        let maxWidth = images.max { (image1, image2) in
+            return image1.size.width < image2.size.width
+        }?.size.width ?? 0
+
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: maxWidth, height: totalHeight), false, 0.0)
+
+        var currentY: CGFloat = 0.0
+        for image in images {
+            image.draw(in: CGRect(x: 0, y: currentY, width: maxWidth, height: image.size.height))
+            currentY += image.size.height
+        }
+
+        let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return combinedImage
+    }
+    
+    func shareCombinedImage(_ combinedImage: UIImage?) {
+        if let combinedImage = combinedImage,
+           let imageData = combinedImage.jpegData(compressionQuality: 1.0) {
+            // Geçici bir dosya oluşturun ve görüntüyü bu dosyaya kaydedin
+            let temporaryDirectory = FileManager.default.temporaryDirectory
+            let temporaryFileURL = temporaryDirectory.appendingPathComponent("\(viewModel.assistant.title ?? "Unknown").jpg")
+            
+            do {
+                try imageData.write(to: temporaryFileURL)
+                
+                // Paylaşım ekranını gösterin
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    
+                    // Paylaşım işlemi için dosya URL'sini kullanın
+                    let activityViewController = UIActivityViewController(activityItems: [temporaryFileURL], applicationActivities: nil)
+                    
+                    activityViewController.completionWithItemsHandler = { _, _, _, _ in
+                        try? FileManager.default.removeItem(at: temporaryFileURL)
+                        
+                    }
+                    
+                    present(activityViewController, animated: true)
+                }
+                
+                
+            } catch {
+                // Dosya kaydetme hatası
+                print("Dosya kaydetme hatası: \(error)")
             }
+            
         }
     }
 }
