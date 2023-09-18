@@ -72,10 +72,23 @@ final class AssistantsViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = leftTitleBarButton
         
+        let rightSettingButton = UIButton(type: .system)
+        rightSettingButton.setImage(.init(named: "chat_setting"), for: .normal)
+        rightSettingButton.tintColor = .white
+        
+        let rightHistoryButton = UIButton(type: .system)
+        rightHistoryButton.setImage(.init(named: "chat_history"), for: .normal)
+        rightHistoryButton.tintColor = .white
+        
+        let rightSettingBarButtonItem = UIBarButtonItem(customView: rightSettingButton)
+        let rightHistoryBarButtonItem = UIBarButtonItem(customView: rightHistoryButton)
+        
+        navigationItem.rightBarButtonItems = [rightSettingBarButtonItem, rightHistoryBarButtonItem]
+        
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         backBarButtonItem.tintColor = .main
         navigationItem.backBarButtonItem = backBarButtonItem
-        
+            
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     

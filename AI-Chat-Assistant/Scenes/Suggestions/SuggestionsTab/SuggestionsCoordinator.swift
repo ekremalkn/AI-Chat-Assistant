@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol SuggestionsCoordinatorDelegate: AnyObject {
+    func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectModel model: GPTModel)
+}
+
 final class SuggestionsCoordinator: Coordinator {
     
     //MARK: - References
     let navigationController: UINavigationController = UINavigationController()
-
+    weak var delegate: SuggestionsCoordinatorDelegate?
+    
     //MARK: - Variables
     var childCoordinators: [Coordinator] = []
 
@@ -28,12 +33,28 @@ final class SuggestionsCoordinator: Coordinator {
         
     }
     
-    func openSuggestionsResponseVC(with suggestion: Suggestion) {
-        let suggestionsResponseCoordinator = SuggestionsResponseCoordinator(navigationController: navigationController, selectedSuggestion: suggestion)
+    func openSuggestionsResponseVC(with suggestion: Suggestion, selectedGPTModel: GPTModel) {
+        let suggestionsResponseCoordinator = SuggestionsResponseCoordinator(navigationController: navigationController, selectedSuggestion: suggestion, selectedGPTModel: selectedGPTModel)
         childCoordinators.append(suggestionsResponseCoordinator)
         suggestionsResponseCoordinator.suggestionsParentCoordinator = self
         suggestionsResponseCoordinator.start()
     }
+    
+    func openModelSelectVC(with selectedModel: GPTModel) {
+        let modelSelectCoordinator = ModelSelectCoordinator(navigationController: navigationController, model: selectedModel)
+        childCoordinators.append(modelSelectCoordinator)
+        modelSelectCoordinator.suggestionsParentCoordinator = self
+        modelSelectCoordinator.delegate = self
+        modelSelectCoordinator.start()
+    }
 
 
+}
+
+extension SuggestionsCoordinator: ModelSelectCoordinatorDelegate {
+    func modelSelectCoordinator(_ coordinator: ModelSelectCoordinator, didSelectModel model: GPTModel) {
+        delegate?.suggestionsCoordinator(self, didSelectModel: model)
+    }
+    
+    
 }

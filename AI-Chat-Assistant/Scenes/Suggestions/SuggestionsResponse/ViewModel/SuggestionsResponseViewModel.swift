@@ -33,9 +33,10 @@ final class SuggestionsResponseViewModel {
     var currentInputText: String = ""
     
     //MARK: - Init Methods
-    init(openAIChatService: OpenAIChatService, selectedSuggestion: Suggestion) {
+    init(openAIChatService: OpenAIChatService, selectedSuggestion: Suggestion, selectedGPTModel: GPTModel) {
         self.selectedSuggestion = selectedSuggestion
         self.openAIChatService = openAIChatService
+        self.currentModel = selectedGPTModel
         let userFirstMessage = UIMessage(id: UUID(), role: .user, content: selectedSuggestion.suggestionQueryPrompt, createAt: Date())
         self.mainMessages.append(userFirstMessage)
     }

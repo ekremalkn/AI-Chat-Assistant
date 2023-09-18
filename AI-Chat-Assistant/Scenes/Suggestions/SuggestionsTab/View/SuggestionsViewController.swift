@@ -11,7 +11,8 @@ protocol SuggestionsViewInterface: AnyObject {
     func configureViewController()
     
     func reloadSuggestions()
-    func openSuggestionResponseVC(with suggestion: Suggestion)
+    
+    func openModelSelectToSelectGPTModel()
 }
 
 final class SuggestionsViewController: UIViewController {
@@ -62,6 +63,19 @@ final class SuggestionsViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = leftTitleBarButton
         
+        let rightSettingButton = UIButton(type: .system)
+        rightSettingButton.setImage(.init(named: "chat_setting"), for: .normal)
+        rightSettingButton.tintColor = .white
+        
+        let rightHistoryButton = UIButton(type: .system)
+        rightHistoryButton.setImage(.init(named: "chat_history"), for: .normal)
+        rightHistoryButton.tintColor = .white
+        
+        let rightSettingBarButtonItem = UIBarButtonItem(customView: rightSettingButton)
+        let rightHistoryBarButtonItem = UIBarButtonItem(customView: rightHistoryButton)
+        
+        navigationItem.rightBarButtonItems = [rightSettingBarButtonItem, rightHistoryBarButtonItem]
+        
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         backBarButtonItem.tintColor = .main
         navigationItem.backBarButtonItem = backBarButtonItem
@@ -71,6 +85,8 @@ final class SuggestionsViewController: UIViewController {
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
+        suggestionsCoordinator?.delegate = self
+        
         suggestionsView.suggestionsCollectionView.delegate = self
         suggestionsView.suggestionsCollectionView.dataSource = self
     }
@@ -157,10 +173,12 @@ extension SuggestionsViewController: SuggestionsViewInterface {
                 collectionView.reloadData()
         }
     }
+
     
-    func openSuggestionResponseVC(with suggestion: Suggestion) {
-        suggestionsCoordinator?.openSuggestionsResponseVC(with: suggestion)
+    func openModelSelectToSelectGPTModel() {
+        suggestionsCoordinator?.openModelSelectVC(with: viewModel.currentModel)
     }
+    
     
 }
 
@@ -179,5 +197,16 @@ extension SuggestionsViewController: UITextFieldDelegate {
         suggestionsCoordinator?.openChatVC()
         return false
     }
+}
+
+//MARK: - SuggestionsCoordinatorDelegate
+extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
+    func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectModel model: GPTModel) {
+        if let selectedSuggestion = viewModel.selectedSuggestion {
+            suggestionsCoordinator?.openSuggestionsResponseVC(with: selectedSuggestion, selectedGPTModel: model)
+        }
+    }
+    
+    
 }
 

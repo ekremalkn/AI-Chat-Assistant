@@ -16,6 +16,7 @@ final class ModelSelectCoordinator: NSObject, Coordinator {
     
     //MARK: - References
     weak var chatParentCoordinator: ChatCoordinator?
+    weak var suggestionsParentCoordinator: SuggestionsCoordinator?
     private let navigationController: UINavigationController
     weak var delegate: ModelSelectCoordinatorDelegate?
     

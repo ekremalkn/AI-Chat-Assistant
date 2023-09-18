@@ -12,7 +12,7 @@ protocol ModelSelectViewDelegate: AnyObject {
 }
 
 final class ModelSelectView: UIView {
-
+    
     //MARK: - Creating UI Elements
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -43,7 +43,7 @@ final class ModelSelectView: UIView {
     
     //MARK: - References
     weak var delegate: ModelSelectViewDelegate?
-
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -60,7 +60,7 @@ final class ModelSelectView: UIView {
         self.layer.masksToBounds = true
     }
     
-
+    
 }
 
 //MARK: - Button Actions

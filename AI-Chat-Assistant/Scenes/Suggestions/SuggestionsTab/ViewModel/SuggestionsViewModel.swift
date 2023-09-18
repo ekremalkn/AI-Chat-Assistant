@@ -25,6 +25,7 @@ final class SuggestionsViewModel {
     weak var view: SuggestionsViewInterface?
     
     //MARK: - Variables
+    var currentModel: GPTModel = .gpt3_5Turbo
     var homeCollectionViewSuggestions: [SuggestionModel] = [
         .init(suggestionCategory: .education, suggestions: SuggestionProvider.educationSuggestions),
         .init(suggestionCategory: .fun, suggestions: SuggestionProvider.funSuggestions),
@@ -39,6 +40,8 @@ final class SuggestionsViewModel {
         .init(suggestionCategory: .email, suggestions: SuggestionProvider.emailSuggestions),
         .init(suggestionCategory: .creativeIdeas, suggestions: SuggestionProvider.creativeIdeaSuggestions),
     ]
+    
+    var selectedSuggestion: Suggestion?
     
     var selectedSuggestionCategoryCellIndexPath: IndexPath = .init(item: 0, section: 0) {
         didSet {
@@ -77,7 +80,10 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
     
     func didSelectSuggestionAt(indexPath: IndexPath) {
         let selectedSuggestion = homeCollectionViewSuggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions[indexPath.item]
-        view?.openSuggestionResponseVC(with: selectedSuggestion)
+        
+        self.selectedSuggestion = selectedSuggestion
+        
+        view?.openModelSelectToSelectGPTModel()
     }
     
     

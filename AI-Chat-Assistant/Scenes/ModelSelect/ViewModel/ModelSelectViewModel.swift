@@ -17,7 +17,7 @@ protocol ModelSelectViewModelInterface {
 }
 
 final class ModelSelectViewModel {
-    
+
     //MARK: - References
     weak var view: ModelSelectViewInterface?
 

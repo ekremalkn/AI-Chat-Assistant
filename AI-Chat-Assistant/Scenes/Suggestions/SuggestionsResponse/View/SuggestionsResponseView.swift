@@ -19,6 +19,7 @@ final class SuggestionsResponseView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.register(SuggestionsChatCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SuggestionsChatCollectionHeader.identifier)
         collection.register(UserChatCollectionCell.self, forCellWithReuseIdentifier: UserChatCollectionCell.identifier)
         collection.register(AssistantChatCollectionCell.self, forCellWithReuseIdentifier: AssistantChatCollectionCell.identifier)
         collection.contentInset = .init(top: 0, left: 0, bottom: 20, right: 0)

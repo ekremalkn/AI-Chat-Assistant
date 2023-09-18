@@ -76,6 +76,13 @@
 		F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */; };
 		F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */; };
 		F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */; };
+		F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */; };
+		F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */; };
+		F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */; };
+		F08D00652AB8C2C10071E324 /* ChatHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00642AB8C2C10071E324 /* ChatHistoryViewModel.swift */; };
+		F08D00672AB8C2FD0071E324 /* ChatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00662AB8C2FD0071E324 /* ChatHistoryView.swift */; };
+		F08D006A2AB8C4D60071E324 /* ChatHistoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00692AB8C4D60071E324 /* ChatHistoryCollectionCell.swift */; };
+		F08D006D2AB8C6A10071E324 /* ChatHistorySenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D006C2AB8C6A10071E324 /* ChatHistorySenderView.swift */; };
 		F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3912A93D036000AE129 /* GhostTypewriter */; };
 		F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */; };
 		F0A5E39A2A93E8D8000AE129 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3992A93E8D8000AE129 /* Lottie */; };
@@ -169,6 +176,13 @@
 		F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
 		F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewModel.swift; sourceTree = "<group>"; };
 		F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
+		F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsChatCollectionHeader.swift; sourceTree = "<group>"; };
+		F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCoordinator.swift; sourceTree = "<group>"; };
+		F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryViewController.swift; sourceTree = "<group>"; };
+		F08D00642AB8C2C10071E324 /* ChatHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryViewModel.swift; sourceTree = "<group>"; };
+		F08D00662AB8C2FD0071E324 /* ChatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryView.swift; sourceTree = "<group>"; };
+		F08D00692AB8C4D60071E324 /* ChatHistoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCollectionCell.swift; sourceTree = "<group>"; };
+		F08D006C2AB8C6A10071E324 /* ChatHistorySenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistorySenderView.swift; sourceTree = "<group>"; };
 		F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AssistantTypingAnimation.json; sourceTree = "<group>"; };
 		F0ADEF962AA65B2F008403CA /* EducationSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEF982AA65BAD008403CA /* FunSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunSuggestions.swift; sourceTree = "<group>"; };
@@ -233,6 +247,7 @@
 		F02563DE2AB7492800D10150 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F08D005A2AB8B4150071E324 /* Header */,
 				F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */,
 				F02563E12AB7497E00D10150 /* SuggestionsResponseViewController.swift */,
 			);
@@ -559,6 +574,7 @@
 				F0817FEE2A9BCE510054C15E /* Suggestions */,
 				F027532E2AB0C1CA003220B9 /* Assistants */,
 				F07FBDD32A7FBBE700ACA10F /* Chat */,
+				F08D005D2AB8C1BC0071E324 /* ChatHistory */,
 				F066E9992A9B8EB9004A6964 /* ModelSelect */,
 			);
 			path = Scenes;
@@ -694,6 +710,7 @@
 		F07FBE052A7FED3500ACA10F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F08D006B2AB8C65F0071E324 /* Views */,
 				F066E9AC2A9BB18E004A6964 /* PresentationController */,
 				F066E9A92A9BA1C8004A6964 /* Buttons */,
 			);
@@ -763,6 +780,58 @@
 				F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F08D005A2AB8B4150071E324 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		F08D005D2AB8C1BC0071E324 /* ChatHistory */ = {
+			isa = PBXGroup;
+			children = (
+				F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */,
+				F08D00602AB8C25E0071E324 /* View */,
+				F08D00632AB8C2B10071E324 /* ViewModel */,
+			);
+			path = ChatHistory;
+			sourceTree = "<group>";
+		};
+		F08D00602AB8C25E0071E324 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F08D00682AB8C4BE0071E324 /* Cell */,
+				F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */,
+				F08D00662AB8C2FD0071E324 /* ChatHistoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F08D00632AB8C2B10071E324 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F08D00642AB8C2C10071E324 /* ChatHistoryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F08D00682AB8C4BE0071E324 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F08D00692AB8C4D60071E324 /* ChatHistoryCollectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F08D006B2AB8C65F0071E324 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F08D006C2AB8C6A10071E324 /* ChatHistorySenderView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
@@ -887,7 +956,9 @@
 				F04879DB2AB5997C0075A0C6 /* AssistantsPromptEditView.swift in Sources */,
 				F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */,
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
+				F08D006A2AB8C4D60071E324 /* ChatHistoryCollectionCell.swift in Sources */,
 				F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */,
+				F08D00652AB8C2C10071E324 /* ChatHistoryViewModel.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
@@ -897,8 +968,11 @@
 				F04879F42AB5EE220075A0C6 /* AssistantsResponseView.swift in Sources */,
 				F04879DE2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
+				F08D006D2AB8C6A10071E324 /* ChatHistorySenderView.swift in Sources */,
+				F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
 				F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */,
+				F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
@@ -910,6 +984,7 @@
 				F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */,
 				F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
+				F08D00672AB8C2FD0071E324 /* ChatHistoryView.swift in Sources */,
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
@@ -949,6 +1024,7 @@
 				F0E493752AB37FB200767FF2 /* AssistantsService.swift in Sources */,
 				F02563DD2AB7486000D10150 /* SuggestionsResponseCoordinator.swift in Sources */,
 				F07FBDDB2A7FBD4A00ACA10F /* ChatViewController.swift in Sources */,
+				F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 				F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */,
 				F04879EF2AB5E9590075A0C6 /* AssistantsResponseViewController.swift in Sources */,

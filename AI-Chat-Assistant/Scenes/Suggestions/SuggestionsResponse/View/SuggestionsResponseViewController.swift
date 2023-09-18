@@ -114,6 +114,23 @@ extension SuggestionsResponseViewController {
 
 //MARK: - Configure CollectionView
 extension SuggestionsResponseViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    //MARK: - Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SuggestionsChatCollectionHeader.identifier, for: indexPath) as? SuggestionsChatCollectionHeader else {
+            return .init()
+        }
+        cell.configure(gptModel: viewModel.currentModel)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let headerWidth: CGFloat = collectionView.frame.width
+        let headerHeight: CGFloat = 50
+        
+        return .init(width: headerWidth, height: headerHeight)
+    }
+
+    //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfMessages()
     }

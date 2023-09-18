@@ -73,12 +73,17 @@ final class ChatViewController: UIViewController {
             
         }
         
-        let deleteChat = UIAction(title: "Delete Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
             guard let self else { return }
             
         }
         
-        let elements: [UIAction] = [shareChat, newChat, deleteChat]
+        let deleteChat = UIAction(title: "Clear Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+            guard let self else { return }
+            
+        }
+        
+        let elements: [UIAction] = [shareChat, newChat, settinsgChat, deleteChat]
         
         let moreMenu = UIMenu(title: "More About Chat", children: elements)
         
