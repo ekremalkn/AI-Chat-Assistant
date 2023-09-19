@@ -79,6 +79,7 @@ final class AssistantsViewController: UIViewController {
         let rightHistoryButton = UIButton(type: .system)
         rightHistoryButton.setImage(.init(named: "chat_history"), for: .normal)
         rightHistoryButton.tintColor = .white
+        rightHistoryButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
         
         let rightSettingBarButtonItem = UIBarButtonItem(customView: rightSettingButton)
         let rightHistoryBarButtonItem = UIBarButtonItem(customView: rightHistoryButton)
@@ -98,6 +99,13 @@ final class AssistantsViewController: UIViewController {
         assistantsView.assistantsCollectionView.dataSource = self
     }
     
+}
+
+//MARK: - Button Actions
+extension AssistantsViewController {
+    @objc private func historyButtonTapped() {
+        assistantsCoordinator?.openChatHistoryVC()
+    }
 }
 
 //MARK: - Configure Collection View

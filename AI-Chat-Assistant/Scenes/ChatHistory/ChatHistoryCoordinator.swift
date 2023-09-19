@@ -10,6 +10,8 @@ import UIKit
 final class ChatHistoryCoordinator: Coordinator {
     
     //MARK: - References
+    weak var suggestionsParentCoordinator: SuggestionsCoordinator?
+    weak var assistantsParentCoordinator: AssistantsCoordinator?
     private let navigationController: UINavigationController
     
     //MARK: - Variables

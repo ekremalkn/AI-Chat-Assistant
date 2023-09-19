@@ -40,6 +40,26 @@ final class ChatHistoryViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isTranslucent = true
+        navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    
+    //MARK: - Configure Nav Items
+    private func configureNavItems() {
+        let label = UILabel()
+        label.text = "Chat History"
+        label.numberOfLines = 2
+        label.textColor = .white
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textAlignment = .center
+        navigationItem.titleView = label
+        
+        
+    }
+
     //MARK: - Setup Delegates
     private func setupDelegates() {
         chatHistoryView.chatHistoryCollectionView.delegate = self
@@ -52,7 +72,7 @@ final class ChatHistoryViewController: UIViewController {
 //MARK: - Configure CollectionView
 extension ChatHistoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        viewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -60,7 +80,18 @@ extension ChatHistoryViewController: UICollectionViewDelegate, UICollectionViewD
             return .init()
         }
         
+        let chatHistoryItem = viewModel.chatHistoryItems[indexPath.item]
+        
+        cell.configure(with: chatHistoryItem)
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth: CGFloat = collectionView.frame.width - 40
+        let cellHeight: CGFloat = collectionView.frame.height * 0.30
+        
+        return .init(width: cellWidth, height: cellHeight)
     }
     
     
@@ -70,6 +101,7 @@ extension ChatHistoryViewController: UICollectionViewDelegate, UICollectionViewD
 //MARK: - ChatHistoryViewInterface
 extension ChatHistoryViewController: ChatHistoryViewInterface {
     func configureViewController() {
+        configureNavItems()
         setupDelegates()
     }
     

@@ -47,6 +47,13 @@ final class SuggestionsCoordinator: Coordinator {
         modelSelectCoordinator.delegate = self
         modelSelectCoordinator.start()
     }
+    
+    func openChatHistoryVC() {
+        let chatHistoryCoordinator = ChatHistoryCoordinator(navigationController: navigationController)
+        childCoordinators.append(chatHistoryCoordinator)
+        chatHistoryCoordinator.suggestionsParentCoordinator = self
+        chatHistoryCoordinator.start()
+    }
 
 
 }

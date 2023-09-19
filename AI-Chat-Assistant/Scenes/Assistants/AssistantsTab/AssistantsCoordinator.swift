@@ -32,5 +32,12 @@ final class AssistantsCoordinator: Coordinator {
         assistantsPromptEditCoordinator.start()
     }
 
-
+    func openChatHistoryVC() {
+        let chatHistoryCoordinator = ChatHistoryCoordinator(navigationController: navigationController)
+        childCoordinators.append(chatHistoryCoordinator)
+        chatHistoryCoordinator.assistantsParentCoordinator = self
+        chatHistoryCoordinator.start()
+    }
+    
+    
 }

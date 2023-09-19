@@ -178,15 +178,14 @@ extension AssistantsPromptEditViewController {
         let navigationSegmentedControl = BetterSegmentedControl(
             frame: CGRect(x: 0, y: 0, width: 200.0, height: 30.0),
             segments: LabelSegment.segments(withTitles: viewModel.gptModels.map { $0.modelUIName },
-                                            normalTextColor: .white.withAlphaComponent(0.6),
-                                            selectedTextColor: .white),
-            options:[.backgroundColor(.cellBackground),
-                     .indicatorViewBackgroundColor(.main),
-                     .cornerRadius(6),
-                     .animationSpringDamping(1.0)])
-        navigationSegmentedControl.addTarget(self,
-                                             action: #selector(navigationSegmentedControlValueChanged),
-                                             for: .valueChanged)
+                                            normalTextColor: .white.withAlphaComponent(0.6),selectedTextColor: .white),
+            options: [.backgroundColor(.cellBackground),
+                      .indicatorViewBackgroundColor(.main),
+                      .cornerRadius(6),
+                      .animationSpringDamping(1.0)]
+        )
+        
+        navigationSegmentedControl.addTarget(self,action: #selector(navigationSegmentedControlValueChanged),for: .valueChanged)
         navigationItem.titleView = navigationSegmentedControl
     }
     

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ChatHistoryItem" representedClassName="ChatHistoryItem" syncable="YES">
+        <attribute name="chatCreationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="chatSubTitleText" optional="YES" attributeType="String"/>
+        <attribute name="chatTitleText" optional="YES" attributeType="String"/>
+        <relationship name="chatMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ChatMessageItem" inverseName="chatHistoryItem" inverseEntity="ChatMessageItem"/>
+    </entity>
+    <entity name="ChatMessageItem" representedClassName="ChatMessageItem" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="createAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="role" optional="YES" attributeType="String"/>
+        <relationship name="chatHistoryItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChatHistoryItem" inverseName="chatMessages" inverseEntity="ChatHistoryItem"/>
+    </entity>
+</model>

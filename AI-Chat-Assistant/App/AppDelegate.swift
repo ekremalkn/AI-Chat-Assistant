@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //MARK: - Core Data Init
+        CoreDataManager.shared.load()
+        
+        //MARK: - Setup Keyboard Manager
         KeyboardManager.shared.setupKeyboard()
         
         return true

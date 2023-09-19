@@ -70,6 +70,7 @@ final class SuggestionsViewController: UIViewController {
         let rightHistoryButton = UIButton(type: .system)
         rightHistoryButton.setImage(.init(named: "chat_history"), for: .normal)
         rightHistoryButton.tintColor = .white
+        rightHistoryButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
         
         let rightSettingBarButtonItem = UIBarButtonItem(customView: rightSettingButton)
         let rightHistoryBarButtonItem = UIBarButtonItem(customView: rightHistoryButton)
@@ -93,6 +94,13 @@ final class SuggestionsViewController: UIViewController {
     
     
     
+}
+
+//MARK: - Button Actions
+extension SuggestionsViewController {
+    @objc private func historyButtonTapped() {
+        suggestionsCoordinator?.openChatHistoryVC()
+    }
 }
 
 //MARK: - Configure Collection View

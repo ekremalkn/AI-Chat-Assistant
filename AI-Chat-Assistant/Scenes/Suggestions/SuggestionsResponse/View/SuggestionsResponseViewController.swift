@@ -55,6 +55,11 @@ final class SuggestionsResponseViewController: UIViewController {
         navigationController?.tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.saveChatToCoreData()
+    }
+    
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let label = UILabel()
@@ -264,10 +269,18 @@ extension SuggestionsResponseViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.currentInputText = textView.text
         
-        if !textView.text.isEmpty {
-            suggestionsResponseView.setSendButtonTouchability(true)
+        if let assistantAnswered = viewModel.assistantAnswered {
+            if !textView.text.isEmpty, assistantAnswered {
+                suggestionsResponseView.setSendButtonTouchability(true)
+            } else {
+                suggestionsResponseView.setSendButtonTouchability(false)
+            }
         } else {
-            suggestionsResponseView.setSendButtonTouchability(false)
+            if !textView.text.isEmpty {
+                suggestionsResponseView.setSendButtonTouchability(true)
+            } else {
+                suggestionsResponseView.setSendButtonTouchability(false)
+            }
         }
     }
 }

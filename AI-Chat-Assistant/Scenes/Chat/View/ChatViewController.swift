@@ -21,6 +21,7 @@ protocol ChatViewInterface: AnyObject {
     func resetTextViewMessageText()
     func scrollToBottomCollectionVİew()
     
+    
 }
 
 final class ChatViewController: UIViewController {
@@ -59,18 +60,26 @@ final class ChatViewController: UIViewController {
         
         let moreButton = UIButton(type: .system)
         moreButton.tintColor = .white
-        moreButton.setImage(.init(systemName: "ellipsis.rectangle"), for: .normal)
+        moreButton.setImage(.init(named: "chat_bar_button_more"), for: .normal)
         moreButton.showsMenuAsPrimaryAction = true
         moreButton.isEnabled = false
         
         let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
             guard let self else { return }
-            shareChatButtonTapped()
+            if !viewModel.uiMessages.isEmpty {
+                shareChatButtonTapped()
+            } else {
+                showAlertForEmptyChat()
+            }
         }
         
-        let newChat = UIAction(title: "New Chat", image: .init(systemName: "plus.square")) { [weak self] _ in
+        let newChat = UIAction(title: "Save Chat", image: .init(systemName: "plus.square")) { [weak self] _ in
             guard let self else { return }
-            
+            if !viewModel.uiMessages.isEmpty {
+                showAlertBeforeCreateChat()
+            } else {
+                showAlertForEmptyChat()
+            }
         }
         
         let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
@@ -80,15 +89,18 @@ final class ChatViewController: UIViewController {
         
         let deleteChat = UIAction(title: "Clear Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
             guard let self else { return }
-            
+            if !viewModel.uiMessages.isEmpty {
+                viewModel.clearChat()
+            } else {
+                showAlertForEmptyChat()
+            }
         }
         
         let elements: [UIAction] = [shareChat, newChat, settinsgChat, deleteChat]
         
-        let moreMenu = UIMenu(title: "More About Chat", children: elements)
+        let moreMenu = UIMenu(children: elements)
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+        DispatchQueue.main.async {
             moreButton.menu = moreMenu
         }
         
@@ -110,6 +122,50 @@ final class ChatViewController: UIViewController {
         chatView.delegate = self
         chatView.messageTextView.delegate = self
     }
+    
+    //MARK: - Show Alert before Delete Chat
+    private func showAlertBeforeCreateChat() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let alertController = UIAlertController(title: "Save this chat", message: "Would you like to save this chat before starting a new one?", preferredStyle: .alert)
+            
+            let saveChatAction = UIAlertAction(title: "Save", style: .default) { _ in
+                self.viewModel.saveChatToCoreData()
+                self.viewModel.clearChat()
+                
+                ProgressHUD.colorAnimation = .main
+                ProgressHUD.colorHUD = .main
+                ProgressHUD.showSucceed("Saved Chat", interaction: false)
+                
+            }
+            
+            let deleteChatAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                self.viewModel.deleteChat()
+            }
+            
+            alertController.addAction(deleteChatAction)
+            alertController.addAction(saveChatAction)
+            
+            present(alertController, animated: true)
+        }
+    }
+    
+    //MARK: - Show Alert If Chat Is Empty
+    private func showAlertForEmptyChat() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let alertController = UIAlertController(title: "Empty Chat", message: "Please start a chat to perform this operation", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertController.addAction(okAction)
+            
+            present(alertController, animated: true)
+        }
+    }
+    
     
     
 }
@@ -135,11 +191,7 @@ extension ChatViewController {
         
         let combinedImage = combineImagesVertically(collectionViewCellImages)
         
-       shareCombinedImage(combinedImage)
-    }
-    
-    @objc private func deleteChatButtonTapped() {
-        
+        shareCombinedImage(combinedImage)
     }
     
 }
@@ -295,10 +347,18 @@ extension ChatViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.currentInputText = textView.text
         
-        if !textView.text.isEmpty {
-            chatView.setSendButtonTouchability(true)
+        if let assistantAnswered = viewModel.assistantAnswered {
+            if !textView.text.isEmpty, assistantAnswered {
+                chatView.setSendButtonTouchability(true)
+            } else {
+                chatView.setSendButtonTouchability(false)
+            }
         } else {
-            chatView.setSendButtonTouchability(false)
+            if !textView.text.isEmpty {
+                chatView.setSendButtonTouchability(true)
+            } else {
+                chatView.setSendButtonTouchability(false)
+            }
         }
     }
 }
@@ -367,18 +427,18 @@ extension ChatViewController {
         let maxWidth = images.max { (image1, image2) in
             return image1.size.width < image2.size.width
         }?.size.width ?? 0
-
+        
         UIGraphicsBeginImageContextWithOptions(CGSize(width: maxWidth, height: totalHeight), false, 0.0)
-
+        
         var currentY: CGFloat = 0.0
         for image in images {
             image.draw(in: CGRect(x: 0, y: currentY, width: maxWidth, height: image.size.height))
             currentY += image.size.height
         }
-
+        
         let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return combinedImage
     }
     

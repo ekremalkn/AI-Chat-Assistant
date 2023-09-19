@@ -24,7 +24,7 @@ final class ChatHistoryCollectionCell: UICollectionViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         return label
     }()
     
@@ -33,7 +33,7 @@ final class ChatHistoryCollectionCell: UICollectionViewCell {
         label.textAlignment = .left
         label.textColor = .white.withAlphaComponent(0.5)
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         return label
     }()
     
@@ -41,11 +41,21 @@ final class ChatHistoryCollectionCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
+        stackView.spacing = 5
         return stackView
     }()
     
-    private lazy var userSenderView = ChatHistorySenderView()
-    private lazy var assistantSenderView = ChatHistorySenderView()
+    private lazy var chatCreationDateLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.textColor = .white.withAlphaComponent(0.6)
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
+    
+    private lazy var firstSenderView = ChatHistorySenderView()
+    private lazy var secondSenderView = ChatHistorySenderView()
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
@@ -57,32 +67,74 @@ final class ChatHistoryCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Layout Subview
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = 24
+        self.layer.masksToBounds = true
+        
+    }
+
+    
+    func configure(with chatHistoryItem: ChatHistoryItem) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            chatTitleLabel.text = chatHistoryItem.chatTitleText
+            chatSubTitleLabel.text = chatHistoryItem.chatSubTitleText
+            chatCreationDateLabel.text = chatHistoryItem.chatCreationDate?.localizedStringWithFormat("dd/MM/yyyy HH:mm")
+            
+            if chatHistoryItem.chatMessages?.count ?? 1 >= 2 {
+                if let chatMessages = chatHistoryItem.chatMessages?.allObjects as? [ChatMessageItem] {
+                    let sortedChatMessage = chatMessages.sorted { ($0.createAt ?? Date()) > ($1.createAt ?? Date()) }
+                    
+                    let firstSenderMessage = sortedChatMessage[0]
+                    firstSenderView.configure(chatMessageItem: firstSenderMessage)
+                    
+                    let secondSenderMessage = sortedChatMessage[1]
+                    secondSenderView.configure(chatMessageItem: secondSenderMessage)
+                }
+                
+            }
+        }
+    }
+    
 }
 
 //MARK: - AddSubview / Constraints
 extension ChatHistoryCollectionCell {
     private func setupViews() {
         backgroundColor = .cellBackground
+        
         addSubview(labelStackView)
         labelStackView.addArrangedSubview(chatTitleLabel)
         labelStackView.addArrangedSubview(chatSubTitleLabel)
         addSubview(senderStackView)
-        senderStackView.addArrangedSubview(userSenderView)
-        senderStackView.addArrangedSubview(assistantSenderView)
+        senderStackView.addArrangedSubview(firstSenderView)
+        senderStackView.addArrangedSubview(secondSenderView)
+        
+        addSubview(chatCreationDateLabel)
         
         labelStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(15)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.height.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.35)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
         }
         
         senderStackView.snp.makeConstraints { make in
-            make.top.equalTo(labelStackView.snp.bottom).offset(10)
-            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.top.equalTo(labelStackView.snp.bottom).offset(15)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
+            make.trailing.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.bottom.lessThanOrEqualTo(chatCreationDateLabel.snp.top).offset(-5)
         }
+        
+        chatCreationDateLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-15)
+            make.leading.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
+            make.height.equalTo(20)
+        }
+
+
     }
 }
 

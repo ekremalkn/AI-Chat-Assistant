@@ -16,6 +16,8 @@ protocol SuggestionsResponseViewModelInterface {
     
     func sendButtonTapped()
     func reGenerateButtonTapped()
+    
+    func saveChatToCoreData()
 }
 
 final class SuggestionsResponseViewModel {
@@ -23,12 +25,15 @@ final class SuggestionsResponseViewModel {
     //MARK: - References
     weak var view: SuggestionsResponseViewInterface?
     private let openAIChatService: OpenAIChatService
+    private let chatHistoryService: ChatHistoryService = CoreDataService()
 
     //MARK: - Variables
     let selectedSuggestion: Suggestion
     var currentModel: GPTModel = .gpt3_5Turbo
     var uiMessages: [UIMessage] = []
     var mainMessages: [UIMessage] = []
+    
+    var assistantAnswered: Bool?
     
     var currentInputText: String = ""
     
@@ -42,6 +47,7 @@ final class SuggestionsResponseViewModel {
     }
 
     private func sendMessage() {
+        assistantAnswered = false
         view?.assistantResponsing()
         uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         view?.reloadMessages()
@@ -59,12 +65,14 @@ final class SuggestionsResponseViewModel {
                     mainMessages.append(recievedMessage)
                     
                     view?.assistantResponsed()
+                    assistantAnswered = true
                     //remove cell
                 } else {
                     uiMessages.removeLast()
                     mainMessages.removeLast()
                     view?.reloadMessages()
                     view?.didOccurErrorWhileResponsing("Assistant Confused")
+                    assistantAnswered = true
                     print("No recieved Message from assistant")
                 }
             case .failure(let failure):
@@ -72,6 +80,7 @@ final class SuggestionsResponseViewModel {
                 view?.reloadMessages()
                 mainMessages.removeLast(2)
                 view?.didOccurErrorWhileResponsing(failure.localizedDescription)
+                assistantAnswered = true
             }
         }
     }
@@ -105,6 +114,23 @@ extension SuggestionsResponseViewModel: SuggestionsResponseViewModelInterface {
                 mainMessages.removeLast()
                 sendMessage()
             }
+        }
+    }
+    
+    func saveChatToCoreData() {
+        if uiMessages.count >= 2 {
+            let chatMessages = uiMessages.map { uiMessage in
+                
+                let chatMessageItem = ChatMessageItem(context: CoreDataManager.shared.viewContext)
+                chatMessageItem.id = uiMessage.id
+                chatMessageItem.createAt = uiMessage.createAt
+                chatMessageItem.role = uiMessage.role.rawValue
+                chatMessageItem.content = uiMessage.content
+                
+                return chatMessageItem
+            }
+            
+            chatHistoryService.addChatToCoreData(chatCreationDate: Date(), chatTitleText: selectedSuggestion.suggestionName, chatSubTitleText: selectedSuggestion.suggestionInfo, chatMessages: chatMessages)
         }
     }
     

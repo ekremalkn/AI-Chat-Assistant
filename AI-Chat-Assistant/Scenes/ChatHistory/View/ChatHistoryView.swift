@@ -13,9 +13,11 @@ final class ChatHistoryView: UIView {
     lazy var chatHistoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(ChatHistoryCollectionCell.self, forCellWithReuseIdentifier: ChatHistoryCollectionCell.identifier)
         collection.backgroundColor = .clear
+        collection.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)
         return collection
     }()
     

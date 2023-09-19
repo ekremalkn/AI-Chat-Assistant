@@ -11,7 +11,7 @@ import Foundation
 final class NetworkManager {
     static let shared = NetworkManager()
     
-    private var provider = MoyaProvider<NetworkEndPointCases>(plugins: [NetworkLoggerPlugin()])
+    private var provider = MoyaProvider<NetworkEndPointCases>()
     
     func request<T: Decodable>(target: NetworkEndPointCases, completion: @escaping (Result<T, Error>) -> Void) {
         provider.request(target) { result in

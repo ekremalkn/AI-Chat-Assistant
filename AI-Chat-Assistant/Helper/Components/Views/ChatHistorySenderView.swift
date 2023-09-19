@@ -10,14 +10,6 @@ import UIKit
 final class ChatHistorySenderView: UIView {
 
     //MARK: - Creating UI Elements
-    private lazy var senderStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 5
-        return stackView
-    }()
-    
     private lazy var senderImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -27,8 +19,7 @@ final class ChatHistorySenderView: UIView {
     private lazy var senderMessageLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.numberOfLines = 2
-        label.textColor = .black
+        label.numberOfLines = 1
         label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
@@ -43,7 +34,25 @@ final class ChatHistorySenderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(senderRole: String) {
+    func configure(chatMessageItem: ChatMessageItem) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            switch chatMessageItem.role {
+            case "assistant":
+                senderImageView.image = .init(systemName: "circle.fill")
+                senderMessageLabel.text = chatMessageItem.content
+                senderMessageLabel.textColor = .white.withAlphaComponent(0.7)
+                senderImageView.tintColor = .main
+            case "user":
+                senderImageView.image = .init(systemName: "person.fill")
+                senderMessageLabel.text = chatMessageItem.content
+                senderMessageLabel.textColor = .white
+                senderImageView.tintColor = .white
+            default:
+                break
+            }
+        }
+        
         
     }
     
@@ -53,20 +62,22 @@ final class ChatHistorySenderView: UIView {
 extension ChatHistorySenderView {
     private func setupViews() {
         backgroundColor = .clear
-        addSubview(senderStackView)
-        senderStackView.addArrangedSubview(senderImageView)
-        senderStackView.addArrangedSubview(senderMessageLabel)
+        addSubview(senderImageView)
+        addSubview(senderMessageLabel)
         
-        senderStackView.snp.makeConstraints { make in
-            make.center.equalTo(self.safeAreaLayoutGuide.snp.center)
+        senderImageView.snp.makeConstraints { make in
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
-            make.trailing.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.leading)
+            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.85)
+            make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
+        }
+        
+        senderMessageLabel.snp.makeConstraints { make in
+            make.leading.equalTo(senderImageView.snp.trailing).offset(10)
+            make.trailing.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.trailing)
+            make.centerY.equalTo(senderImageView.snp.centerY)
             make.height.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.height)
         }
         
-        senderImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.75)
-        }
     }
 }
 

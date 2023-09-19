@@ -7,9 +7,7 @@
 
 import Foundation
 
-
-
-//MARK: - UI Messages Different
+//MARK: - UI Message
 struct UIMessage {
     let id: UUID
     let role: SenderRole

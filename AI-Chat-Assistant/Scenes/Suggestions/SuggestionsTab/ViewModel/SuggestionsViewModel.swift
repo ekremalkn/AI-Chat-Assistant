@@ -17,6 +17,7 @@ protocol  SuggestionsViewModelInterface {
     func getSuggestions() -> [Suggestion]
     
     func didSelectSuggestionAt(indexPath: IndexPath)
+    
 }
 
 final class SuggestionsViewModel {

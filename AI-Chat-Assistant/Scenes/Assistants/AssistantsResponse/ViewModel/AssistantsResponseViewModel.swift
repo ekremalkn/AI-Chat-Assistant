@@ -16,6 +16,7 @@ protocol AssistantsResponseViewModelInterface {
     
     func sendButtonTapped()
     func reGenerateButtonTapped()
+    func saveChatToCoreData()
 }
 
 final class AssistantsResponseViewModel {
@@ -23,12 +24,15 @@ final class AssistantsResponseViewModel {
     //MARK: - References
     weak var view: AssistantsResponseViewInterface?
     private let openAIChatService: OpenAIChatService
+    private let chatHistoryService: ChatHistoryService = CoreDataService()
     
     //MARK: - Variables
     var currentModel: GPTModel = .gpt3_5Turbo
     let assistant: Assistant
     var uiMessages: [UIMessage] = []
     var mainMessages: [UIMessage] = []
+    
+    var assistantAnswered: Bool?
     
     var currentInputText: String = ""
     
@@ -45,7 +49,7 @@ final class AssistantsResponseViewModel {
     
     //MARK: - Methods
     private func sendMessage() {
-        
+        assistantAnswered = false
         uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         view?.reloadMessages()
         // add cell for waiting to response assistane
@@ -62,12 +66,14 @@ final class AssistantsResponseViewModel {
                     mainMessages.append(recievedMessage)
                     
                     view?.assistantResponsed()
+                    assistantAnswered = true
                     //remove cell
                 } else {
                     uiMessages.removeLast()
                     mainMessages.removeLast()
                     view?.reloadMessages()
                     view?.didOccurErrorWhileResponsing("Assistant Confused")
+                    assistantAnswered = true
                     print("No recieved Message from assistant")
                 }
             case .failure(let failure):
@@ -75,6 +81,7 @@ final class AssistantsResponseViewModel {
                 view?.reloadMessages()
                 mainMessages.removeLast(2)
                 view?.didOccurErrorWhileResponsing(failure.localizedDescription)
+                assistantAnswered = true
             }
         }
     }
@@ -109,6 +116,21 @@ extension AssistantsResponseViewModel: AssistantsResponseViewModelInterface {
         }
     }
     
-    
+    func saveChatToCoreData() {
+        if uiMessages.count >= 2 {
+            let chatMessages = uiMessages.map { uiMessage in
+                
+                let chatMessageItem = ChatMessageItem(context: CoreDataManager.shared.viewContext)
+                chatMessageItem.id = uiMessage.id
+                chatMessageItem.createAt = uiMessage.createAt
+                chatMessageItem.role = uiMessage.role.rawValue
+                chatMessageItem.content = uiMessage.content
+                
+                return chatMessageItem
+            }
+            
+            chatHistoryService.addChatToCoreData(chatCreationDate: Date(), chatTitleText: assistant.title ?? "Assistant", chatSubTitleText: "Assistant, \(assistant.tag ?? AppName.name)", chatMessages: chatMessages)
+        }
+    }
 }
 

@@ -15,6 +15,12 @@ protocol ChatViewModelInterface {
     
     func sendButtonTapped()
     func reGenerateButtonTapped()
+    
+    func saveChatToCoreData()
+    
+    func createNewChat()
+    func clearChat()
+    func deleteChat()
 }
 
 final class ChatViewModel {
@@ -22,6 +28,7 @@ final class ChatViewModel {
     //MARK: - References
     weak var view: ChatViewInterface?
     private let openAIChatService: OpenAIChatService
+    private let chatHistoryService: ChatHistoryService = CoreDataService()
     
     //MARK: - Variables
     var currentModel: GPTModel = .gpt3_5Turbo {
@@ -29,11 +36,14 @@ final class ChatViewModel {
             view?.configureModelSelectButton(with: currentModel)
         }
     }
+    
     var uiMessages: [UIMessage] = [] {
         didSet {
             view?.reloadMessages()
         }
     }
+    
+    var assistantAnswered: Bool?
     
     var currentInputText: String = ""
     
@@ -43,6 +53,7 @@ final class ChatViewModel {
     }
     
     private func sendMessage() {
+        assistantAnswered = false
         view?.assistantResponsing()
         uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
         // add cell for waiting to response assistane
@@ -55,9 +66,11 @@ final class ChatViewModel {
                     uiMessages.removeLast()
                     uiMessages.append(recievedMessage)
                     view?.assistantResponsed()
+                    assistantAnswered = true
                     //remove cell
                 } else {
                     view?.didOccurErrorWhileResponsing("Assistant Confused")
+                    assistantAnswered = true
                     print("No recieved Message from assistant")
                 }
                 
@@ -66,6 +79,7 @@ final class ChatViewModel {
             case .failure(let failure):
                 uiMessages.removeLast(2)
                 view?.didOccurErrorWhileResponsing(failure.localizedDescription)
+                assistantAnswered = true
                 print(failure.localizedDescription)
             }
         }
@@ -77,7 +91,6 @@ final class ChatViewModel {
 extension ChatViewModel: ChatViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
-        
     }
     
     func numberOfMessages() -> Int {
@@ -87,7 +100,6 @@ extension ChatViewModel: ChatViewModelInterface {
     func sendButtonTapped() {
         let newMessage = UIMessage(id: UUID(), role: .user, content: currentInputText, createAt: Date())
         uiMessages.append(newMessage)
-//        lastUserText = currentInputText
         sendMessage()
         view?.resetTextViewMessageText()
     }
@@ -101,6 +113,45 @@ extension ChatViewModel: ChatViewModelInterface {
         }
     }
     
+    func saveChatToCoreData() {
+        if uiMessages.count >= 2 {
+            let chatMessages = uiMessages.map { uiMessage in
+                
+                let chatMessageItem = ChatMessageItem(context: CoreDataManager.shared.viewContext)
+                chatMessageItem.id = uiMessage.id
+                chatMessageItem.createAt = uiMessage.createAt
+                chatMessageItem.role = uiMessage.role.rawValue
+                chatMessageItem.content = uiMessage.content
+                
+                return chatMessageItem
+            }
+            
+            if let userFirstText = uiMessages.first?.content {
+                chatHistoryService.addChatToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created home chat", chatMessages: chatMessages)
+            }
+        }
+    }
     
+    
+    func createNewChat() {
+        if !uiMessages.isEmpty {
+            uiMessages = []
+            view?.resetTextViewMessageText()
+        }
+    }
+    
+    func clearChat() {
+        if !uiMessages.isEmpty {
+            uiMessages = []
+            view?.resetTextViewMessageText()
+        }
+    }
+
+    func deleteChat() {
+        if !uiMessages.isEmpty {
+            uiMessages = []
+            view?.resetTextViewMessageText()
+        }
+    }
     
 }

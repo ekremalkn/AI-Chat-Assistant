@@ -47,7 +47,12 @@ final class AssistantsResponseViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.saveChatToCoreData()
+    }
+    
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let label = UILabel()
@@ -99,9 +104,9 @@ extension AssistantsResponseViewController {
         
         let combinedImage = combineImagesVertically(collectionViewCellImages)
         
-       shareCombinedImage(combinedImage)
+        shareCombinedImage(combinedImage)
     }
-
+    
 }
 
 //MARK: - Configure CollectionView
@@ -221,7 +226,7 @@ extension AssistantsResponseViewController: AssistantsResponseViewInterface {
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
-    }    
+    }
     
 }
 
@@ -239,10 +244,18 @@ extension AssistantsResponseViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.currentInputText = textView.text
         
-        if !textView.text.isEmpty {
-            assistantsResponseView.setSendButtonTouchability(true)
+        if let assistantAnswered = viewModel.assistantAnswered {
+            if !textView.text.isEmpty, assistantAnswered {
+                assistantsResponseView.setSendButtonTouchability(true)
+            } else {
+                assistantsResponseView.setSendButtonTouchability(false)
+            }
         } else {
-            assistantsResponseView.setSendButtonTouchability(false)
+            if !textView.text.isEmpty {
+                assistantsResponseView.setSendButtonTouchability(true)
+            } else {
+                assistantsResponseView.setSendButtonTouchability(false)
+            }
         }
     }
 }
@@ -297,18 +310,18 @@ extension AssistantsResponseViewController {
         let maxWidth = images.max { (image1, image2) in
             return image1.size.width < image2.size.width
         }?.size.width ?? 0
-
+        
         UIGraphicsBeginImageContextWithOptions(CGSize(width: maxWidth, height: totalHeight), false, 0.0)
-
+        
         var currentY: CGFloat = 0.0
         for image in images {
             image.draw(in: CGRect(x: 0, y: currentY, width: maxWidth, height: image.size.height))
             currentY += image.size.height
         }
-
+        
         let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return combinedImage
     }
     
