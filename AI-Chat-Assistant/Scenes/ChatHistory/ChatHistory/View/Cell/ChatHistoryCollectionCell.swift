@@ -85,7 +85,7 @@ final class ChatHistoryCollectionCell: UICollectionViewCell {
             
             if chatHistoryItem.chatMessages?.count ?? 1 >= 2 {
                 if let chatMessages = chatHistoryItem.chatMessages?.allObjects as? [ChatMessageItem] {
-                    let sortedChatMessage = chatMessages.sorted { ($0.createAt ?? Date()) > ($1.createAt ?? Date()) }
+                    let sortedChatMessage = chatMessages.sorted { ($0.createAt ?? Date()) < ($1.createAt ?? Date()) }
                     
                     let firstSenderMessage = sortedChatMessage[0]
                     firstSenderView.configure(chatMessageItem: firstSenderMessage)

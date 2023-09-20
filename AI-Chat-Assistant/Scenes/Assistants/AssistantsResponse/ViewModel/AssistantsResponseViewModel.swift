@@ -129,7 +129,7 @@ extension AssistantsResponseViewModel: AssistantsResponseViewModelInterface {
                 return chatMessageItem
             }
             
-            chatHistoryService.addChatToCoreData(chatCreationDate: Date(), chatTitleText: assistant.title ?? "Assistant", chatSubTitleText: "Assistant, \(assistant.tag ?? AppName.name)", chatMessages: chatMessages)
+            chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: assistant.title ?? "Assistant", chatSubTitleText: "Assistant, \(assistant.tag ?? AppName.name)", chatMessages: chatMessages)
         }
     }
 }

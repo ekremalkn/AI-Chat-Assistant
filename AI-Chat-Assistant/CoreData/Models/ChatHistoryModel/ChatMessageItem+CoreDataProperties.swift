@@ -2,7 +2,7 @@
 //  ChatMessageItem+CoreDataProperties.swift
 //  AI-Chat-Assistant
 //
-//  Created by Ekrem Alkan on 19.09.2023.
+//  Created by Ekrem Alkan on 20.09.2023.
 //
 //
 
@@ -16,10 +16,10 @@ extension ChatMessageItem {
         return NSFetchRequest<ChatMessageItem>(entityName: "ChatMessageItem")
     }
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var role: String?
     @NSManaged public var content: String?
     @NSManaged public var createAt: Date?
+    @NSManaged public var id: UUID?
+    @NSManaged public var role: String?
     @NSManaged public var chatHistoryItem: ChatHistoryItem?
 
 }

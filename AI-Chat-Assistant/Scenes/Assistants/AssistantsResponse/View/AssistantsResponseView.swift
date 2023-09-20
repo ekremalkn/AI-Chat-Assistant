@@ -45,6 +45,7 @@ final class AssistantsResponseView: UIView {
         textView.isEditable = true
         textView.backgroundColor = .textViewBackground
         textView.isHidden = true
+        textView.autocorrectionType = .no
         return textView
     }()
     

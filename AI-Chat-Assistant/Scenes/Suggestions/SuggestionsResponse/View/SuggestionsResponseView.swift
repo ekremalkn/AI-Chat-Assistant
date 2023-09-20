@@ -35,6 +35,7 @@ final class SuggestionsResponseView: UIView {
         textView.textContainerInset = .init(top: 14, left: 10, bottom: 14, right: 10)
         textView.isScrollEnabled = false
         textView.isEditable = true
+        textView.autocorrectionType = .no
         textView.backgroundColor = .textViewBackground
         return textView
     }()

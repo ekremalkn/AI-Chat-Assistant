@@ -1,38 +1,39 @@
 //
-//  ChatViewController.swift
+//  PastChatViewController.swift
 //  AI-Chat-Assistant
 //
-//  Created by Ekrem Alkan on 6.08.2023.
+//  Created by Ekrem Alkan on 20.09.2023.
 //
 
 import UIKit
 import ProgressHUD
 
-protocol ChatViewInterface: AnyObject {
+protocol PastChatViewInterface: AnyObject {
     func configureViewController()
     
     func assistantResponsing()
     func assistantResponsed()
     func didOccurErrorWhileResponsing(_ errorMsg: String)
     
+    func resetTextViewMessageText()
+    
     func reloadMessages()
     
-    func configureModelSelectButton(with currentModel: GPTModel)
-    func resetTextViewMessageText()
-    func scrollToBottomCollectionVİew()
-    
+    func showAlertBeforeDeleteChat()
+    func chatSuccesfullyDeleted()
+    func backToChatHistory()
     
 }
 
-final class ChatViewController: UIViewController {
+final class PastChatViewController: UIViewController {
     
     //MARK: - References
-    weak var homeChatCoordinator: ChatCoordinator?
-    private let viewModel: ChatViewModel
-    private let chatView = ChatView()
+    weak var pastChatCoordinator: PastChatCoordinator?
+    private let viewModel: PastChatViewModel
+    private let pastChatView = PastChatView()
     
     //MARK: - Life Cycle Methods
-    init(viewModel: ChatViewModel) {
+    init(viewModel: PastChatViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -43,7 +44,7 @@ final class ChatViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view = chatView
+        view = pastChatView
     }
     
     override func viewDidLoad() {
@@ -52,102 +53,35 @@ final class ChatViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    //MARK: - Configure Navigation Items
+    //MARK: - Configure Nav Items
     private func configureNavItems() {
-        let modelSelectButton = ChatModelSelectButton(model: viewModel.currentModel)
-        modelSelectButton.addTarget(self, action: #selector(modelSelectButtonTapped), for: .touchUpInside)
-        let modelSelectBarButton = UIBarButtonItem(customView: modelSelectButton)
+        let label = UILabel()
+        label.text = viewModel.chatHistoryItem.chatTitleText
+        label.numberOfLines = 2
+        label.textColor = .white
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textAlignment = .center
+        navigationItem.titleView = label
         
-        let moreButton = UIButton(type: .system)
-        moreButton.tintColor = .white
-        moreButton.setImage(.init(named: "chat_bar_button_more"), for: .normal)
-        moreButton.showsMenuAsPrimaryAction = true
-        moreButton.isEnabled = false
+        let deleteButon = UIButton(type: .system)
+        deleteButon.tintColor = .white
+        deleteButon.setImage(.init(named: "chat_trash_bin"), for: .normal)
+        deleteButon.addTarget(self, action: #selector(deleteChatFromCoreDataButtonTapped), for: .touchUpInside)
+        let deleteBarButtonItem = UIBarButtonItem(customView: deleteButon)
         
-        let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
-            guard let self else { return }
-            if !viewModel.uiMessages.isEmpty {
-                shareChatButtonTapped()
-            } else {
-                showAlertForEmptyChat()
-            }
-        }
+        navigationItem.rightBarButtonItem = deleteBarButtonItem
         
-        let newChat = UIAction(title: "Create Chat", image: .init(systemName: "plus.square")) { [weak self] _ in
-            guard let self else { return }
-            if !viewModel.uiMessages.isEmpty {
-                showAlertBeforeCreateChat()
-            } else {
-                showAlertForEmptyChat()
-            }
-        }
-        
-        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { _ in
-            
-        }
-        
-        let deleteChat = UIAction(title: "Clear Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
-            guard let self else { return }
-            if !viewModel.uiMessages.isEmpty {
-                viewModel.clearChat()
-            } else {
-                showAlertForEmptyChat()
-            }
-        }
-        
-        let elements: [UIAction] = [shareChat, newChat, settinsgChat, deleteChat]
-        
-        let moreMenu = UIMenu(children: elements)
-        
-        DispatchQueue.main.async {
-            moreButton.menu = moreMenu
-        }
-        
-        let moreBarButton = UIBarButtonItem(customView: moreButton)
-        
-        navigationItem.rightBarButtonItem = moreBarButton
-        navigationItem.leftBarButtonItem = modelSelectBarButton
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
-        homeChatCoordinator?.delegate = self
+        pastChatView.delegate = self
         
-        chatView.chatCollectionView.delegate = self
-        chatView.chatCollectionView.dataSource = self
+        pastChatView.messageTextView.delegate = self
         
-        chatView.delegate = self
-        chatView.messageTextView.delegate = self
-    }
-    
-    //MARK: - Show Alert before Delete Chat
-    private func showAlertBeforeCreateChat() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            let alertController = UIAlertController(title: "Save this chat", message: "Would you like to save this chat before starting a new one?", preferredStyle: .alert)
-            
-            let saveChatAction = UIAlertAction(title: "Save", style: .default) { _ in
-                self.viewModel.saveChatToCoreData()
-                self.viewModel.clearChat()
-                
-                ProgressHUD.colorAnimation = .main
-                ProgressHUD.colorHUD = .main
-                ProgressHUD.showSucceed("Saved Chat", interaction: false)
-                
-            }
-            
-            let deleteChatAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-                self.viewModel.deleteChat()
-            }
-            
-            alertController.addAction(deleteChatAction)
-            alertController.addAction(saveChatAction)
-            
-            present(alertController, animated: true)
-        }
+        pastChatView.chatCollectionView.delegate = self
+        pastChatView.chatCollectionView.dataSource = self
     }
     
     //MARK: - Show Alert If Chat Is Empty
@@ -165,38 +99,57 @@ final class ChatViewController: UIViewController {
         }
     }
     
-    
-    
-}
+    func changeRightBarButtonToMore() {
+        let moreButton = UIButton(type: .system)
+        moreButton.tintColor = .white
+        moreButton.setImage(.init(named: "chat_bar_button_more"), for: .normal)
+        moreButton.showsMenuAsPrimaryAction = true
+        
+        
+        let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
+            guard let self else { return }
+            if !viewModel.uiMessages.isEmpty {
+                shareChatButtonTapped()
+            } else {
+                showAlertForEmptyChat()
+            }
+        }
 
-//MARK: - Button Actions
-extension ChatViewController {
-    @objc private func modelSelectButtonTapped() {
-        homeChatCoordinator?.openModelSelectVC(with: viewModel.currentModel)
-    }
-    
-    private func shareChatButtonTapped() {
-        let collectionView = chatView.chatCollectionView
-        
-        var collectionViewCellImages: [UIImage] = []
-        
-        for index in 0..<collectionView.numberOfItems(inSection: 0) {
-            let indexPath = IndexPath(item: index, section: 0)
-            if let cellImage = collectionView.cellForItem(at: indexPath)?.snapshot {
-                // Her hücreyi collectionViewContainer'a ekleyin
-                collectionViewCellImages.append(cellImage)
+        let deleteChat = UIAction(title: "Delete Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+            guard let self else { return }
+            if !viewModel.uiMessages.isEmpty {
+                showAlertBeforeDeleteChat()
+            } else {
+                showAlertForEmptyChat()
             }
         }
         
-        let combinedImage = combineImagesVertically(collectionViewCellImages)
+        let elements: [UIAction] = [shareChat, deleteChat]
         
-        shareCombinedImage(combinedImage)
+        let moreMenu = UIMenu(children: elements)
+        
+        DispatchQueue.main.async {
+            moreButton.menu = moreMenu
+        }
+        
+        let moreBarButton = UIBarButtonItem(customView: moreButton)
+        
+        navigationItem.rightBarButtonItem = moreBarButton
     }
+    
     
 }
 
-//MARK: - Configure Chat Collection View
-extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//MARK: - Actions
+extension PastChatViewController {
+    @objc private func deleteChatFromCoreDataButtonTapped() {
+        showAlertBeforeDeleteChat()
+    }
+}
+
+
+//MARK: - Configure CollectionView
+extension PastChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfMessages()
     }
@@ -263,8 +216,8 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 
-//MARK: - ChatViewInterface
-extension ChatViewController: ChatViewInterface {
+//MARK: - PastChatViewInterface
+extension PastChatViewController: PastChatViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
@@ -301,69 +254,95 @@ extension ChatViewController: ChatViewInterface {
         
     }
     
+    func resetTextViewMessageText() {
+        pastChatView.messageTextView.text = nil
+        pastChatView.setSendButtonTouchability(false)
+    }
+    
     func reloadMessages() {
-        let collectionView = chatView.chatCollectionView
+        let collectionView = pastChatView.chatCollectionView
         
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
     }
     
-    func configureModelSelectButton(with currentModel: GPTModel) {
-        if let modelSelectButton = navigationController?.navigationItem.leftBarButtonItem as? ChatModelSelectButton {
-            modelSelectButton.configure(with: currentModel)
+    func showAlertBeforeDeleteChat() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let alertController = UIAlertController(title: "Delete Chat", message: "Are you sure you want to delete the chat?", preferredStyle: .alert)
+            
+            let saveChatAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                guard let self else { return }
+                viewModel.deleteChatFromCoreData()
+            }
+            
+            let deleteChatAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                
+            }
+            
+            alertController.addAction(deleteChatAction)
+            alertController.addAction(saveChatAction)
+            
+            present(alertController, animated: true)
         }
     }
     
-    func resetTextViewMessageText() {
-        chatView.messageTextView.text = nil
-        chatView.setSendButtonTouchability(false)
+    func chatSuccesfullyDeleted() {
+        ProgressHUD.colorAnimation = .main
+        ProgressHUD.colorHUD = .main
+        ProgressHUD.showSucceed("Chat Successfully Deleted", interaction: false)
     }
     
-    func scrollToBottomCollectionVİew() {
-        let collectionView = chatView.chatCollectionView
-        let contentHeight = collectionView.contentSize.height
-        let collectionViewHeight = collectionView.bounds.height
-        let bottomOffset = CGPoint(x: 0, y: max(0, contentHeight - collectionViewHeight + collectionView.contentInset.bottom))
-        DispatchQueue.main.async {
-            collectionView.setContentOffset(bottomOffset, animated: true)
-        }
+    
+    func backToChatHistory() {
+        pastChatCoordinator?.backToChatHistory()
     }
     
 }
 
-//MARK: -  ChatViewDelegate
-extension ChatViewController: ChatViewDelegate {
-    func chatView(_ view: ChatView, sendButtonTapped button: UIButton) {
+//MARK: - MessageTextViewDelegate
+extension PastChatViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.currentInputText = textView.text
+        
+        if let assistantAnswered = viewModel.assistantAnswered {
+            if !textView.text.isEmpty, assistantAnswered {
+                pastChatView.setSendButtonTouchability(true)
+            } else {
+                pastChatView.setSendButtonTouchability(false)
+            }
+        } else {
+            if !textView.text.isEmpty {
+                pastChatView.setSendButtonTouchability(true)
+            } else {
+                pastChatView.setSendButtonTouchability(false)
+            }
+        }
+    }
+}
+
+//MARK: - PastChatViewDelegate
+extension PastChatViewController: PastChatViewDelegate {
+    func pastChatView(_ view: PastChatView, continueChatButtonTapped button: UIButton) {
+        pastChatView.setMessageTextViewAndSendButtonVisibility(hide: false)
+        changeRightBarButtonToMore()
+    }
+    
+    func pastChatView(_ view: PastChatView, shareChatButtonTapped button: UIButton) {
+        shareChatButtonTapped()
+    }
+    
+    func pastChatView(_ view: PastChatView, sendButtonTapped button: UIButton) {
         viewModel.sendButtonTapped()
     }
     
     
 }
 
-//MARK: - UITextViewDelegate
-extension ChatViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        viewModel.currentInputText = textView.text
-        
-        if let assistantAnswered = viewModel.assistantAnswered {
-            if !textView.text.isEmpty, assistantAnswered {
-                chatView.setSendButtonTouchability(true)
-            } else {
-                chatView.setSendButtonTouchability(false)
-            }
-        } else {
-            if !textView.text.isEmpty {
-                chatView.setSendButtonTouchability(true)
-            } else {
-                chatView.setSendButtonTouchability(false)
-            }
-        }
-    }
-}
-
 //MARK: - UserChatCollectionCellDelegate
-extension ChatViewController: UserChatCollectionCellDelegate {
+extension PastChatViewController: UserChatCollectionCellDelegate {
     func userChatCollectionCell(_ cell: UserChatCollectionCell, copyButtonTapped copiedText: String) {
         copyTextToClipboard(copiedText: copiedText)
     }
@@ -371,7 +350,7 @@ extension ChatViewController: UserChatCollectionCellDelegate {
 }
 
 //MARK: - AssistantChatCollectionCellDelegate
-extension ChatViewController: AssistantChatCollectionCellDelegate {
+extension PastChatViewController: AssistantChatCollectionCellDelegate {
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, reGenerateButtonTapped: Void) {
         viewModel.reGenerateButtonTapped()
     }
@@ -402,23 +381,26 @@ extension ChatViewController: AssistantChatCollectionCellDelegate {
     
 }
 
-
-//MARK: - HomeChatCoordinatorDelegate
-extension ChatViewController: ChatCoordinatorDelegate {
-    func chatCoordinator(_ coordinator: ChatCoordinator, didSelectModel model: GPTModel) {
-        guard let modelSelectButton = navigationItem.leftBarButtonItem?.customView as? ChatModelSelectButton else {
-            return
+//MARK: - Helper Methods(Share All Chat)
+extension PastChatViewController {
+    private func shareChatButtonTapped() {
+        let collectionView = pastChatView.chatCollectionView
+        
+        var collectionViewCellImages: [UIImage] = []
+        
+        for index in 0..<collectionView.numberOfItems(inSection: 0) {
+            let indexPath = IndexPath(item: index, section: 0)
+            if let cellImage = collectionView.cellForItem(at: indexPath)?.snapshot {
+                // Her hücreyi collectionViewContainer'a ekleyin
+                collectionViewCellImages.append(cellImage)
+            }
         }
         
-        viewModel.currentModel = model
-        modelSelectButton.configure(with: viewModel.currentModel)
+        let combinedImage = combineImagesVertically(collectionViewCellImages)
+        
+        shareCombinedImage(combinedImage)
     }
     
-    
-}
-
-//MARK: - Helper Methods(Share All Chat)
-extension ChatViewController {
     func combineImagesVertically(_ images: [UIImage]) -> UIImage? {
         let totalHeight = images.reduce(0) { (result, image) in
             return result + image.size.height
@@ -446,7 +428,7 @@ extension ChatViewController {
            let imageData = combinedImage.jpegData(compressionQuality: 1.0) {
             // Geçici bir dosya oluşturun ve görüntüyü bu dosyaya kaydedin
             let temporaryDirectory = FileManager.default.temporaryDirectory
-            let temporaryFileURL = temporaryDirectory.appendingPathComponent("\(UUID().uuidString).jpg")
+            let temporaryFileURL = temporaryDirectory.appendingPathComponent("\(viewModel.chatHistoryItem.chatTitleText ?? "Unknown").jpg")
             
             do {
                 try imageData.write(to: temporaryFileURL)
@@ -475,14 +457,3 @@ extension ChatViewController {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-

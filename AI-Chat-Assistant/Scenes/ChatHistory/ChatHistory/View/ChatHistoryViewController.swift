@@ -10,6 +10,8 @@ import UIKit
 protocol ChatHistoryViewInterface: AnyObject {
     func configureViewController()
     
+    func reloadChatHistoryItems()
+    func openPastChatVC(uiMessages: [UIMessage], chatHistoryItem: ChatHistoryItem)
 }
 
 final class ChatHistoryViewController: UIViewController {
@@ -42,6 +44,7 @@ final class ChatHistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
         navigationController?.tabBarController?.tabBar.isTranslucent = true
         navigationController?.tabBarController?.tabBar.isHidden = true
     }
@@ -57,15 +60,17 @@ final class ChatHistoryViewController: UIViewController {
         label.textAlignment = .center
         navigationItem.titleView = label
         
-        
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        backBarButtonItem.tintColor = .main
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
-
+    
     //MARK: - Setup Delegates
     private func setupDelegates() {
         chatHistoryView.chatHistoryCollectionView.delegate = self
         chatHistoryView.chatHistoryCollectionView.dataSource = self
     }
-
+    
     
 }
 
@@ -87,6 +92,10 @@ extension ChatHistoryViewController: UICollectionViewDelegate, UICollectionViewD
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectItemAt(indexPath: indexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = collectionView.frame.width - 40
         let cellHeight: CGFloat = collectionView.frame.height * 0.30
@@ -103,6 +112,20 @@ extension ChatHistoryViewController: ChatHistoryViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
+    }
+    
+    func openPastChatVC(uiMessages: [UIMessage], chatHistoryItem: ChatHistoryItem) {
+        chatHistoryCoordinator?.openPastChatVC(uiMessages: uiMessages, selectedChatHistoryItem: chatHistoryItem)
+    }
+    
+    func reloadChatHistoryItems() {
+        let collectionView = chatHistoryView.chatHistoryCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates {
+                collectionView.reloadData()
+            }
+        }
     }
     
     

@@ -127,7 +127,7 @@ extension ChatViewModel: ChatViewModelInterface {
             }
             
             if let userFirstText = uiMessages.first?.content {
-                chatHistoryService.addChatToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created home chat", chatMessages: chatMessages)
+                chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created home chat", chatMessages: chatMessages)
             }
         }
     }

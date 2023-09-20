@@ -51,6 +51,7 @@ final class AssistantsPromptEditViewController: UIViewController {
         navigationController?.tabBarController?.tabBar.isTranslucent = true
         navigationController?.tabBarController?.tabBar.isHidden = true
         KeyboardManager.shared.setKeyboardToolbar(enable: true, doneButtonText: "Apply Edit")
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

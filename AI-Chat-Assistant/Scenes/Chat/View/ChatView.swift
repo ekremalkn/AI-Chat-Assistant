@@ -35,7 +35,8 @@ final class ChatView: UIView {
         textView.isScrollEnabled = false
         textView.isEditable = true
         textView.backgroundColor = .textViewBackground
-        
+        textView.autocorrectionType = .no
+
         return textView
     }()
     

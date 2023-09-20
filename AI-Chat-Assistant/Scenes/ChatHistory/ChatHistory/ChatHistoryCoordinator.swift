@@ -30,5 +30,11 @@ final class ChatHistoryCoordinator: Coordinator {
         navigationController.pushViewController(chatHistoryVC, animated: true)
     }
 
+    func openPastChatVC(uiMessages: [UIMessage], selectedChatHistoryItem: ChatHistoryItem) {
+        let pastChatCoordinator = PastChatCoordinator(navigationController: navigationController, uiMessages: uiMessages, chatHistoryItem: selectedChatHistoryItem)
+        childCoordinators.append(pastChatCoordinator)
+        pastChatCoordinator.chatHistoryParentCoordinator = self
+        pastChatCoordinator.start()
+    }
 
 }
