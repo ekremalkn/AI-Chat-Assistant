@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RSKPlaceholderTextView
 
 protocol AssistantsResponseViewDelegate: AnyObject {
     func assistantsResponseView(_ view: AssistantsResponseView, sendButtonTapped button: UIButton)
@@ -36,8 +37,8 @@ final class AssistantsResponseView: UIView {
         return button
     }()
     
-    lazy var messageTextView: UITextView = {
-        let textView = UITextView()
+    lazy var messageTextView: RSKPlaceholderTextView = {
+        let textView = RSKPlaceholderTextView()
         textView.font = .systemFont(ofSize: 18, weight: .medium)
         textView.textColor = .white
         textView.textContainerInset = .init(top: 14, left: 10, bottom: 14, right: 10)
@@ -46,6 +47,8 @@ final class AssistantsResponseView: UIView {
         textView.backgroundColor = .textViewBackground
         textView.isHidden = true
         textView.autocorrectionType = .no
+        textView.placeholder = "Write a message"
+        textView.placeholderColor = .white.withAlphaComponent(0.6)
         return textView
     }()
     

@@ -14,3 +14,11 @@ struct UIMessage {
     let content: String
     let createAt: Date
 }
+
+
+//MARK: - Collection View Current Type
+enum ChatCollectionType {
+    case empty
+    case notEmpty
+}
+

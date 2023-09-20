@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RSKPlaceholderTextView
 
 protocol ChatViewDelegate: AnyObject {
     func chatView(_ view: ChatView, sendButtonTapped button: UIButton)
@@ -19,6 +20,8 @@ final class ChatView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.register(ChatCollectionModelHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ChatCollectionModelHeader.identifier)
+        collection.register(ChatCollectionModelSelectCell.self, forCellWithReuseIdentifier: ChatCollectionModelSelectCell.identifier)
         collection.register(UserChatCollectionCell.self, forCellWithReuseIdentifier: UserChatCollectionCell.identifier)
         collection.register(AssistantChatCollectionCell.self, forCellWithReuseIdentifier: AssistantChatCollectionCell.identifier)
         collection.contentInset = .init(top: 0, left: 0, bottom: 20, right: 0)
@@ -27,8 +30,8 @@ final class ChatView: UIView {
         return collection
     }()
     
-    lazy var messageTextView: UITextView = {
-        let textView = UITextView()
+    lazy var messageTextView: RSKPlaceholderTextView = {
+        let textView = RSKPlaceholderTextView()
         textView.font = .systemFont(ofSize: 18, weight: .medium)
         textView.textColor = .white
         textView.textContainerInset = .init(top: 14, left: 10, bottom: 14, right: 10)
@@ -36,7 +39,8 @@ final class ChatView: UIView {
         textView.isEditable = true
         textView.backgroundColor = .textViewBackground
         textView.autocorrectionType = .no
-
+        textView.placeholder = "Write a message"
+        textView.placeholderColor = .white.withAlphaComponent(0.6)
         return textView
     }()
     

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RSKPlaceholderTextView
 
 protocol SuggestionsResponseViewDelegate: AnyObject {
     func suggestionResponseView(_ view: SuggestionsResponseView, sendButtonTapped button: UIButton)
@@ -28,14 +29,16 @@ final class SuggestionsResponseView: UIView {
         return collection
     }()
     
-    lazy var messageTextView: UITextView = {
-        let textView = UITextView()
+    lazy var messageTextView: RSKPlaceholderTextView = {
+        let textView = RSKPlaceholderTextView()
         textView.font = .systemFont(ofSize: 18, weight: .medium)
         textView.textColor = .white
         textView.textContainerInset = .init(top: 14, left: 10, bottom: 14, right: 10)
         textView.isScrollEnabled = false
         textView.isEditable = true
         textView.autocorrectionType = .no
+        textView.placeholder = "Write a message"
+        textView.placeholderColor = .white.withAlphaComponent(0.6)
         textView.backgroundColor = .textViewBackground
         return textView
     }()

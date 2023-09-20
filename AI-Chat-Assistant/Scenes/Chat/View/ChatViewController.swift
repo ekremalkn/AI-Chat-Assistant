@@ -54,9 +54,17 @@ final class ChatViewController: UIViewController {
     
     //MARK: - Configure Navigation Items
     private func configureNavItems() {
-        let modelSelectButton = ChatModelSelectButton(model: viewModel.currentModel)
-        modelSelectButton.addTarget(self, action: #selector(modelSelectButtonTapped), for: .touchUpInside)
-        let modelSelectBarButton = UIBarButtonItem(customView: modelSelectButton)
+        let leftTitleButton = UIButton()
+        leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
+        leftTitleButton.tintColor = .main
+        leftTitleButton.setTitle(AppName.name, for: .normal)
+        leftTitleButton.setTitleColor(.white, for: .normal)
+        leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
+        
+        let leftTitleBarButton = UIBarButtonItem(customView: leftTitleButton)
+        
+        navigationItem.leftBarButtonItem = leftTitleBarButton
         
         let moreButton = UIButton(type: .system)
         moreButton.tintColor = .white
@@ -106,7 +114,6 @@ final class ChatViewController: UIViewController {
         let moreBarButton = UIBarButtonItem(customView: moreButton)
         
         navigationItem.rightBarButtonItem = moreBarButton
-        navigationItem.leftBarButtonItem = modelSelectBarButton
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
@@ -198,66 +205,144 @@ extension ChatViewController {
 //MARK: - Configure Chat Collection View
 extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.numberOfMessages()
+        switch viewModel.chatCollectionType {
+        case .empty:
+            return 1
+        case .notEmpty:
+            return viewModel.numberOfMessages()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let role = viewModel.uiMessages[indexPath.item].role
+        switch viewModel.chatCollectionType {
+        case .empty:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChatCollectionModelSelectCell.identifier, for: indexPath) as? ChatCollectionModelSelectCell else {
+                return .init()
+            }
+            
+            cell.configure(with: viewModel.currentModel)
+            
+            return cell
+        case .notEmpty:
+            let role = viewModel.uiMessages[indexPath.item].role
+            switch role {
+            case .system:
+                return .init()
+            case .user:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserChatCollectionCell.identifier, for: indexPath) as? UserChatCollectionCell else {
+                    return .init()
+                }
+                
+                let userMessage = viewModel.uiMessages[indexPath.item].content
+                
+                cell.configure(with: userMessage)
+                cell.delegate = self
+                
+                return cell
+            case .assistant:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
+                    return .init()
+                }
+                let assistantMessage = viewModel.uiMessages[indexPath.item].content
+                
+                if indexPath.item == viewModel.uiMessages.count - 1 {
+                    cell.setMoreButtonToMenu(true)
+                } else {
+                    cell.setMoreButtonToMenu(false)
+                }
+                
+                cell.configure(with: assistantMessage)
+                cell.delegate = self
+                return cell
+            }
+        }
         
-        switch role {
-        case .system:
-            return .init()
-        case .user:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserChatCollectionCell.identifier, for: indexPath) as? UserChatCollectionCell else {
-                return .init()
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch viewModel.chatCollectionType {
+        case .empty:
+            modelSelectButtonTapped()
+        case .notEmpty:
+            break
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        switch viewModel.chatCollectionType {
+        case .empty:
+            let cellWidth: CGFloat = collectionView.frame.width - 40
+            let cellHeight: CGFloat = 80
+            
+            return .init(width: cellWidth, height: cellHeight)
+        case .notEmpty:
+            let cellWidth: CGFloat = collectionView.frame.width
+            let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
+            var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
+            
+            let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
+            label.numberOfLines = 0
+            label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.font = .systemFont(ofSize: 15)
+            
+            
+            
+            let messageText = viewModel.uiMessages[indexPath.item].content
+            label.text = messageText
+            label.sizeToFit()
+            
+            if cellHeight < label.frame.height {
+                cellHeight += label.frame.height
             }
             
-            let userMessage = viewModel.uiMessages[indexPath.item].content
-            
-            cell.configure(with: userMessage)
-            cell.delegate = self
-            
-            return cell
-        case .assistant:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantChatCollectionCell.identifier, for: indexPath) as? AssistantChatCollectionCell else {
-                return .init()
-            }
-            let assistantMessage = viewModel.uiMessages[indexPath.item].content
-            
-            if indexPath.item == viewModel.uiMessages.count - 1 {
-                cell.setMoreButtonToMenu(true)
-            } else {
-                cell.setMoreButtonToMenu(false)
-            }
-            
-            cell.configure(with: assistantMessage)
-            cell.delegate = self
-            return cell
+            return .init(width: cellWidth, height: cellHeight)
         }
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = collectionView.frame.width
-        let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
-        var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
+    //MARK: - Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = .systemFont(ofSize: 15)
-        
-        
-        
-        let messageText = viewModel.uiMessages[indexPath.item].content
-        label.text = messageText
-        label.sizeToFit()
-        
-        if cellHeight < label.frame.height {
-            cellHeight += label.frame.height
+        switch kind {
+            
+        case UICollectionView.elementKindSectionHeader:
+            switch viewModel.chatCollectionType {
+                
+            case .empty:
+                return .init()
+            case .notEmpty:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ChatCollectionModelHeader.identifier, for: indexPath) as? ChatCollectionModelHeader else {
+                    return .init()
+                }
+                
+                header.configure(gptModel: viewModel.currentModel)
+                
+                return header
+            }
+        case UICollectionView.elementKindSectionFooter:
+            return .init()
+        default:
+            break
+            
         }
         
-        return .init(width: cellWidth, height: cellHeight)
+        return .init()
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        switch viewModel.chatCollectionType {
+        case .empty:
+            return .init()
+        case .notEmpty:
+            let headerWidth: CGFloat = collectionView.frame.width
+            let headerHeight: CGFloat = 50
+            
+            return .init(width: headerWidth, height: headerHeight)
+        }
+        
     }
     
 }
@@ -406,12 +491,15 @@ extension ChatViewController: AssistantChatCollectionCellDelegate {
 //MARK: - HomeChatCoordinatorDelegate
 extension ChatViewController: ChatCoordinatorDelegate {
     func chatCoordinator(_ coordinator: ChatCoordinator, didSelectModel model: GPTModel) {
-        guard let modelSelectButton = navigationItem.leftBarButtonItem?.customView as? ChatModelSelectButton else {
-            return
-        }
+        let collectionView = chatView.chatCollectionView
         
         viewModel.currentModel = model
-        modelSelectButton.configure(with: viewModel.currentModel)
+        
+        DispatchQueue.main.async {
+            guard let cell = collectionView.cellForItem(at: .init(item: 0, section: 0)) as? ChatCollectionModelSelectCell else { return }
+            cell.configure(with: model)
+        }
+        
     }
     
     

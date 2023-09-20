@@ -117,6 +117,9 @@
 		F0F300112ABB6CE900868CDF /* ChatMessageItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3000D2ABB6CE900868CDF /* ChatMessageItem+CoreDataProperties.swift */; };
 		F0F300122ABB6CE900868CDF /* ChatHistoryItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3000E2ABB6CE900868CDF /* ChatHistoryItem+CoreDataClass.swift */; };
 		F0F300132ABB6CE900868CDF /* ChatHistoryItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3000F2ABB6CE900868CDF /* ChatHistoryItem+CoreDataProperties.swift */; };
+		F0F300192ABB7E1F00868CDF /* RSKPlaceholderTextView in Frameworks */ = {isa = PBXBuildFile; productRef = F0F300182ABB7E1F00868CDF /* RSKPlaceholderTextView */; };
+		F0F3001B2ABB7F6500868CDF /* ChatCollectionModelSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3001A2ABB7F6500868CDF /* ChatCollectionModelSelectCell.swift */; };
+		F0F3001E2ABB847B00868CDF /* ChatCollectionModelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */; };
 		F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */; };
 		F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */; };
 /* End PBXBuildFile section */
@@ -227,6 +230,8 @@
 		F0F3000D2ABB6CE900868CDF /* ChatMessageItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatMessageItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F0F3000E2ABB6CE900868CDF /* ChatHistoryItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatHistoryItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F0F3000F2ABB6CE900868CDF /* ChatHistoryItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatHistoryItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F0F3001A2ABB7F6500868CDF /* ChatCollectionModelSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionModelSelectCell.swift; sourceTree = "<group>"; };
+		F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionModelHeader.swift; sourceTree = "<group>"; };
 		F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatCoordinator.swift; sourceTree = "<group>"; };
 		F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0A5E39A2A93E8D8000AE129 /* Lottie in Frameworks */,
+				F0F300192ABB7E1F00868CDF /* RSKPlaceholderTextView in Frameworks */,
 				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
@@ -638,6 +644,7 @@
 		F07FBDD62A7FBD0B00ACA10F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F0F3001C2ABB845300868CDF /* Header */,
 				F07FBDFD2A7FE35900ACA10F /* Cell */,
 				F07FBDDA2A7FBD4A00ACA10F /* ChatViewController.swift */,
 				F07FBDFB2A7FE1F400ACA10F /* ChatView.swift */,
@@ -730,6 +737,7 @@
 			children = (
 				F07FBDFE2A7FE37E00ACA10F /* UserChatCollectionCell.swift */,
 				F07FBE032A7FE96D00ACA10F /* AssistantChatCollectionCell.swift */,
+				F0F3001A2ABB7F6500868CDF /* ChatCollectionModelSelectCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -940,6 +948,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F0F3001C2ABB845300868CDF /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		F0F3FFF82ABB4C4A00868CDF /* ChatHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +1018,7 @@
 				F0A5E3992A93E8D8000AE129 /* Lottie */,
 				F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */,
 				F02563D82AB7369A00D10150 /* BetterSegmentedControl */,
+				F0F300182ABB7E1F00868CDF /* RSKPlaceholderTextView */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -1039,6 +1056,7 @@
 				F0A5E3982A93E8D8000AE129 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
+				F0F300172ABB7E1F00868CDF /* XCRemoteSwiftPackageReference "RSKPlaceholderTextView" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -1123,6 +1141,7 @@
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
 				F0F300102ABB6CE900868CDF /* ChatMessageItem+CoreDataClass.swift in Sources */,
+				F0F3001E2ABB847B00868CDF /* ChatCollectionModelHeader.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
 				F0ADEFA52AA65CB9008403CA /* BusinessMarketingSuggestions.swift in Sources */,
 				F0F272EB2AB215BF00D63259 /* AssistantsCollectionCell.swift in Sources */,
@@ -1135,6 +1154,7 @@
 				F04879E12AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift in Sources */,
 				F02563E02AB7493B00D10150 /* SuggestionsResponseView.swift in Sources */,
 				F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */,
+				F0F3001B2ABB7F6500868CDF /* ChatCollectionModelSelectCell.swift in Sources */,
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F0F300132ABB6CE900868CDF /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
 				F0ADEF9D2AA65C26008403CA /* HealthNutritionSuggestions.swift in Sources */,
@@ -1442,6 +1462,14 @@
 				minimumVersion = 13.0.0;
 			};
 		};
+		F0F300172ABB7E1F00868CDF /* XCRemoteSwiftPackageReference "RSKPlaceholderTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ruslanskorb/RSKPlaceholderTextView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1479,6 +1507,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0DADC2D2A81893F00BFC78D /* XCRemoteSwiftPackageReference "ProgressHUD" */;
 			productName = ProgressHUD;
+		};
+		F0F300182ABB7E1F00868CDF /* RSKPlaceholderTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0F300172ABB7E1F00868CDF /* XCRemoteSwiftPackageReference "RSKPlaceholderTextView" */;
+			productName = RSKPlaceholderTextView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

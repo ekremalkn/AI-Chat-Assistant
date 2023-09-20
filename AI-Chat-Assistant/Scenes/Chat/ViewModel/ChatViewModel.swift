@@ -37,8 +37,16 @@ final class ChatViewModel {
         }
     }
     
+    var chatCollectionType: ChatCollectionType = .empty
+    
     var uiMessages: [UIMessage] = [] {
         didSet {
+            if uiMessages.isEmpty {
+                chatCollectionType = .empty
+            } else {
+                chatCollectionType = .notEmpty
+            }
+            
             view?.reloadMessages()
         }
     }

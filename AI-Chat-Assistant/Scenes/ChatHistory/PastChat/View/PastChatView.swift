@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RSKPlaceholderTextView
 
 protocol PastChatViewDelegate: AnyObject {
     func pastChatView(_ view: PastChatView, continueChatButtonTapped button: UIButton)
@@ -30,8 +31,8 @@ final class PastChatView: UIView {
         return collection
     }()
     
-    lazy var messageTextView: UITextView = {
-        let textView = UITextView()
+    lazy var messageTextView: RSKPlaceholderTextView = {
+        let textView = RSKPlaceholderTextView()
         textView.font = .systemFont(ofSize: 18, weight: .medium)
         textView.textColor = .white
         textView.textContainerInset = .init(top: 14, left: 10, bottom: 14, right: 10)
@@ -40,6 +41,8 @@ final class PastChatView: UIView {
         textView.backgroundColor = .textViewBackground
         textView.isHidden = true
         textView.autocorrectionType = .no
+        textView.placeholder = "Write a message"
+        textView.placeholderColor = .white.withAlphaComponent(0.6)
         return textView
     }()
     
