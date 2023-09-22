@@ -63,7 +63,13 @@ final class ChatCollectionModelSelectCell: UICollectionViewCell {
     func configure(with gptModel: GPTModel) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            modelLabel.text = "Default: ChatGPT (\(gptModel.modelUIName))"
+            
+            switch gptModel {
+            case .gpt3_5Turbo:
+                modelLabel.text = "Default: ChatGPT (\(gptModel.modelUIName))"
+            case .gpt4:
+                modelLabel.text = "ChatGPT (\(gptModel.modelUIName))"
+            }
         }
     }
     

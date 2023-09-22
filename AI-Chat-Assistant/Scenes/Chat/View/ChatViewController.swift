@@ -116,6 +116,7 @@ final class ChatViewController: UIViewController {
         navigationItem.rightBarButtonItem = moreBarButton
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        
     }
     
     //MARK: - Setup Delegates

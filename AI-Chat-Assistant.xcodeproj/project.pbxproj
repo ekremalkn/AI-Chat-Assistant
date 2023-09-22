@@ -87,6 +87,10 @@
 		F08D00742AB8CCDC0071E324 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00732AB8CCDC0071E324 /* CoreDataManager.swift */; };
 		F08D00802AB8D8360071E324 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D007F2AB8D8360071E324 /* CoreDataService.swift */; };
 		F08D00822AB8D8A10071E324 /* ChatHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00812AB8D8A10071E324 /* ChatHistoryService.swift */; };
+		F0915E862ABE1AB4004F9FE8 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E852ABE1AB4004F9FE8 /* SettingsCoordinator.swift */; };
+		F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */; };
+		F0915E8C2ABE1BB6004F9FE8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */; };
+		F0915E8E2ABE1BD4004F9FE8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E8D2ABE1BD4004F9FE8 /* SettingsView.swift */; };
 		F0A384A22ABA0C50001D627C /* Date+LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A384A12ABA0C50001D627C /* Date+LocalizedString.swift */; };
 		F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3912A93D036000AE129 /* GhostTypewriter */; };
 		F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */; };
@@ -203,6 +207,10 @@
 		F08D00732AB8CCDC0071E324 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F08D007F2AB8D8360071E324 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		F08D00812AB8D8A10071E324 /* ChatHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryService.swift; sourceTree = "<group>"; };
+		F0915E852ABE1AB4004F9FE8 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		F0915E8D2ABE1BD4004F9FE8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F0A384A12ABA0C50001D627C /* Date+LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+LocalizedString.swift"; sourceTree = "<group>"; };
 		F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AssistantTypingAnimation.json; sourceTree = "<group>"; };
 		F0ADEF962AA65B2F008403CA /* EducationSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationSuggestions.swift; sourceTree = "<group>"; };
@@ -608,6 +616,7 @@
 				F027532E2AB0C1CA003220B9 /* Assistants */,
 				F07FBDD32A7FBBE700ACA10F /* Chat */,
 				F08D005D2AB8C1BC0071E324 /* ChatHistory */,
+				F0915E842ABE1A9B004F9FE8 /* Settings */,
 				F066E9992A9B8EB9004A6964 /* ModelSelect */,
 			);
 			path = Scenes;
@@ -924,6 +933,33 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		F0915E842ABE1A9B004F9FE8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F0915E852ABE1AB4004F9FE8 /* SettingsCoordinator.swift */,
+				F0915E872ABE1B1D004F9FE8 /* View */,
+				F0915E8A2ABE1BA3004F9FE8 /* ViewModel */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		F0915E872ABE1B1D004F9FE8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */,
+				F0915E8D2ABE1BD4004F9FE8 /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0915E8A2ABE1BA3004F9FE8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F0A3848E2AB9FB2B001D627C /* ValueTransformer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1106,10 +1142,12 @@
 				F08D006A2AB8C4D60071E324 /* ChatHistoryCollectionCell.swift in Sources */,
 				F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */,
 				F08D00652AB8C2C10071E324 /* ChatHistoryViewModel.swift in Sources */,
+				F0915E8E2ABE1BD4004F9FE8 /* SettingsView.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
 				F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
 				F08D00822AB8D8A10071E324 /* ChatHistoryService.swift in Sources */,
+				F0915E862ABE1AB4004F9FE8 /* SettingsCoordinator.swift in Sources */,
 				F04879F22AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift in Sources */,
 				F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */,
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
@@ -1127,6 +1165,7 @@
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
+				F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */,
 				F0F300112ABB6CE900868CDF /* ChatMessageItem+CoreDataProperties.swift in Sources */,
 				F02563E52AB7499300D10150 /* SuggestionsResponseViewModel.swift in Sources */,
 				F04879D92AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift in Sources */,
@@ -1135,6 +1174,7 @@
 				F0A384A22ABA0C50001D627C /* Date+LocalizedString.swift in Sources */,
 				F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */,
 				F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */,
+				F0915E8C2ABE1BB6004F9FE8 /* SettingsViewModel.swift in Sources */,
 				F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
 				F08D00672AB8C2FD0071E324 /* ChatHistoryView.swift in Sources */,

@@ -58,6 +58,7 @@ final class ModelSelectView: UIView {
         super.layoutSubviews()
         self.layer.cornerRadius = 24
         self.layer.masksToBounds = true
+        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
     
     
