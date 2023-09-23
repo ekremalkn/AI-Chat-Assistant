@@ -13,6 +13,9 @@ protocol SuggestionsViewInterface: AnyObject {
     func reloadSuggestions()
     
     func openModelSelectToSelectGPTModel()
+    
+    func showNoInternetView()
+    func deleteNoInternetView()
 }
 
 final class SuggestionsViewController: UIViewController {
@@ -45,19 +48,14 @@ final class SuggestionsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
         navigationController?.tabBarController?.tabBar.isTranslucent = false
         navigationController?.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: - Configure Nav Items
     private func configureNavItems() {
-        let leftTitleButton = UIButton()
-        leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
-        leftTitleButton.tintColor = .main
-        leftTitleButton.setTitle(AppInfo.name, for: .normal)
-        leftTitleButton.setTitleColor(.white, for: .normal)
-        leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
-        leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
+        let leftTitleButton = NavigationLeftAppTitleButton()
         
         let leftTitleBarButton = UIBarButtonItem(customView: leftTitleButton)
         
@@ -192,6 +190,13 @@ extension SuggestionsViewController: SuggestionsViewInterface {
         suggestionsCoordinator?.openModelSelectVC(with: viewModel.currentModel)
     }
     
+    func showNoInternetView() {
+        addNoInternetView()
+    }
+    
+    func deleteNoInternetView() {
+        removeNoInternetView()
+    }
     
 }
 

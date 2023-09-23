@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import Reachability
 
 protocol AssistantsViewModelInterface {
     var view: AssistantsViewInterface? { get set }
     
     func viewDidLoad()
+    func viewWillAppear()
     
     func numberOfItems() -> Int
     func didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: IndexPath)
-
+    
 }
 
 final class AssistantsViewModel {
@@ -24,6 +26,10 @@ final class AssistantsViewModel {
     private let assistantsService: AssistantsService
     
     //MARK: - Variables
+    let reachability = try! Reachability()
+    
+    var isInternetConnectionLost: Bool = false
+    
     var assistantTags: [AssistantTag] = [] {
         didSet {
             view?.reloadTags()
@@ -103,6 +109,15 @@ extension AssistantsViewModel: AssistantsViewModelInterface {
         fetchAssistantTags()
     }
     
+    func viewWillAppear() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
+        }
+    }
+    
     func numberOfItems() -> Int {
         assistants.count
     }
@@ -111,4 +126,33 @@ extension AssistantsViewModel: AssistantsViewModelInterface {
         self.selectedAssistantCategoryCellIndexPath = assistantCategoryCellIndexPath
     }
     
+}
+
+//MARK: - Reachability Methods
+extension AssistantsViewModel {
+    @objc func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .wifi:
+            print("Reachable via WiFi")
+            view?.deleteNoInternetView()
+            if isInternetConnectionLost {
+                fetchAssistantTags()
+                isInternetConnectionLost = false
+            }
+        case .cellular:
+            print("Reachable via Cellular")
+            view?.deleteNoInternetView()
+            if isInternetConnectionLost {
+                fetchAssistantTags()
+                isInternetConnectionLost = false
+            }
+        case .unavailable:
+            print("Network not reachable")
+            view?.showNoInternetView()
+            isInternetConnectionLost = true
+        }
+    }
 }

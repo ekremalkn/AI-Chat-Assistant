@@ -39,7 +39,7 @@ final class ChatHistorySenderView: UIView {
             guard let self else { return }
             switch chatMessageItem.role {
             case "assistant":
-                senderImageView.image = .init(systemName: "circle.fill")
+                senderImageView.image = .init(named: "appLogo")
                 senderMessageLabel.text = chatMessageItem.content
                 senderMessageLabel.textColor = .white.withAlphaComponent(0.7)
                 senderImageView.tintColor = .main

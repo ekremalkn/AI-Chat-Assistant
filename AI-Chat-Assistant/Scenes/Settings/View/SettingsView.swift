@@ -18,6 +18,7 @@ final class SettingsView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(SettingsCollectionSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SettingsCollectionSectionHeader.identifier)
         collection.register(SettingsCollectionCell.self, forCellWithReuseIdentifier: SettingsCollectionCell.identifier)
+        collection.register(SettingsCollectionFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SettingsCollectionFooter.identifier)
         collection.contentInset = .init(top: 20, left: 20, bottom: 40, right: 20)
         collection.backgroundColor = .clear
         return collection

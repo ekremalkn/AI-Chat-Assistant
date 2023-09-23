@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Reachability
 
 protocol ChatViewModelInterface {
-    var view: ChatViewInterface? { get }
+    var view: ChatViewInterface? { get set }
+    
     func viewDidLoad()
+    func viewWillAppear()
     
     func numberOfMessages() -> Int
     
@@ -31,6 +34,8 @@ final class ChatViewModel {
     private let chatHistoryService: ChatHistoryService = CoreDataService()
     
     //MARK: - Variables
+    let reachability = try! Reachability()
+    
     var currentModel: GPTModel = .gpt3_5Turbo {
         didSet {
             view?.configureModelSelectButton(with: currentModel)
@@ -79,6 +84,7 @@ final class ChatViewModel {
                 } else {
                     view?.didOccurErrorWhileResponsing("Assistant Confused")
                     assistantAnswered = true
+                    uiMessages.removeLast(2)
                     print("No recieved Message from assistant")
                 }
                 
@@ -97,6 +103,15 @@ final class ChatViewModel {
 
 //MARK: - ChatViewModelInterface
 extension ChatViewModel: ChatViewModelInterface {
+    func viewWillAppear() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
+        }
+    }
+    
     func viewDidLoad() {
         view?.configureViewController()
     }
@@ -154,7 +169,7 @@ extension ChatViewModel: ChatViewModelInterface {
             view?.resetTextViewMessageText()
         }
     }
-
+    
     func deleteChat() {
         if !uiMessages.isEmpty {
             uiMessages = []
@@ -162,4 +177,24 @@ extension ChatViewModel: ChatViewModelInterface {
         }
     }
     
+}
+
+//MARK: - Reachability Methods
+extension ChatViewModel {
+    @objc func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .wifi:
+            print("Reachable via WiFi")
+            view?.deleteNoInternetView()
+        case .cellular:
+            print("Reachable via Cellular")
+            view?.deleteNoInternetView()
+        case .unavailable:
+            print("Network not reachable")
+            view?.showNoInternetView()
+        }
+    }
 }

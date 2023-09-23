@@ -6,9 +6,18 @@
 //
 
 import UIKit
+import MessageUI
+import LinkPresentation
 
 protocol SettingsViewInterface: AnyObject {
     func configureViewController()
+    
+    func openMailToSendUS()
+    func openAppStoreToWriteReview()
+    func openShareSheetVCToShareApp()
+    func openSafariToShowPrivacyPolicy()
+    func openSafariToShowTermOfUse()
+    
 }
 
 final class SettingsViewController: UIViewController {
@@ -85,7 +94,17 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
             
             return header
         case UICollectionView.elementKindSectionFooter:
-            return .init()
+            let sectionCategory = viewModel.settingsSections[indexPath.section].sectionCategory
+            if sectionCategory == .about {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SettingsCollectionFooter.identifier, for: indexPath) as? SettingsCollectionFooter else {
+                    return .init()
+                }
+                
+                
+                return footer
+            } else {
+                return .init()
+            }
         default:
             return .init()
         }
@@ -96,6 +115,18 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
         let headerHeight: CGFloat = 20
         
         return .init(width: headerWidth, height: headerHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let sectionCategory = viewModel.settingsSections[section].sectionCategory
+        if sectionCategory == .about {
+            let footerWidth: CGFloat = collectionView.frame.width - 40
+            let footerHeight: CGFloat = 50
+            
+            return .init(width: footerWidth, height: footerHeight)
+        }
+        
+        return .init()
     }
     
     //MARK: - Cell
@@ -115,7 +146,7 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        viewModel.didSelectItemAt(indexPath: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -135,5 +166,35 @@ extension SettingsViewController: SettingsViewInterface {
         setupDelegates()
     }
     
+    func openMailToSendUS() {
+        if MFMailComposeViewController.canSendMail() {
+            settingsCoordinator?.openMail()
+        } else {
+            // show another thing
+        }
+    }
+    
+    func openAppStoreToWriteReview() {
+        if let appStoreReviewUrl = URL(string: "itms-apps://itunes.apple.com/gb/app/id\(AppInfo.appID)?action=write-review&mt=8") {
+            UIApplication.shared.open(appStoreReviewUrl, options: [:], completionHandler: nil)
+        }
+        
+    }
+    
+    func openShareSheetVCToShareApp() {
+        if let appstoreUrl = URL(string: "https://apps.apple.com/app/id\(AppInfo.appID)"), !appstoreUrl.absoluteString.isEmpty {
+            settingsCoordinator?.openShareSheetVC(with: appstoreUrl)
+        }
+    }
+    
+    func openSafariToShowPrivacyPolicy() {
+        settingsCoordinator?.openSafari(with: AppInfo.privacyPolicyURL)
+    }
+    
+    func openSafariToShowTermOfUse() {
+        settingsCoordinator?.openSafari(with: AppInfo.termOfUse)
+    }
+    
     
 }
+

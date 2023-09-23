@@ -15,6 +15,7 @@ final class ChatHistoryView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.register(ChatHistoryCollectionEmptyHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ChatHistoryCollectionEmptyHeader.identifier)
         collection.register(ChatHistoryCollectionCell.self, forCellWithReuseIdentifier: ChatHistoryCollectionCell.identifier)
         collection.backgroundColor = .clear
         collection.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)

@@ -76,6 +76,38 @@ final class ChatHistoryViewController: UIViewController {
 
 //MARK: - Configure CollectionView
 extension ChatHistoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    //MARK: - Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            if viewModel.chatHistoryItems.isEmpty {
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ChatHistoryCollectionEmptyHeader.identifier, for: indexPath) as? ChatHistoryCollectionEmptyHeader else {
+                    return .init()
+                }
+                
+                return header
+            } else {
+                return .init()
+            }
+        case UICollectionView.elementKindSectionFooter:
+            return .init()
+        default:
+            return .init()
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if viewModel.chatHistoryItems.isEmpty {
+            let headerWidth: CGFloat = collectionView.frame.width - 40
+            let headerHeight: CGFloat = collectionView.frame.height - 20
+            
+            return .init(width: headerWidth, height: headerHeight)
+        } else {
+            return .init()
+        }
+    }
+    
+    //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfItems()
     }

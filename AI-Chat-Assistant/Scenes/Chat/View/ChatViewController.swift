@@ -21,7 +21,8 @@ protocol ChatViewInterface: AnyObject {
     func resetTextViewMessageText()
     func scrollToBottomCollectionVİew()
     
-    
+    func showNoInternetView()
+    func deleteNoInternetView()
 }
 
 final class ChatViewController: UIViewController {
@@ -54,19 +55,14 @@ final class ChatViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
         navigationController?.tabBarController?.tabBar.isTranslucent = false
         navigationController?.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: - Configure Navigation Items
     private func configureNavItems() {
-        let leftTitleButton = UIButton()
-        leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
-        leftTitleButton.tintColor = .main
-        leftTitleButton.setTitle(AppInfo.name, for: .normal)
-        leftTitleButton.setTitleColor(.white, for: .normal)
-        leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
-        leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
+        let leftTitleButton = NavigationLeftAppTitleButton()
         
         let leftTitleBarButton = UIBarButtonItem(customView: leftTitleButton)
         
@@ -424,6 +420,13 @@ extension ChatViewController: ChatViewInterface {
         }
     }
     
+    func showNoInternetView() {
+        addNoInternetView()
+    }
+    
+    func deleteNoInternetView() {
+        removeNoInternetView()
+    }
 }
 
 //MARK: -  ChatViewDelegate
@@ -505,8 +508,9 @@ extension ChatViewController: ChatCoordinatorDelegate {
         viewModel.currentModel = model
         
         DispatchQueue.main.async {
-            guard let cell = collectionView.cellForItem(at: .init(item: 0, section: 0)) as? ChatCollectionModelSelectCell else { return }
-            cell.configure(with: model)
+            collectionView.performBatchUpdates {
+                collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+            }
         }
         
     }

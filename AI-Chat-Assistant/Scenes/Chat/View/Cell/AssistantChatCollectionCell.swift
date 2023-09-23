@@ -23,8 +23,8 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
     private lazy var assistantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = .init(systemName: "circle.fill")
-        imageView.tintColor = .white
+        imageView.image = .init(named: "appLogo")
+        imageView.tintColor = .main
         return imageView
     }()
     

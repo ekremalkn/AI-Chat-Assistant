@@ -41,6 +41,22 @@ extension SettingsViewModel: SettingsViewModelInterface {
     func didSelectItemAt(indexPath: IndexPath) {
         let selectedSettingItemCategory = settingsSections[indexPath.section].sectionItems[indexPath.item].itemCategory
         
+        switch selectedSettingItemCategory {
+        case .rateApp:
+            view?.openAppStoreToWriteReview()
+        case .shareWithFriends:
+            view?.openShareSheetVCToShareApp()
+        case .privacyPolicy:
+            view?.openSafariToShowPrivacyPolicy()
+        case .termOfUse:
+            view?.openSafariToShowTermOfUse()
+        case .contactUs:
+            view?.openMailToSendUS()
+        case .requestAFeature:
+            view?.openAppStoreToWriteReview()
+        case .restorePurchase:
+            break
+        }
     }
     
     func viewDidLoad() {

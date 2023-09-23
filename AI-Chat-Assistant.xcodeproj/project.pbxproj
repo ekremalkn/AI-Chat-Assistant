@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */; };
 		F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */; };
+		F024E4102ABF47E4008F0A32 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = F024E40F2ABF47E4008F0A32 /* Reachability */; };
+		F024E4122ABF4961008F0A32 /* NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024E4112ABF4961008F0A32 /* NoInternetView.swift */; };
+		F024E4142ABF5091008F0A32 /* UIViewController+NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024E4132ABF5091008F0A32 /* UIViewController+NoInternetView.swift */; };
+		F024E4162ABF52A4008F0A32 /* NoInternetAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F024E4152ABF52A4008F0A32 /* NoInternetAnimation.json */; };
+		F024E41B2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024E41A2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift */; };
+		F024E41D2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */; };
 		F02563D92AB7369A00D10150 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = F02563D82AB7369A00D10150 /* BetterSegmentedControl */; };
 		F02563DD2AB7486000D10150 /* SuggestionsResponseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */; };
 		F02563E02AB7493B00D10150 /* SuggestionsResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */; };
@@ -38,6 +44,8 @@
 		F04EC48C2ABECF3F005FC184 /* SettingsCollectionSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04EC48B2ABECF3F005FC184 /* SettingsCollectionSectionHeader.swift */; };
 		F04EC4902ABECFFA005FC184 /* SettingsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04EC48F2ABECFFA005FC184 /* SettingsCollectionCell.swift */; };
 		F04EC4932ABED5B9005FC184 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04EC4922ABED5B9005FC184 /* SettingsModel.swift */; };
+		F05A155E2ABF1B980071AABD /* SettingsCollectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A155D2ABF1B980071AABD /* SettingsCollectionFooter.swift */; };
+		F05A15602ABF29710071AABD /* NavigationLeftAppTitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */; };
 		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
 		F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */; };
 		F066E9A12A9B9022004A6964 /* ModelSelectCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */; };
@@ -134,6 +142,11 @@
 /* Begin PBXFileReference section */
 		F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CopyToClipboard.swift"; sourceTree = "<group>"; };
 		F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
+		F024E4112ABF4961008F0A32 /* NoInternetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
+		F024E4132ABF5091008F0A32 /* UIViewController+NoInternetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NoInternetView.swift"; sourceTree = "<group>"; };
+		F024E4152ABF52A4008F0A32 /* NoInternetAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoInternetAnimation.json; sourceTree = "<group>"; };
+		F024E41A2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCollectionEmptyHeader.swift; sourceTree = "<group>"; };
+		F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyChatHistoryAnimation.json; sourceTree = "<group>"; };
 		F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseCoordinator.swift; sourceTree = "<group>"; };
 		F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseView.swift; sourceTree = "<group>"; };
 		F02563E12AB7497E00D10150 /* SuggestionsResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +174,8 @@
 		F04EC48B2ABECF3F005FC184 /* SettingsCollectionSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionSectionHeader.swift; sourceTree = "<group>"; };
 		F04EC48F2ABECFFA005FC184 /* SettingsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionCell.swift; sourceTree = "<group>"; };
 		F04EC4922ABED5B9005FC184 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		F05A155D2ABF1B980071AABD /* SettingsCollectionFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionFooter.swift; sourceTree = "<group>"; };
+		F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLeftAppTitleButton.swift; sourceTree = "<group>"; };
 		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
 		F066E99D2A9B8FD3004A6964 /* ModelSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectView.swift; sourceTree = "<group>"; };
 		F066E9A02A9B9022004A6964 /* ModelSelectCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCollectionCell.swift; sourceTree = "<group>"; };
@@ -259,6 +274,7 @@
 				F0F300192ABB7E1F00868CDF /* RSKPlaceholderTextView in Frameworks */,
 				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
+				F024E4102ABF47E4008F0A32 /* Reachability in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
 				F02563D92AB7369A00D10150 /* BetterSegmentedControl in Frameworks */,
 				F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */,
@@ -269,6 +285,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F024E4172ABF5856008F0A32 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				F024E41A2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		F02563DA2AB7483E00D10150 /* SuggestionsTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +522,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F05A155C2ABF1B7F0071AABD /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				F05A155D2ABF1B980071AABD /* SettingsCollectionFooter.swift */,
+			);
+			path = Footer;
+			sourceTree = "<group>";
+		};
 		F066E9992A9B8EB9004A6964 /* ModelSelect */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,6 +571,7 @@
 			children = (
 				F066E9AA2A9BA1DE004A6964 /* ChatModelSelectButton.swift */,
 				F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */,
+				F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -800,6 +833,7 @@
 				F02563E62AB74F0800D10150 /* UIViewController+CopyToClipboard.swift */,
 				F02563E82AB7626900D10150 /* UIView+Snapshot.swift */,
 				F0A384A12ABA0C50001D627C /* Date+LocalizedString.swift */,
+				F024E4132ABF5091008F0A32 /* UIViewController+NoInternetView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -877,6 +911,7 @@
 		F08D00602AB8C25E0071E324 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F024E4172ABF5856008F0A32 /* Header */,
 				F08D00682AB8C4BE0071E324 /* Cell */,
 				F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */,
 				F08D00662AB8C2FD0071E324 /* ChatHistoryView.swift */,
@@ -904,6 +939,7 @@
 			isa = PBXGroup;
 			children = (
 				F08D006C2AB8C6A10071E324 /* ChatHistorySenderView.swift */,
+				F024E4112ABF4961008F0A32 /* NoInternetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -977,8 +1013,9 @@
 		F0915E872ABE1B1D004F9FE8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F04EC48E2ABECFE9005FC184 /* Cell */,
 				F04EC48D2ABECFD8005FC184 /* Header */,
+				F05A155C2ABF1B7F0071AABD /* Footer */,
+				F04EC48E2ABECFE9005FC184 /* Cell */,
 				F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */,
 				F0915E8D2ABE1BD4004F9FE8 /* SettingsView.swift */,
 			);
@@ -1003,6 +1040,8 @@
 		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */,
+				F024E4152ABF52A4008F0A32 /* NoInternetAnimation.json */,
 				F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */,
 			);
 			path = LottieAnimation;
@@ -1088,6 +1127,7 @@
 				F04879E52AB5D7680075A0C6 /* IQKeyboardManagerSwift */,
 				F02563D82AB7369A00D10150 /* BetterSegmentedControl */,
 				F0F300182ABB7E1F00868CDF /* RSKPlaceholderTextView */,
+				F024E40F2ABF47E4008F0A32 /* Reachability */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -1126,6 +1166,7 @@
 				F04879E42AB5D7680075A0C6 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
 				F0F300172ABB7E1F00868CDF /* XCRemoteSwiftPackageReference "RSKPlaceholderTextView" */,
+				F024E40E2ABF47E4008F0A32 /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -1144,6 +1185,8 @@
 				F07FBDBC2A7FBA1D00ACA10F /* LaunchScreen.storyboard in Resources */,
 				F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */,
 				F07FBDB92A7FBA1D00ACA10F /* Assets.xcassets in Resources */,
+				F024E41D2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json in Resources */,
+				F024E4162ABF52A4008F0A32 /* NoInternetAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1175,6 +1218,7 @@
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
 				F08D006A2AB8C4D60071E324 /* ChatHistoryCollectionCell.swift in Sources */,
 				F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */,
+				F05A155E2ABF1B980071AABD /* SettingsCollectionFooter.swift in Sources */,
 				F08D00652AB8C2C10071E324 /* ChatHistoryViewModel.swift in Sources */,
 				F0915E8E2ABE1BD4004F9FE8 /* SettingsView.swift in Sources */,
 				F07FBDFC2A7FE1F400ACA10F /* ChatView.swift in Sources */,
@@ -1210,6 +1254,7 @@
 				F07FBDD52A7FBC9400ACA10F /* ChatCoordinator.swift in Sources */,
 				F0915E8C2ABE1BB6004F9FE8 /* SettingsViewModel.swift in Sources */,
 				F0ADEF9F2AA65C48008403CA /* AstrologySuggestions.swift in Sources */,
+				F024E4142ABF5091008F0A32 /* UIViewController+NoInternetView.swift in Sources */,
 				F07FBDD02A7FBB9D00ACA10F /* MainTabBarController.swift in Sources */,
 				F08D00672AB8C2FD0071E324 /* ChatHistoryView.swift in Sources */,
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
@@ -1223,6 +1268,7 @@
 				F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */,
 				F0ADEF972AA65B2F008403CA /* EducationSuggestions.swift in Sources */,
 				F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */,
+				F024E41B2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift in Sources */,
 				F06AA0802AA507B900B5B424 /* SuggestionsProvider.swift in Sources */,
 				F0817FF62A9BD1F00054C15E /* SuggestionsCollectionHeader.swift in Sources */,
 				F0ADEF992AA65BAD008403CA /* FunSuggestions.swift in Sources */,
@@ -1251,9 +1297,11 @@
 				F066E9AE2A9BB19E004A6964 /* CustomPresentationController.swift in Sources */,
 				F07FBDEE2A7FD2E900ACA10F /* OpenAIChatResponse.swift in Sources */,
 				F07FBDC92A7FBABD00ACA10F /* Coordinator.swift in Sources */,
+				F024E4122ABF4961008F0A32 /* NoInternetView.swift in Sources */,
 				F0E493712AB3718C00767FF2 /* AssistantTagModel.swift in Sources */,
 				F066E9AB2A9BA1DE004A6964 /* ChatModelSelectButton.swift in Sources */,
 				F08D00712AB8CCBC0071E324 /* ChatAssistantDataModel.xcdatamodeld in Sources */,
+				F05A15602ABF29710071AABD /* NavigationLeftAppTitleButton.swift in Sources */,
 				F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */,
 				F0ADEFA32AA65C94008403CA /* TravelSuggestions.swift in Sources */,
 				F066E9A52A9B9894004A6964 /* ModelSelectViewController.swift in Sources */,
@@ -1406,6 +1454,8 @@
 				DEVELOPMENT_TEAM = 78Y3UD747G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AI-Chat-Assistant/Support/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Chatvantage;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1416,7 +1466,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ekremalkan.AI-Chat-Assistant";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ekremalkan.Chatvantage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1437,6 +1487,8 @@
 				DEVELOPMENT_TEAM = 78Y3UD747G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AI-Chat-Assistant/Support/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Chatvantage;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1447,7 +1499,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ekremalkan.AI-Chat-Assistant";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ekremalkan.Chatvantage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1482,6 +1534,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F024E40E2ABF47E4008F0A32 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gmarm/BetterSegmentedControl.git";
@@ -1549,6 +1609,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F024E40F2ABF47E4008F0A32 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F024E40E2ABF47E4008F0A32 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
 		F02563D82AB7369A00D10150 /* BetterSegmentedControl */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */;
