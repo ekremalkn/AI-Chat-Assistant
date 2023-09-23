@@ -39,5 +39,11 @@ final class AssistantsCoordinator: Coordinator {
         chatHistoryCoordinator.start()
     }
     
+    func openSettingsVC() {
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
+        childCoordinators.append(settingsCoordinator)
+        settingsCoordinator.assistantsParentCoordinator = self
+        settingsCoordinator.start()
+    }
     
 }

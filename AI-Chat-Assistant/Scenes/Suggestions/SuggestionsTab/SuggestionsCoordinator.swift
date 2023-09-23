@@ -55,6 +55,12 @@ final class SuggestionsCoordinator: Coordinator {
         chatHistoryCoordinator.start()
     }
 
+    func openSettingsVC() {
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
+        childCoordinators.append(settingsCoordinator)
+        settingsCoordinator.suggestionsParentCoordinator = self
+        settingsCoordinator.start()
+    }
 
 }
 

@@ -122,9 +122,7 @@ extension ChatHistoryViewController: ChatHistoryViewInterface {
         let collectionView = chatHistoryView.chatHistoryCollectionView
         
         DispatchQueue.main.async {
-            collectionView.performBatchUpdates {
-                collectionView.reloadData()
-            }
+            collectionView.reloadData()
         }
     }
     

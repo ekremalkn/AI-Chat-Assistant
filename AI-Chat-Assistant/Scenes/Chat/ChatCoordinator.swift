@@ -39,6 +39,13 @@ final class ChatCoordinator: Coordinator {
         modelSelectCoordinator.start()
     }
     
+    func openSettingsVC() {
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
+        childCoordinators.append(settingsCoordinator)
+        settingsCoordinator.chatParentCoordinator = self
+        settingsCoordinator.start()
+    }
+    
 }
 
 //MARK: - ModelSelectCoordinatorDelegate

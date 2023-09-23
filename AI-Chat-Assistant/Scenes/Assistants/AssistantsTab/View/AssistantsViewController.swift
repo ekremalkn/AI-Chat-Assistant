@@ -63,7 +63,7 @@ final class AssistantsViewController: UIViewController {
         let leftTitleButton = UIButton()
         leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
         leftTitleButton.tintColor = .main
-        leftTitleButton.setTitle(AppName.name, for: .normal)
+        leftTitleButton.setTitle(AppInfo.name, for: .normal)
         leftTitleButton.setTitleColor(.white, for: .normal)
         leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
@@ -75,6 +75,7 @@ final class AssistantsViewController: UIViewController {
         let rightSettingButton = UIButton(type: .system)
         rightSettingButton.setImage(.init(named: "chat_setting"), for: .normal)
         rightSettingButton.tintColor = .white
+        rightSettingButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         
         let rightHistoryButton = UIButton(type: .system)
         rightHistoryButton.setImage(.init(named: "chat_history"), for: .normal)
@@ -105,6 +106,10 @@ final class AssistantsViewController: UIViewController {
 extension AssistantsViewController {
     @objc private func historyButtonTapped() {
         assistantsCoordinator?.openChatHistoryVC()
+    }
+    
+    @objc private func settingsButtonTapped() {
+        assistantsCoordinator?.openSettingsVC()
     }
 }
 

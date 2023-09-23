@@ -25,7 +25,10 @@ final class SettingsCoordinator: Coordinator {
 
     //MARK: - Methods
     func start() {
-        
+        let settingsVM = SettingsViewModel()
+        let settingsVC = SettingsViewController(viewModel: settingsVM)
+        settingsVC.settingsCoordinator = self
+        navigationController.pushViewController(settingsVC, animated: true)
     }
 
     

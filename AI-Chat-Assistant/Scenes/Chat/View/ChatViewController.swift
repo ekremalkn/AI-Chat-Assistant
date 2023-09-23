@@ -52,12 +52,18 @@ final class ChatViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.tabBarController?.tabBar.isTranslucent = false
+        navigationController?.tabBarController?.tabBar.isHidden = false
+    }
+    
     //MARK: - Configure Navigation Items
     private func configureNavItems() {
         let leftTitleButton = UIButton()
         leftTitleButton.setImage(.init(named: "ChatGPT_24px"), for: .normal)
         leftTitleButton.tintColor = .main
-        leftTitleButton.setTitle(AppName.name, for: .normal)
+        leftTitleButton.setTitle(AppInfo.name, for: .normal)
         leftTitleButton.setTitleColor(.white, for: .normal)
         leftTitleButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         leftTitleButton.titleEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: -5)
@@ -90,7 +96,9 @@ final class ChatViewController: UIViewController {
             }
         }
         
-        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { _ in
+        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
+            guard let self else { return }
+            homeChatCoordinator?.openSettingsVC()
             
         }
         
