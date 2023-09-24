@@ -221,7 +221,7 @@ extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewD
         case .mostUsedSuggestions:
             break
         case .allSuggestions:
-            viewModel.didSelectSuggestionAt(indexPath: indexPath)
+            viewModel.didSelectSuggestionFromAllSuggestionsHeaderAt(indexPath: indexPath)
         }
     }
     
@@ -281,7 +281,7 @@ extension SuggestionsViewController: SuggestionsCollectionAllSuggestionsSectionH
 //MARK: - SuggestionsCollectionMostUsedSuggestionsSectionHeaderDelegate
 extension SuggestionsViewController: SuggestionsCollectionMostUsedSuggestionsSectionHeaderDelegate {
     func suggestionsCollectionMostUsedSuggestionsSectionHeader(_ header: SuggestionsCollectionMostUsedSuggestionsSectionHeader, didSelectSuggestionAt indexPath: IndexPath) {
-        viewModel.didSelectSuggestionAt(indexPath: indexPath)
+        viewModel.didSelectSuggestionFromMostUsedSuggestionsHeaderAt(indexPath: indexPath)
     }
     
 }

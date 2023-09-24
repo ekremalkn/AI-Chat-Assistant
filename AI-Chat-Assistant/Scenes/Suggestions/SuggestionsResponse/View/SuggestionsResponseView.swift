@@ -13,7 +13,9 @@ protocol SuggestionsResponseViewDelegate: AnyObject {
 }
 
 final class SuggestionsResponseView: UIView {
-
+    deinit {
+        print("SuggestionsResponseView deinit")
+    }
     //MARK: - Creating UI Elements
     lazy var chatCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

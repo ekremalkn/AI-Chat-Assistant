@@ -22,6 +22,9 @@ protocol SuggestionsResponseViewModelInterface {
 
 final class SuggestionsResponseViewModel {
     
+    deinit {
+        print("SuggestionsResponseViewModel deinit")
+    }
     //MARK: - References
     weak var view: SuggestionsResponseViewInterface?
     private let openAIChatService: OpenAIChatService

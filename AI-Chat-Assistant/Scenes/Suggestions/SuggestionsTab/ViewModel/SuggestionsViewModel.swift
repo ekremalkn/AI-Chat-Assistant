@@ -19,12 +19,12 @@ protocol  SuggestionsViewModelInterface {
     func didSelectSuggestionCellInHeader(suggestionCellIndexPath: IndexPath)
     func getSuggestionsIn(section: Int) -> [Suggestion]
     
-    func didSelectSuggestionAt(indexPath: IndexPath)
-    
+    func didSelectSuggestionFromAllSuggestionsHeaderAt(indexPath: IndexPath)
+    func didSelectSuggestionFromMostUsedSuggestionsHeaderAt(indexPath: IndexPath)
 }
 
 final class SuggestionsViewModel {
-    
+
     //MARK: - References
     weak var view: SuggestionsViewInterface?
     
@@ -99,8 +99,16 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
         self.selectedSuggestionCategoryCellIndexPath = suggestionCellIndexPath
     }
     
-    func didSelectSuggestionAt(indexPath: IndexPath) {
+    func didSelectSuggestionFromAllSuggestionsHeaderAt(indexPath: IndexPath) {
         let selectedSuggestion = collectionViewSections[indexPath.section].suggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions[indexPath.item]
+        
+        self.selectedSuggestion = selectedSuggestion
+        
+        view?.openModelSelectToSelectGPTModel()
+    }
+    
+    func didSelectSuggestionFromMostUsedSuggestionsHeaderAt(indexPath: IndexPath) {
+        let selectedSuggestion = collectionViewSections[indexPath.section].suggestions[0].suggestions[indexPath.item]
         
         self.selectedSuggestion = selectedSuggestion
         

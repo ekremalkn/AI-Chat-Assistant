@@ -9,7 +9,7 @@ import Foundation
 
 enum AppInfo {
     static let name = "Chatvantage"
-    static let appID = ""
+    static let appID = "6467554969"
     static let appLogoImage = "appLogo"
     static let appEmail = "apps.alkan@gmail.com"
     static let privacyPolicyURL = "https://www.app-privacy-policy.com/live.php?token=TFMDlh8NlyIzXj0uvUTiYI8VROrVROgC"

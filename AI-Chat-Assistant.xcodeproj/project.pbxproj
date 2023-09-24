@@ -94,6 +94,10 @@
 		F089448F2AC0376E00BA4958 /* ChatMessageItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089448B2AC0376E00BA4958 /* ChatMessageItem+CoreDataProperties.swift */; };
 		F08944902AC0376E00BA4958 /* ChatHistoryItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089448C2AC0376E00BA4958 /* ChatHistoryItem+CoreDataClass.swift */; };
 		F08944912AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089448D2AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift */; };
+		F08944942AC085D100BA4958 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F08944932AC085D100BA4958 /* RevenueCat */; };
+		F08944962AC085D100BA4958 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = F08944952AC085D100BA4958 /* RevenueCatUI */; };
+		F08944992AC0870700BA4958 /* RevenueCatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944982AC0870600BA4958 /* RevenueCatManager.swift */; };
+		F089449B2AC0881B00BA4958 /* RevenueCatConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089449A2AC0881B00BA4958 /* RevenueCatConstants.swift */; };
 		F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */; };
 		F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */; };
 		F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */; };
@@ -227,6 +231,8 @@
 		F089448B2AC0376E00BA4958 /* ChatMessageItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatMessageItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F089448C2AC0376E00BA4958 /* ChatHistoryItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatHistoryItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F089448D2AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatHistoryItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F08944982AC0870600BA4958 /* RevenueCatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatManager.swift; sourceTree = "<group>"; };
+		F089449A2AC0881B00BA4958 /* RevenueCatConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatConstants.swift; sourceTree = "<group>"; };
 		F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsChatCollectionHeader.swift; sourceTree = "<group>"; };
 		F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCoordinator.swift; sourceTree = "<group>"; };
 		F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryViewController.swift; sourceTree = "<group>"; };
@@ -278,6 +284,8 @@
 			files = (
 				F0A5E39A2A93E8D8000AE129 /* Lottie in Frameworks */,
 				F0F300192ABB7E1F00868CDF /* RSKPlaceholderTextView in Frameworks */,
+				F08944942AC085D100BA4958 /* RevenueCat in Frameworks */,
+				F08944962AC085D100BA4958 /* RevenueCatUI in Frameworks */,
 				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F024E4102ABF47E4008F0A32 /* Reachability in Frameworks */,
@@ -643,6 +651,7 @@
 				F07F3E782AA7932600075CE5 /* Constants */,
 				F08D006E2AB8CC720071E324 /* CoreData */,
 				F07FBDC52A7FBA5500ACA10F /* Support */,
+				F08944972AC086E600BA4958 /* RevenueCat */,
 				F07FBDC42A7FBA4700ACA10F /* Resources */,
 			);
 			path = "AI-Chat-Assistant";
@@ -924,6 +933,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		F08944972AC086E600BA4958 /* RevenueCat */ = {
+			isa = PBXGroup;
+			children = (
+				F08944982AC0870600BA4958 /* RevenueCatManager.swift */,
+				F089449A2AC0881B00BA4958 /* RevenueCatConstants.swift */,
+			);
+			path = RevenueCat;
+			sourceTree = "<group>";
+		};
 		F08D005A2AB8B4150071E324 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -1161,6 +1179,8 @@
 				F02563D82AB7369A00D10150 /* BetterSegmentedControl */,
 				F0F300182ABB7E1F00868CDF /* RSKPlaceholderTextView */,
 				F024E40F2ABF47E4008F0A32 /* Reachability */,
+				F08944932AC085D100BA4958 /* RevenueCat */,
+				F08944952AC085D100BA4958 /* RevenueCatUI */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -1200,6 +1220,7 @@
 				F02563D72AB7369A00D10150 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
 				F0F300172ABB7E1F00868CDF /* XCRemoteSwiftPackageReference "RSKPlaceholderTextView" */,
 				F024E40E2ABF47E4008F0A32 /* XCRemoteSwiftPackageReference "Reachability" */,
+				F08944922AC085D100BA4958 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = F07FBDAD2A7FBA1C00ACA10F /* Products */;
 			projectDirPath = "";
@@ -1272,11 +1293,13 @@
 				F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
 				F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */,
+				F089449B2AC0881B00BA4958 /* RevenueCatConstants.swift in Sources */,
 				F08D00802AB8D8360071E324 /* CoreDataService.swift in Sources */,
 				F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */,
 				F08D00742AB8CCDC0071E324 /* CoreDataManager.swift in Sources */,
 				F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
+				F08944992AC0870700BA4958 /* RevenueCatManager.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
 				F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */,
@@ -1610,6 +1633,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		F08944922AC085D100BA4958 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.26.1;
+			};
+		};
 		F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wibosco/GhostTypewriter.git";
@@ -1669,6 +1700,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F07FBE002A7FE66C00ACA10F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F08944932AC085D100BA4958 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08944922AC085D100BA4958 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		F08944952AC085D100BA4958 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08944922AC085D100BA4958 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
 		};
 		F0A5E3912A93D036000AE129 /* GhostTypewriter */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -290,10 +290,10 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return .init(width: cellWidth, height: cellHeight)
         case .notEmpty:
             let cellWidth: CGFloat = collectionView.frame.width
-            let cellDefaultUIElementsHeightAndPadding: CGFloat = 5 + 36 +  5
+            let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
             var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
             
-            let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 112, CGFloat.greatestFiniteMagnitude))
+            let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
             label.numberOfLines = 0
             label.lineBreakMode = NSLineBreakMode.byWordWrapping
             label.font = .systemFont(ofSize: 15, weight: .medium)
@@ -304,7 +304,7 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
             label.text = messageText
             label.sizeToFit()
      
-            if cellHeight < label.frame.height {
+            if cellHeight < label.frame.height + 20 {
                 cellHeight += label.frame.height
             }
 
