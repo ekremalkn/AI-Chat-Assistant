@@ -17,6 +17,7 @@ protocol SettingsViewInterface: AnyObject {
     func openShareSheetVCToShareApp()
     func openSafariToShowPrivacyPolicy()
     func openSafariToShowTermOfUse()
+    func openPaywall()
     
 }
 
@@ -194,6 +195,9 @@ extension SettingsViewController: SettingsViewInterface {
         settingsCoordinator?.openSafari(with: AppInfo.termOfUse)
     }
     
+    func openPaywall() {
+        settingsCoordinator?.openPaywall()
+    }
     
 }
 

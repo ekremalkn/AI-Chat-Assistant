@@ -70,7 +70,7 @@ final class ChatHistoryCollectionCell: UICollectionViewCell {
     //MARK: - Layout Subview
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.cornerRadius = 24
+        self.layer.cornerRadius = 16
         self.layer.masksToBounds = true
         
     }

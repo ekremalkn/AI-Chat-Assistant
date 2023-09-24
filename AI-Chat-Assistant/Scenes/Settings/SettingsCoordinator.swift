@@ -67,6 +67,13 @@ final class SettingsCoordinator: NSObject, Coordinator {
             navigationController.pushViewController(safariViewController, animated: true)
         }
     }
+    
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.settingsParentCoordinator = self
+        paywallCoordinator.start()
+    }
 
 }
 

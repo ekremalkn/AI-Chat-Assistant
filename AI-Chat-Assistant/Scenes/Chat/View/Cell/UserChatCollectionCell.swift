@@ -95,7 +95,7 @@ extension UserChatCollectionCell {
         }
         
         moreButton.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(5)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.height.width.equalTo(36)
         }

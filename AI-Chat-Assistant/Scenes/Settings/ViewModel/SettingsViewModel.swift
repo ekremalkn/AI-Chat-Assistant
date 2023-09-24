@@ -55,7 +55,7 @@ extension SettingsViewModel: SettingsViewModelInterface {
         case .requestAFeature:
             view?.openAppStoreToWriteReview()
         case .restorePurchase:
-            break
+            view?.openPaywall()
         }
     }
     

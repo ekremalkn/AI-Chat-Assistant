@@ -98,6 +98,13 @@
 		F08944962AC085D100BA4958 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = F08944952AC085D100BA4958 /* RevenueCatUI */; };
 		F08944992AC0870700BA4958 /* RevenueCatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944982AC0870600BA4958 /* RevenueCatManager.swift */; };
 		F089449B2AC0881B00BA4958 /* RevenueCatConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089449A2AC0881B00BA4958 /* RevenueCatConstants.swift */; };
+		F08944A02AC090D400BA4958 /* PaywallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089449F2AC090D400BA4958 /* PaywallCoordinator.swift */; };
+		F08944A32AC0914500BA4958 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944A22AC0914500BA4958 /* PaywallView.swift */; };
+		F08944A52AC0915E00BA4958 /* PaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944A42AC0915E00BA4958 /* PaywallViewController.swift */; };
+		F08944A82AC091B200BA4958 /* PaywallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944A72AC091B200BA4958 /* PaywallViewModel.swift */; };
+		F08944AA2AC0AFDB00BA4958 /* PaywallPurchaseButtonAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F08944A92AC0AFDA00BA4958 /* PaywallPurchaseButtonAnimation.json */; };
+		F08944AC2AC0B1BF00BA4958 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F08944AB2AC0B1BF00BA4958 /* GhostTypewriter */; };
+		F08944AE2AC0B64C00BA4958 /* PaywallChatbotAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F08944AD2AC0B64C00BA4958 /* PaywallChatbotAnimation.json */; };
 		F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */; };
 		F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */; };
 		F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */; };
@@ -233,6 +240,12 @@
 		F089448D2AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatHistoryItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F08944982AC0870600BA4958 /* RevenueCatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatManager.swift; sourceTree = "<group>"; };
 		F089449A2AC0881B00BA4958 /* RevenueCatConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueCatConstants.swift; sourceTree = "<group>"; };
+		F089449F2AC090D400BA4958 /* PaywallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallCoordinator.swift; sourceTree = "<group>"; };
+		F08944A22AC0914500BA4958 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		F08944A42AC0915E00BA4958 /* PaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallViewController.swift; sourceTree = "<group>"; };
+		F08944A72AC091B200BA4958 /* PaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallViewModel.swift; sourceTree = "<group>"; };
+		F08944A92AC0AFDA00BA4958 /* PaywallPurchaseButtonAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PaywallPurchaseButtonAnimation.json; sourceTree = "<group>"; };
+		F08944AD2AC0B64C00BA4958 /* PaywallChatbotAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PaywallChatbotAnimation.json; sourceTree = "<group>"; };
 		F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsChatCollectionHeader.swift; sourceTree = "<group>"; };
 		F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCoordinator.swift; sourceTree = "<group>"; };
 		F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryViewController.swift; sourceTree = "<group>"; };
@@ -289,6 +302,7 @@
 				F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */,
 				F07FBDE02A7FD01B00ACA10F /* Moya in Frameworks */,
 				F024E4102ABF47E4008F0A32 /* Reachability in Frameworks */,
+				F08944AC2AC0B1BF00BA4958 /* GhostTypewriter in Frameworks */,
 				F07FBE022A7FE66C00ACA10F /* SnapKit in Frameworks */,
 				F02563D92AB7369A00D10150 /* BetterSegmentedControl in Frameworks */,
 				F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */,
@@ -714,6 +728,7 @@
 				F07FBDD32A7FBBE700ACA10F /* Chat */,
 				F08D005D2AB8C1BC0071E324 /* ChatHistory */,
 				F0915E842ABE1A9B004F9FE8 /* Settings */,
+				F089449C2AC0907400BA4958 /* Paywall */,
 				F066E9992A9B8EB9004A6964 /* ModelSelect */,
 			);
 			path = Scenes;
@@ -942,6 +957,33 @@
 			path = RevenueCat;
 			sourceTree = "<group>";
 		};
+		F089449C2AC0907400BA4958 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				F089449F2AC090D400BA4958 /* PaywallCoordinator.swift */,
+				F08944A12AC0912C00BA4958 /* View */,
+				F08944A62AC091A600BA4958 /* ViewModel */,
+			);
+			path = Paywall;
+			sourceTree = "<group>";
+		};
+		F08944A12AC0912C00BA4958 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F08944A22AC0914500BA4958 /* PaywallView.swift */,
+				F08944A42AC0915E00BA4958 /* PaywallViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F08944A62AC091A600BA4958 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F08944A72AC091B200BA4958 /* PaywallViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F08D005A2AB8B4150071E324 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -1091,6 +1133,8 @@
 		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				F08944AD2AC0B64C00BA4958 /* PaywallChatbotAnimation.json */,
+				F08944A92AC0AFDA00BA4958 /* PaywallPurchaseButtonAnimation.json */,
 				F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */,
 				F024E4152ABF52A4008F0A32 /* NoInternetAnimation.json */,
 				F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */,
@@ -1181,6 +1225,7 @@
 				F024E40F2ABF47E4008F0A32 /* Reachability */,
 				F08944932AC085D100BA4958 /* RevenueCat */,
 				F08944952AC085D100BA4958 /* RevenueCatUI */,
+				F08944AB2AC0B1BF00BA4958 /* GhostTypewriter */,
 			);
 			productName = "AI-Chat-Assistant";
 			productReference = F07FBDAC2A7FBA1C00ACA10F /* AI-Chat-Assistant.app */;
@@ -1240,7 +1285,9 @@
 				F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */,
 				F07FBDB92A7FBA1D00ACA10F /* Assets.xcassets in Resources */,
 				F024E41D2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json in Resources */,
+				F08944AE2AC0B64C00BA4958 /* PaywallChatbotAnimation.json in Resources */,
 				F024E4162ABF52A4008F0A32 /* NoInternetAnimation.json in Resources */,
+				F08944AA2AC0AFDB00BA4958 /* PaywallPurchaseButtonAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1251,10 +1298,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F08944A82AC091B200BA4958 /* PaywallViewModel.swift in Sources */,
 				F0F300032ABB4DF200868CDF /* PastChatView.swift in Sources */,
 				F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */,
 				F04879EC2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift in Sources */,
 				F04879E32AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift in Sources */,
+				F08944A32AC0914500BA4958 /* PaywallView.swift in Sources */,
 				F024E4212ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift in Sources */,
 				F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */,
 				F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */,
@@ -1317,9 +1366,11 @@
 				F08D00672AB8C2FD0071E324 /* ChatHistoryView.swift in Sources */,
 				F02FA0862AA49A3A0089B680 /* SuggestionModel.swift in Sources */,
 				F07FBDFA2A7FD84F00ACA10F /* ChatViewModel.swift in Sources */,
+				F08944A02AC090D400BA4958 /* PaywallCoordinator.swift in Sources */,
 				F04EC48C2ABECF3F005FC184 /* SettingsCollectionSectionHeader.swift in Sources */,
 				F0F3001E2ABB847B00868CDF /* ChatCollectionModelHeader.swift in Sources */,
 				F07FBDB22A7FBA1C00ACA10F /* SceneDelegate.swift in Sources */,
+				F08944A52AC0915E00BA4958 /* PaywallViewController.swift in Sources */,
 				F0ADEFA52AA65CB9008403CA /* BusinessMarketingSuggestions.swift in Sources */,
 				F0F272EB2AB215BF00D63259 /* AssistantsCollectionCell.swift in Sources */,
 				F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */,
@@ -1710,6 +1761,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F08944922AC085D100BA4958 /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = RevenueCatUI;
+		};
+		F08944AB2AC0B1BF00BA4958 /* GhostTypewriter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0A5E3902A93D036000AE129 /* XCRemoteSwiftPackageReference "GhostTypewriter" */;
+			productName = GhostTypewriter;
 		};
 		F0A5E3912A93D036000AE129 /* GhostTypewriter */ = {
 			isa = XCSwiftPackageProductDependency;
