@@ -19,10 +19,11 @@ protocol ChatViewInterface: AnyObject {
     
     func configureModelSelectButton(with currentModel: GPTModel)
     func resetTextViewMessageText()
-    func scrollToBottomCollectionVİew()
     
     func showNoInternetView()
     func deleteNoInternetView()
+    
+    func scrollCollectionViewToBottom()
 }
 
 final class ChatViewController: UIViewController {
@@ -119,7 +120,12 @@ final class ChatViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = moreBarButton
         
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .vcBackground
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         
     }
     
@@ -284,23 +290,24 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return .init(width: cellWidth, height: cellHeight)
         case .notEmpty:
             let cellWidth: CGFloat = collectionView.frame.width
-            let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
+            let cellDefaultUIElementsHeightAndPadding: CGFloat = 5 + 36 +  5
             var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
             
-            let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
+            let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 112, CGFloat.greatestFiniteMagnitude))
             label.numberOfLines = 0
             label.lineBreakMode = NSLineBreakMode.byWordWrapping
-            label.font = .systemFont(ofSize: 15)
+            label.font = .systemFont(ofSize: 15, weight: .medium)
             
             
             
             let messageText = viewModel.uiMessages[indexPath.item].content
             label.text = messageText
             label.sizeToFit()
-            
+     
             if cellHeight < label.frame.height {
                 cellHeight += label.frame.height
             }
+
             
             return .init(width: cellWidth, height: cellHeight)
         }
@@ -343,7 +350,7 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return .init()
         case .notEmpty:
             let headerWidth: CGFloat = collectionView.frame.width
-            let headerHeight: CGFloat = 15
+            let headerHeight: CGFloat = 25
             
             return .init(width: headerWidth, height: headerHeight)
         }
@@ -409,23 +416,32 @@ extension ChatViewController: ChatViewInterface {
         chatView.messageTextView.text = nil
         chatView.setSendButtonTouchability(false)
     }
-    
-    func scrollToBottomCollectionVİew() {
-        let collectionView = chatView.chatCollectionView
-        let contentHeight = collectionView.contentSize.height
-        let collectionViewHeight = collectionView.bounds.height
-        let bottomOffset = CGPoint(x: 0, y: max(0, contentHeight - collectionViewHeight + collectionView.contentInset.bottom))
-        DispatchQueue.main.async {
-            collectionView.setContentOffset(bottomOffset, animated: true)
-        }
-    }
-    
+        
     func showNoInternetView() {
         addNoInternetView()
     }
     
     func deleteNoInternetView() {
         removeNoInternetView()
+    }
+    
+    func scrollCollectionViewToBottom() {
+        let collectionView = chatView.chatCollectionView
+        let numberOfChatMessages = viewModel.uiMessages.count
+        let lastItemIndex = IndexPath(item: numberOfChatMessages - 1, section: 0)
+        
+        let contentHeight = collectionView.contentSize.height
+        let offsetY = collectionView.contentOffset.y
+        let collectionViewHeight = collectionView.bounds.size.height
+        
+        // Eğer collectionView'in içeriği en altta değil ise
+        if !(offsetY >= contentHeight - collectionViewHeight) {
+            DispatchQueue.main.async {
+                collectionView.performBatchUpdates {
+                    collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
+                }
+            }
+        }
     }
 }
 
@@ -493,7 +509,9 @@ extension ChatViewController: AssistantChatCollectionCellDelegate {
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, feedBackButtonTapped: Void) {
-        
+        if let appStoreReviewUrl = URL(string: "itms-apps://itunes.apple.com/gb/app/id\(AppInfo.appID)?action=write-review&mt=8") {
+            UIApplication.shared.open(appStoreReviewUrl, options: [:], completionHandler: nil)
+        }
     }
     
     

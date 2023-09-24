@@ -18,6 +18,7 @@ protocol SuggestionsResponseViewInterface: AnyObject {
     func resetTextViewMessageText()
     
     func reloadMessages()
+    func scrollCollectionViewToBottom()
 }
 
 final class SuggestionsResponseViewController: UIViewController {
@@ -130,7 +131,7 @@ extension SuggestionsResponseViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerWidth: CGFloat = collectionView.frame.width
-        let headerHeight: CGFloat = 15
+        let headerHeight: CGFloat = 25
         
         return .init(width: headerWidth, height: headerHeight)
     }
@@ -178,13 +179,13 @@ extension SuggestionsResponseViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = collectionView.frame.width
-        let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10 + 20
+        let cellDefaultUIElementsHeightAndPadding: CGFloat = 5 + 36 + 5
         var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
         
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 112, CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = .systemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         
         
         
@@ -252,7 +253,24 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewInterface {
         }
     }
     
-    
+    func scrollCollectionViewToBottom() {
+        let collectionView = suggestionsResponseView.chatCollectionView
+        let numberOfChatMessages = viewModel.uiMessages.count
+        let lastItemIndex = IndexPath(item: numberOfChatMessages - 1, section: 0)
+        
+        let contentHeight = collectionView.contentSize.height
+        let offsetY = collectionView.contentOffset.y
+        let collectionViewHeight = collectionView.bounds.size.height
+        
+        // Eğer collectionView'in içeriği en altta değil ise
+        if !(offsetY >= contentHeight - collectionViewHeight) {
+            DispatchQueue.main.async {
+                collectionView.performBatchUpdates {
+                    collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
+                }
+            }
+        }
+    }
 }
 
 //MARK: - SuggestionsResponsViewDelegate
@@ -320,7 +338,9 @@ extension SuggestionsResponseViewController: AssistantChatCollectionCellDelegate
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, feedBackButtonTapped: Void) {
-        
+        if let appStoreReviewUrl = URL(string: "itms-apps://itunes.apple.com/gb/app/id\(AppInfo.appID)?action=write-review&mt=8") {
+            UIApplication.shared.open(appStoreReviewUrl, options: [:], completionHandler: nil)
+        }
     }
     
     

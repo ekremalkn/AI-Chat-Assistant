@@ -2,7 +2,7 @@
 //  ChatMessageItem+CoreDataProperties.swift
 //  AI-Chat-Assistant
 //
-//  Created by Ekrem Alkan on 20.09.2023.
+//  Created by Ekrem Alkan on 24.09.2023.
 //
 //
 

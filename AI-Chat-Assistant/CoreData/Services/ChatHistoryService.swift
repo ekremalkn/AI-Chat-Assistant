@@ -8,7 +8,7 @@
 import CoreData
 
 protocol ChatHistoryService {
-    func addChatHistoryToCoreData(chatCreationDate: Date, chatTitleText: String, chatSubTitleText: String?, chatMessages: [ChatMessageItem])
+    func addChatHistoryToCoreData(chatCreationDate: Date, chatTitleText: String, chatSubTitleText: String?, gptModel: GPTModel, chatMessages: [ChatMessageItem])
     func addChatMessageToCoreData(chatHistoryItem: ChatHistoryItem, uiMessage: UIMessage)
     func deleteChatMessageFromCoreData(chatHistoryItem: ChatHistoryItem, chatMessageItem: ChatMessageItem)
     func fetchChatHistory() -> [ChatHistoryItem]
@@ -16,13 +16,14 @@ protocol ChatHistoryService {
 }
 
 extension CoreDataService: ChatHistoryService {
-    func addChatHistoryToCoreData(chatCreationDate: Date, chatTitleText: String, chatSubTitleText: String?, chatMessages: [ChatMessageItem]) {
+    func addChatHistoryToCoreData(chatCreationDate: Date, chatTitleText: String, chatSubTitleText: String?, gptModel: GPTModel, chatMessages: [ChatMessageItem]) {
         let chatHistoryItem = ChatHistoryItem(context: viewContext)
         chatHistoryItem.chatCreationDate = chatCreationDate
         chatHistoryItem.chatTitleText = chatTitleText
         chatHistoryItem.chatSubTitleText = chatSubTitleText
         chatHistoryItem.chatMessages = NSSet(array: chatMessages)
-        
+        chatHistoryItem.gptModel = gptModel.modelRequestName
+
         CoreDataManager.shared.saveContext()
     }
     

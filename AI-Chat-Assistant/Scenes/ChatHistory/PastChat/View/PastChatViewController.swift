@@ -23,6 +23,7 @@ protocol PastChatViewInterface: AnyObject {
     func chatSuccesfullyDeleted()
     func backToChatHistory()
     
+    func scrollCollectionViewToBottom()
 }
 
 final class PastChatViewController: UIViewController {
@@ -150,6 +151,23 @@ extension PastChatViewController {
 
 //MARK: - Configure CollectionView
 extension PastChatViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    //MARK: - Header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ChatCollectionModelHeader.identifier, for: indexPath) as? ChatCollectionModelHeader else {
+            return .init()
+        }
+        cell.configure(gptModel: viewModel.currentModel)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let headerWidth: CGFloat = collectionView.frame.width
+        let headerHeight: CGFloat = 25
+        
+        return .init(width: headerWidth, height: headerHeight)
+    }
+    
+    //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfMessages()
     }
@@ -192,13 +210,13 @@ extension PastChatViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = collectionView.frame.width
-        let cellDefaultUIElementsHeightAndPadding: CGFloat = 10 + 36 +  10
+        let cellDefaultUIElementsHeightAndPadding: CGFloat = 5 + 36 +  5
         var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
         
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 102, CGFloat.greatestFiniteMagnitude))
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 112, CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = .systemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         
         
         
@@ -300,6 +318,24 @@ extension PastChatViewController: PastChatViewInterface {
         pastChatCoordinator?.backToChatHistory()
     }
     
+    func scrollCollectionViewToBottom() {
+        let collectionView = pastChatView.chatCollectionView
+        let numberOfChatMessages = viewModel.uiMessages.count
+        let lastItemIndex = IndexPath(item: numberOfChatMessages - 1, section: 0)
+        
+        let contentHeight = collectionView.contentSize.height
+        let offsetY = collectionView.contentOffset.y
+        let collectionViewHeight = collectionView.bounds.size.height
+        
+        // Eğer collectionView'in içeriği en altta değil ise
+        if !(offsetY >= contentHeight - collectionViewHeight) {
+            DispatchQueue.main.async {
+                collectionView.performBatchUpdates {
+                    collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
+                }
+            }
+        }
+    }
 }
 
 //MARK: - MessageTextViewDelegate
@@ -375,7 +411,9 @@ extension PastChatViewController: AssistantChatCollectionCellDelegate {
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, feedBackButtonTapped: Void) {
-        
+        if let appStoreReviewUrl = URL(string: "itms-apps://itunes.apple.com/gb/app/id\(AppInfo.appID)?action=write-review&mt=8") {
+            UIApplication.shared.open(appStoreReviewUrl, options: [:], completionHandler: nil)
+        }
     }
     
     

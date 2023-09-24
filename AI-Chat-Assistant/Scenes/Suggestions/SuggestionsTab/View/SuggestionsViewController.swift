@@ -80,7 +80,14 @@ final class SuggestionsViewController: UIViewController {
         backBarButtonItem.tintColor = .main
         navigationItem.backBarButtonItem = backBarButtonItem
         
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .vcBackground
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+
+        
     }
     
     //MARK: - Setup Delegates

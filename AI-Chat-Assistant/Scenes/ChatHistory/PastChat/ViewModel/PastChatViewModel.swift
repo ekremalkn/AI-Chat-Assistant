@@ -41,6 +41,7 @@ final class PastChatViewModel {
         self.openAIChatService = openAIChatService
         self.chatHistoryItem = chatHistoryItem
         self.uiMessages = uiMessages
+        setCurrentGptModel(coreDataGptModelName: chatHistoryItem.gptModel)
     }
     
     
@@ -52,6 +53,7 @@ final class PastChatViewModel {
         // add cell for waiting to response assistane
         openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
             guard let self else { return }
+            view?.scrollCollectionViewToBottom()
             switch result {
             case .success(let openAIChatResponse):
                 if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
@@ -81,7 +83,22 @@ final class PastChatViewModel {
         }
     }
     
-    //MARK: - Add Chat Message to Core Data
+    //MARK: - Set Current GPT Model
+    func setCurrentGptModel(coreDataGptModelName: String?) {
+        if let gptModelName = coreDataGptModelName {
+            switch gptModelName {
+            case GPTModel.gpt3_5Turbo.modelRequestName:
+                self.currentModel = .gpt3_5Turbo
+            case GPTModel.gpt4.modelRequestName:
+                self.currentModel = .gpt4
+            default:
+                break
+            }
+        }
+    }
+
+    
+    //MARK: - Add/Delete Chat Message to/from Core Data
     private func addChatMessageToCoreData(uiMessage: UIMessage) {
         chatHistoryService.addChatMessageToCoreData(chatHistoryItem: chatHistoryItem, uiMessage: uiMessage)
     }
@@ -114,6 +131,7 @@ extension PastChatViewModel: PastChatViewModelInterface {
         chatHistoryService.addChatMessageToCoreData(chatHistoryItem: chatHistoryItem, uiMessage: newMessage)
         sendMessage()
         view?.resetTextViewMessageText()
+        view?.scrollCollectionViewToBottom()
     }
     
     func reGenerateButtonTapped() {

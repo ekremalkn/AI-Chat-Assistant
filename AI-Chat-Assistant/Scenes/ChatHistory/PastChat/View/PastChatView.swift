@@ -22,10 +22,10 @@ final class PastChatView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(SuggestionsChatCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SuggestionsChatCollectionHeader.identifier)
+        collection.register(ChatCollectionModelHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ChatCollectionModelHeader.identifier)
         collection.register(UserChatCollectionCell.self, forCellWithReuseIdentifier: UserChatCollectionCell.identifier)
         collection.register(AssistantChatCollectionCell.self, forCellWithReuseIdentifier: AssistantChatCollectionCell.identifier)
-        collection.contentInset = .init(top: 0, left: 0, bottom: 20, right: 0)
+        collection.contentInset = .init(top: 10, left: 0, bottom: 20, right: 0)
         collection.showsVerticalScrollIndicator = false
         collection.backgroundColor = .clear
         return collection

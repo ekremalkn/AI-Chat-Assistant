@@ -2,7 +2,7 @@
 //  ChatHistoryItem+CoreDataProperties.swift
 //  AI-Chat-Assistant
 //
-//  Created by Ekrem Alkan on 20.09.2023.
+//  Created by Ekrem Alkan on 24.09.2023.
 //
 //
 
@@ -19,6 +19,7 @@ extension ChatHistoryItem {
     @NSManaged public var chatCreationDate: Date?
     @NSManaged public var chatSubTitleText: String?
     @NSManaged public var chatTitleText: String?
+    @NSManaged public var gptModel: String?
     @NSManaged public var chatMessages: NSSet?
 
 }

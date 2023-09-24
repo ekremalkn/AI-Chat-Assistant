@@ -178,7 +178,6 @@ extension SettingsViewController: SettingsViewInterface {
         if let appStoreReviewUrl = URL(string: "itms-apps://itunes.apple.com/gb/app/id\(AppInfo.appID)?action=write-review&mt=8") {
             UIApplication.shared.open(appStoreReviewUrl, options: [:], completionHandler: nil)
         }
-        
     }
     
     func openShareSheetVCToShareApp() {

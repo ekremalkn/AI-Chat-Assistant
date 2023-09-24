@@ -72,6 +72,7 @@ final class ChatViewModel {
         // add cell for waiting to response assistane
         openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
             guard let self else { return }
+            view?.scrollCollectionViewToBottom()
             switch result {
             case .success(let openAIChatResponse):
                 if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
@@ -125,6 +126,7 @@ extension ChatViewModel: ChatViewModelInterface {
         uiMessages.append(newMessage)
         sendMessage()
         view?.resetTextViewMessageText()
+        view?.scrollCollectionViewToBottom()
     }
     
     func reGenerateButtonTapped() {
@@ -150,7 +152,7 @@ extension ChatViewModel: ChatViewModelInterface {
             }
             
             if let userFirstText = uiMessages.first?.content {
-                chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created home chat", chatMessages: chatMessages)
+                chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created home chat", gptModel: currentModel, chatMessages: chatMessages)
             }
         }
     }
