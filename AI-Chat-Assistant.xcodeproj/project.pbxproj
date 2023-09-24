@@ -15,6 +15,7 @@
 		F024E4162ABF52A4008F0A32 /* NoInternetAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F024E4152ABF52A4008F0A32 /* NoInternetAnimation.json */; };
 		F024E41B2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024E41A2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift */; };
 		F024E41D2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */; };
+		F024E4212ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024E4202ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift */; };
 		F02563D92AB7369A00D10150 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = F02563D82AB7369A00D10150 /* BetterSegmentedControl */; };
 		F02563DD2AB7486000D10150 /* SuggestionsResponseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */; };
 		F02563E02AB7493B00D10150 /* SuggestionsResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */; };
@@ -83,10 +84,12 @@
 		F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FBE0E2A801CB600ACA10F /* ColorSet.swift */; };
 		F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */; };
 		F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF22A9BD1160054C15E /* SuggestionsView.swift */; };
-		F0817FF62A9BD1F00054C15E /* SuggestionsCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF52A9BD1F00054C15E /* SuggestionsCollectionHeader.swift */; };
+		F0817FF62A9BD1F00054C15E /* SuggestionsCollectionAllSuggestionsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF52A9BD1F00054C15E /* SuggestionsCollectionAllSuggestionsSectionHeader.swift */; };
 		F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */; };
 		F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */; };
 		F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */; };
+		F08944862AC026DC00BA4958 /* MostUsedSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944852AC026DC00BA4958 /* MostUsedSuggestions.swift */; };
+		F08944892AC02B7900BA4958 /* MostUsedSuggestionsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08944882AC02B7900BA4958 /* MostUsedSuggestionsCollectionCell.swift */; };
 		F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */; };
 		F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */; };
 		F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */; };
@@ -147,6 +150,7 @@
 		F024E4152ABF52A4008F0A32 /* NoInternetAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoInternetAnimation.json; sourceTree = "<group>"; };
 		F024E41A2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCollectionEmptyHeader.swift; sourceTree = "<group>"; };
 		F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyChatHistoryAnimation.json; sourceTree = "<group>"; };
+		F024E4202ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift; sourceTree = "<group>"; };
 		F02563DC2AB7486000D10150 /* SuggestionsResponseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseCoordinator.swift; sourceTree = "<group>"; };
 		F02563DF2AB7493B00D10150 /* SuggestionsResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseView.swift; sourceTree = "<group>"; };
 		F02563E12AB7497E00D10150 /* SuggestionsResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsResponseViewController.swift; sourceTree = "<group>"; };
@@ -213,10 +217,12 @@
 		F07FBE0E2A801CB600ACA10F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		F0817FEF2A9BCEBB0054C15E /* SuggestionsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCoordinator.swift; sourceTree = "<group>"; };
 		F0817FF22A9BD1160054C15E /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
-		F0817FF52A9BD1F00054C15E /* SuggestionsCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionHeader.swift; sourceTree = "<group>"; };
+		F0817FF52A9BD1F00054C15E /* SuggestionsCollectionAllSuggestionsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionAllSuggestionsSectionHeader.swift; sourceTree = "<group>"; };
 		F0817FF72A9BD49B0054C15E /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
 		F0817FFA2A9BD5090054C15E /* SuggestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewModel.swift; sourceTree = "<group>"; };
 		F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCategoryCollectionCell.swift; sourceTree = "<group>"; };
+		F08944852AC026DC00BA4958 /* MostUsedSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostUsedSuggestions.swift; sourceTree = "<group>"; };
+		F08944882AC02B7900BA4958 /* MostUsedSuggestionsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostUsedSuggestionsCollectionCell.swift; sourceTree = "<group>"; };
 		F08D005B2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsChatCollectionHeader.swift; sourceTree = "<group>"; };
 		F08D005E2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCoordinator.swift; sourceTree = "<group>"; };
 		F08D00612AB8C2710071E324 /* ChatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryViewController.swift; sourceTree = "<group>"; };
@@ -291,6 +297,24 @@
 				F024E41A2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		F024E41E2ABF6305008F0A32 /* SuggestionsCollectionSuggestionsSectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				F0817FFC2A9BE56F0054C15E /* Cell */,
+				F0817FF52A9BD1F00054C15E /* SuggestionsCollectionAllSuggestionsSectionHeader.swift */,
+			);
+			path = SuggestionsCollectionSuggestionsSectionHeader;
+			sourceTree = "<group>";
+		};
+		F024E41F2ABF630F008F0A32 /* SuggestionsCollectionAllSuggestionsSectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				F08944872AC02B1E00BA4958 /* Cell */,
+				F024E4202ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift */,
+			);
+			path = SuggestionsCollectionAllSuggestionsSectionHeader;
 			sourceTree = "<group>";
 		};
 		F02563DA2AB7483E00D10150 /* SuggestionsTab */ = {
@@ -395,6 +419,7 @@
 				F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */,
 				F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */,
 				F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */,
+				F08944852AC026DC00BA4958 /* MostUsedSuggestions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -869,8 +894,8 @@
 		F0817FF42A9BD1AD0054C15E /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				F0817FFC2A9BE56F0054C15E /* Cell */,
-				F0817FF52A9BD1F00054C15E /* SuggestionsCollectionHeader.swift */,
+				F024E41F2ABF630F008F0A32 /* SuggestionsCollectionAllSuggestionsSectionHeader */,
+				F024E41E2ABF6305008F0A32 /* SuggestionsCollectionSuggestionsSectionHeader */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -887,6 +912,14 @@
 			isa = PBXGroup;
 			children = (
 				F0817FFD2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F08944872AC02B1E00BA4958 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F08944882AC02B7900BA4958 /* MostUsedSuggestionsCollectionCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1201,6 +1234,7 @@
 				F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */,
 				F04879EC2AB5E82B0075A0C6 /* AssistantsResponseCoordinator.swift in Sources */,
 				F04879E32AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift in Sources */,
+				F024E4212ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift in Sources */,
 				F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */,
 				F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */,
 				F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */,
@@ -1268,9 +1302,10 @@
 				F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */,
 				F0ADEF972AA65B2F008403CA /* EducationSuggestions.swift in Sources */,
 				F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */,
+				F08944892AC02B7900BA4958 /* MostUsedSuggestionsCollectionCell.swift in Sources */,
 				F024E41B2ABF58F1008F0A32 /* ChatHistoryCollectionEmptyHeader.swift in Sources */,
 				F06AA0802AA507B900B5B424 /* SuggestionsProvider.swift in Sources */,
-				F0817FF62A9BD1F00054C15E /* SuggestionsCollectionHeader.swift in Sources */,
+				F0817FF62A9BD1F00054C15E /* SuggestionsCollectionAllSuggestionsSectionHeader.swift in Sources */,
 				F0ADEF992AA65BAD008403CA /* FunSuggestions.swift in Sources */,
 				F04879E12AB5A94B0075A0C6 /* AssistantsPromptEditCollectionSectionHeader.swift in Sources */,
 				F02563E02AB7493B00D10150 /* SuggestionsResponseView.swift in Sources */,
@@ -1283,6 +1318,7 @@
 				F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
+				F08944862AC026DC00BA4958 /* MostUsedSuggestions.swift in Sources */,
 				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,
 				F07F3E7A2AA7934500075CE5 /* AppInfo.swift in Sources */,
 				F04EC4902ABECFFA005FC184 /* SettingsCollectionCell.swift in Sources */,

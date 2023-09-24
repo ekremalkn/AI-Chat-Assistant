@@ -110,63 +110,127 @@ extension SuggestionsViewController {
 extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Header
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        viewModel.collectionViewSections.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let sectionCategory = viewModel.collectionViewSections[indexPath.section].suggestionSectionCategory
         
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SuggestionsCollectionHeader.identifier, for: indexPath) as? SuggestionsCollectionHeader else {
-                return .init()
+            switch sectionCategory {
+            case .mostUsedSuggestions:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SuggestionsCollectionMostUsedSuggestionsSectionHeader.identifier, for: indexPath) as? SuggestionsCollectionMostUsedSuggestionsSectionHeader else {
+                    return .init()
+                }
+                
+                if let suggestionModel = viewModel.collectionViewSections[indexPath.section].suggestions.first {
+                    let mostUsedSuggestions = suggestionModel.suggestions
+                    let suggestionCategory = suggestionModel.suggestionCategory
+                    
+                    header.configure(with: mostUsedSuggestions, suggestionCategory: suggestionCategory, headerSectionIndex: indexPath.section)
+                }
+                
+                header.delegate = self
+                
+                return header
+            case .allSuggestions:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SuggestionsCollectionAllSuggestionsSectionHeader.identifier, for: indexPath) as? SuggestionsCollectionAllSuggestionsSectionHeader else {
+                    return .init()
+                }
+                
+                let categorySuggestions = viewModel.collectionViewSections[indexPath.section].suggestions
+                
+                header.configure(with: categorySuggestions, selectedSuggestionCellIndexPath: viewModel.selectedSuggestionCategoryCellIndexPath)
+                header.delegate = self
+                
+                return header
             }
             
-            header.configure(with: viewModel.homeCollectionViewSuggestions, selectedSuggestionCellIndexPath: viewModel.selectedSuggestionCategoryCellIndexPath)
-            header.headerTextField.delegate = self
-            header.delegate = self
-            
-            return header
             
         case UICollectionView.elementKindSectionFooter:
-            break
+            return .init()
         default:
-            break
+            return .init()
         }
         
-        return .init()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let headerHeight: CGFloat = 250
+        let sectionCategory = viewModel.collectionViewSections[section].suggestionSectionCategory
         let headerWidth: CGFloat = collectionView.frame.width
-        
-        return .init(width: headerWidth, height: headerHeight)
+
+        switch sectionCategory {
+        case .mostUsedSuggestions:
+            let headerHeight: CGFloat = 170
+            
+            return .init(width: headerWidth, height: headerHeight)
+        case .allSuggestions:
+            let headerHeight: CGFloat = 100
+            
+            return .init(width: headerWidth, height: headerHeight)
+        }
+
     }
     
     //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.numberOfItems()
+        let sectionCategory = viewModel.collectionViewSections[section].suggestionSectionCategory
+        
+        switch sectionCategory {
+        case .mostUsedSuggestions:
+            return 0
+        case .allSuggestions:
+            return viewModel.numberOfSelectedCategorySuggestions(section: section)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SuggestionsCollectionCell.identifier, for: indexPath) as? SuggestionsCollectionCell else {
+        let sectionCategory = viewModel.collectionViewSections[indexPath.section].suggestionSectionCategory
+        
+        switch sectionCategory {
+        case .mostUsedSuggestions:
             return .init()
+        case .allSuggestions:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SuggestionsCollectionCell.identifier, for: indexPath) as? SuggestionsCollectionCell else {
+                return .init()
+            }
+            
+            let suggestions = viewModel.getSuggestionsIn(section: indexPath.section)
+            let suggestion = suggestions[indexPath.item]
+            cell.configure(with: suggestion)
+            
+            return cell
         }
-        
-        let suggestions = viewModel.getSuggestions()
-        let suggestion = suggestions[indexPath.item]
-        cell.configure(with: suggestion)
-        
-        return cell
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectSuggestionAt(indexPath: indexPath)
+        let sectionCategory = viewModel.collectionViewSections[indexPath.section].suggestionSectionCategory
+        
+        switch sectionCategory {
+        case .mostUsedSuggestions:
+            break
+        case .allSuggestions:
+            viewModel.didSelectSuggestionAt(indexPath: indexPath)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.frame.width - 60) / 2
-        let cellHeight = cellWidth * 1.25
+        let sectionCategory = viewModel.collectionViewSections[indexPath.section].suggestionSectionCategory
         
-        return .init(width: cellWidth, height: cellHeight)
+        switch sectionCategory {
+        case .mostUsedSuggestions:
+            return .init()
+        case .allSuggestions:
+            let cellWidth = (collectionView.frame.width - 60) / 2
+            let cellHeight = cellWidth * 1.25
+            
+            return .init(width: cellWidth, height: cellHeight)
+        }
+
     }
 }
 
@@ -201,20 +265,18 @@ extension SuggestionsViewController: SuggestionsViewInterface {
 }
 
 //MARK: - SuggestionsCollectionHeader Delegate
-extension SuggestionsViewController: SuggestionsCollectionHeaderDelegate {
-    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath) {
+extension SuggestionsViewController: SuggestionsCollectionAllSuggestionsSectionHeaderDelegate {
+    func suggestionsCollectionAllSuggestionsSectionHeader(_ header: SuggestionsCollectionAllSuggestionsSectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath) {
         viewModel.didSelectSuggestionCellInHeader(suggestionCellIndexPath: cellIndexPath)
     }
-    
-    
 }
 
-//MARK: - Header TextField Delegate
-extension SuggestionsViewController: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        suggestionsCoordinator?.openChatVC()
-        return false
+//MARK: - SuggestionsCollectionMostUsedSuggestionsSectionHeaderDelegate
+extension SuggestionsViewController: SuggestionsCollectionMostUsedSuggestionsSectionHeaderDelegate {
+    func suggestionsCollectionMostUsedSuggestionsSectionHeader(_ header: SuggestionsCollectionMostUsedSuggestionsSectionHeader, didSelectSuggestionAt indexPath: IndexPath) {
+        viewModel.didSelectSuggestionAt(indexPath: indexPath)
     }
+    
 }
 
 //MARK: - SuggestionsCoordinatorDelegate

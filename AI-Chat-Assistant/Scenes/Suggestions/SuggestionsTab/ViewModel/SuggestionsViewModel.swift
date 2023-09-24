@@ -14,10 +14,10 @@ protocol  SuggestionsViewModelInterface {
     func viewDidLoad()
     func viewWillAppear()
     
-    func numberOfItems() -> Int
+    func numberOfSelectedCategorySuggestions(section: Int) -> Int
     
     func didSelectSuggestionCellInHeader(suggestionCellIndexPath: IndexPath)
-    func getSuggestions() -> [Suggestion]
+    func getSuggestionsIn(section: Int) -> [Suggestion]
     
     func didSelectSuggestionAt(indexPath: IndexPath)
     
@@ -32,20 +32,26 @@ final class SuggestionsViewModel {
     let reachability = try! Reachability()
     
     var currentModel: GPTModel = .gpt3_5Turbo
-    var homeCollectionViewSuggestions: [SuggestionModel] = [
-        .init(suggestionCategory: .education, suggestions: SuggestionProvider.educationSuggestions),
-        .init(suggestionCategory: .fun, suggestions: SuggestionProvider.funSuggestions),
-        .init(suggestionCategory: .beautyLifestyle, suggestions: SuggestionProvider.beautyLifestyleSuggestions),
-        .init(suggestionCategory: .healthNutrition, suggestions: SuggestionProvider.healthNutritionSuggestions),
-        .init(suggestionCategory: .astrology, suggestions: SuggestionProvider.astrologySuggestions),
-        .init(suggestionCategory: .travel, suggestions: SuggestionProvider.travelSuggestions),
-        .init(suggestionCategory: .businessMarketing, suggestions: SuggestionProvider.businessMarketing),
-        .init(suggestionCategory: .fashion, suggestions: SuggestionProvider.fashionSuggestions),
-        .init(suggestionCategory: .socialMedia, suggestions: SuggestionProvider.socialMediaSuggestions),
-        .init(suggestionCategory: .career, suggestions: SuggestionProvider.careerSuggestions),
-        .init(suggestionCategory: .email, suggestions: SuggestionProvider.emailSuggestions),
-        .init(suggestionCategory: .creativeIdeas, suggestions: SuggestionProvider.creativeIdeaSuggestions),
+    var collectionViewSections: [SuggestionSection] = [
+        .init(suggestionSectionCategory: .mostUsedSuggestions, suggestions: [
+            .init(suggestionCategory: .mostUsed, suggestions: SuggestionProvider.mostUsedSuggestions)
+        ]),
+        .init(suggestionSectionCategory: .allSuggestions, suggestions: [
+            .init(suggestionCategory: .education, suggestions: SuggestionProvider.educationSuggestions),
+            .init(suggestionCategory: .fun, suggestions: SuggestionProvider.funSuggestions),
+            .init(suggestionCategory: .beautyLifestyle, suggestions: SuggestionProvider.beautyLifestyleSuggestions),
+            .init(suggestionCategory: .healthNutrition, suggestions: SuggestionProvider.healthNutritionSuggestions),
+            .init(suggestionCategory: .astrology, suggestions: SuggestionProvider.astrologySuggestions),
+            .init(suggestionCategory: .travel, suggestions: SuggestionProvider.travelSuggestions),
+            .init(suggestionCategory: .businessMarketing, suggestions: SuggestionProvider.businessMarketing),
+            .init(suggestionCategory: .fashion, suggestions: SuggestionProvider.fashionSuggestions),
+            .init(suggestionCategory: .socialMedia, suggestions: SuggestionProvider.socialMediaSuggestions),
+            .init(suggestionCategory: .career, suggestions: SuggestionProvider.careerSuggestions),
+            .init(suggestionCategory: .email, suggestions: SuggestionProvider.emailSuggestions),
+            .init(suggestionCategory: .creativeIdeas, suggestions: SuggestionProvider.creativeIdeaSuggestions),
+        ])
     ]
+    
     
     var selectedSuggestion: Suggestion?
     
@@ -81,12 +87,12 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
         }
     }
     
-    func numberOfItems() -> Int {
-        homeCollectionViewSuggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions.count
+    func numberOfSelectedCategorySuggestions(section: Int) -> Int {
+        collectionViewSections[section].suggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions.count
     }
     
-    func getSuggestions() -> [Suggestion] {
-        homeCollectionViewSuggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions
+    func getSuggestionsIn(section: Int) -> [Suggestion] {
+        collectionViewSections[section].suggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions
     }
     
     func didSelectSuggestionCellInHeader(suggestionCellIndexPath: IndexPath) {
@@ -94,7 +100,7 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
     }
     
     func didSelectSuggestionAt(indexPath: IndexPath) {
-        let selectedSuggestion = homeCollectionViewSuggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions[indexPath.item]
+        let selectedSuggestion = collectionViewSections[indexPath.section].suggestions[selectedSuggestionCategoryCellIndexPath.item].suggestions[indexPath.item]
         
         self.selectedSuggestion = selectedSuggestion
         

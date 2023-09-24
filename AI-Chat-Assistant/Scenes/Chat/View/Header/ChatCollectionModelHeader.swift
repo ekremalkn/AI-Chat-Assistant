@@ -49,18 +49,22 @@ final class ChatCollectionModelHeader: UICollectionReusableView {
 extension ChatCollectionModelHeader {
     private func setupViews() {
         backgroundColor = .clear
-        addSubview(gptModelLabel)
         addSubview(seperatorView)
+        addSubview(gptModelLabel)
         
-        gptModelLabel.snp.makeConstraints { make in
-            make.center.equalTo(self.safeAreaLayoutGuide)
-            make.width.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
-        }
         
         seperatorView.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width)
             make.height.equalTo(0.5)
         }
+        
+        gptModelLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(seperatorView.snp.bottom).offset(-10)
+            make.centerX.equalTo(seperatorView.snp.centerX)
+            make.top.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.top)
+            make.width.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
+        }
+
     }
 }

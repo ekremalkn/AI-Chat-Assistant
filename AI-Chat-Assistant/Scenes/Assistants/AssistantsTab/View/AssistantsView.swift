@@ -16,7 +16,7 @@ final class AssistantsView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(AssistantsCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AssistantsCollectionHeader.identifier)
         collection.register(AssistantsCollectionCell.self, forCellWithReuseIdentifier: AssistantsCollectionCell.identifier)
-        collection.contentInset = .init(top: 0, left: 20, bottom: 20, right: 20)
+        collection.contentInset = .init(top: 10, left: 20, bottom: 20, right: 20)
         collection.showsVerticalScrollIndicator = false
         collection.backgroundColor = .clear
         return collection

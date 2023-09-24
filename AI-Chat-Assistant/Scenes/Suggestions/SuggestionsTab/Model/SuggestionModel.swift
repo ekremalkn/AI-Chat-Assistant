@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct SuggestionSection {
+    var suggestionSectionCategory: SuggestionSectionCategory
+    var suggestions: [SuggestionModel]
+}
+
+enum SuggestionSectionCategory {
+    case mostUsedSuggestions
+    case allSuggestions
+}
+
 struct SuggestionModel {
     var suggestionCategory: SuggestionCategory
     var suggestions: [Suggestion]
@@ -33,6 +43,7 @@ enum SuggestionCategory {
     case socialMedia
     case career
     case email
+    case mostUsed
 }
 
 extension SuggestionCategory {
@@ -64,6 +75,8 @@ extension SuggestionCategory {
             return "✉️ E-Mail"
         case .socialMedia:
             return "🌍 Social Media"
+        case .mostUsed:
+            return "Most Used"
         }
     }
 }

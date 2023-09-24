@@ -343,7 +343,7 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return .init()
         case .notEmpty:
             let headerWidth: CGFloat = collectionView.frame.width
-            let headerHeight: CGFloat = 50
+            let headerHeight: CGFloat = 15
             
             return .init(width: headerWidth, height: headerHeight)
         }

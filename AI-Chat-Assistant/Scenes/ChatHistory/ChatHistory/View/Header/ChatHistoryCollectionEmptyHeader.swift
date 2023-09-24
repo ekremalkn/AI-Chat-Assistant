@@ -38,7 +38,7 @@ final class ChatHistoryCollectionEmptyHeader: UICollectionReusableView {
     
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "You can press the button below to start a chat."
+        label.text = "After creating any chat, you will see the chat you created here."
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white.withAlphaComponent(0.5)
@@ -46,15 +46,7 @@ final class ChatHistoryCollectionEmptyHeader: UICollectionReusableView {
         return label
     }()
     
-    private lazy var startChatButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .main
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Start Chat", for: .normal)
-        return button
-    }()
-    
+
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,31 +56,18 @@ final class ChatHistoryCollectionEmptyHeader: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        startChatButton.layer.cornerRadius = 12
-        startChatButton.layer.masksToBounds = true
-    }
-    
+
 }
+
 
 //MARK: - AddSubview / Constraints
 extension ChatHistoryCollectionEmptyHeader {
     private func setupViews() {
         backgroundColor = .vcBackground
-        addSubview(startChatButton)
         addSubview(emptyChatHistoryAnimationView)
         addSubview(labelStackView)
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(subTitleLabel)
-        
-        startChatButton.snp.makeConstraints { make in
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
-            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.height.equalTo(50)
-        }
         
         emptyChatHistoryAnimationView.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
@@ -99,7 +78,7 @@ extension ChatHistoryCollectionEmptyHeader {
         
         labelStackView.snp.makeConstraints { make in
             make.top.equalTo(emptyChatHistoryAnimationView.snp.bottom).offset(20)
-            make.bottom.lessThanOrEqualTo(startChatButton.snp.top).offset(-20)
+            make.bottom.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.leading.trailing.equalTo(emptyChatHistoryAnimationView)
         }
     }

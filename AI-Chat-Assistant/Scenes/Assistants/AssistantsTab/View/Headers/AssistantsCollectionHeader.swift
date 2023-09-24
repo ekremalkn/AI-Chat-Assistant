@@ -162,9 +162,10 @@ extension AssistantsCollectionHeader {
         addSubview(assistantCategoryCollectionView)
         
         headerTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(20)
         }
         
         assistantCategoryCollectionView.snp.makeConstraints { make in

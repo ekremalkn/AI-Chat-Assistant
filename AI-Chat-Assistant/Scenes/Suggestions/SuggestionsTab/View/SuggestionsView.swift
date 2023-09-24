@@ -16,9 +16,10 @@ final class SuggestionsView: UIView {
         layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(SuggestionsCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SuggestionsCollectionHeader.identifier)
+        collection.register(SuggestionsCollectionAllSuggestionsSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SuggestionsCollectionAllSuggestionsSectionHeader.identifier)
+        collection.register(SuggestionsCollectionMostUsedSuggestionsSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SuggestionsCollectionMostUsedSuggestionsSectionHeader.identifier)
         collection.register(SuggestionsCollectionCell.self, forCellWithReuseIdentifier: SuggestionsCollectionCell.identifier)
-        collection.contentInset = .init(top: 0, left: 20, bottom: 20, right: 20)
+        collection.contentInset = .init(top: 10, left: 20, bottom: 20, right: 20)
         collection.showsVerticalScrollIndicator = false
         collection.backgroundColor = .clear
         return collection

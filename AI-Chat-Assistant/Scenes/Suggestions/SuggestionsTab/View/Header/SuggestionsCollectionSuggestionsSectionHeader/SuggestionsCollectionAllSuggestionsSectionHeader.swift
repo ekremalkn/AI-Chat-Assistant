@@ -1,5 +1,5 @@
 //
-//  SuggestionsCollectionHeader.swift
+//  SuggestionsCollectionSuggestionsSectionHeader.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 27.08.2023.
@@ -7,38 +7,15 @@
 
 import UIKit
 
-protocol SuggestionsCollectionHeaderDelegate: AnyObject {
-    func suggestionsCollectionHeader(_ header: SuggestionsCollectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath)
+protocol SuggestionsCollectionAllSuggestionsSectionHeaderDelegate: AnyObject {
+    func suggestionsCollectionAllSuggestionsSectionHeader(_ header: SuggestionsCollectionAllSuggestionsSectionHeader, didSelectSuggestionCategory cellIndexPath: IndexPath)
 }
 
-final class SuggestionsCollectionHeader: UICollectionReusableView {
-    static let identifier = "SuggestionsCollectionHeader"
+final class SuggestionsCollectionAllSuggestionsSectionHeader: UICollectionReusableView {
+    static let identifier = "SuggestionsCollectionAllSuggestionsSectionHeader"
     
     //MARK: - Creating UI Elements
-    private lazy var headerTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Type below to get answers \n Ask any open ended questions"
-        label.textAlignment = .center
-        label.textColor = .white.withAlphaComponent(0.8)
-        label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    lazy var headerTextField: UITextField = {
-        let textField = UITextField()
-        textField.text = "Type Here...✍️"
-        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 0))
-        textField.leftView = leftView
-        textField.leftViewMode = .always
-        textField.textAlignment = .left
-        textField.textColor = .white.withAlphaComponent(0.3)
-        textField.backgroundColor = .textViewBackground
-        textField.contentHorizontalAlignment = .trailing
-        return textField
-    }()
-    
-    private lazy var suggestionLabel: UILabel = {
+    private lazy var sectionTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Suggestions"
         label.textAlignment = .left
@@ -59,7 +36,7 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
     }()
     
     //MARK: - References
-    weak var delegate: SuggestionsCollectionHeaderDelegate?
+    weak var delegate: SuggestionsCollectionAllSuggestionsSectionHeaderDelegate?
     
     //MARK: - Variables
     var suggestionModels: [SuggestionModel] = []
@@ -68,19 +45,13 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
     
     //MARK: - Init Methods
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         setupViews()
         setupDelegates()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        headerTextField.layer.cornerRadius = 12
-        headerTextField.layer.masksToBounds = true
     }
     
     func configure(with suggestionModels: [SuggestionModel], selectedSuggestionCellIndexPath: IndexPath) {
@@ -97,7 +68,7 @@ final class SuggestionsCollectionHeader: UICollectionReusableView {
 }
 
 //MARK: - Configure ColelctionView
-extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SuggestionsCollectionAllSuggestionsSectionHeader: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         suggestionModels.count
     }
@@ -122,7 +93,7 @@ extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? SuggestionCategoryCollectionCell else { return }
         cell.selectCell()
-        delegate?.suggestionsCollectionHeader(self, didSelectSuggestionCategory: indexPath)
+        delegate?.suggestionsCollectionAllSuggestionsSectionHeader(self, didSelectSuggestionCategory: indexPath)
         
         if let selectedSuggestionCellIndexPath, !(selectedSuggestionCellIndexPath == indexPath) {
             guard let cellToDeselect = collectionView.cellForItem(at: selectedSuggestionCellIndexPath) as? SuggestionCategoryCollectionCell else { return }
@@ -150,35 +121,21 @@ extension SuggestionsCollectionHeader: UICollectionViewDelegate, UICollectionVie
 
 
 //MARK: - AddSubview / Constraints
-extension SuggestionsCollectionHeader {
+extension SuggestionsCollectionAllSuggestionsSectionHeader {
     private func setupViews() {
         backgroundColor = .vcBackground
-        addSubview(headerTitleLabel)
-        addSubview(headerTextField)
-        addSubview(suggestionLabel)
+        addSubview(sectionTitleLabel)
         addSubview(suggestionCategoryCollectionView)
         
-        headerTitleLabel.snp.makeConstraints { make in
-            make.top.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.top).offset(10)
-            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).offset(-60)
-        }
-        
-        headerTextField.snp.makeConstraints { make in
-            make.top.equalTo(headerTitleLabel.snp.bottom).offset(20)
+        sectionTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(50)
-        }
-        
-        suggestionLabel.snp.makeConstraints { make in
-            make.top.equalTo(headerTextField.snp.bottom).offset(20)
-            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(20)
         }
         
         suggestionCategoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(suggestionLabel.snp.bottom).offset(10)
+            make.top.equalTo(sectionTitleLabel.snp.bottom).offset(10)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(-20)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(20)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)

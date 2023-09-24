@@ -130,7 +130,7 @@ extension SuggestionsResponseViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerWidth: CGFloat = collectionView.frame.width
-        let headerHeight: CGFloat = 50
+        let headerHeight: CGFloat = 15
         
         return .init(width: headerWidth, height: headerHeight)
     }
