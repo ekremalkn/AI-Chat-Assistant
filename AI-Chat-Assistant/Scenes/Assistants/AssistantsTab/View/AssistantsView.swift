@@ -14,7 +14,8 @@ final class AssistantsView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(AssistantsCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AssistantsCollectionHeader.identifier)
+        collection.register(SubscribeCollectionViewCell.self, forCellWithReuseIdentifier: SubscribeCollectionViewCell.identifier)
+        collection.register(AssistantsCollectionAssistantsSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AssistantsCollectionAssistantsSectionHeader.identifier)
         collection.register(AssistantsCollectionCell.self, forCellWithReuseIdentifier: AssistantsCollectionCell.identifier)
         collection.contentInset = .init(top: 10, left: 20, bottom: 20, right: 20)
         collection.showsVerticalScrollIndicator = false

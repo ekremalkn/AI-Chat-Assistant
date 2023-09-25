@@ -11,6 +11,7 @@ import RevenueCat
 enum RevenueCatPurchaseResult {
     case purchasedSuccessfully
     case didNotPurchase
+    case userCancelled
 }
 
 enum RevenueCatSubscriptionStatus {
@@ -44,8 +45,10 @@ final class RevenueCatManager {
             if customerInfo?.entitlements.all[RevenueCatConstants.entitlement]?.isActive == true {
                 // unlock the greate pro content
                 completion(.purchasedSuccessfully)
-            } else {
+            } else if error == nil {
                 completion(.didNotPurchase)
+            } else if userCancelled {
+                completion(.userCancelled)
             }
         }
     }

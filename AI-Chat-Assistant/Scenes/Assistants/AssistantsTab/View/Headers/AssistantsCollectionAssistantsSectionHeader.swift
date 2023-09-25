@@ -1,5 +1,5 @@
 //
-//  AssistantsCollectionHeader.swift
+//  AssistantsCollectionAssistantsSectionHeader.swift
 //  AI-Chat-Assistant
 //
 //  Created by Ekrem Alkan on 13.09.2023.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol AssistantsCollectionHeaderDelegate: AnyObject {
-    func assistantsCollectionHeader(_ header: AssistantsCollectionHeader, didSelectAssistantCategory cellIndexPath: IndexPath)
+protocol AssistantsCollectionAssistantsSectionHeaderDelegate: AnyObject {
+    func assistantsCollectionAssistantsSectionHeader(_ header: AssistantsCollectionAssistantsSectionHeader, didSelectAssistantCategory cellIndexPath: IndexPath)
 }
 
-final class AssistantsCollectionHeader: UICollectionReusableView {
-    static let identifier = "AssistantsCollectionHeader"
+final class AssistantsCollectionAssistantsSectionHeader: UICollectionReusableView {
+    static let identifier = "AssistantsCollectionAssistantsSectionHeader"
     
     //MARK: - Creating UI Elements
     private lazy var headerTitleLabel: UILabel = {
@@ -36,7 +36,7 @@ final class AssistantsCollectionHeader: UICollectionReusableView {
     }()
     
     //MARK: - References
-    weak var delegate: AssistantsCollectionHeaderDelegate?
+    weak var delegate: AssistantsCollectionAssistantsSectionHeaderDelegate?
     
     //MARK: - Variabes
     var assistantTags: [AssistantTag] = [] {
@@ -88,7 +88,7 @@ final class AssistantsCollectionHeader: UICollectionReusableView {
 }
 
 //MARK: - Configure Collection View
-extension AssistantsCollectionHeader: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension AssistantsCollectionAssistantsSectionHeader: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return isLoadingTags ? 1 : assistantTags.count
     }
@@ -122,7 +122,7 @@ extension AssistantsCollectionHeader: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? AssistantsCategoryCollectionCell else { return }
         cell.selectCell()
-        delegate?.assistantsCollectionHeader(self, didSelectAssistantCategory: indexPath)
+        delegate?.assistantsCollectionAssistantsSectionHeader(self, didSelectAssistantCategory: indexPath)
         
         if let selectedAssisantCategoryCellIndexPath, !(selectedAssisantCategoryCellIndexPath == indexPath) {
             guard let cellToDeselect = collectionView.cellForItem(at: selectedAssisantCategoryCellIndexPath) as? AssistantsCategoryCollectionCell else { return }
@@ -155,7 +155,7 @@ extension AssistantsCollectionHeader: UICollectionViewDelegate, UICollectionView
 
 
 //MARK: - AddSubview / Constraints
-extension AssistantsCollectionHeader {
+extension AssistantsCollectionAssistantsSectionHeader {
     private func setupViews() {
         backgroundColor = .vcBackground
         addSubview(headerTitleLabel)

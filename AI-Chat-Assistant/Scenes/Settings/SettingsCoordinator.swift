@@ -64,7 +64,7 @@ final class SettingsCoordinator: NSObject, Coordinator {
         if let URL = URL(string: urlString) {
             let safariViewController = SFSafariViewController(url: URL)
             safariViewController.modalPresentationStyle = .pageSheet
-            navigationController.pushViewController(safariViewController, animated: true)
+            navigationController.present(safariViewController, animated: true)
         }
     }
     

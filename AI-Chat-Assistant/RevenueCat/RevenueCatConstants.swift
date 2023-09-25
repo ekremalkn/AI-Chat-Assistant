@@ -11,4 +11,6 @@ enum RevenueCatConstants {
     static let revenueCatAPIKey = "appl_CCXmaGunavrWWXvhtRkSDipuuCA"
     static let entitlement = "pro_entitlement"
     static let weeklyYearlyOfferingsIdentifier = "Weekly/Yearly"
+    static let weeklyPackageIdentifier = "$rc_weekly"
+    static let yearlyPackageIdentifier = "$rc_annual"
 }

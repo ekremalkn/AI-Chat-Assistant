@@ -8,6 +8,16 @@
 import UIKit
 import Lottie
 import GhostTypewriter
+import RevenueCat
+
+protocol PaywallViewDelegate: AnyObject {
+    func paywallView(_ view: PaywallView, restoreButtonTapped button: UIButton)
+    func paywallView(_ view: PaywallView, closeButtonTapped button: UIButton)
+    func paywallView(_ view: PaywallView, purchaseButtonTapped button: UIButton)
+    func paywallView(_ view: PaywallView, changePlanButtonTapped button: UIButton)
+    func paywallView(_ view: PaywallView, termOfServiceButtonTapped button: UIButton)
+    func paywallView(_ view: PaywallView, privacyPolicyButtonTapped button: UIButton)
+}
 
 final class PaywallView: UIView {
 
@@ -19,45 +29,67 @@ final class PaywallView: UIView {
         return animationView
     }()
     
+    private lazy var topButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
+    private lazy var restoreButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Restore", for: .normal)
+        button.setTitleColor(.lightGray.withAlphaComponent(0.1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        button.addTarget(self, action: #selector(restoreButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .clear
+        button.tintColor = .lightGray.withAlphaComponent(0.1)
+        button.setImage(.init(named: "chat_cross"), for: .normal)
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        button.alpha = 0
+        button.isEnabled = false
+        return button
+    }()
+    
     private lazy var titleLabelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 5
         return stackView
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 30, weight: .heavy)
+        label.font = .systemFont(ofSize: 34, weight: .black)
         label.numberOfLines = 0
         label.textColor = .main
-        label.text = "Get PRO Access"
+        label.text = "Chatvantage PRO"
         return label
     }()
     
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 25, weight: .bold)
+        label.textColor = .white.withAlphaComponent(0.6)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.numberOfLines = 0
-        label.text = "Unleash the full Potential"
+        label.text = "Unlock Full Potential of AI Chatvantage"
         return label
     }()
-    
-    private lazy var proFeaturesView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-    
+
     private lazy var proFeaturesLabel: TypewriterLabel = {
         let label = TypewriterLabel()
-        label.text = "Powered by GPT-4, Unlimites Questions & Answers, Gain Access to Potent Assistants, Ads Free Experience"
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.text = "🚀Powered by ChatGPT-3.5 & GPT-4\n\n💬UnlimitesQuestions & Answer \n\n👩‍💼🧑‍💼Gain Access to Potent Assistants\n\n🆓Ads Free Experience"
+        label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         label.textColor = .white
+        label.typingTimeInterval = 0.03
         return label
     }()
     
@@ -74,7 +106,18 @@ final class PaywallView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .main
+        button.addTarget(self, action: #selector(purchaseButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    private lazy var planInfoLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.numberOfLines = 0
+        label.text = "Cancel anytime."
+        return label
     }()
     
     private lazy var changePlanButton: UIButton = {
@@ -83,17 +126,8 @@ final class PaywallView: UIView {
         button.setTitleColor(.main, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(changePlanButtonTapped), for: .touchUpInside)
         return button
-    }()
-    
-    private lazy var planInfoLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.numberOfLines = 0
-        label.text = "Start your 3 days trial. Then $5.99/week. Cancel anytime."
-        return label
     }()
     
     private lazy var documentsButtonStackView: UIStackView = {
@@ -108,6 +142,7 @@ final class PaywallView: UIView {
         button.setTitle("Term of Service", for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        button.addTarget(self, action: #selector(termOfServiceButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -116,9 +151,13 @@ final class PaywallView: UIView {
         button.setTitle("Privacy Policy", for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        button.addTarget(self, action: #selector(privacyPolicyButtonTapped), for: .touchUpInside)
         return button
     }()
     
+    //MARK: - References
+    weak var delegate: PaywallViewDelegate?
+
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -140,18 +179,74 @@ final class PaywallView: UIView {
             
         }
     }
+    
+    //MARK: - Configure With Package
+    func configurePlanInfoLabelWithPackage(package: Package) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            if package.packageType == .weekly {
+                planInfoLabel.text = "Start your 3 days trial. Then \(package.localizedPriceString)/week. Cancel anytime."
+            } else if package.packageType == .annual {
+                planInfoLabel.text = "Yearly Access \(package.localizedPriceString)/year"
+            }
+        }
+    }
+
+    //MARK: - Button Animation
+    func showCloseButton() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                guard let self else { return }
+                closeButton.alpha = 1
+            } completion: { [weak self] _ in
+                guard let self else { return }
+                closeButton.isEnabled = true
+            }
+        }
+    }
+
 }
+
+//MARK: - Button Actions
+extension PaywallView {
+    @objc private func restoreButtonTapped() {
+        delegate?.paywallView(self, restoreButtonTapped: restoreButton)
+    }
+    
+    @objc private func closeButtonTapped() {
+        delegate?.paywallView(self, closeButtonTapped: closeButton)
+    }
+    
+    @objc private func purchaseButtonTapped() {
+        delegate?.paywallView(self, purchaseButtonTapped: purchaseButton)
+    }
+    
+    @objc private func changePlanButtonTapped() {
+        delegate?.paywallView(self, changePlanButtonTapped: changePlanButton)
+    }
+    
+    @objc private func termOfServiceButtonTapped() {
+        delegate?.paywallView(self, termOfServiceButtonTapped: termOfServiceButton)
+    }
+    
+    @objc private func privacyPolicyButtonTapped() {
+        delegate?.paywallView(self, privacyPolicyButtonTapped: privacyPolicyButton)
+    }
+}
+
 
 //MARK: - AddSubview / Constraints
 extension PaywallView {
     private func setupViews() {
-        backgroundColor = .black
+        backgroundColor = .vcBackground
         
+        addSubview(paywallAnimationView)
         addSubview(titleLabelStackView)
         titleLabelStackView.addArrangedSubview(titleLabel)
         titleLabelStackView.addArrangedSubview(subTitleLabel)
-        addSubview(paywallAnimationView)
-//        addSubview(proFeaturesView)
+        addSubview(topButtonStackView)
+        topButtonStackView.addArrangedSubview(restoreButton)
+        topButtonStackView.addArrangedSubview(closeButton)
         addSubview(proFeaturesLabel)
         addSubview(purchaseButtonAnimationView)
         addSubview(purchaseButton)
@@ -161,59 +256,64 @@ extension PaywallView {
         documentsButtonStackView.addArrangedSubview(termOfServiceButton)
         documentsButtonStackView.addArrangedSubview(privacyPolicyButton)
         
+        paywallAnimationView.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top)
+            make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
+            make.bottom.equalTo(self.snp.centerY)
+        }
+        
+        topButtonStackView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.height.equalTo(40)
+        }
+        
+        titleLabelStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(paywallAnimationView.snp.bottom).offset(-50)
+            make.centerX.equalTo(paywallAnimationView.snp.centerX)
+            make.width.lessThanOrEqualTo(paywallAnimationView.snp.width).offset(-40)
+        }
         
         documentsButtonStackView.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
-            make.height.equalTo(40)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
+            make.height.equalTo(20)
+        }
+        
+        planInfoLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(documentsButtonStackView.snp.top).offset(-10)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
         }
         
-        planInfoLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(documentsButtonStackView.snp.top).offset(-20)
-            make.leading.trailing.equalTo(changePlanButton)
-        }
-        
         changePlanButton.snp.makeConstraints { make in
-            make.bottom.equalTo(planInfoLabel.snp.top).offset(10)
-            make.centerX.equalTo(purchaseButton.snp.centerX)
-            make.width.equalTo(purchaseButton.snp.width).multipliedBy(0.75)
-            make.height.equalTo(50)
+            make.bottom.equalTo(planInfoLabel.snp.top).offset(-10)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.height.equalTo(40)
         }
         
         purchaseButton.snp.makeConstraints { make in
-            make.bottom.equalTo(changePlanButton.snp.top).offset(-20)
+            make.bottom.equalTo(changePlanButton.snp.top).offset(-10)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).offset(-60)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
             make.height.equalTo(60)
         }
         
-        purchaseButtonAnimationView.snp.makeConstraints { make in
-            make.center.equalTo(purchaseButton.snp.center)
-            make.height.width.equalTo(200)
-        }
-        
-        paywallAnimationView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabelStackView.snp.bottom).offset(20)
-            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.bottom.equalTo(purchaseButton.snp.top)
-        }
-        
         proFeaturesLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabelStackView.snp.bottom).offset(40)
-            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.trailing)
+            make.top.equalTo(titleLabelStackView.snp.bottom).offset(20)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).offset(-40)
             make.bottom.lessThanOrEqualTo(purchaseButton.snp.top).offset(-20)
         }
         
-        titleLabelStackView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
-            make.bottom.lessThanOrEqualTo(paywallAnimationView.snp.top).offset(-20)
-            make.width.lessThanOrEqualTo(paywallAnimationView.snp.width).offset(-40)
-            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+        purchaseButtonAnimationView.snp.makeConstraints { make in
+            make.center.equalTo(purchaseButton)
+            make.height.width.equalTo(200)
         }
-
+        
 
     }
 }

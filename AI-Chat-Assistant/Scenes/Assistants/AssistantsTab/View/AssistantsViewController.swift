@@ -88,7 +88,7 @@ final class AssistantsViewController: UIViewController {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         backBarButtonItem.tintColor = .main
         navigationItem.backBarButtonItem = backBarButtonItem
-            
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .vcBackground
@@ -123,7 +123,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
         
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AssistantsCollectionHeader.identifier, for: indexPath) as? AssistantsCollectionHeader else {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AssistantsCollectionAssistantsSectionHeader.identifier, for: indexPath) as? AssistantsCollectionAssistantsSectionHeader else {
                 return .init()
             }
             
@@ -213,7 +213,7 @@ extension AssistantsViewController: AssistantsViewInterface {
         let collectionView = assistantsView.assistantsCollectionView
         
         DispatchQueue.main.async { [weak self] in
-            guard let self, let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: viewModel.selectedAssistantCategoryCellIndexPath) as? AssistantsCollectionHeader else {  return }
+            guard let self, let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: viewModel.selectedAssistantCategoryCellIndexPath) as? AssistantsCollectionAssistantsSectionHeader else {  return }
             
             header.assistantTags = viewModel.assistantTags
             
@@ -224,7 +224,7 @@ extension AssistantsViewController: AssistantsViewInterface {
         let collectionView = assistantsView.assistantsCollectionView
         
         DispatchQueue.main.async {
-            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionHeader else {  return }
+            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
             header.isLoadingTags = true
             
         }
@@ -234,7 +234,7 @@ extension AssistantsViewController: AssistantsViewInterface {
         let collectionView = assistantsView.assistantsCollectionView
         
         DispatchQueue.main.async {
-            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionHeader else {  return }
+            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
             header.isLoadingTags = false
             
             
@@ -246,7 +246,7 @@ extension AssistantsViewController: AssistantsViewInterface {
         let collectionView = assistantsView.assistantsCollectionView
         
         DispatchQueue.main.async {
-            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionHeader else {  return }
+            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
             header.isLoadingTags = false
             
         }
@@ -276,8 +276,8 @@ extension AssistantsViewController: AssistantsViewInterface {
     }
 }
 
-extension AssistantsViewController: AssistantsCollectionHeaderDelegate {
-    func assistantsCollectionHeader(_ header: AssistantsCollectionHeader, didSelectAssistantCategory cellIndexPath: IndexPath) {
+extension AssistantsViewController: AssistantsCollectionAssistantsSectionHeaderDelegate {
+    func assistantsCollectionAssistantsSectionHeader(_ header: AssistantsCollectionAssistantsSectionHeader, didSelectAssistantCategory cellIndexPath: IndexPath) {
         viewModel.didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: cellIndexPath)
     }
     

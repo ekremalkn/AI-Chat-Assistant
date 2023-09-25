@@ -120,6 +120,7 @@
 		F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */; };
 		F0915E8C2ABE1BB6004F9FE8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */; };
 		F0915E8E2ABE1BD4004F9FE8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E8D2ABE1BD4004F9FE8 /* SettingsView.swift */; };
+		F0A0A82B2AC219E1007A1B35 /* SubscribeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A0A82A2AC219E1007A1B35 /* SubscribeCollectionViewCell.swift */; };
 		F0A384A22ABA0C50001D627C /* Date+LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A384A12ABA0C50001D627C /* Date+LocalizedString.swift */; };
 		F0A5E3922A93D036000AE129 /* GhostTypewriter in Frameworks */ = {isa = PBXBuildFile; productRef = F0A5E3912A93D036000AE129 /* GhostTypewriter */; };
 		F0A5E3972A93E87C000AE129 /* AssistantTypingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */; };
@@ -142,7 +143,7 @@
 		F0E493752AB37FB200767FF2 /* AssistantsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493742AB37FB200767FF2 /* AssistantsService.swift */; };
 		F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */; };
 		F0F272EB2AB215BF00D63259 /* AssistantsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EA2AB215BF00D63259 /* AssistantsCollectionCell.swift */; };
-		F0F272ED2AB217DF00D63259 /* AssistantsCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EC2AB217DE00D63259 /* AssistantsCollectionHeader.swift */; };
+		F0F272ED2AB217DF00D63259 /* AssistantsCollectionAssistantsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EC2AB217DE00D63259 /* AssistantsCollectionAssistantsSectionHeader.swift */; };
 		F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F272EE2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift */; };
 		F0F300012ABB4D6400868CDF /* PastChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F300002ABB4D6400868CDF /* PastChatViewModel.swift */; };
 		F0F300032ABB4DF200868CDF /* PastChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F300022ABB4DF200868CDF /* PastChatView.swift */; };
@@ -261,6 +262,7 @@
 		F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		F0915E8D2ABE1BD4004F9FE8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F0A0A82A2AC219E1007A1B35 /* SubscribeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A384A12ABA0C50001D627C /* Date+LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+LocalizedString.swift"; sourceTree = "<group>"; };
 		F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AssistantTypingAnimation.json; sourceTree = "<group>"; };
 		F0ADEF962AA65B2F008403CA /* EducationSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationSuggestions.swift; sourceTree = "<group>"; };
@@ -280,7 +282,7 @@
 		F0E493742AB37FB200767FF2 /* AssistantsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsService.swift; sourceTree = "<group>"; };
 		F0E493762AB3887800767FF2 /* UIColor+HEXString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEXString.swift"; sourceTree = "<group>"; };
 		F0F272EA2AB215BF00D63259 /* AssistantsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionCell.swift; sourceTree = "<group>"; };
-		F0F272EC2AB217DE00D63259 /* AssistantsCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionHeader.swift; sourceTree = "<group>"; };
+		F0F272EC2AB217DE00D63259 /* AssistantsCollectionAssistantsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionAssistantsSectionHeader.swift; sourceTree = "<group>"; };
 		F0F272EE2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCategoryCollectionCell.swift; sourceTree = "<group>"; };
 		F0F300002ABB4D6400868CDF /* PastChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatViewModel.swift; sourceTree = "<group>"; };
 		F0F300022ABB4DF200868CDF /* PastChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatView.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 			children = (
 				F0F272EA2AB215BF00D63259 /* AssistantsCollectionCell.swift */,
 				F0F272EE2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift */,
+				F0A0A82A2AC219E1007A1B35 /* SubscribeCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -419,7 +422,7 @@
 		F027533F2AB0EDF1003220B9 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				F0F272EC2AB217DE00D63259 /* AssistantsCollectionHeader.swift */,
+				F0F272EC2AB217DE00D63259 /* AssistantsCollectionAssistantsSectionHeader.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -1314,7 +1317,7 @@
 				F04EC4932ABED5B9005FC184 /* SettingsModel.swift in Sources */,
 				F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */,
 				F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */,
-				F0F272ED2AB217DF00D63259 /* AssistantsCollectionHeader.swift in Sources */,
+				F0F272ED2AB217DF00D63259 /* AssistantsCollectionAssistantsSectionHeader.swift in Sources */,
 				F0817FF32A9BD1160054C15E /* SuggestionsView.swift in Sources */,
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
 				F02563E22AB7497E00D10150 /* SuggestionsResponseViewController.swift in Sources */,
@@ -1337,6 +1340,7 @@
 				F07FBE0F2A801CB600ACA10F /* ColorSet.swift in Sources */,
 				F04879F42AB5EE220075A0C6 /* AssistantsResponseView.swift in Sources */,
 				F04879DE2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift in Sources */,
+				F0A0A82B2AC219E1007A1B35 /* SubscribeCollectionViewCell.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
 				F08D006D2AB8C6A10071E324 /* ChatHistorySenderView.swift in Sources */,
 				F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */,

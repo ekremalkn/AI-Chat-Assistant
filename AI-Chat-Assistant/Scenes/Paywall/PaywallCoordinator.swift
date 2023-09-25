@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 final class PaywallCoordinator: Coordinator {
 
@@ -29,6 +30,13 @@ final class PaywallCoordinator: Coordinator {
         paywallVC.paywallCoordinator = self
         navigationController.present(paywallVC, animated: true)
     }
-
+    
+    func openSafari(with urlString: String, onVC: UIViewController) {
+        if let URL = URL(string: urlString) {
+            let safariViewController = SFSafariViewController(url: URL)
+            safariViewController.modalPresentationStyle = .pageSheet
+            onVC.present(safariViewController, animated: true)
+        }
+    }
 
 }

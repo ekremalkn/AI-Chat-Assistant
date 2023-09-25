@@ -6,6 +6,24 @@
 //
 
 import UIKit
+import RevenueCat
+import ProgressHUD
+
+protocol PaywallViewInterface: AnyObject {
+    func configureViewController()
+    
+    func configurePlanInfoLabelWithPackage(package: Package)
+    
+    func startingToRestorePurchase()
+    func startedToRestorePurchase()
+    func restoredPurchase()
+    func didOccurErrorWhileRestoring(_ errorMsg: String)
+    
+    func startingToPurchase()
+    func userCancelledWhilePurchase()
+    func purchasedSuccessfuly()
+    func didOccurErrorWhilePurchasing(_ errorMsg: String)
+}
 
 final class PaywallViewController: UIViewController {
 
@@ -32,13 +50,128 @@ final class PaywallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         paywallView.startTypeWriteAnimation()
+        paywallView.showCloseButton()
     }
     
+    //MARK: - Setup Delegates
+    private func setupDelegates() {
+        paywallView.delegate = self
+    }
 
+
+}
+
+//MARK: - PaywallViewInterface
+extension PaywallViewController: PaywallViewInterface {
+    func configureViewController() {
+        setupDelegates()
+    }
+    
+    func configurePlanInfoLabelWithPackage(package: RevenueCat.Package) {
+        paywallView.configurePlanInfoLabelWithPackage(package: package)
+    }
+    
+    func startingToRestorePurchase() {
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
+        ProgressHUD.colorAnimation = .vcBackground
+        ProgressHUD.show(interaction: false)
+    }
+    
+    func startedToRestorePurchase() {
+        ProgressHUD.remove()
+    }
+    
+    func restoredPurchase() {
+        ProgressHUD.showSucceed("Restore successfully completed")
+    }
+    
+    func didOccurErrorWhileRestoring(_ errorMsg: String) {
+        ProgressHUD.showError("\(errorMsg)", image: .init(named: "chat_shocked"))
+    }
+    
+    func startingToPurchase() {
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
+        ProgressHUD.colorAnimation = .vcBackground
+        ProgressHUD.show(interaction: false)
+    }
+    
+    func userCancelledWhilePurchase() {
+        ProgressHUD.remove()
+    }
+    
+    func purchasedSuccessfuly() {
+        ProgressHUD.showSucceed("Purchase successfully completed")
+    }
+    
+    func didOccurErrorWhilePurchasing(_ errorMsg: String) {
+        ProgressHUD.showError("\(errorMsg)", image: .init(named: "chat_shocked"))
+    }
+    
+}
+
+//MARK: - PaywallViewDelegate
+extension PaywallViewController: PaywallViewDelegate {
+    func paywallView(_ view: PaywallView, restoreButtonTapped button: UIButton) {
+        viewModel.restoreButtonTapped()
+    }
+    
+    func paywallView(_ view: PaywallView, closeButtonTapped button: UIButton) {
+        self.dismiss(animated: true)
+    }
+    
+    func paywallView(_ view: PaywallView, purchaseButtonTapped button: UIButton) {
+        viewModel.purchaseButtonTapped()
+    }
+    
+    func paywallView(_ view: PaywallView, changePlanButtonTapped button: UIButton) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let changePlanController = UIAlertController(title: "Change Plan \n", message: nil, preferredStyle: .actionSheet)
+            
+            
+            viewModel.packages.forEach { package in
+                switch package.packageType {
+                case .annual:
+                    let yearlyPlanAction = UIAlertAction(title: "Yearly Access \(package.localizedPriceString)/year", style: .default) { [weak self] _ in
+                        guard let self else { return }
+                        viewModel.currentPackage = package
+                    }
+                    changePlanController.addAction(yearlyPlanAction)
+                case .weekly:
+                    let weekylPlanAction = UIAlertAction(title: "3 Days Trial. Then \(package.localizedPriceString)/week", style: .default) { [weak self] _ in
+                        guard let self else { return }
+                        viewModel.currentPackage = package
+                    }
+                    changePlanController.addAction(weekylPlanAction)
+                default:
+                    return
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            changePlanController.addAction(cancelAction)
+            
+            self.present(changePlanController, animated: true)
+        }
+    }
+    
+    func paywallView(_ view: PaywallView, termOfServiceButtonTapped button: UIButton) {
+        paywallCoordinator?.openSafari(with: AppInfo.termOfUse, onVC: self)
+    }
+    
+    func paywallView(_ view: PaywallView, privacyPolicyButtonTapped button: UIButton) {
+        paywallCoordinator?.openSafari(with: AppInfo.privacyPolicyURL, onVC: self)
+    }
+    
+    
 }
