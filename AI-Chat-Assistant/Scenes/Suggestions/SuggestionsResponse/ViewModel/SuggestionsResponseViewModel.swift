@@ -29,7 +29,7 @@ final class SuggestionsResponseViewModel {
     weak var view: SuggestionsResponseViewInterface?
     private let openAIChatService: OpenAIChatService
     private let chatHistoryService: ChatHistoryService = CoreDataService()
-
+    
     //MARK: - Variables
     let selectedSuggestion: Suggestion
     var currentModel: GPTModel = .gpt3_5Turbo
@@ -48,47 +48,123 @@ final class SuggestionsResponseViewModel {
         let userFirstMessage = UIMessage(id: UUID(), role: .user, content: selectedSuggestion.suggestionQueryPrompt, createAt: Date())
         self.mainMessages.append(userFirstMessage)
     }
-
+    
     private func sendMessage() {
-        assistantAnswered = false
-        view?.assistantResponsing()
-        uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
-        view?.reloadMessages()
-        // add cell for waiting to response assistane
-        openAIChatService.sendMessage(messages: mainMessages, model: currentModel) { [weak self] result in
-            guard let self else { return }
-            view?.scrollCollectionViewToBottom()
-            switch result {
-            case .success(let openAIChatResponse):
-                if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
-                    let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
-                    uiMessages.removeLast()
-                    uiMessages.append(recievedMessage)
+        if RevenueCatManager.shared.isSubscribe {
+            assistantAnswered = false
+            view?.assistantResponsing()
+            
+            uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
+            view?.reloadMessages()
+            
+            openAIChatService.sendMessage(messages: mainMessages, model: currentModel) { [weak self] result in
+                guard let self else { return }
+                
+                view?.scrollCollectionViewToBottom()
+                
+                switch result {
+                case .success(let openAIChatResponse):
+                    if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
+                        let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
+                        uiMessages.removeLast()
+                        uiMessages.append(recievedMessage)
+                        
+                        view?.reloadMessages()
+                        mainMessages.append(recievedMessage)
+                        
+                        view?.assistantResponsed()
+                        assistantAnswered = true
+                        
+                        UseDefaultsMessageManager.shared.sendMessage { succes in
+                            if succes {
+                                
+                            } else {
+                                // show alert
+                            }
+                            
+                        }
+                        //remove cell
+                    } else {
+                        uiMessages.removeLast()
+                        mainMessages.removeLast()
+                        view?.reloadMessages()
+                        view?.didOccurErrorWhileResponsing("Assistant Confused")
+                        assistantAnswered = true
+                        print("No recieved Message from assistant")
+                    }
                     
+                case .failure(let failure):
+                    uiMessages.removeLast(2)
                     view?.reloadMessages()
-                    mainMessages.append(recievedMessage)
-                    
-                    view?.assistantResponsed()
+                    mainMessages.removeLast(2)
+                    view?.didOccurErrorWhileResponsing(failure.localizedDescription)
                     assistantAnswered = true
-                    //remove cell
-                } else {
-                    uiMessages.removeLast()
-                    mainMessages.removeLast()
-                    view?.reloadMessages()
-                    view?.didOccurErrorWhileResponsing("Assistant Confused")
-                    assistantAnswered = true
-                    print("No recieved Message from assistant")
                 }
-            case .failure(let failure):
-                uiMessages.removeLast(2)
-                view?.reloadMessages()
-                mainMessages.removeLast(2)
-                view?.didOccurErrorWhileResponsing(failure.localizedDescription)
-                assistantAnswered = true
             }
+        } else {
+            
+            if UseDefaultsMessageManager.shared.canSendMessage() {
+                assistantAnswered = false
+                view?.assistantResponsing()
+                
+                uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
+                view?.reloadMessages()
+                
+                openAIChatService.sendMessage(messages: mainMessages, model: currentModel) { [weak self] result in
+                    guard let self else { return }
+                    
+                    view?.scrollCollectionViewToBottom()
+                    
+                    switch result {
+                    case .success(let openAIChatResponse):
+                        if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
+                            let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
+                            uiMessages.removeLast()
+                            uiMessages.append(recievedMessage)
+                            
+                            view?.reloadMessages()
+                            mainMessages.append(recievedMessage)
+                            
+                            view?.assistantResponsed()
+                            assistantAnswered = true
+                            
+                            UseDefaultsMessageManager.shared.sendMessage { succes in
+                                if succes {
+                                    
+                                } else {
+                                    // show alert
+                                }
+                                
+                            }
+                            //remove cell
+                        } else {
+                            uiMessages.removeLast()
+                            mainMessages.removeLast()
+                            view?.reloadMessages()
+                            view?.didOccurErrorWhileResponsing("Assistant Confused")
+                            assistantAnswered = true
+                            print("No recieved Message from assistant")
+                        }
+                        
+                    case .failure(let failure):
+                        uiMessages.removeLast(2)
+                        view?.reloadMessages()
+                        mainMessages.removeLast(2)
+                        view?.didOccurErrorWhileResponsing(failure.localizedDescription)
+                        assistantAnswered = true
+                    }
+                }
+            } else {
+                // show paywall
+                view?.openPaywall()
+            }
+            
+            
         }
+        
+        
     }
-
+    
 }
 
 //MARK: - SuggestionsResponseViewModelInterface

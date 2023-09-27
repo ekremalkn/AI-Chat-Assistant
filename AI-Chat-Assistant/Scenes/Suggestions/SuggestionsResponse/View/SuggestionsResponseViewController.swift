@@ -19,6 +19,8 @@ protocol SuggestionsResponseViewInterface: AnyObject {
     
     func reloadMessages()
     func scrollCollectionViewToBottom()
+    
+    func openPaywall()
 }
 
 final class SuggestionsResponseViewController: UIViewController {
@@ -274,6 +276,11 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewInterface {
             }
         }
     }
+    
+    func openPaywall() {
+        suggestionsResponseCoordinator?.openPaywall()
+    }
+    
 }
 
 //MARK: - SuggestionsResponsViewDelegate

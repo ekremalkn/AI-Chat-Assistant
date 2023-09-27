@@ -61,6 +61,13 @@ final class SuggestionsCoordinator: Coordinator {
         settingsCoordinator.suggestionsParentCoordinator = self
         settingsCoordinator.start()
     }
+    
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.suggestionsParentCoordinator = self
+        paywallCoordinator.start()
+    }
 
 }
 

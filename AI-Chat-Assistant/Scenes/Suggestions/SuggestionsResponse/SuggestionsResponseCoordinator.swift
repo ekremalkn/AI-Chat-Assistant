@@ -33,6 +33,13 @@ final class SuggestionsResponseCoordinator: Coordinator {
         suggestionsResponseVC.suggestionsResponseCoordinator = self
         navigationController.pushViewController(suggestionsResponseVC, animated: true)
     }
+    
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.suggestionsResponeParentCoordinator = self
+        paywallCoordinator.start()
+    }
 
 
 }

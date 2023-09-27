@@ -145,6 +145,17 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let sectionCategory = viewModel.settingsSections[section].sectionCategory
+        
+        switch sectionCategory {
+        case .subscribe:
+            return .init(top: 0, left: 0, bottom: 0, right: 0)
+        case .support, .about:
+            return .init(top: 0, left: 0, bottom: 40, right: 0)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         let sectionCategory = viewModel.settingsSections[section].sectionCategory
         if sectionCategory == .about {

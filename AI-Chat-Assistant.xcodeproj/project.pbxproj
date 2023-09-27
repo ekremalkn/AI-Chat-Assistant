@@ -154,6 +154,7 @@
 		F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */; };
 		F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */; };
 		F0F8DBA92AC499E900C5A697 /* SubscribeCellAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */; };
+		F0F8DBAC2AC4B37700C5A697 /* UseDefaultsMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8DBAB2AC4B37700C5A697 /* UseDefaultsMessageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -294,6 +295,7 @@
 		F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatCoordinator.swift; sourceTree = "<group>"; };
 		F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatViewController.swift; sourceTree = "<group>"; };
 		F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SubscribeCellAnimation.json; sourceTree = "<group>"; };
+		F0F8DBAB2AC4B37700C5A697 /* UseDefaultsMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseDefaultsMessageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */,
+				F0F8DBAB2AC4B37700C5A697 /* UseDefaultsMessageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1403,6 +1406,7 @@
 				F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F08944912AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
+				F0F8DBAC2AC4B37700C5A697 /* UseDefaultsMessageManager.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
 				F08944862AC026DC00BA4958 /* MostUsedSuggestions.swift in Sources */,
 				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,

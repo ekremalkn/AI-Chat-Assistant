@@ -69,56 +69,11 @@ final class ChatViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = leftTitleBarButton
         
-        let moreButton = UIButton(type: .system)
-        moreButton.tintColor = .white
-        moreButton.setImage(.init(named: "chat_bar_button_more"), for: .normal)
-        moreButton.showsMenuAsPrimaryAction = true
-        moreButton.isEnabled = false
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        backBarButtonItem.tintColor = .main
+        navigationItem.backBarButtonItem = backBarButtonItem
         
-        let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
-            guard let self else { return }
-            if !viewModel.uiMessages.isEmpty {
-                shareChatButtonTapped()
-            } else {
-                showAlertForEmptyChat()
-            }
-        }
-        
-        let newChat = UIAction(title: "Create Chat", image: .init(systemName: "plus.square")) { [weak self] _ in
-            guard let self else { return }
-            if !viewModel.uiMessages.isEmpty {
-                showAlertBeforeCreateChat()
-            } else {
-                showAlertForEmptyChat()
-            }
-        }
-        
-        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
-            guard let self else { return }
-            homeChatCoordinator?.openSettingsVC()
-            
-        }
-        
-        let deleteChat = UIAction(title: "Clear Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
-            guard let self else { return }
-            if !viewModel.uiMessages.isEmpty {
-                viewModel.clearChat()
-            } else {
-                showAlertForEmptyChat()
-            }
-        }
-        
-        let elements: [UIAction] = [shareChat, newChat, settinsgChat, deleteChat]
-        
-        let moreMenu = UIMenu(children: elements)
-        
-        DispatchQueue.main.async {
-            moreButton.menu = moreMenu
-        }
-        
-        let moreBarButton = UIBarButtonItem(customView: moreButton)
-        
-        navigationItem.rightBarButtonItem = moreBarButton
+        setMoreButtonMenu()
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -189,6 +144,59 @@ final class ChatViewController: UIViewController {
 
 //MARK: - Button Actions
 extension ChatViewController {
+    func setMoreButtonMenu() {
+        let moreButton = UIButton(type: .system)
+        moreButton.tintColor = .white
+        moreButton.setImage(.init(named: "chat_bar_button_more"), for: .normal)
+        moreButton.showsMenuAsPrimaryAction = true
+        moreButton.isEnabled = false
+        
+        let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
+            guard let self else { return }
+            if !viewModel.uiMessages.isEmpty {
+                shareChatButtonTapped()
+            } else {
+                showAlertForEmptyChat()
+            }
+        }
+        
+        let newChat = UIAction(title: "Create Chat", image: .init(systemName: "plus.square")) { [weak self] _ in
+            guard let self else { return }
+            if !viewModel.uiMessages.isEmpty {
+                showAlertBeforeCreateChat()
+            } else {
+                showAlertForEmptyChat()
+            }
+        }
+        
+        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
+            guard let self else { return }
+            homeChatCoordinator?.openSettingsVC()
+            
+        }
+        
+        let deleteChat = UIAction(title: "Clear Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+            guard let self else { return }
+            if !viewModel.uiMessages.isEmpty {
+                viewModel.clearChat()
+            } else {
+                showAlertForEmptyChat()
+            }
+        }
+        
+        let elements: [UIAction] = [shareChat, newChat, settinsgChat, deleteChat]
+        
+        let moreMenu = UIMenu(children: elements)
+        
+        DispatchQueue.main.async {
+            moreButton.menu = moreMenu
+        }
+        
+        let moreBarButton = UIBarButtonItem(customView: moreButton)
+        
+        navigationItem.rightBarButtonItem = moreBarButton
+    }
+    
     @objc private func modelSelectButtonTapped() {
         homeChatCoordinator?.openModelSelectVC(with: viewModel.currentModel)
     }

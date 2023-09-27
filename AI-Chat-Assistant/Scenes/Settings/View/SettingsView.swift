@@ -14,7 +14,6 @@ final class SettingsView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
-        layout.sectionInset = .init(top: 0, left: 0, bottom: 40, right: 0)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(SubscribeCollectionViewCell.self, forCellWithReuseIdentifier: SubscribeCollectionViewCell.identifier)
         collection.register(SettingsCollectionSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SettingsCollectionSectionHeader.identifier)

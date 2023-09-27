@@ -289,8 +289,13 @@ extension SuggestionsViewController: SuggestionsCollectionMostUsedSuggestionsSec
 //MARK: - SuggestionsCoordinatorDelegate
 extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
     func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectModel model: GPTModel) {
-        if let selectedSuggestion = viewModel.selectedSuggestion {
-            suggestionsCoordinator?.openSuggestionsResponseVC(with: selectedSuggestion, selectedGPTModel: model)
+        if UseDefaultsMessageManager.shared.canSendMessage() {
+            if let selectedSuggestion = viewModel.selectedSuggestion {
+                suggestionsCoordinator?.openSuggestionsResponseVC(with: selectedSuggestion, selectedGPTModel: model)
+            }
+            
+        } else {
+            suggestionsCoordinator?.openPaywall()
         }
     }
     
