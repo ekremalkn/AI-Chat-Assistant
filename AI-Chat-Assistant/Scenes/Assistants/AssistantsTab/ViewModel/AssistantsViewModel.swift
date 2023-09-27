@@ -13,10 +13,12 @@ protocol AssistantsViewModelInterface {
     
     func viewDidLoad()
     func viewWillAppear()
+    func viewDidAppear()
     
-    func numberOfItems() -> Int
+    func numberOfItems(section: Int) -> Int
     func didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: IndexPath)
-    
+ 
+    func updateCollectionViewAccordingToSubscribe()
 }
 
 final class AssistantsViewModel {
@@ -35,11 +37,10 @@ final class AssistantsViewModel {
             view?.reloadTags()
         }
     }
-    var assistants: [Assistant] = [] {
-        didSet {
-            view?.reloadAssistants()
-        }
-    }
+    
+    var assistantsCollectionSectionData: [AssistantsCollectionSectionData] = [
+        .init(sectionType: .assistants, assistants: [])
+    ]
     
     var selectedAssistantCategoryCellIndexPath: IndexPath = .init(item: 0, section: 0) {
         didSet {
@@ -90,8 +91,11 @@ final class AssistantsViewModel {
                 switch result {
                 case .success(let assistantModel):
                     if let assistants = assistantModel?.data {
-                        self.assistants = assistants
-                        view?.fetchedAssistants()
+                        if let assistantsIndex = assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .assistants }){
+                            assistantsCollectionSectionData[assistantsIndex].assistants = assistants
+                            view?.reloadAssistants()
+                            view?.fetchedAssistants()
+                        }
                     }
                 case .failure(let failure):
                     view?.didOccurWhileFetchingAssistants(errorMsg: failure.localizedDescription)
@@ -118,12 +122,35 @@ extension AssistantsViewModel: AssistantsViewModelInterface {
         }
     }
     
-    func numberOfItems() -> Int {
-        assistants.count
+    func viewDidAppear() {
+        updateCollectionViewAccordingToSubscribe()
+    }
+    
+    func numberOfItems(section: Int) -> Int {
+        assistantsCollectionSectionData[section].assistants.count
     }
     
     func didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: IndexPath) {
         self.selectedAssistantCategoryCellIndexPath = assistantCategoryCellIndexPath
+    }
+    
+    func updateCollectionViewAccordingToSubscribe() {
+        if !RevenueCatManager.shared.isSubscribe {
+            if !assistantsCollectionSectionData.contains(where: { $0.sectionType == .subscribe }) {
+                // add section
+                
+                
+                view?.insertSection(at: 0)
+            }
+            
+        } else {
+            if let subscribeSectionIndexToDelete = assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .subscribe }) {
+                assistantsCollectionSectionData.remove(at: subscribeSectionIndexToDelete)
+                
+                // collectionviewdan sectionu sil
+                view?.deleteSection(at: 0)
+            }
+        }
     }
     
 }

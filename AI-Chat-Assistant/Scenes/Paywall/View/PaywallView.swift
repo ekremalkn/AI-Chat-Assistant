@@ -39,7 +39,7 @@ final class PaywallView: UIView {
     private lazy var restoreButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Restore", for: .normal)
-        button.setTitleColor(.lightGray.withAlphaComponent(0.1), for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(restoreButtonTapped), for: .touchUpInside)
         return button
@@ -194,7 +194,7 @@ final class PaywallView: UIView {
 
     //MARK: - Button Animation
     func showCloseButton() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self else { return }
                 closeButton.alpha = 1

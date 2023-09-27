@@ -27,6 +27,9 @@ enum RevenueCatRestorePurchaseResult {
 final class RevenueCatManager {
     static let shared = RevenueCatManager()
     
+    //MARK: - Variables
+    var isSubscribe: Bool = false
+
     //MARK: - Get Offerings
     func getOfferings(completion: @escaping (_ packages: [Package]) -> Void) {
         Purchases.shared.getOfferings { allOfferings, error in

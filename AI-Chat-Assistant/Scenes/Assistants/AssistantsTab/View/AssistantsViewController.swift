@@ -14,6 +14,8 @@ protocol AssistantsViewInterface: AnyObject {
     func reloadAssistants()
     func reloadTags()
     
+    func insertSection(at section: Int)
+    func deleteSection(at section: Int)
     
     func fetchingTags()
     func fetchedTags()
@@ -60,6 +62,11 @@ final class AssistantsViewController: UIViewController {
         viewModel.viewWillAppear()
         navigationController?.tabBarController?.tabBar.isHidden = false
         navigationController?.tabBarController?.tabBar.isTranslucent = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
     }
     
     //MARK: - Configure Nav Items
@@ -119,19 +126,31 @@ extension AssistantsViewController {
 //MARK: - Configure Collection View
 extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //MARK: - Header
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        viewModel.assistantsCollectionSectionData.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AssistantsCollectionAssistantsSectionHeader.identifier, for: indexPath) as? AssistantsCollectionAssistantsSectionHeader else {
+            let sectionType = viewModel.assistantsCollectionSectionData[indexPath.section].sectionType
+            
+            switch sectionType {
+            case .subscribe:
                 return .init()
+            case .assistants:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AssistantsCollectionAssistantsSectionHeader.identifier, for: indexPath) as? AssistantsCollectionAssistantsSectionHeader else {
+                    return .init()
+                }
+                
+                header.configure(with: viewModel.assistantTags, selectedAssistantCategoryCellIndexPath: viewModel.selectedAssistantCategoryCellIndexPath)
+                
+                header.delegate = self
+                
+                return header
             }
             
-            header.configure(with: viewModel.assistantTags, selectedAssistantCategoryCellIndexPath: viewModel.selectedAssistantCategoryCellIndexPath)
-            
-            header.delegate = self
-            
-            return header
         case UICollectionView.elementKindSectionFooter:
             break
         default:
@@ -142,52 +161,93 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let headerHeight: CGFloat = 100
-        let headerWidth: CGFloat = collectionView.frame.width
+        let sectionType = viewModel.assistantsCollectionSectionData[section].sectionType
         
-        return .init(width: headerWidth, height: headerHeight)
+        switch sectionType {
+        case .subscribe:
+            return .init()
+        case .assistants:
+            let headerHeight: CGFloat = 100
+            let headerWidth: CGFloat = collectionView.frame.width
+            
+            return .init(width: headerWidth, height: headerHeight)
+        }
+        
     }
     
     //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        viewModel.numberOfItems(section: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantsCollectionCell.identifier, for: indexPath) as? AssistantsCollectionCell else {
-            return .init()
+        let sectionType = viewModel.assistantsCollectionSectionData[indexPath.section].sectionType
+        
+        switch sectionType {
+        case .subscribe:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubscribeCollectionViewCell.identifier, for: indexPath) as? SubscribeCollectionViewCell else {
+                return .init()
+            }
+            
+            
+            
+            return cell
+        case .assistants:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssistantsCollectionCell.identifier, for: indexPath) as? AssistantsCollectionCell else {
+                return .init()
+            }
+            
+            let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
+            let assistant = assistants[indexPath.item]
+            cell.configure(with: assistant)
+            
+            return cell
         }
         
-        let assistants = viewModel.assistants
-        let assistant = assistants[indexPath.item]
-        cell.configure(with: assistant)
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let assistant = viewModel.assistants[indexPath.item]
+        let sectionType = viewModel.assistantsCollectionSectionData[indexPath.section].sectionType
         
-        assistantsCoordinator?.openAssistantsPromptEdit(with: assistant)
+        switch sectionType {
+        case .subscribe:
+            assistantsCoordinator?.openPaywall()
+        case .assistants:
+            let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
+            let assistant = assistants[indexPath.item]
+            
+            assistantsCoordinator?.openAssistantsPromptEdit(with: assistant)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let sectionType = viewModel.assistantsCollectionSectionData[indexPath.section].sectionType
         let cellWidth = collectionView.frame.width - 40
-        let cellDefaultUIElementsHeightAndPadding: CGFloat = 32
-        var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
         
-        let label: UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 40, CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = .systemFont(ofSize: 16, weight: .medium)
+        switch sectionType {
+        case .subscribe:
+            let cellHeight: CGFloat = 100
+            return .init(width: cellWidth, height: cellHeight)
+        case .assistants:
+            let cellDefaultUIElementsHeightAndPadding: CGFloat = 32
+            var cellHeight: CGFloat = cellDefaultUIElementsHeightAndPadding
+            
+            let label: UILabel = UILabel(frame: CGRectMake(0, 0, cellWidth - 40, CGFloat.greatestFiniteMagnitude))
+            label.numberOfLines = 0
+            label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.font = .systemFont(ofSize: 16, weight: .medium)
+            
+            let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
+            let assistantTitle = assistants[indexPath.item].title
+            
+            label.text = assistantTitle
+            label.sizeToFit()
+            
+            cellHeight += label.frame.height
+            
+            return .init(width: cellWidth, height: cellHeight)
+        }
         
-        let assistantTitle = viewModel.assistants[indexPath.item].title
-        label.text = assistantTitle
-        label.sizeToFit()
-        
-        cellHeight += label.frame.height
-        
-        return .init(width: cellWidth, height: cellHeight)
     }
     
     
@@ -216,39 +276,39 @@ extension AssistantsViewController: AssistantsViewInterface {
             guard let self, let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: viewModel.selectedAssistantCategoryCellIndexPath) as? AssistantsCollectionAssistantsSectionHeader else {  return }
             
             header.assistantTags = viewModel.assistantTags
-            
         }
     }
     
     func fetchingTags() {
         let collectionView = assistantsView.assistantsCollectionView
         
-        DispatchQueue.main.async {
-            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
-            header.isLoadingTags = true
-            
+        if let asssitantsSectionIndex = viewModel.assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .assistants}) {
+            DispatchQueue.main.async {
+                guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: asssitantsSectionIndex)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
+                header.isLoadingTags = true
+            }
         }
     }
     
     func fetchedTags() {
         let collectionView = assistantsView.assistantsCollectionView
         
-        DispatchQueue.main.async {
-            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
-            header.isLoadingTags = false
-            
-            
-            
+        if let asssitantsSectionIndex = viewModel.assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .assistants}) {
+            DispatchQueue.main.async {
+                guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: asssitantsSectionIndex)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
+                header.isLoadingTags = false
+            }
         }
     }
     
     func didOccurWhileFetchingTags(errorMsg: String) {
         let collectionView = assistantsView.assistantsCollectionView
         
-        DispatchQueue.main.async {
-            guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: 0)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
-            header.isLoadingTags = false
-            
+        if let asssitantsSectionIndex = viewModel.assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .assistants}) {
+            DispatchQueue.main.async {
+                guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: .init(item: 0, section: asssitantsSectionIndex)) as? AssistantsCollectionAssistantsSectionHeader else {  return }
+                header.isLoadingTags = false
+            }
         }
     }
     
@@ -274,6 +334,34 @@ extension AssistantsViewController: AssistantsViewInterface {
     func deleteNoInternetView() {
         removeNoInternetView()
     }
+    
+    func deleteSection(at section: Int) {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates {
+                collectionView.deleteSections(.init(integer: section))
+            }
+        }
+    }
+    
+    func insertSection(at section: Int) {
+        let collectionView = assistantsView.assistantsCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates { [weak self] in
+                guard let self else { return }
+                
+                let subsrcibeSectionData = AssistantsCollectionSectionData(sectionType: .subscribe, assistants: [.init(uuid: nil, tag: nil)])
+                viewModel.assistantsCollectionSectionData.insert(subsrcibeSectionData, at: 0)
+                
+                collectionView.insertSections(.init(integer: section))
+                collectionView.insertItems(at: [.init(item: 0, section: section)])
+            }
+        }
+    }
+    
+    
 }
 
 extension AssistantsViewController: AssistantsCollectionAssistantsSectionHeaderDelegate {

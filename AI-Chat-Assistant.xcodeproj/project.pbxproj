@@ -137,6 +137,7 @@
 		F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */; };
 		F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */; };
 		F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */; };
+		F0D468D92AC4867200F12BEC /* AssistantsCollectionSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D468D82AC4867200F12BEC /* AssistantsCollectionSectionData.swift */; };
 		F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DADC2E2A81893F00BFC78D /* ProgressHUD */; };
 		F0E493712AB3718C00767FF2 /* AssistantTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */; };
 		F0E493732AB37E3000767FF2 /* AssistantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493722AB37E3000767FF2 /* AssistantModel.swift */; };
@@ -152,6 +153,7 @@
 		F0F3001E2ABB847B00868CDF /* ChatCollectionModelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */; };
 		F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */; };
 		F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */; };
+		F0F8DBA92AC499E900C5A697 /* SubscribeCellAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -277,6 +279,7 @@
 		F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeIdeaSuggestions.swift; sourceTree = "<group>"; };
+		F0D468D82AC4867200F12BEC /* AssistantsCollectionSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionSectionData.swift; sourceTree = "<group>"; };
 		F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantTagModel.swift; sourceTree = "<group>"; };
 		F0E493722AB37E3000767FF2 /* AssistantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModel.swift; sourceTree = "<group>"; };
 		F0E493742AB37FB200767FF2 /* AssistantsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsService.swift; sourceTree = "<group>"; };
@@ -290,6 +293,7 @@
 		F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionModelHeader.swift; sourceTree = "<group>"; };
 		F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatCoordinator.swift; sourceTree = "<group>"; };
 		F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatViewController.swift; sourceTree = "<group>"; };
+		F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SubscribeCellAnimation.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1136,6 +1140,7 @@
 		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */,
 				F08944AD2AC0B64C00BA4958 /* PaywallChatbotAnimation.json */,
 				F08944A92AC0AFDA00BA4958 /* PaywallPurchaseButtonAnimation.json */,
 				F024E41C2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json */,
@@ -1150,6 +1155,7 @@
 			children = (
 				F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */,
 				F0E493722AB37E3000767FF2 /* AssistantModel.swift */,
+				F0D468D82AC4867200F12BEC /* AssistantsCollectionSectionData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1291,6 +1297,7 @@
 				F08944AE2AC0B64C00BA4958 /* PaywallChatbotAnimation.json in Resources */,
 				F024E4162ABF52A4008F0A32 /* NoInternetAnimation.json in Resources */,
 				F08944AA2AC0AFDB00BA4958 /* PaywallPurchaseButtonAnimation.json in Resources */,
+				F0F8DBA92AC499E900C5A697 /* SubscribeCellAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1354,6 +1361,7 @@
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F08944992AC0870700BA4958 /* RevenueCatManager.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
+				F0D468D92AC4867200F12BEC /* AssistantsCollectionSectionData.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
 				F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */,
 				F02563E52AB7499300D10150 /* SuggestionsResponseViewModel.swift in Sources */,

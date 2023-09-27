@@ -46,4 +46,11 @@ final class AssistantsCoordinator: Coordinator {
         settingsCoordinator.start()
     }
     
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.assistantsParentCoordinator = self
+        paywallCoordinator.start()
+    }
+    
 }

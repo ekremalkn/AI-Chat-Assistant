@@ -14,10 +14,9 @@ protocol PaywallViewInterface: AnyObject {
     
     func configurePlanInfoLabelWithPackage(package: Package)
     
-    func startingToRestorePurchase()
-    func startedToRestorePurchase()
+    func restoringPurchase()
     func restoredPurchase()
-    func didOccurErrorWhileRestoring(_ errorMsg: String)
+    func didOccurErrorWhileRestoringPurchase(_ errorMsg: String)
     
     func startingToPurchase()
     func userCancelledWhilePurchase()
@@ -78,23 +77,19 @@ extension PaywallViewController: PaywallViewInterface {
         paywallView.configurePlanInfoLabelWithPackage(package: package)
     }
     
-    func startingToRestorePurchase() {
+    func restoringPurchase() {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .vcBackground
         ProgressHUD.show(interaction: false)
     }
     
-    func startedToRestorePurchase() {
-        ProgressHUD.remove()
-    }
-    
     func restoredPurchase() {
         ProgressHUD.showSucceed("Restore successfully completed")
     }
     
-    func didOccurErrorWhileRestoring(_ errorMsg: String) {
-        ProgressHUD.showError("\(errorMsg)", image: .init(named: "chat_shocked"))
+    func didOccurErrorWhileRestoringPurchase(_ errorMsg: String) {
+        ProgressHUD.showError("You don't have an active subscription now", image: .init(named: "chat_shocked"))
     }
     
     func startingToPurchase() {

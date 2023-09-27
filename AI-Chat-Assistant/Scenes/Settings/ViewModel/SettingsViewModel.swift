@@ -11,7 +11,10 @@ protocol SettingsViewModelInterface {
     var view: SettingsViewInterface? { get set }
     
     func viewDidLoad()
+    func viewDidAppear()
     func didSelectItemAt(indexPath: IndexPath)
+    
+    func updateCollectionViewAccordingToSubscribe()
 }
 
 final class SettingsViewModel {
@@ -33,33 +36,78 @@ final class SettingsViewModel {
             .init(itemCategory: .privacyPolicy, itemImage: "chat_privacy_policy", itemTitle: "Privacy Policy")
         ])
     ]
-
+    
 }
 
 //MARK: - SettingsViewModelInterface
 extension SettingsViewModel: SettingsViewModelInterface {
-    func didSelectItemAt(indexPath: IndexPath) {
-        let selectedSettingItemCategory = settingsSections[indexPath.section].sectionItems[indexPath.item].itemCategory
-        
-        switch selectedSettingItemCategory {
-        case .rateApp:
-            view?.openAppStoreToWriteReview()
-        case .shareWithFriends:
-            view?.openShareSheetVCToShareApp()
-        case .privacyPolicy:
-            view?.openSafariToShowPrivacyPolicy()
-        case .termOfUse:
-            view?.openSafariToShowTermOfUse()
-        case .contactUs:
-            view?.openMailToSendUS()
-        case .requestAFeature:
-            view?.openAppStoreToWriteReview()
-        case .restorePurchase:
-            view?.openPaywall()
-        }
-    }
-    
     func viewDidLoad() {
         view?.configureViewController()
     }
+    
+    func viewDidAppear() {
+        updateCollectionViewAccordingToSubscribe()
+    }
+    
+    func didSelectItemAt(indexPath: IndexPath) {
+        
+        let sectionCategory = settingsSections[indexPath.section].sectionCategory
+        
+        switch sectionCategory {
+        case .subscribe:
+            view?.openPaywall()
+        case .support, .about:
+            let selectedSettingItemCategory = settingsSections[indexPath.section].sectionItems[indexPath.item].itemCategory
+            
+            switch selectedSettingItemCategory {
+            case .rateApp:
+                view?.openAppStoreToWriteReview()
+            case .shareWithFriends:
+                view?.openShareSheetVCToShareApp()
+            case .privacyPolicy:
+                view?.openSafariToShowPrivacyPolicy()
+            case .termOfUse:
+                view?.openSafariToShowTermOfUse()
+            case .contactUs:
+                view?.openMailToSendUS()
+            case .requestAFeature:
+                view?.openAppStoreToWriteReview()
+            case .restorePurchase:
+                view?.restoringPurchase()
+                RevenueCatManager.shared.restorePurchase { [weak self] result in
+                    guard let self else { return }
+                    
+                    switch result {
+                    case .restoredSuccessfully:
+                        view?.restoredPurchase()
+                    case .didNotRestore(let errorMsg):
+                        view?.didOccurErrorWhileRestoringPurhcase(errorMsg)
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
+    
+    func updateCollectionViewAccordingToSubscribe() {
+        if !RevenueCatManager.shared.isSubscribe {
+            if !settingsSections.contains(where: { $0.sectionCategory == .subscribe }) {
+                // add section
+                
+                
+                view?.insertSection(at: 0)
+            }
+            
+        } else {
+            if let subscribeSectionIndexToDelete = settingsSections.firstIndex(where: { $0.sectionCategory == .subscribe }) {
+                settingsSections.remove(at: subscribeSectionIndexToDelete)
+                
+                // collectionviewdan sectionu sil
+                view?.deleteSection(at: 0)
+            }
+        }
+    }
+    
 }

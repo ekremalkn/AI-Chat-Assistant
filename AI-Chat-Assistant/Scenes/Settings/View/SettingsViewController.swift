@@ -7,7 +7,7 @@
 
 import UIKit
 import MessageUI
-import LinkPresentation
+import ProgressHUD
 
 protocol SettingsViewInterface: AnyObject {
     func configureViewController()
@@ -19,6 +19,12 @@ protocol SettingsViewInterface: AnyObject {
     func openSafariToShowTermOfUse()
     func openPaywall()
     
+    func insertSection(at section: Int)
+    func deleteSection(at section: Int)
+    
+    func restoringPurchase()
+    func restoredPurchase()
+    func didOccurErrorWhileRestoringPurhcase(_ errMsg: String?)
 }
 
 final class SettingsViewController: UIViewController {
@@ -55,6 +61,11 @@ final class SettingsViewController: UIViewController {
         navigationController?.tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
+    }
+    
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let label = UILabel()
@@ -86,16 +97,24 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SettingsCollectionSectionHeader.identifier, for: indexPath) as? SettingsCollectionSectionHeader else {
-                return .init()
-            }
-            
             let sectionCategory = viewModel.settingsSections[indexPath.section].sectionCategory
-            header.configure(with: sectionCategory)
             
-            return header
+            switch sectionCategory {
+            case .subscribe:
+                return .init()
+            case .support, .about:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SettingsCollectionSectionHeader.identifier, for: indexPath) as? SettingsCollectionSectionHeader else {
+                    return .init()
+                }
+                
+                let sectionCategory = viewModel.settingsSections[indexPath.section].sectionCategory
+                header.configure(with: sectionCategory)
+                
+                return header
+            }
         case UICollectionView.elementKindSectionFooter:
             let sectionCategory = viewModel.settingsSections[indexPath.section].sectionCategory
+            
             if sectionCategory == .about {
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SettingsCollectionFooter.identifier, for: indexPath) as? SettingsCollectionFooter else {
                     return .init()
@@ -113,9 +132,17 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerWidth: CGFloat = collectionView.frame.width - 40
-        let headerHeight: CGFloat = 20
         
-        return .init(width: headerWidth, height: headerHeight)
+        let sectionCategory = viewModel.settingsSections[section].sectionCategory
+        
+        switch sectionCategory {
+        case .subscribe:
+            return .init()
+        case .support, .about:
+            let headerHeight: CGFloat = 20
+            
+            return .init(width: headerWidth, height: headerHeight)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -136,14 +163,26 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingsCollectionCell.identifier, for: indexPath) as? SettingsCollectionCell else {
-            return .init()
+        let sectionCategory = viewModel.settingsSections[indexPath.section].sectionCategory
+        
+        switch sectionCategory {
+        case .subscribe:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubscribeCollectionViewCell.identifier, for: indexPath) as? SubscribeCollectionViewCell else {
+                return .init()
+            }
+            
+            return cell
+        case .support, .about:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingsCollectionCell.identifier, for: indexPath) as? SettingsCollectionCell else {
+                return .init()
+            }
+            
+            let sectionItem = viewModel.settingsSections[indexPath.section].sectionItems[indexPath.item]
+            cell.configure(with: sectionItem)
+            
+            return cell
         }
-        
-        let sectionItem = viewModel.settingsSections[indexPath.section].sectionItems[indexPath.item]
-        cell.configure(with: sectionItem)
-        
-        return cell
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -151,10 +190,21 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let sectionCategory = viewModel.settingsSections[indexPath.section].sectionCategory
         let cellWidth: CGFloat = collectionView.frame.width - 40
-        let cellHeight: CGFloat = 60
         
-        return .init(width: cellWidth, height: cellHeight)
+        switch sectionCategory {
+        case .subscribe:
+            let cellHeight: CGFloat = 100
+            
+            return .init(width: cellWidth, height: cellHeight)
+        case .support, .about:
+            let cellHeight: CGFloat = 60
+            
+            return .init(width: cellWidth, height: cellHeight)
+        }
+        
+
     }
     
     
@@ -199,5 +249,49 @@ extension SettingsViewController: SettingsViewInterface {
         settingsCoordinator?.openPaywall()
     }
     
+    func restoringPurchase() {
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
+        ProgressHUD.colorAnimation = .vcBackground
+        ProgressHUD.show(interaction: false)
+    }
+    
+    func restoredPurchase() {
+        ProgressHUD.showSucceed("Restore successfully completed")
+    }
+  
+    func didOccurErrorWhileRestoringPurhcase(_ errMsg: String?) {
+        ProgressHUD.showError("You don't have an active subscription now", image: .init(named: "chat_shocked"))
+    }
+    
+    
+    func deleteSection(at section: Int) {
+        let collectionView = settingsView.settingsCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates {
+                collectionView.deleteSections(.init(integer: section))
+            }
+        }
+    }
+    
+    func insertSection(at section: Int) {
+        let collectionView = settingsView.settingsCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates { [weak self] in
+                guard let self else { return }
+                
+                let subsrcibeSectionData = SettingsSection(sectionCategory: .subscribe, sectionItems: [.init(itemCategory: .contactUs, itemImage: "", itemTitle: "")])
+                
+                viewModel.settingsSections.insert(subsrcibeSectionData, at: 0)
+                
+                collectionView.insertSections(.init(integer: section))
+                collectionView.insertItems(at: [.init(item: 0, section: section)])
+            }
+        }
+    }
+    
+
 }
 

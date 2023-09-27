@@ -71,14 +71,14 @@ final class SuggestionsViewController: UIViewController {
         rightHistoryButton.tintColor = .white
         rightHistoryButton.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
         
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        backBarButtonItem.tintColor = .main
+        navigationItem.backBarButtonItem = backBarButtonItem
+        
         let rightSettingBarButtonItem = UIBarButtonItem(customView: rightSettingButton)
         let rightHistoryBarButtonItem = UIBarButtonItem(customView: rightHistoryButton)
         
         navigationItem.rightBarButtonItems = [rightSettingBarButtonItem, rightHistoryBarButtonItem]
-        
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        backBarButtonItem.tintColor = .main
-        navigationItem.backBarButtonItem = backBarButtonItem
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()

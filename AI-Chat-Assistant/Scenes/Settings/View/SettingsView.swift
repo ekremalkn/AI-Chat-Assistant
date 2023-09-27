@@ -16,10 +16,11 @@ final class SettingsView: UIView {
         layout.minimumLineSpacing = 0
         layout.sectionInset = .init(top: 0, left: 0, bottom: 40, right: 0)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.register(SubscribeCollectionViewCell.self, forCellWithReuseIdentifier: SubscribeCollectionViewCell.identifier)
         collection.register(SettingsCollectionSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SettingsCollectionSectionHeader.identifier)
         collection.register(SettingsCollectionCell.self, forCellWithReuseIdentifier: SettingsCollectionCell.identifier)
         collection.register(SettingsCollectionFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SettingsCollectionFooter.identifier)
-        collection.contentInset = .init(top: 20, left: 20, bottom: 40, right: 20)
+        collection.contentInset = .init(top: 10, left: 20, bottom: 40, right: 20)
         collection.backgroundColor = .clear
         return collection
     }()

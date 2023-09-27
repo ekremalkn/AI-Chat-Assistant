@@ -13,6 +13,7 @@ final class PaywallCoordinator: Coordinator {
 
     //MARK: - References
     weak var settingsParentCoordinator: SettingsCoordinator?
+    weak var assistantsParentCoordinator: AssistantsCoordinator?
     private let navigationController: UINavigationController
 
     //MARK: - Variables

@@ -13,6 +13,7 @@ struct SettingsSection {
 }
 
 enum SettingsSectionCategory {
+    case subscribe
     case support
     case about
     
@@ -22,6 +23,8 @@ enum SettingsSectionCategory {
             return "SUPPORT"
         case .about:
             return "ABOUT"
+        case .subscribe:
+            return ""
         }
     }
 }

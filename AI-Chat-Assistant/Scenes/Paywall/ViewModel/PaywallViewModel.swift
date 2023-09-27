@@ -77,7 +77,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
     }
     
     func restoreButtonTapped() {
-        view?.startingToRestorePurchase()
+        view?.restoringPurchase()
         
         RevenueCatManager.shared.restorePurchase { [weak self] result in
             guard let self else { return }
@@ -86,7 +86,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
             case .restoredSuccessfully:
                 view?.restoredPurchase()
             case .didNotRestore(let errMsg):
-                view?.didOccurErrorWhileRestoring(errMsg ?? "You don't have an active subscription now")
+                view?.didOccurErrorWhileRestoringPurchase(errMsg ?? "You don't have an active subscription now")
             }
         }
     }
