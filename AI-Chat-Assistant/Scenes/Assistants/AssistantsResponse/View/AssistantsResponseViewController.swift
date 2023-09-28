@@ -19,6 +19,13 @@ protocol AssistantsResponseViewInterface: AnyObject {
     
     func reloadMessages()
     func scrollCollectionViewToBottom()
+    
+    func openPaywall()
+    
+    func showAd()
+    func showReviewAlert()
+    
+    func updateFreeMessageCountLabel()
 }
 
 final class AssistantsResponseViewController: UIViewController {
@@ -47,6 +54,11 @@ final class AssistantsResponseViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        assistantsResponseView.updateFreeMessageCountLabel()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -264,6 +276,22 @@ extension AssistantsResponseViewController: AssistantsResponseViewInterface {
             }
         }
     }
+    
+    func openPaywall() {
+        assistantsResponseCoordinator?.openPaywall()
+    }
+    
+    func showAd() {
+        
+    }
+    
+    func showReviewAlert() {
+        
+    }
+    
+    func updateFreeMessageCountLabel() {
+        assistantsResponseView.updateFreeMessageCountLabel()
+    }
 }
 
 //MARK: - AssistantsResponseViewDelegate
@@ -272,6 +300,9 @@ extension AssistantsResponseViewController: AssistantsResponseViewDelegate {
         viewModel.sendButtonTapped()
     }
     
+    func assistantsResponseView(_ view: AssistantsResponseView, getPremiumButtonTapped button: UIButton) {
+        assistantsResponseCoordinator?.openPaywall()
+    }
     
 }
 

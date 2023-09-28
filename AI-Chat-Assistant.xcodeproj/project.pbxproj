@@ -115,7 +115,7 @@
 		F08D00712AB8CCBC0071E324 /* ChatAssistantDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F08D006F2AB8CCBC0071E324 /* ChatAssistantDataModel.xcdatamodeld */; };
 		F08D00742AB8CCDC0071E324 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00732AB8CCDC0071E324 /* CoreDataManager.swift */; };
 		F08D00802AB8D8360071E324 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D007F2AB8D8360071E324 /* CoreDataService.swift */; };
-		F08D00822AB8D8A10071E324 /* ChatHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00812AB8D8A10071E324 /* ChatHistoryService.swift */; };
+		F08D00822AB8D8A10071E324 /* ChatHistoryCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D00812AB8D8A10071E324 /* ChatHistoryCoreDataService.swift */; };
 		F0915E862ABE1AB4004F9FE8 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E852ABE1AB4004F9FE8 /* SettingsCoordinator.swift */; };
 		F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */; };
 		F0915E8C2ABE1BB6004F9FE8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */; };
@@ -153,8 +153,9 @@
 		F0F3001E2ABB847B00868CDF /* ChatCollectionModelHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */; };
 		F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */; };
 		F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */; };
+		F0F5C1132AC60937009DC1CC /* GetPremiumTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F5C1122AC60937009DC1CC /* GetPremiumTextButton.swift */; };
 		F0F8DBA92AC499E900C5A697 /* SubscribeCellAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */; };
-		F0F8DBAC2AC4B37700C5A697 /* UseDefaultsMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8DBAB2AC4B37700C5A697 /* UseDefaultsMessageManager.swift */; };
+		F0F8DBAC2AC4B37700C5A697 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8DBAB2AC4B37700C5A697 /* MessageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -260,7 +261,7 @@
 		F08D00702AB8CCBC0071E324 /* ChatAssistantDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatAssistantDataModel.xcdatamodel; sourceTree = "<group>"; };
 		F08D00732AB8CCDC0071E324 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F08D007F2AB8D8360071E324 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
-		F08D00812AB8D8A10071E324 /* ChatHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryService.swift; sourceTree = "<group>"; };
+		F08D00812AB8D8A10071E324 /* ChatHistoryCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCoreDataService.swift; sourceTree = "<group>"; };
 		F0915E852ABE1AB4004F9FE8 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		F0915E882ABE1B2E004F9FE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F0915E8B2ABE1BB6004F9FE8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -294,8 +295,9 @@
 		F0F3001D2ABB847B00868CDF /* ChatCollectionModelHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionModelHeader.swift; sourceTree = "<group>"; };
 		F0F3FFFA2ABB4C9E00868CDF /* PastChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatCoordinator.swift; sourceTree = "<group>"; };
 		F0F3FFFD2ABB4CF600868CDF /* PastChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastChatViewController.swift; sourceTree = "<group>"; };
+		F0F5C1122AC60937009DC1CC /* GetPremiumTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPremiumTextButton.swift; sourceTree = "<group>"; };
 		F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SubscribeCellAnimation.json; sourceTree = "<group>"; };
-		F0F8DBAB2AC4B37700C5A697 /* UseDefaultsMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseDefaultsMessageManager.swift; sourceTree = "<group>"; };
+		F0F8DBAB2AC4B37700C5A697 /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,7 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				F04879E82AB5D8FD0075A0C6 /* KeyboardManager.swift */,
-				F0F8DBAB2AC4B37700C5A697 /* UseDefaultsMessageManager.swift */,
+				F0F8DBAB2AC4B37700C5A697 /* MessageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -629,6 +631,7 @@
 				F066E9AA2A9BA1DE004A6964 /* ChatModelSelectButton.swift */,
 				F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */,
 				F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */,
+				F0F5C1122AC60937009DC1CC /* GetPremiumTextButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1097,7 +1100,7 @@
 			isa = PBXGroup;
 			children = (
 				F08D007F2AB8D8360071E324 /* CoreDataService.swift */,
-				F08D00812AB8D8A10071E324 /* ChatHistoryService.swift */,
+				F08D00812AB8D8A10071E324 /* ChatHistoryCoreDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1343,7 +1346,7 @@
 				F089448E2AC0376E00BA4958 /* ChatMessageItem+CoreDataClass.swift in Sources */,
 				F0F272EF2AB2185500D63259 /* AssistantsCategoryCollectionCell.swift in Sources */,
 				F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */,
-				F08D00822AB8D8A10071E324 /* ChatHistoryService.swift in Sources */,
+				F08D00822AB8D8A10071E324 /* ChatHistoryCoreDataService.swift in Sources */,
 				F0915E862ABE1AB4004F9FE8 /* SettingsCoordinator.swift in Sources */,
 				F04879F22AB5E98D0075A0C6 /* AssistantsResponseViewModel.swift in Sources */,
 				F02FA08B2AA4D5810089B680 /* SuggestionsCollectionCell.swift in Sources */,
@@ -1356,6 +1359,7 @@
 				F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
 				F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */,
+				F0F5C1132AC60937009DC1CC /* GetPremiumTextButton.swift in Sources */,
 				F089449B2AC0881B00BA4958 /* RevenueCatConstants.swift in Sources */,
 				F08D00802AB8D8360071E324 /* CoreDataService.swift in Sources */,
 				F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */,
@@ -1406,7 +1410,7 @@
 				F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */,
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F08944912AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
-				F0F8DBAC2AC4B37700C5A697 /* UseDefaultsMessageManager.swift in Sources */,
+				F0F8DBAC2AC4B37700C5A697 /* MessageManager.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
 				F08944862AC026DC00BA4958 /* MostUsedSuggestions.swift in Sources */,
 				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,

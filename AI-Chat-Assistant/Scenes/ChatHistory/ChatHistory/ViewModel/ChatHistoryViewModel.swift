@@ -21,20 +21,23 @@ final class ChatHistoryViewModel {
     
     //MARK: - References
     weak var view: ChatHistoryViewInterface?
-    private let chatHistoryService: ChatHistoryService = CoreDataService()
+    private let chatHistoryService: ChatHistoryCoreDataService = CoreDataService()
     
     //MARK: - Variables
     var chatHistoryItems: [ChatHistoryItem] = []
     
     //MARK: - Methods
     func fetchChatHistoryItems() {
-        let chatHistoryItems = chatHistoryService.fetchChatHistory()
-        let sortedChatHistoryItems = chatHistoryItems.sorted { ($0.chatCreationDate ?? Date()) > ($1.chatCreationDate ?? Date()) }
-        self.chatHistoryItems = sortedChatHistoryItems
+        chatHistoryService.fetchChatHistory { [weak self] chatHistoryItems in
+            guard let self else { return }
+            let sortedChatHistoryItems = chatHistoryItems.sorted { ($0.chatCreationDate ?? Date()) > ($1.chatCreationDate ?? Date()) }
+            self.chatHistoryItems = sortedChatHistoryItems
+            
+            view?.reloadChatHistoryItems()
+        }
         
-        view?.reloadChatHistoryItems()
     }
-
+    
     
 }
 
@@ -64,7 +67,7 @@ extension ChatHistoryViewModel: ChatHistoryViewModelInterface {
             }
             
             let sortedUIMessages = uiMessages.sorted { $0.createAt < $1.createAt }
-
+            
             view?.openPastChatVC(uiMessages: sortedUIMessages, chatHistoryItem: selectedChatHistoryItem)
         }
     }

@@ -24,12 +24,19 @@ protocol ChatViewInterface: AnyObject {
     func deleteNoInternetView()
     
     func scrollCollectionViewToBottom()
+    
+    func openPaywall()
+    
+    func showAd()
+    func showReviewAlert()
+    
+    func updateFreeMessageCountLabel()
 }
 
 final class ChatViewController: UIViewController {
     
     //MARK: - References
-    weak var homeChatCoordinator: ChatCoordinator?
+    weak var chatCoordinator: ChatCoordinator?
     private let viewModel: ChatViewModel
     private let chatView = ChatView()
     
@@ -57,6 +64,7 @@ final class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+        chatView.updateFreeMessageCountLabel()
         navigationController?.tabBarController?.tabBar.isTranslucent = false
         navigationController?.tabBarController?.tabBar.isHidden = false
     }
@@ -86,7 +94,7 @@ final class ChatViewController: UIViewController {
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
-        homeChatCoordinator?.delegate = self
+        chatCoordinator?.delegate = self
         
         chatView.chatCollectionView.delegate = self
         chatView.chatCollectionView.dataSource = self
@@ -171,7 +179,7 @@ extension ChatViewController {
         
         let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
             guard let self else { return }
-            homeChatCoordinator?.openSettingsVC()
+            chatCoordinator?.openSettingsVC()
             
         }
         
@@ -198,7 +206,7 @@ extension ChatViewController {
     }
     
     @objc private func modelSelectButtonTapped() {
-        homeChatCoordinator?.openModelSelectVC(with: viewModel.currentModel)
+        chatCoordinator?.openModelSelectVC(with: viewModel.currentModel)
     }
     
     private func shareChatButtonTapped() {
@@ -311,11 +319,11 @@ extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let messageText = viewModel.uiMessages[indexPath.item].content
             label.text = messageText
             label.sizeToFit()
-     
+            
             if cellHeight < label.frame.height + 20 {
                 cellHeight += label.frame.height
             }
-
+            
             
             return .init(width: cellWidth, height: cellHeight)
         }
@@ -424,7 +432,7 @@ extension ChatViewController: ChatViewInterface {
         chatView.messageTextView.text = nil
         chatView.setSendButtonTouchability(false)
     }
-        
+    
     func showNoInternetView() {
         addNoInternetView()
     }
@@ -451,6 +459,22 @@ extension ChatViewController: ChatViewInterface {
             }
         }
     }
+    
+    func openPaywall() {
+        chatCoordinator?.openPaywall()
+    }
+    
+    func showAd() {
+        print("SHOW AD")
+    }
+    
+    func showReviewAlert() {
+        print("SHOW REVIEW ALERT")
+    }
+    
+    func updateFreeMessageCountLabel() {
+        chatView.updateFreeMessageCountLabel()
+    }
 }
 
 //MARK: -  ChatViewDelegate
@@ -459,7 +483,9 @@ extension ChatViewController: ChatViewDelegate {
         viewModel.sendButtonTapped()
     }
     
-    
+    func chatView(_ view: ChatView, getPremiumButtonTapped button: UIButton) {
+        chatCoordinator?.openPaywall()
+    }
 }
 
 //MARK: - UITextViewDelegate
@@ -529,14 +555,37 @@ extension ChatViewController: AssistantChatCollectionCellDelegate {
 //MARK: - HomeChatCoordinatorDelegate
 extension ChatViewController: ChatCoordinatorDelegate {
     func chatCoordinator(_ coordinator: ChatCoordinator, didSelectModel model: GPTModel) {
-        let collectionView = chatView.chatCollectionView
         
-        viewModel.currentModel = model
-        
-        DispatchQueue.main.async {
-            collectionView.performBatchUpdates {
-                collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            if model == .gpt4 {
+                chatCoordinator?.openPaywall()
             }
+        case .canSendMessage(let isSubscribed):
+            if isSubscribed {
+                let collectionView = chatView.chatCollectionView
+                viewModel.currentModel = model
+                
+                DispatchQueue.main.async {
+                    collectionView.performBatchUpdates {
+                        collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+                    }
+                }
+            } else {
+                if model == .gpt4 {
+                    chatCoordinator?.openPaywall()
+                } else {
+                    let collectionView = chatView.chatCollectionView
+                    viewModel.currentModel = model
+                    
+                    DispatchQueue.main.async {
+                        collectionView.performBatchUpdates {
+                            collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+                        }
+                    }
+                }
+            }
+            
         }
         
     }
@@ -602,7 +651,6 @@ extension ChatViewController {
         }
     }
 }
-
 
 
 

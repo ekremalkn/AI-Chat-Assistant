@@ -37,5 +37,11 @@ final class AssistantsResponseCoordinator: Coordinator {
         navigationController.pushViewController(assistantsResponseVC, animated: true)
     }
 
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.assistantsResponseParentCoordinator = self
+        paywallCoordinator.start()
+    }
 
 }

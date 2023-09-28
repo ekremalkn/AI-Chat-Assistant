@@ -9,6 +9,7 @@ import UIKit
 
 protocol AssistantsPromptEditViewDelegate: AnyObject {
     func assistantsPromptEditView(_ view: AssistantsPromptEditView, submitButtonTapped button: UIButton)
+    func assistantsPromptEditView(_ view: AssistantsPromptEditView, getPremiumButtonTapped button: UIButton)
 }
 
 final class AssistantsPromptEditView: UIView {
@@ -31,6 +32,29 @@ final class AssistantsPromptEditView: UIView {
         return button
     }()
     
+    private lazy var freeMessageCountStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private lazy var freeMessageCountLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var getPremiumTextButton: GetPremiumTextButton = {
+        let button = GetPremiumTextButton(type: .system)
+        button.addTarget(self, action: #selector(getPremiumButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - References
     weak var delegate: AssistantsPromptEditViewDelegate?
 
@@ -50,12 +74,28 @@ final class AssistantsPromptEditView: UIView {
         submitButton.layer.masksToBounds = true
     }
 
+    func updateFreeMessageCountLabel() {
+        if RevenueCatManager.shared.isSubscribe {
+            freeMessageCountStackView.removeFromSuperview()
+        } else {
+            let freeMessageCount = MessageManager.shared.freeMessageCount
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+            }
+        }
+    }
 }
 
 //MARK: - Actions
 extension AssistantsPromptEditView {
     @objc private func submitButtonTapped() {
         delegate?.assistantsPromptEditView(self, submitButtonTapped: submitButton)
+    }
+    
+    @objc private func getPremiumButtonTapped() {
+        delegate?.assistantsPromptEditView(self, getPremiumButtonTapped: getPremiumTextButton)
     }
 }
 
@@ -80,9 +120,11 @@ extension AssistantsPromptEditView {
     private func setupViews() {
         backgroundColor = .vcBackground
         addSubview(submitButton)
-
         addSubview(assistantsPromptEditCollectionView)
-
+        addSubview(freeMessageCountStackView)
+        freeMessageCountStackView.addArrangedSubview(freeMessageCountLabel)
+        freeMessageCountStackView.addArrangedSubview(getPremiumTextButton)
+        
         submitButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
@@ -92,7 +134,14 @@ extension AssistantsPromptEditView {
         
         assistantsPromptEditCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            make.bottom.equalTo(submitButton.snp.top).offset(-20)
+            make.bottom.equalTo(submitButton.snp.top).offset(-25)
+        }
+        
+        freeMessageCountStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(submitButton.snp.top).offset(-5)
+            make.leading.equalTo(submitButton.snp.leading).offset(6)
+            make.trailing.lessThanOrEqualTo(submitButton.snp.trailing).offset(-6)
+            make.height.equalTo(20)
         }
         
     }

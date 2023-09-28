@@ -181,7 +181,7 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubscribeCollectionViewCell.identifier, for: indexPath) as? SubscribeCollectionViewCell else {
                 return .init()
             }
-            
+            cell.updateFreeMessageCountLabel()
             return cell
         case .support, .about:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingsCollectionCell.identifier, for: indexPath) as? SettingsCollectionCell else {

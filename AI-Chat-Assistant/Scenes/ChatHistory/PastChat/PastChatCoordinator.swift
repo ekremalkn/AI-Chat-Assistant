@@ -39,5 +39,12 @@ final class PastChatCoordinator: Coordinator {
         navigationController.popViewController(animated: true)
     }
     
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.pastChatParentCoordinator = self
+        paywallCoordinator.start()
+    }
+    
     
 }

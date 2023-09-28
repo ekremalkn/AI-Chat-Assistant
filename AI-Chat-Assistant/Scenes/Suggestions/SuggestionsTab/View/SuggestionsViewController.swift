@@ -16,6 +16,7 @@ protocol SuggestionsViewInterface: AnyObject {
     
     func showNoInternetView()
     func deleteNoInternetView()
+    
 }
 
 final class SuggestionsViewController: UIViewController {
@@ -86,7 +87,7 @@ final class SuggestionsViewController: UIViewController {
         appearance.shadowColor = .clear
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-
+        
         
     }
     
@@ -167,7 +168,7 @@ extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let sectionCategory = viewModel.collectionViewSections[section].suggestionSectionCategory
         let headerWidth: CGFloat = collectionView.frame.width
-
+        
         switch sectionCategory {
         case .mostUsedSuggestions:
             let headerHeight: CGFloat = 170
@@ -178,7 +179,7 @@ extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewD
             
             return .init(width: headerWidth, height: headerHeight)
         }
-
+        
     }
     
     //MARK: - Cell
@@ -211,7 +212,7 @@ extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewD
             
             return cell
         }
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -237,7 +238,7 @@ extension SuggestionsViewController: UICollectionViewDelegate, UICollectionViewD
             
             return .init(width: cellWidth, height: cellHeight)
         }
-
+        
     }
 }
 
@@ -252,10 +253,10 @@ extension SuggestionsViewController: SuggestionsViewInterface {
     func reloadSuggestions() {
         let collectionView = suggestionsView.suggestionsCollectionView
         DispatchQueue.main.async {
-                collectionView.reloadData()
+            collectionView.reloadData()
         }
     }
-
+    
     
     func openModelSelectToSelectGPTModel() {
         suggestionsCoordinator?.openModelSelectVC(with: viewModel.currentModel)
@@ -289,14 +290,29 @@ extension SuggestionsViewController: SuggestionsCollectionMostUsedSuggestionsSec
 //MARK: - SuggestionsCoordinatorDelegate
 extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
     func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectModel model: GPTModel) {
-        if UseDefaultsMessageManager.shared.canSendMessage() {
-            if let selectedSuggestion = viewModel.selectedSuggestion {
-                suggestionsCoordinator?.openSuggestionsResponseVC(with: selectedSuggestion, selectedGPTModel: model)
+        
+        switch MessageManager.shared.getUserMessageStatus() {
+            
+        case .noMessageLimit:
+            suggestionsCoordinator?.openPaywall()
+            
+        case .canSendMessage(let isSubscribed):
+            if isSubscribed {
+                if let selectedSuggestion = viewModel.selectedSuggestion {
+                    suggestionsCoordinator?.openSuggestionsResponseVC(with: selectedSuggestion, selectedGPTModel: model)
+                }
+            } else {
+                if model == .gpt4 {
+                    suggestionsCoordinator?.openPaywall()
+                } else {
+                    if let selectedSuggestion = viewModel.selectedSuggestion {
+                        suggestionsCoordinator?.openSuggestionsResponseVC(with: selectedSuggestion, selectedGPTModel: model)
+                    }
+                }
             }
             
-        } else {
-            suggestionsCoordinator?.openPaywall()
         }
+        
     }
     
     

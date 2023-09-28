@@ -10,6 +10,7 @@ import RSKPlaceholderTextView
 
 protocol ChatViewDelegate: AnyObject {
     func chatView(_ view: ChatView, sendButtonTapped button: UIButton)
+    func chatView(_ view: ChatView, getPremiumButtonTapped button: UIButton)
 }
 
 final class ChatView: UIView {
@@ -54,6 +55,28 @@ final class ChatView: UIView {
         return button
     }()
     
+    private lazy var freeMessageCountStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private lazy var freeMessageCountLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var getPremiumTextButton: GetPremiumTextButton = {
+        let button = GetPremiumTextButton(type: .system)
+        button.addTarget(self, action: #selector(getPremiumButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     //MARK: - References
     weak var delegate: ChatViewDelegate?
@@ -77,12 +100,29 @@ final class ChatView: UIView {
         messageTextView.layer.masksToBounds = true
     }
     
+    func updateFreeMessageCountLabel() {
+        if RevenueCatManager.shared.isSubscribe {
+            freeMessageCountStackView.removeFromSuperview()
+        } else {
+            let freeMessageCount = MessageManager.shared.freeMessageCount
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+            }
+        }
+    }
+    
 }
 
 //MARK: - Button Actions
 extension ChatView {
     @objc private func sendButtonTapped() {
         delegate?.chatView(self, sendButtonTapped: sendButton)
+    }
+    
+    @objc private func getPremiumButtonTapped() {
+        delegate?.chatView(self, getPremiumButtonTapped: getPremiumTextButton)
     }
 }
 
@@ -110,6 +150,9 @@ extension ChatView {
         addSubview(chatCollectionView)
         addSubview(sendButton)
         addSubview(messageTextView)
+        addSubview(freeMessageCountStackView)
+        freeMessageCountStackView.addArrangedSubview(freeMessageCountLabel)
+        freeMessageCountStackView.addArrangedSubview(getPremiumTextButton)
         
         sendButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
@@ -126,7 +169,15 @@ extension ChatView {
         
         chatCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            make.bottom.equalTo(messageTextView.snp.top).offset(-10)
+            make.bottom.equalTo(messageTextView.snp.top).offset(-25)
         }
+        
+        freeMessageCountStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(messageTextView.snp.top).offset(-5)
+            make.leading.equalTo(messageTextView.snp.leading).offset(6)
+            make.trailing.lessThanOrEqualTo(messageTextView.snp.trailing).offset(-6)
+            make.height.equalTo(20)
+        }
+        
     }
 }

@@ -21,6 +21,7 @@ final class SettingsView: UIView {
         collection.register(SettingsCollectionFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SettingsCollectionFooter.identifier)
         collection.contentInset = .init(top: 10, left: 20, bottom: 40, right: 20)
         collection.backgroundColor = .clear
+        collection.showsVerticalScrollIndicator = false
         return collection
     }()
 

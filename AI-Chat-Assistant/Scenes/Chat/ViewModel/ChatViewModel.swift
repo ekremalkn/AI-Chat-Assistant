@@ -31,10 +31,23 @@ final class ChatViewModel {
     //MARK: - References
     weak var view: ChatViewInterface?
     private let openAIChatService: OpenAIChatService
-    private let chatHistoryService: ChatHistoryService = CoreDataService()
+    private let chatHistoryService: ChatHistoryCoreDataService = CoreDataService()
     
     //MARK: - Variables
     let reachability = try! Reachability()
+    
+    var currentMessageCount = 0 {
+        didSet {
+            if (currentMessageCount != 0 && currentMessageCount % 3 == 0) {
+                if !RevenueCatManager.shared.isSubscribe {
+                    view?.showAd()
+                }
+            } else if currentMessageCount % 5 == 0 {
+                // check if review alert showed
+                view?.showReviewAlert()
+            }
+        }
+    }
     
     var currentModel: GPTModel = .gpt3_5Turbo {
         didSet {
@@ -66,40 +79,50 @@ final class ChatViewModel {
     }
     
     private func sendMessage() {
-        assistantAnswered = false
-        view?.assistantResponsing()
-        uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
-        // add cell for waiting to response assistane
-        openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
-            guard let self else { return }
-            view?.scrollCollectionViewToBottom()
-            switch result {
-            case .success(let openAIChatResponse):
-                if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
-                    let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
-                    uiMessages.removeLast()
-                    uiMessages.append(recievedMessage)
-                    view?.assistantResponsed()
-                    assistantAnswered = true
-                    //remove cell
-                } else {
-                    view?.didOccurErrorWhileResponsing("Assistant Confused")
-                    assistantAnswered = true
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            view?.openPaywall()
+        case .canSendMessage:
+            assistantAnswered = false
+            view?.assistantResponsing()
+            uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
+            // add cell for waiting to response assistane
+            openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
+                guard let self else { return }
+                view?.scrollCollectionViewToBottom()
+                switch result {
+                case .success(let openAIChatResponse):
+                    if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
+                        let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
+                        uiMessages.removeLast()
+                        uiMessages.append(recievedMessage)
+                        
+                        
+                        view?.assistantResponsed()
+                        assistantAnswered = true
+                        
+                        MessageManager.shared.updateMessageLimit()
+                        currentMessageCount += 1
+                        view?.updateFreeMessageCountLabel()
+                        
+                    } else {
+                        view?.didOccurErrorWhileResponsing("Assistant Confused")
+                        assistantAnswered = true
+                        uiMessages.removeLast(2)
+                        print("No recieved Message from assistant")
+                    }
+                    
+                    print(openAIChatResponse?.choices?[0].message?.role as Any)
+                    print(openAIChatResponse?.choices?[0].message?.content as Any)
+                case .failure(let failure):
                     uiMessages.removeLast(2)
-                    print("No recieved Message from assistant")
+                    view?.didOccurErrorWhileResponsing(failure.localizedDescription)
+                    assistantAnswered = true
+                    print(failure.localizedDescription)
                 }
-                
-                print(openAIChatResponse?.choices?[0].message?.role as Any)
-                print(openAIChatResponse?.choices?[0].message?.content as Any)
-            case .failure(let failure):
-                uiMessages.removeLast(2)
-                view?.didOccurErrorWhileResponsing(failure.localizedDescription)
-                assistantAnswered = true
-                print(failure.localizedDescription)
             }
         }
     }
-    
 }
 
 //MARK: - ChatViewModelInterface
@@ -122,18 +145,28 @@ extension ChatViewModel: ChatViewModelInterface {
     }
     
     func sendButtonTapped() {
-        let newMessage = UIMessage(id: UUID(), role: .user, content: currentInputText, createAt: Date())
-        uiMessages.append(newMessage)
-        sendMessage()
-        view?.resetTextViewMessageText()
-        view?.scrollCollectionViewToBottom()
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            view?.openPaywall()
+        case .canSendMessage:
+            let newMessage = UIMessage(id: UUID(), role: .user, content: currentInputText, createAt: Date())
+            uiMessages.append(newMessage)
+            sendMessage()
+            view?.resetTextViewMessageText()
+            view?.scrollCollectionViewToBottom()
+        }
     }
     
     func reGenerateButtonTapped() {
-        if let lastMessageRole = uiMessages.last?.role {
-            if lastMessageRole == .assistant {
-                uiMessages.removeLast()
-                sendMessage()
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            view?.openPaywall()
+        case .canSendMessage:
+            if let lastMessageRole = uiMessages.last?.role {
+                if lastMessageRole == .assistant {
+                    uiMessages.removeLast()
+                    sendMessage()
+                }
             }
         }
     }

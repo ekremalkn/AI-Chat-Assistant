@@ -24,6 +24,13 @@ protocol PastChatViewInterface: AnyObject {
     func backToChatHistory()
     
     func scrollCollectionViewToBottom()
+    
+    func openPaywall()
+    
+    func showAd()
+    func showReviewAlert()
+    
+    func updateFreeMessageCountLabel()
 }
 
 final class PastChatViewController: UIViewController {
@@ -52,6 +59,12 @@ final class PastChatViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        pastChatView.updateFreeMessageCountLabel()
+        
     }
     
     //MARK: - Configure Nav Items
@@ -336,6 +349,22 @@ extension PastChatViewController: PastChatViewInterface {
             }
         }
     }
+    
+    func openPaywall() {
+        pastChatCoordinator?.openPaywall()
+    }
+    
+    func showAd() {
+        
+    }
+    
+    func showReviewAlert() {
+        
+    }
+    
+    func updateFreeMessageCountLabel() {
+        pastChatView.updateFreeMessageCountLabel()
+    }
 }
 
 //MARK: - MessageTextViewDelegate
@@ -374,6 +403,9 @@ extension PastChatViewController: PastChatViewDelegate {
         viewModel.sendButtonTapped()
     }
     
+    func pastChatView(_ view: PastChatView, getPremiumButtonTapped button: UIButton) {
+        pastChatCoordinator?.openPaywall()
+    }
     
 }
 

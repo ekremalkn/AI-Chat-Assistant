@@ -27,6 +27,8 @@ protocol AssistantsViewInterface: AnyObject {
     
     func showNoInternetView()
     func deleteNoInternetView()
+    
+    func updateSubsribeCellFreeMessageCountLabel()
 }
 
 final class AssistantsViewController: UIViewController {
@@ -357,10 +359,25 @@ extension AssistantsViewController: AssistantsViewInterface {
                 
                 collectionView.insertSections(.init(integer: section))
                 collectionView.insertItems(at: [.init(item: 0, section: section)])
+                
+            } completion: { [weak self] _ in
+                guard let self else { return }
+                updateSubsribeCellFreeMessageCountLabel()
             }
         }
     }
     
+    func updateSubsribeCellFreeMessageCountLabel() {
+        if let subscribeSection = viewModel.assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .subscribe }) {
+            let collectionView = assistantsView.assistantsCollectionView
+            
+            DispatchQueue.main.async {
+                guard let subscribeCell = collectionView.cellForItem(at: IndexPath(item: 0, section: subscribeSection)) as? SubscribeCollectionViewCell else { return }
+                subscribeCell.updateFreeMessageCountLabel()
+            }
+            
+        }
+    }
     
 }
 

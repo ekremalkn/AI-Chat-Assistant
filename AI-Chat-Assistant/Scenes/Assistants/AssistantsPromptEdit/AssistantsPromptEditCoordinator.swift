@@ -39,4 +39,11 @@ final class AssistantsPromptEditCoordinator: Coordinator {
         assistantsResponseCoordinator.start()
     }
     
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.assistantsPromptEditParentCoordinator = self
+        paywallCoordinator.start()
+    }
+    
 }

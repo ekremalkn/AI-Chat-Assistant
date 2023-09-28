@@ -12,6 +12,10 @@ import SafariServices
 final class PaywallCoordinator: Coordinator {
 
     //MARK: - References
+    weak var pastChatParentCoordinator: PastChatCoordinator?
+    weak var assistantsResponseParentCoordinator: AssistantsResponseCoordinator?
+    weak var assistantsPromptEditParentCoordinator: AssistantsPromptEditCoordinator?
+    weak var homeChatParentCoordinator: ChatCoordinator?
     weak var suggestionsParentCoordinator: SuggestionsCoordinator?
     weak var suggestionsResponeParentCoordinator: SuggestionsResponseCoordinator?
     weak var settingsParentCoordinator: SettingsCoordinator?

@@ -28,7 +28,7 @@ final class SuggestionsResponseViewModel {
     //MARK: - References
     weak var view: SuggestionsResponseViewInterface?
     private let openAIChatService: OpenAIChatService
-    private let chatHistoryService: ChatHistoryService = CoreDataService()
+    private let chatHistoryService: ChatHistoryCoreDataService = CoreDataService()
     
     //MARK: - Variables
     let selectedSuggestion: Suggestion
@@ -40,6 +40,19 @@ final class SuggestionsResponseViewModel {
     
     var currentInputText: String = ""
     
+    var currentMessageCount = 0 {
+        didSet {
+            if (currentMessageCount != 0 && currentMessageCount % 3 == 0) {
+                if !RevenueCatManager.shared.isSubscribe {
+                    view?.showAd()
+                }
+            } else if currentMessageCount % 5 == 0 {
+                // check if review alert showed
+                view?.showReviewAlert()
+            }
+        }
+    }
+    
     //MARK: - Init Methods
     init(openAIChatService: OpenAIChatService, selectedSuggestion: Suggestion, selectedGPTModel: GPTModel) {
         self.selectedSuggestion = selectedSuggestion
@@ -50,7 +63,10 @@ final class SuggestionsResponseViewModel {
     }
     
     private func sendMessage() {
-        if RevenueCatManager.shared.isSubscribe {
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            view?.openPaywall()
+        case .canSendMessage:
             assistantAnswered = false
             view?.assistantResponsing()
             
@@ -75,15 +91,10 @@ final class SuggestionsResponseViewModel {
                         view?.assistantResponsed()
                         assistantAnswered = true
                         
-                        UseDefaultsMessageManager.shared.sendMessage { succes in
-                            if succes {
-                                
-                            } else {
-                                // show alert
-                            }
-                            
-                        }
-                        //remove cell
+                        MessageManager.shared.updateMessageLimit()
+                        currentMessageCount += 1
+                        view?.updateFreeMessageCountLabel()
+                        
                     } else {
                         uiMessages.removeLast()
                         mainMessages.removeLast()
@@ -101,67 +112,7 @@ final class SuggestionsResponseViewModel {
                     assistantAnswered = true
                 }
             }
-        } else {
-            
-            if UseDefaultsMessageManager.shared.canSendMessage() {
-                assistantAnswered = false
-                view?.assistantResponsing()
-                
-                uiMessages.append(UIMessage(id: UUID(), role: .assistant, content: "", createAt: Date()))
-                view?.reloadMessages()
-                
-                openAIChatService.sendMessage(messages: mainMessages, model: currentModel) { [weak self] result in
-                    guard let self else { return }
-                    
-                    view?.scrollCollectionViewToBottom()
-                    
-                    switch result {
-                    case .success(let openAIChatResponse):
-                        if let asisstantContent = openAIChatResponse?.choices?.first?.message?.content {
-                            let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: asisstantContent, createAt: Date())
-                            uiMessages.removeLast()
-                            uiMessages.append(recievedMessage)
-                            
-                            view?.reloadMessages()
-                            mainMessages.append(recievedMessage)
-                            
-                            view?.assistantResponsed()
-                            assistantAnswered = true
-                            
-                            UseDefaultsMessageManager.shared.sendMessage { succes in
-                                if succes {
-                                    
-                                } else {
-                                    // show alert
-                                }
-                                
-                            }
-                            //remove cell
-                        } else {
-                            uiMessages.removeLast()
-                            mainMessages.removeLast()
-                            view?.reloadMessages()
-                            view?.didOccurErrorWhileResponsing("Assistant Confused")
-                            assistantAnswered = true
-                            print("No recieved Message from assistant")
-                        }
-                        
-                    case .failure(let failure):
-                        uiMessages.removeLast(2)
-                        view?.reloadMessages()
-                        mainMessages.removeLast(2)
-                        view?.didOccurErrorWhileResponsing(failure.localizedDescription)
-                        assistantAnswered = true
-                    }
-                }
-            } else {
-                // show paywall
-                view?.openPaywall()
-            }
-            
-            
         }
-        
         
     }
     

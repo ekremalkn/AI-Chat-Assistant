@@ -120,6 +120,7 @@ extension AssistantsViewModel: AssistantsViewModelInterface {
         }catch{
             print("could not start reachability notifier")
         }
+        
     }
     
     func viewDidAppear() {
@@ -142,6 +143,8 @@ extension AssistantsViewModel: AssistantsViewModelInterface {
                 
                 view?.insertSection(at: 0)
             }
+            
+            view?.updateSubsribeCellFreeMessageCountLabel()
             
         } else {
             if let subscribeSectionIndexToDelete = assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .subscribe }) {

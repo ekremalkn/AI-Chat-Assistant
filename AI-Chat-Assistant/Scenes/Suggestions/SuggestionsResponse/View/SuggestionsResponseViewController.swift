@@ -21,6 +21,11 @@ protocol SuggestionsResponseViewInterface: AnyObject {
     func scrollCollectionViewToBottom()
     
     func openPaywall()
+    
+    func showAd()
+    func showReviewAlert()
+    
+    func updateFreeMessageCountLabel()
 }
 
 final class SuggestionsResponseViewController: UIViewController {
@@ -57,6 +62,7 @@ final class SuggestionsResponseViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        suggestionsResponseView.updateFreeMessageCountLabel()
         navigationController?.tabBarController?.tabBar.isTranslucent = true
         navigationController?.tabBarController?.tabBar.isHidden = true
     }
@@ -118,9 +124,9 @@ extension SuggestionsResponseViewController {
         
         let combinedImage = combineImagesVertically(collectionViewCellImages)
         
-       shareCombinedImage(combinedImage)
+        shareCombinedImage(combinedImage)
     }
-
+    
 }
 
 //MARK: - Configure CollectionView
@@ -140,7 +146,7 @@ extension SuggestionsResponseViewController: UICollectionViewDelegate, UICollect
         
         return .init(width: headerWidth, height: headerHeight)
     }
-
+    
     //MARK: - Cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfMessages()
@@ -281,6 +287,17 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewInterface {
         suggestionsResponseCoordinator?.openPaywall()
     }
     
+    func showAd() {
+        
+    }
+    
+    func showReviewAlert() {
+        
+    }
+    
+    func updateFreeMessageCountLabel() {
+        suggestionsResponseView.updateFreeMessageCountLabel()
+    }
 }
 
 //MARK: - SuggestionsResponsViewDelegate
@@ -289,6 +306,9 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewDelegate {
         viewModel.sendButtonTapped()
     }
     
+    func suggestionResponseView(_ view: SuggestionsResponseView, getPremiumButtonTapped button: UIButton) {
+        suggestionsResponseCoordinator?.openPaywall()
+    }
     
 }
 
@@ -366,18 +386,18 @@ extension SuggestionsResponseViewController {
         let maxWidth = images.max { (image1, image2) in
             return image1.size.width < image2.size.width
         }?.size.width ?? 0
-
+        
         UIGraphicsBeginImageContextWithOptions(CGSize(width: maxWidth, height: totalHeight), false, 0.0)
-
+        
         var currentY: CGFloat = 0.0
         for image in images {
             image.draw(in: CGRect(x: 0, y: currentY, width: maxWidth, height: image.size.height))
             currentY += image.size.height
         }
-
+        
         let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return combinedImage
     }
     

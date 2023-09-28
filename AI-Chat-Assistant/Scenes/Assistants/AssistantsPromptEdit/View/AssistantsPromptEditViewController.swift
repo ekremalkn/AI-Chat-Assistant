@@ -16,6 +16,8 @@ protocol AssistantsPromptEditViewInterface: AnyObject {
     func chatServiceResponded()
     func didOccurErrorWhileChatServiceResponding(_ errorMsg: String)
     func openAssistantsResponseVC(with uiMessages: [UIMessage])
+    
+    func openPaywall()
 }
 
 final class AssistantsPromptEditViewController: UIViewController {
@@ -48,10 +50,10 @@ final class AssistantsPromptEditViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        assistantsPromptEditView.updateFreeMessageCountLabel()
         navigationController?.tabBarController?.tabBar.isTranslucent = true
         navigationController?.tabBarController?.tabBar.isHidden = true
         KeyboardManager.shared.setKeyboardToolbar(enable: true, doneButtonText: "Apply Edit")
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -191,9 +193,36 @@ extension AssistantsPromptEditViewController {
     }
     
     @objc private func navigationSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
-        let selectedModelIndex = sender.index
-        let selectedGPTModel = viewModel.gptModels[selectedModelIndex]
-        viewModel.currentModel = selectedGPTModel
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            if sender.index == 1 {
+                sender.setIndex(1, animated: true, shouldSendValueChangedEvent: false)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                    guard let self else { return }
+                    sender.setIndex(0, animated: true, shouldSendValueChangedEvent: false)
+                    assistantsPromptEditCoordinator?.openPaywall()
+                    
+                }
+            }
+        case .canSendMessage(let isSubscribed):
+            if isSubscribed {
+                let selectedModelIndex = sender.index
+                let selectedGPTModel = viewModel.gptModels[selectedModelIndex]
+                viewModel.currentModel = selectedGPTModel
+            } else {
+                if sender.index == 1 {
+                    sender.setIndex(1, animated: true, shouldSendValueChangedEvent: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                        guard let self else { return }
+                        sender.setIndex(0, animated: true, shouldSendValueChangedEvent: false)
+                        assistantsPromptEditCoordinator?.openPaywall()
+                        
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -227,6 +256,10 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
         assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages, selectedGPTModel: viewModel.currentModel)
     }
     
+    func openPaywall() {
+        assistantsPromptEditCoordinator?.openPaywall()
+    }
+    
 }
 
 //MARK: - PromptITextViewDelegate
@@ -248,6 +281,9 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewDelegate {
         viewModel.submitButtonTapped()
     }
     
+    func assistantsPromptEditView(_ view: AssistantsPromptEditView, getPremiumButtonTapped button: UIButton) {
+        assistantsPromptEditCoordinator?.openPaywall()
+    }
     
 }
 

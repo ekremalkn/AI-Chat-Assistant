@@ -10,10 +10,11 @@ import RSKPlaceholderTextView
 
 protocol AssistantsResponseViewDelegate: AnyObject {
     func assistantsResponseView(_ view: AssistantsResponseView, sendButtonTapped button: UIButton)
+    func assistantsResponseView(_ view: AssistantsResponseView, getPremiumButtonTapped button: UIButton)
 }
 
 final class AssistantsResponseView: UIView {
-
+    
     lazy var chatCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -64,10 +65,33 @@ final class AssistantsResponseView: UIView {
         return button
     }()
     
+    private lazy var freeMessageCountStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private lazy var freeMessageCountLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var getPremiumTextButton: GetPremiumTextButton = {
+        let button = GetPremiumTextButton(type: .system)
+        button.addTarget(self, action: #selector(getPremiumButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - References
     weak var delegate: AssistantsResponseViewDelegate?
-
-
+    
+    
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -89,6 +113,20 @@ final class AssistantsResponseView: UIView {
         messageTextView.layer.cornerRadius = 12
         messageTextView.layer.masksToBounds = true
     }
+    
+    func updateFreeMessageCountLabel() {
+        if RevenueCatManager.shared.isSubscribe {
+            freeMessageCountStackView.removeFromSuperview()
+        } else {
+            let freeMessageCount = MessageManager.shared.freeMessageCount
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+            }
+        }
+    }
+    
 }
 
 //MARK: - Button Actions
@@ -104,6 +142,10 @@ extension AssistantsResponseView {
     
     @objc private func sendButtonTapped() {
         delegate?.assistantsResponseView(self, sendButtonTapped: sendButton)
+    }
+    
+    @objc private func getPremiumButtonTapped() {
+        delegate?.assistantsResponseView(self, getPremiumButtonTapped: getPremiumTextButton)
     }
 }
 
@@ -131,7 +173,9 @@ extension AssistantsResponseView {
         addSubview(continuneChatButton)
         addSubview(sendButton)
         addSubview(messageTextView)
-        
+        addSubview(freeMessageCountStackView)
+        freeMessageCountStackView.addArrangedSubview(freeMessageCountLabel)
+        freeMessageCountStackView.addArrangedSubview(getPremiumTextButton)
         
         continuneChatButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
@@ -142,9 +186,9 @@ extension AssistantsResponseView {
         
         chatCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(self.safeAreaLayoutGuide)
-            make.bottom.equalTo(continuneChatButton.snp.top).offset(-20)
+            make.bottom.equalTo(continuneChatButton.snp.top).offset(-25)
         }
-                
+        
         sendButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
@@ -156,6 +200,13 @@ extension AssistantsResponseView {
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
             make.centerY.equalTo(sendButton.snp.centerY)
             make.height.greaterThanOrEqualTo(50)
+        }
+        
+        freeMessageCountStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(messageTextView.snp.top).offset(-5)
+            make.leading.equalTo(messageTextView.snp.leading).offset(6)
+            make.trailing.lessThanOrEqualTo(messageTextView.snp.trailing).offset(-6)
+            make.height.equalTo(20)
         }
     }
 }

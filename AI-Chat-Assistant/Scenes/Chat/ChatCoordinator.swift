@@ -26,7 +26,7 @@ final class ChatCoordinator: Coordinator {
         let openAIChatService: OpenAIChatService = NetworkService()
         let homeChatVM = ChatViewModel(openAIChatService: openAIChatService)
         let homeChatVC = ChatViewController(viewModel: homeChatVM)
-        homeChatVC.homeChatCoordinator = self
+        homeChatVC.chatCoordinator = self
         homeChatVC.tabBarItem = .init(title: "Chat", image: .init(named: "chat_message"), selectedImage: .init(named: "chat_message_fill"))
         navigationController.setViewControllers([homeChatVC], animated: false)
     }
@@ -46,6 +46,12 @@ final class ChatCoordinator: Coordinator {
         settingsCoordinator.start()
     }
     
+    func openPaywall() {
+        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(paywallCoordinator)
+        paywallCoordinator.homeChatParentCoordinator = self
+        paywallCoordinator.start()
+    }
 }
 
 //MARK: - ModelSelectCoordinatorDelegate

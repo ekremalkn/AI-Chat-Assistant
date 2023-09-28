@@ -47,33 +47,43 @@ extension AssistantsPromptEditViewModel: AssistantsPromptEditViewModelInterface 
     }
     
     func submitButtonTapped() {
-        var uiMessages: [UIMessage] = []
         
-        if let prompt = assistant.prompt {
-            let message = UIMessage(id: UUID(), role: .user, content: prompt, createAt: Date())
+        switch MessageManager.shared.getUserMessageStatus() {
+        case .noMessageLimit:
+            view?.openPaywall()
+        case .canSendMessage:
+            var uiMessages: [UIMessage] = []
             
-            uiMessages.append(message)
-        }
-        
-        view?.chatServiceResponding()
-        openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let openAIChatResponse):
-                if let assistantContent = openAIChatResponse?.choices?.first?.message?.content {
-                    let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: assistantContent, createAt: Date())
-                    uiMessages.append(recievedMessage)
-                    
-                    view?.chatServiceResponded()
-                    
-                    view?.openAssistantsResponseVC(with: uiMessages)
-                } else {
-                    view?.didOccurErrorWhileChatServiceResponding("Assistant Confused")
+            if let prompt = assistant.prompt {
+                let message = UIMessage(id: UUID(), role: .user, content: prompt, createAt: Date())
+                
+                uiMessages.append(message)
+            }
+            
+            view?.chatServiceResponding()
+            openAIChatService.sendMessage(messages: uiMessages, model: currentModel) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let openAIChatResponse):
+                    if let assistantContent = openAIChatResponse?.choices?.first?.message?.content {
+                        let recievedMessage = UIMessage(id: UUID(), role: .assistant, content: assistantContent, createAt: Date())
+                        uiMessages.append(recievedMessage)
+                        
+                        view?.chatServiceResponded()
+                        
+                        view?.openAssistantsResponseVC(with: uiMessages)
+                        
+                        MessageManager.shared.updateMessageLimit()
+                        
+                    } else {
+                        view?.didOccurErrorWhileChatServiceResponding("Assistant Confused")
+                    }
+                case .failure(let failure):
+                    view?.didOccurErrorWhileChatServiceResponding(failure.localizedDescription)
                 }
-            case .failure(let failure):
-                view?.didOccurErrorWhileChatServiceResponding(failure.localizedDescription)
             }
         }
+        
         
     }
     

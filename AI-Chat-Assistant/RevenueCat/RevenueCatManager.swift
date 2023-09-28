@@ -58,11 +58,15 @@ final class RevenueCatManager {
     
     //MARK: - Check Subscription Status
     func checkSubscriptionStatus(completion: @escaping ((RevenueCatSubscriptionStatus) -> Void)) {
-        Purchases.shared.getCustomerInfo { customerInfo, error in
+        Purchases.shared.getCustomerInfo { [weak self] customerInfo, error in
+            guard let self else { return }
+            
             if customerInfo?.entitlements[RevenueCatConstants.entitlement]?.isActive == true {
                 completion(.subscriber)
+                self.isSubscribe = true
             } else {
                 completion(.notSubscriber)
+                self.isSubscribe = false
             }
         }
     }

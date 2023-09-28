@@ -18,7 +18,8 @@ extension GPTModel {
         case .gpt3_5Turbo:
             return "gpt-3.5-turbo"
         case .gpt4:
-            return "gpt-4"
+            return "gpt-3.5-turbo"
+//            "gpt-4"
         }
     }
     
