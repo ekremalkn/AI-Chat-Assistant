@@ -51,7 +51,7 @@ final class AssistantsResponseViewModel {
     
     //MARK: - Init Methods
     init(mainMessages: [UIMessage], openAIChatService: OpenAIChatService, selectedGPTModel: GPTModel, assistant: Assistant) {
-        self.mainMessages = uiMessages
+        self.mainMessages = mainMessages
         self.openAIChatService = openAIChatService
         self.currentModel = selectedGPTModel
         self.assistant = assistant

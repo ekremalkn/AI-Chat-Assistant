@@ -46,11 +46,11 @@ final class AssistantsCoordinator: Coordinator {
         settingsCoordinator.start()
     }
     
-    func openPaywall() {
-        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
-        childCoordinators.append(paywallCoordinator)
-        paywallCoordinator.assistantsParentCoordinator = self
-        paywallCoordinator.start()
+    func openGiftPaywall() {
+        let giftPaywallCoordinator = GiftPaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(giftPaywallCoordinator)
+        giftPaywallCoordinator.assistantsParentCoordinator = self
+        giftPaywallCoordinator.start()
     }
     
 }

@@ -85,7 +85,7 @@ final class PaywallView: UIView {
 
     private lazy var proFeaturesLabel: TypewriterLabel = {
         let label = TypewriterLabel()
-        label.text = "🚀Powered by ChatGPT-3.5 & GPT-4\n\n💬UnlimitesQuestions & Answer \n\n👩‍💼🧑‍💼Gain Access to Potent Assistants\n\n🆓Ads Free Experience"
+        label.text = "🚀 Powered by ChatGPT-3.5 & GPT-4\n\n💬 UnlimitesQuestions & Answer \n\n👩‍💼🧑‍💼 Gain Access to Potent Assistants\n\n🆓 Ads Free Experience"
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         label.textColor = .white
@@ -102,7 +102,7 @@ final class PaywallView: UIView {
     
     private lazy var purchaseButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Subscribe To Unlock", for: .normal)
+        button.setTitle("Start Free Trial and Plan", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .main
@@ -120,8 +120,8 @@ final class PaywallView: UIView {
         return label
     }()
     
-    private lazy var changePlanButton: UIButton = {
-        let button = UIButton(type: .system)
+    private lazy var changePlanButton: PaywallChangePlanButton = {
+        let button = PaywallChangePlanButton(type: .system)
         button.setTitle("Change Plan", for: .normal)
         button.setTitleColor(.main, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
@@ -174,21 +174,23 @@ final class PaywallView: UIView {
         purchaseButton.layer.masksToBounds = true
     }
     
-    func startTypeWriteAnimation() {
-        proFeaturesLabel.startTypewritingAnimation {
-            
-        }
-    }
-    
     //MARK: - Configure With Package
     func configurePlanInfoLabelWithPackage(package: Package) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             if package.packageType == .weekly {
-                planInfoLabel.text = "Start your 3 days trial. Then \(package.localizedPriceString)/week. Cancel anytime."
+                planInfoLabel.text = "Start your 3 days trial. Then \(package.localizedPriceString)/week. Cancel anytime. No payment now"
+                purchaseButton.setTitle("Start Free Trial and Plan", for: .normal)
             } else if package.packageType == .annual {
-                planInfoLabel.text = "Yearly Access \(package.localizedPriceString)/year"
+                planInfoLabel.text = "Yearly Access \(package.localizedPriceString)/year. Cancel anytime."
+                purchaseButton.setTitle("Continue", for: .normal)
             }
+        }
+    }
+    
+    func startTypeWriteAnimation() {
+        proFeaturesLabel.startTypewritingAnimation {
+            
         }
     }
 
@@ -270,7 +272,7 @@ extension PaywallView {
         }
         
         titleLabelStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(paywallAnimationView.snp.bottom).offset(-50)
+            make.bottom.equalTo(paywallAnimationView.snp.bottom).offset(-60)
             make.centerX.equalTo(paywallAnimationView.snp.centerX)
             make.width.lessThanOrEqualTo(paywallAnimationView.snp.width).offset(-40)
         }

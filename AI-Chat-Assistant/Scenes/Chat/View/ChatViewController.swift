@@ -114,8 +114,9 @@ final class ChatViewController: UIViewController {
                 self.viewModel.saveChatToCoreData()
                 self.viewModel.clearChat()
                 
+                ProgressHUD.colorHUD = .vcBackground
+                ProgressHUD.colorStatus = .vcBackground
                 ProgressHUD.colorAnimation = .main
-                ProgressHUD.colorHUD = .main
                 ProgressHUD.showSucceed("Saved Chat", interaction: false)
                 
             }

@@ -16,7 +16,6 @@ protocol PaywallViewModelInterface {
     
     func restoreButtonTapped()
     func purchaseButtonTapped()
-
 }
 
 final class PaywallViewModel {
@@ -45,7 +44,7 @@ final class PaywallViewModel {
 
     //MARK: - Methods
     func getPackages() {
-        RevenueCatManager.shared.getOfferings { [weak self] packages in
+        RevenueCatManager.shared.getOfferings(for: .defaultOffering) { [weak self] packages in
             guard let self else { return }
             self.packages = packages
             
@@ -85,6 +84,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
             switch result {
             case .restoredSuccessfully:
                 view?.restoredPurchase()
+                view?.disMissPaywall()
             case .didNotRestore(let errMsg):
                 view?.didOccurErrorWhileRestoringPurchase(errMsg ?? "You don't have an active subscription now")
             }
@@ -101,6 +101,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
                 switch result {
                 case .purchasedSuccessfully:
                     view?.purchasedSuccessfuly()
+                    view?.disMissPaywall()
                 case .didNotPurchase:
                     view?.didOccurErrorWhilePurchasing("Did occur error. Please try again")
                 case .userCancelled:

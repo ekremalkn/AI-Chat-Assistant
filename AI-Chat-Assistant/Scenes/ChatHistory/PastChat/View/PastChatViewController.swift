@@ -321,8 +321,9 @@ extension PastChatViewController: PastChatViewInterface {
     }
     
     func chatSuccesfullyDeleted() {
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.colorHUD = .main
         ProgressHUD.showSucceed("Chat Successfully Deleted", interaction: false)
     }
     

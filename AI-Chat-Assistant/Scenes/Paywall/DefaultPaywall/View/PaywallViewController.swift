@@ -22,6 +22,8 @@ protocol PaywallViewInterface: AnyObject {
     func userCancelledWhilePurchase()
     func purchasedSuccessfuly()
     func didOccurErrorWhilePurchasing(_ errorMsg: String)
+    
+    func disMissPaywall()
 }
 
 final class PaywallViewController: UIViewController {
@@ -85,6 +87,9 @@ extension PaywallViewController: PaywallViewInterface {
     }
     
     func restoredPurchase() {
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
+        ProgressHUD.colorAnimation = .main
         ProgressHUD.showSucceed("Restore successfully completed")
     }
     
@@ -104,13 +109,22 @@ extension PaywallViewController: PaywallViewInterface {
     }
     
     func purchasedSuccessfuly() {
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
+        ProgressHUD.colorAnimation = .main
         ProgressHUD.showSucceed("Purchase successfully completed")
     }
     
     func didOccurErrorWhilePurchasing(_ errorMsg: String) {
         ProgressHUD.showError("\(errorMsg)", image: .init(named: "chat_shocked"))
     }
-    
+ 
+    func disMissPaywall() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
+    }
 }
 
 //MARK: - PaywallViewDelegate
@@ -120,7 +134,10 @@ extension PaywallViewController: PaywallViewDelegate {
     }
     
     func paywallView(_ view: PaywallView, closeButtonTapped button: UIButton) {
-        self.dismiss(animated: true)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.dismiss(animated: true)
+        }
     }
     
     func paywallView(_ view: PaywallView, purchaseButtonTapped button: UIButton) {

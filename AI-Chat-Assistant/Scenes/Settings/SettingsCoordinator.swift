@@ -68,11 +68,11 @@ final class SettingsCoordinator: NSObject, Coordinator {
         }
     }
     
-    func openPaywall() {
-        let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
-        childCoordinators.append(paywallCoordinator)
-        paywallCoordinator.settingsParentCoordinator = self
-        paywallCoordinator.start()
+    func openGiftPaywall() {
+        let giftPaywallCoordinator = GiftPaywallCoordinator(navigationController: navigationController)
+        childCoordinators.append(giftPaywallCoordinator)
+        giftPaywallCoordinator.settingsParentCoordinator = self
+        giftPaywallCoordinator.start()
     }
 
 }

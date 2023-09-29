@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MARK: - Revenue Cat
         Purchases.logLevel = .debug
         Purchases.configure(withAPIKey: RevenueCatConstants.revenueCatAPIKey)
+        RevenueCatManager.shared.checkSubscriptionStatus { _ in }
         
         //MARK: - Core Data Init
         CoreDataManager.shared.load()

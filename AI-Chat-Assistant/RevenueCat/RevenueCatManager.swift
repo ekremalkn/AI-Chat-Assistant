@@ -24,6 +24,12 @@ enum RevenueCatRestorePurchaseResult {
     case didNotRestore(String?)
 }
 
+
+enum OfferingType {
+    case defaultOffering
+    case giftOffering
+}
+
 final class RevenueCatManager {
     static let shared = RevenueCatManager()
     
@@ -31,27 +37,43 @@ final class RevenueCatManager {
     var isSubscribe: Bool = false
 
     //MARK: - Get Offerings
-    func getOfferings(completion: @escaping (_ packages: [Package]) -> Void) {
+    func getOfferings(for offeringType: OfferingType, completion: @escaping (_ packages: [Package]) -> Void) {
         Purchases.shared.getOfferings { allOfferings, error in
             if let allOfferings {
-                if let weeklyYearlyOfferings = allOfferings.all[RevenueCatConstants.weeklyYearlyOfferingsIdentifier] {
-                    let packages = weeklyYearlyOfferings.availablePackages
-                    completion(packages)
+                switch offeringType {
+                case .defaultOffering:
+                    if let weeklyYearlyOfferings = allOfferings.all[RevenueCatConstants.weeklyYearlyOfferingIdentifier] {
+                        let packages = weeklyYearlyOfferings.availablePackages
+                        completion(packages)
+                    }
+                case .giftOffering:
+                    if let weeklyYearlyOfferings = allOfferings.all[RevenueCatConstants.chatvantageGiftOfferingIdentifier] {
+                        let packages = weeklyYearlyOfferings.availablePackages
+                        completion(packages)
+                    }
                 }
+
             }
         }
     }
     
     //MARK: - Make a Purchase
     func makePurchase(package: Package, completion: @escaping ((RevenueCatPurchaseResult) -> Void)) {
-        Purchases.shared.purchase(package: package) { transaction, customerInfo, error, userCancelled in
+        Purchases.shared.purchase(package: package) { [weak self] transaction, customerInfo, error, userCancelled in
+            guard let self else { return }
             if customerInfo?.entitlements.all[RevenueCatConstants.entitlement]?.isActive == true {
                 // unlock the greate pro content
+                self.isSubscribe = true
                 completion(.purchasedSuccessfully)
             } else if error == nil {
+                self.isSubscribe = false
                 completion(.didNotPurchase)
             } else if userCancelled {
+                self.isSubscribe = false
                 completion(.userCancelled)
+            } else {
+                self.isSubscribe = false
+                completion(.didNotPurchase)
             }
         }
     }

@@ -137,6 +137,14 @@
 		F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */; };
 		F0ADEFAD2AA65D47008403CA /* EmailSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */; };
 		F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */; };
+		F0AE4BBB2AC6F1AB00F48598 /* PaywallChangePlanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BBA2AC6F1AB00F48598 /* PaywallChangePlanButton.swift */; };
+		F0AE4BBF2AC6F75600F48598 /* GiftPaywallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BBE2AC6F75600F48598 /* GiftPaywallCoordinator.swift */; };
+		F0AE4BC32AC6F7E400F48598 /* GiftPaywallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BC22AC6F7E400F48598 /* GiftPaywallViewModel.swift */; };
+		F0AE4BC52AC6F7F600F48598 /* GiftPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BC42AC6F7F500F48598 /* GiftPaywallView.swift */; };
+		F0AE4BC72AC6F80900F48598 /* GiftPaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BC62AC6F80900F48598 /* GiftPaywallViewController.swift */; };
+		F0AE4BCA2AC6FCF300F48598 /* GiftPackageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BC92AC6FCF300F48598 /* GiftPackageCollectionCell.swift */; };
+		F0AE4BCC2AC70B3300F48598 /* GiftPaywallAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F0AE4BCB2AC70B3300F48598 /* GiftPaywallAnimation.json */; };
+		F0AE4BCE2AC712A900F48598 /* StrikethroughLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE4BCD2AC712A900F48598 /* StrikethroughLabel.swift */; };
 		F0D468D92AC4867200F12BEC /* AssistantsCollectionSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D468D82AC4867200F12BEC /* AssistantsCollectionSectionData.swift */; };
 		F0DADC2F2A81893F00BFC78D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DADC2E2A81893F00BFC78D /* ProgressHUD */; };
 		F0E493712AB3718C00767FF2 /* AssistantTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */; };
@@ -281,6 +289,16 @@
 		F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeIdeaSuggestions.swift; sourceTree = "<group>"; };
+		F0AE4BB82AC6DC2000F48598 /* ChatvantageStoreKitTest1.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatvantageStoreKitTest1.storekit; sourceTree = "<group>"; };
+		F0AE4BB92AC6DD4900F48598 /* StoreKitTestCertificate1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate1.cer; path = ../../StoreKitTestCertificate1.cer; sourceTree = "<group>"; };
+		F0AE4BBA2AC6F1AB00F48598 /* PaywallChangePlanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallChangePlanButton.swift; sourceTree = "<group>"; };
+		F0AE4BBE2AC6F75600F48598 /* GiftPaywallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPaywallCoordinator.swift; sourceTree = "<group>"; };
+		F0AE4BC22AC6F7E400F48598 /* GiftPaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPaywallViewModel.swift; sourceTree = "<group>"; };
+		F0AE4BC42AC6F7F500F48598 /* GiftPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPaywallView.swift; sourceTree = "<group>"; };
+		F0AE4BC62AC6F80900F48598 /* GiftPaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPaywallViewController.swift; sourceTree = "<group>"; };
+		F0AE4BC92AC6FCF300F48598 /* GiftPackageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPackageCollectionCell.swift; sourceTree = "<group>"; };
+		F0AE4BCB2AC70B3300F48598 /* GiftPaywallAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GiftPaywallAnimation.json; sourceTree = "<group>"; };
+		F0AE4BCD2AC712A900F48598 /* StrikethroughLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughLabel.swift; sourceTree = "<group>"; };
 		F0D468D82AC4867200F12BEC /* AssistantsCollectionSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantsCollectionSectionData.swift; sourceTree = "<group>"; };
 		F0E493702AB3718C00767FF2 /* AssistantTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantTagModel.swift; sourceTree = "<group>"; };
 		F0E493722AB37E3000767FF2 /* AssistantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantModel.swift; sourceTree = "<group>"; };
@@ -632,6 +650,7 @@
 				F04879E22AB5B67D0075A0C6 /* SubmitButtonPromptEditScreen.swift */,
 				F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */,
 				F0F5C1122AC60937009DC1CC /* GetPremiumTextButton.swift */,
+				F0AE4BBA2AC6F1AB00F48598 /* PaywallChangePlanButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -655,6 +674,8 @@
 		F07FBDA32A7FBA1C00ACA10F = {
 			isa = PBXGroup;
 			children = (
+				F0AE4BB82AC6DC2000F48598 /* ChatvantageStoreKitTest1.storekit */,
+				F0AE4BB92AC6DD4900F48598 /* StoreKitTestCertificate1.cer */,
 				F07FBDAE2A7FBA1C00ACA10F /* AI-Chat-Assistant */,
 				F07FBDAD2A7FBA1C00ACA10F /* Products */,
 			);
@@ -882,6 +903,7 @@
 				F08D006B2AB8C65F0071E324 /* Views */,
 				F066E9AC2A9BB18E004A6964 /* PresentationController */,
 				F066E9A92A9BA1C8004A6964 /* Buttons */,
+				F0AE4BCD2AC712A900F48598 /* StrikethroughLabel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -973,9 +995,8 @@
 		F089449C2AC0907400BA4958 /* Paywall */ = {
 			isa = PBXGroup;
 			children = (
-				F089449F2AC090D400BA4958 /* PaywallCoordinator.swift */,
-				F08944A12AC0912C00BA4958 /* View */,
-				F08944A62AC091A600BA4958 /* ViewModel */,
+				F0AE4BBC2AC6F73900F48598 /* DefaultPaywall */,
+				F0AE4BBD2AC6F74800F48598 /* GiftPaywall */,
 			);
 			path = Paywall;
 			sourceTree = "<group>";
@@ -1146,6 +1167,7 @@
 		F0A5E3952A93E868000AE129 /* LottieAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				F0AE4BCB2AC70B3300F48598 /* GiftPaywallAnimation.json */,
 				F0F8DBA82AC499E900C5A697 /* SubscribeCellAnimation.json */,
 				F08944AD2AC0B64C00BA4958 /* PaywallChatbotAnimation.json */,
 				F08944A92AC0AFDA00BA4958 /* PaywallPurchaseButtonAnimation.json */,
@@ -1154,6 +1176,52 @@
 				F0A5E3962A93E87C000AE129 /* AssistantTypingAnimation.json */,
 			);
 			path = LottieAnimation;
+			sourceTree = "<group>";
+		};
+		F0AE4BBC2AC6F73900F48598 /* DefaultPaywall */ = {
+			isa = PBXGroup;
+			children = (
+				F089449F2AC090D400BA4958 /* PaywallCoordinator.swift */,
+				F08944A12AC0912C00BA4958 /* View */,
+				F08944A62AC091A600BA4958 /* ViewModel */,
+			);
+			path = DefaultPaywall;
+			sourceTree = "<group>";
+		};
+		F0AE4BBD2AC6F74800F48598 /* GiftPaywall */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE4BBE2AC6F75600F48598 /* GiftPaywallCoordinator.swift */,
+				F0AE4BC02AC6F7CF00F48598 /* View */,
+				F0AE4BC12AC6F7D400F48598 /* ViewModel */,
+			);
+			path = GiftPaywall;
+			sourceTree = "<group>";
+		};
+		F0AE4BC02AC6F7CF00F48598 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE4BC82AC6FCCD00F48598 /* Cell */,
+				F0AE4BC42AC6F7F500F48598 /* GiftPaywallView.swift */,
+				F0AE4BC62AC6F80900F48598 /* GiftPaywallViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0AE4BC12AC6F7D400F48598 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE4BC22AC6F7E400F48598 /* GiftPaywallViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0AE4BC82AC6FCCD00F48598 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE4BC92AC6FCF300F48598 /* GiftPackageCollectionCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		F0E4936F2AB3713F00767FF2 /* Model */ = {
@@ -1302,6 +1370,7 @@
 				F024E41D2ABF5A10008F0A32 /* EmptyChatHistoryAnimation.json in Resources */,
 				F08944AE2AC0B64C00BA4958 /* PaywallChatbotAnimation.json in Resources */,
 				F024E4162ABF52A4008F0A32 /* NoInternetAnimation.json in Resources */,
+				F0AE4BCC2AC70B3300F48598 /* GiftPaywallAnimation.json in Resources */,
 				F08944AA2AC0AFDB00BA4958 /* PaywallPurchaseButtonAnimation.json in Resources */,
 				F0F8DBA92AC499E900C5A697 /* SubscribeCellAnimation.json in Resources */,
 			);
@@ -1327,6 +1396,7 @@
 				F07FBDEB2A7FD28400ACA10F /* NetworkConstants.swift in Sources */,
 				F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */,
 				F089448F2AC0376E00BA4958 /* ChatMessageItem+CoreDataProperties.swift in Sources */,
+				F0AE4BC32AC6F7E400F48598 /* GiftPaywallViewModel.swift in Sources */,
 				F04EC4932ABED5B9005FC184 /* SettingsModel.swift in Sources */,
 				F07FBDD22A7FBBB700ACA10F /* MainCoordinator.swift in Sources */,
 				F07FBDE42A7FD07900ACA10F /* NetworkManager.swift in Sources */,
@@ -1354,6 +1424,7 @@
 				F04879F42AB5EE220075A0C6 /* AssistantsResponseView.swift in Sources */,
 				F04879DE2AB59BC20075A0C6 /* AssistantsPromptEditCollectionCell.swift in Sources */,
 				F0A0A82B2AC219E1007A1B35 /* SubscribeCollectionViewCell.swift in Sources */,
+				F0AE4BC72AC6F80900F48598 /* GiftPaywallViewController.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
 				F08D006D2AB8C6A10071E324 /* ChatHistorySenderView.swift in Sources */,
 				F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */,
@@ -1366,11 +1437,13 @@
 				F08D00742AB8CCDC0071E324 /* CoreDataManager.swift in Sources */,
 				F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
+				F0AE4BCA2AC6FCF300F48598 /* GiftPackageCollectionCell.swift in Sources */,
 				F08944992AC0870700BA4958 /* RevenueCatManager.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0D468D92AC4867200F12BEC /* AssistantsCollectionSectionData.swift in Sources */,
 				F0ADEFAB2AA65D23008403CA /* CareerSuggestions.swift in Sources */,
 				F0915E892ABE1B2E004F9FE8 /* SettingsViewController.swift in Sources */,
+				F0AE4BBB2AC6F1AB00F48598 /* PaywallChangePlanButton.swift in Sources */,
 				F02563E52AB7499300D10150 /* SuggestionsResponseViewModel.swift in Sources */,
 				F04879D92AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift in Sources */,
 				F0ADEF9B2AA65BF3008403CA /* BeautyLifestyleSuggestions.swift in Sources */,
@@ -1411,6 +1484,7 @@
 				F066E99E2A9B8FD3004A6964 /* ModelSelectView.swift in Sources */,
 				F08944912AC0376E00BA4958 /* ChatHistoryItem+CoreDataProperties.swift in Sources */,
 				F0F8DBAC2AC4B37700C5A697 /* MessageManager.swift in Sources */,
+				F0AE4BBF2AC6F75600F48598 /* GiftPaywallCoordinator.swift in Sources */,
 				F07FBE042A7FE96D00ACA10F /* AssistantChatCollectionCell.swift in Sources */,
 				F08944862AC026DC00BA4958 /* MostUsedSuggestions.swift in Sources */,
 				F0ADEFA72AA65CDD008403CA /* FashionSuggestions.swift in Sources */,
@@ -1419,6 +1493,7 @@
 				F02563E72AB74F0800D10150 /* UIViewController+CopyToClipboard.swift in Sources */,
 				F0817FFE2A9BE5930054C15E /* SuggestionCategoryCollectionCell.swift in Sources */,
 				F07FBDF22A7FD57B00ACA10F /* ChatModel.swift in Sources */,
+				F0AE4BCE2AC712A900F48598 /* StrikethroughLabel.swift in Sources */,
 				F0F300012ABB4D6400868CDF /* PastChatViewModel.swift in Sources */,
 				F02563E92AB7626900D10150 /* UIView+Snapshot.swift in Sources */,
 				F04879D32AB598AB0075A0C6 /* AssistantsPromptEditCoordinator.swift in Sources */,
@@ -1441,6 +1516,7 @@
 				F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 				F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */,
+				F0AE4BC52AC6F7F600F48598 /* GiftPaywallView.swift in Sources */,
 				F04879EF2AB5E9590075A0C6 /* AssistantsResponseViewController.swift in Sources */,
 				F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */,
 			);

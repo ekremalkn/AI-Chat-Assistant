@@ -38,6 +38,13 @@ final class AssistantsPromptEditCollectionCell: UICollectionViewCell {
         return button
     }()
     
+    private lazy var promptEditInfoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(.init(systemName: "info.circle.fill"), for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        return button
+    }()
+    
     //MARK: - Rerences
     weak var delegate: AssistantsPromptEditCollectionCellDelegate?
     
@@ -45,6 +52,7 @@ final class AssistantsPromptEditCollectionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setPromptEditInfoButton()
     }
     
     required init?(coder: NSCoder) {
@@ -73,6 +81,19 @@ extension AssistantsPromptEditCollectionCell {
     @objc private func promptEditButtonTapped() {
         delegate?.assistantsPromptEditCollectionCell(self, promptEditButtonTapped: promptTextView)
     }
+    
+    private func setPromptEditInfoButton() {
+        let understood = UIAction(title: "Understood", handler: { _ in
+            
+        })
+                
+        let infoMenu = UIMenu(title: "When you make changes according to your own preference within the prompt, the quality of the response improves.", image: .init(systemName: "house"), children: [understood])
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            promptEditInfoButton.menu = infoMenu
+        }
+    }
 }
 
 //MARK: - Animation
@@ -97,12 +118,18 @@ extension AssistantsPromptEditCollectionCell {
         backgroundColor = .cellBackground
         addSubview(promptTextView)
         addSubview(promptEditButton)
-        
+        addSubview(promptEditInfoButton)
         promptEditButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
             make.height.equalTo(40)
+        }
+        
+        promptEditInfoButton.snp.makeConstraints { make in
+            make.centerY.equalTo(promptEditButton.snp.centerY)
+            make.trailing.equalTo(promptEditButton.snp.leading).offset(-10)
+            make.height.width.equalTo(promptEditButton.snp.height)
         }
         
         promptTextView.snp.makeConstraints { make in

@@ -213,7 +213,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
         
         switch sectionType {
         case .subscribe:
-            assistantsCoordinator?.openPaywall()
+            assistantsCoordinator?.openGiftPaywall()
         case .assistants:
             let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
             let assistant = assistants[indexPath.item]
@@ -315,8 +315,8 @@ extension AssistantsViewController: AssistantsViewInterface {
     }
     
     func fetchingAssistants() {
-        ProgressHUD.colorHUD = .main
-        ProgressHUD.colorStatus = .main
+        ProgressHUD.colorHUD = .vcBackground
+        ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
         ProgressHUD.show(interaction: false)
     }
