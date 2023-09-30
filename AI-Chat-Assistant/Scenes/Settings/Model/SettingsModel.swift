@@ -20,9 +20,9 @@ enum SettingsSectionCategory {
     var sectionTitle: String {
         switch self {
         case .support:
-            return "SUPPORT"
+            return "SUPPORT".localized()
         case .about:
-            return "ABOUT"
+            return "ABOUT".localized()
         case .subscribe:
             return ""
         }

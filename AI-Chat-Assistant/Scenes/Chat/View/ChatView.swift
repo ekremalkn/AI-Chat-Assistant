@@ -40,7 +40,7 @@ final class ChatView: UIView {
         textView.isEditable = true
         textView.backgroundColor = .textViewBackground
         textView.autocorrectionType = .no
-        textView.placeholder = "Write a message"
+        textView.placeholder = NSString(string: "Write a message".localized())
         textView.placeholderColor = .white.withAlphaComponent(0.6)
         return textView
     }()
@@ -108,7 +108,7 @@ final class ChatView: UIView {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+                freeMessageCountLabel.text = "You have".localized() + " \(freeMessageCount) " +  "free message left.".localized()
             }
         }
     }
@@ -175,7 +175,7 @@ extension ChatView {
         freeMessageCountStackView.snp.makeConstraints { make in
             make.bottom.equalTo(messageTextView.snp.top).offset(-5)
             make.leading.equalTo(messageTextView.snp.leading).offset(6)
-            make.trailing.lessThanOrEqualTo(messageTextView.snp.trailing).offset(-6)
+            make.trailing.lessThanOrEqualTo(sendButton.snp.trailing).offset(-6)
             make.height.equalTo(20)
         }
         

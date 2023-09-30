@@ -66,7 +66,7 @@ final class ChatCollectionModelSelectCell: UICollectionViewCell {
             
             switch gptModel {
             case .gpt3_5Turbo:
-                modelLabel.text = "Default: ChatGPT (\(gptModel.modelUIName))"
+                modelLabel.text = "Default:".localized() + " ChatGPT (\(gptModel.modelUIName))"
             case .gpt4:
                 modelLabel.text = "ChatGPT (\(gptModel.modelUIName))"
             }

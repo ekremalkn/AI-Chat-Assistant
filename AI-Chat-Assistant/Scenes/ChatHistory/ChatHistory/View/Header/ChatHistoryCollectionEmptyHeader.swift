@@ -29,7 +29,7 @@ final class ChatHistoryCollectionEmptyHeader: UICollectionReusableView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "No History Item"
+        label.text = "No Chat History".localized()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         label.textAlignment = .center
@@ -38,7 +38,7 @@ final class ChatHistoryCollectionEmptyHeader: UICollectionReusableView {
     
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "After creating any chat, you will see the chat you created here."
+        label.text = "After creating any chat, you will see the chat you created here.".localized()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white.withAlphaComponent(0.5)

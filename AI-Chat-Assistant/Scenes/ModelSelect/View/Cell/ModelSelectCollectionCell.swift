@@ -6,11 +6,19 @@
 //
 
 import UIKit
+import Lottie
 
 final class ModelSelectCollectionCell: UICollectionViewCell {
     static let identifier = "ModelSelectCollectionCell"
     
     //MARK: - Creating UI Elements
+    private lazy var premiumAnimationView: LottieAnimationView = {
+        let animationView = LottieAnimationView(name:"PremiumAnimation")
+        animationView.loopMode = .loop
+        animationView.play()
+        return animationView
+    }()
+    
     private lazy var modelImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -84,8 +92,10 @@ final class ModelSelectCollectionCell: UICollectionViewCell {
             switch model {
             case .gpt3_5Turbo:
                 modelImageView.backgroundColor = .chatGPT3_5Background
+                premiumAnimationView.isHidden = true
             case .gpt4:
                 modelImageView.backgroundColor = .chatGPT4Background
+                premiumAnimationView.isHidden = false
             }
         }
     }
@@ -120,6 +130,7 @@ extension ModelSelectCollectionCell {
         labelStackView.addArrangedSubview(modelTitleLabel)
         labelStackView.addArrangedSubview(modelInfoLabel)
         labelStackView.addArrangedSubview(modelMoreInfoLabel)
+        addSubview(premiumAnimationView)
         
         modelImageView.snp.makeConstraints { make in
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(20)
@@ -132,6 +143,12 @@ extension ModelSelectCollectionCell {
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
             make.centerY.equalTo(modelImageView.snp.centerY)
             make.height.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.height).offset(-10)
+        }
+        
+        premiumAnimationView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(5)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-5)
+            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
         }
         
     }

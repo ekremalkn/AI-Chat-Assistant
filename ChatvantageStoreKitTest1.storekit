@@ -71,7 +71,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "5.99",
+          "displayPrice" : "4.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "966402C9",
@@ -87,7 +87,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "chatvantage_599_1w_1w0",
+          "productID" : "chatvantage_default_699_1w_3d0",
           "recurringSubscriptionPeriod" : "P1W",
           "referenceName" : "weekly free trial ",
           "subscriptionGroupID" : "FD37FA4A",
@@ -100,7 +100,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "29.99",
+          "displayPrice" : "34.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "152579BA",
@@ -112,7 +112,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "chatvantage_2999_1y",
+          "productID" : "chatvantage_default_3499_1y",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "annual ",
           "subscriptionGroupID" : "FD37FA4A",

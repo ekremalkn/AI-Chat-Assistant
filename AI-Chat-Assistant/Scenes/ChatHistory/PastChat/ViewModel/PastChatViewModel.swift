@@ -91,7 +91,7 @@ final class PastChatViewModel {
                     } else {
                         uiMessages.removeLast()
                         view?.reloadMessages()
-                        view?.didOccurErrorWhileResponsing("Assistant Confused")
+                        view?.didOccurErrorWhileResponsing("Assistant Confused".localized())
                         assistantAnswered = true
                         print("No recieved Message from assistant")
                     }

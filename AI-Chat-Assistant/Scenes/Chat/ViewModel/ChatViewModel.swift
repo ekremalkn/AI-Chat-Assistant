@@ -106,7 +106,7 @@ final class ChatViewModel {
                         view?.updateFreeMessageCountLabel()
                         
                     } else {
-                        view?.didOccurErrorWhileResponsing("Assistant Confused")
+                        view?.didOccurErrorWhileResponsing("Assistant Confused".localized())
                         assistantAnswered = true
                         uiMessages.removeLast(2)
                         print("No recieved Message from assistant")
@@ -185,7 +185,7 @@ extension ChatViewModel: ChatViewModelInterface {
             }
             
             if let userFirstText = uiMessages.first?.content {
-                chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created home chat", gptModel: currentModel, chatMessages: chatMessages)
+                chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: userFirstText, chatSubTitleText: "Created from home chat".localized(), gptModel: currentModel, chatMessages: chatMessages)
             }
         }
     }

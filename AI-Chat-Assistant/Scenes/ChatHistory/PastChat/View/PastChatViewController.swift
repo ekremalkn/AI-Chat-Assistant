@@ -103,9 +103,9 @@ final class PastChatViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
-            let alertController = UIAlertController(title: "Empty Chat", message: "Please start a chat to perform this operation", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Empty Chat".localized(), message: "Please start a chat to perform this operation".localized(), preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let okAction = UIAlertAction(title: "OK".localized(), style: .cancel, handler: nil)
             
             alertController.addAction(okAction)
             
@@ -120,7 +120,7 @@ final class PastChatViewController: UIViewController {
         moreButton.showsMenuAsPrimaryAction = true
         
         
-        let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
+        let shareChat = UIAction(title: "Share Chat".localized(), image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
             guard let self else { return }
             if !viewModel.uiMessages.isEmpty {
                 shareChatButtonTapped()
@@ -129,7 +129,7 @@ final class PastChatViewController: UIViewController {
             }
         }
 
-        let deleteChat = UIAction(title: "Delete Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+        let deleteChat = UIAction(title: "Delete Chat".localized(), image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
             guard let self else { return }
             if !viewModel.uiMessages.isEmpty {
                 showAlertBeforeDeleteChat()
@@ -279,7 +279,7 @@ extension PastChatViewController: PastChatViewInterface {
                 shareBarButton.isEnabled = true
             }
             ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
-            ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
+            ProgressHUD.showError("Assistant confused \n Please ask again".localized(), image: .init(named: "chat_confused"), interaction: false)
             
         }
         
@@ -302,14 +302,14 @@ extension PastChatViewController: PastChatViewInterface {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
-            let alertController = UIAlertController(title: "Delete Chat", message: "Are you sure you want to delete the chat?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Delete Chat".localized(), message: "Are you sure you want to delete the chat?".localized(), preferredStyle: .alert)
             
-            let saveChatAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            let saveChatAction = UIAlertAction(title: "Delete".localized(), style: .destructive) { [weak self] _ in
                 guard let self else { return }
                 viewModel.deleteChatFromCoreData()
             }
             
-            let deleteChatAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            let deleteChatAction = UIAlertAction(title: "Cancel".localized(), style: .cancel) { _ in
                 
             }
             
@@ -324,7 +324,7 @@ extension PastChatViewController: PastChatViewInterface {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.showSucceed("Chat Successfully Deleted", interaction: false)
+        ProgressHUD.showSucceed("Chat Successfully Deleted".localized(), interaction: false)
     }
     
     

@@ -19,7 +19,7 @@ final class ModelSelectView: UIView {
         label.textAlignment = .left
         label.textColor = .white
         label.font = .systemFont(ofSize: 25, weight: .medium)
-        label.text = "Choose Model"
+        label.text = "Choose Model".localized()
         return label
     }()
     

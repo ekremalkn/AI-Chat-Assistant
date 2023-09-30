@@ -69,7 +69,7 @@ final class SettingsViewController: UIViewController {
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let label = UILabel()
-        label.text = "Settings"
+        label.text = "Settings".localized()
         label.numberOfLines = 2
         label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
@@ -271,12 +271,12 @@ extension SettingsViewController: SettingsViewInterface {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.showSucceed("Restore successfully completed")
+        ProgressHUD.showSucceed("Restore successfully completed".localized())
     }
   
     func didOccurErrorWhileRestoringPurhcase(_ errMsg: String?) {
         ProgressHUD.colorAnimation = .systemRed
-        ProgressHUD.showError("You don't have an active subscription now", image: .init(named: "chat_shocked"))
+        ProgressHUD.showError("You don't have an active subscription now".localized(), image: .init(named: "chat_shocked"))
     }
     
     

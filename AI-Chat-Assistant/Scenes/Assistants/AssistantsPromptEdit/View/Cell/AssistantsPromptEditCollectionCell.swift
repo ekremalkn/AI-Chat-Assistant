@@ -30,9 +30,10 @@ final class AssistantsPromptEditCollectionCell: UICollectionViewCell {
     
     lazy var promptEditButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Edit Prompt", for: .normal)
+        button.setTitle("Edit Prompt".localized(), for: .normal)
         button.tintColor = .white
         button.layer.borderWidth = 1.5
+        button.contentEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)
         button.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
         button.addTarget(self, action: #selector(promptEditButtonTapped), for: .touchUpInside)
         return button
@@ -83,11 +84,11 @@ extension AssistantsPromptEditCollectionCell {
     }
     
     private func setPromptEditInfoButton() {
-        let understood = UIAction(title: "Understood", handler: { _ in
+        let understood = UIAction(title: "Understood".localized(), image: .init(systemName: "hand.thumbsup.fill"), handler: { _ in
             
         })
-                
-        let infoMenu = UIMenu(title: "When you make changes according to your own preference within the prompt, the quality of the response improves.", image: .init(systemName: "house"), children: [understood])
+            
+        let infoMenu = UIMenu(title: "When you make changes according to your own preference within the prompt, the quality of the response improves.".localized(), children: [understood])
         
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -122,7 +123,7 @@ extension AssistantsPromptEditCollectionCell {
         promptEditButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
+            make.width.greaterThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
             make.height.equalTo(40)
         }
         

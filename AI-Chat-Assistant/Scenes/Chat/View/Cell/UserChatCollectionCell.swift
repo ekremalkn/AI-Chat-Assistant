@@ -64,14 +64,14 @@ final class UserChatCollectionCell: UICollectionViewCell {
 //MARK: - Configure More Button
 extension UserChatCollectionCell {
     private func setMoreButtonToMenu() {
-        let copy = UIAction(title: "Copy", image: .init(systemName: "doc.on.doc.fill")) { [weak self] _ in
+        let copy = UIAction(title: "Copy".localized(), image: .init(systemName: "doc.on.doc.fill")) { [weak self] _ in
             guard let self, let text = userTextLabel.text else { return }
             delegate?.userChatCollectionCell(self, copyButtonTapped: text)
         }
         
         let elements: [UIAction] = [copy]
         
-        let moreMenu = UIMenu(title: "More About Text", children: elements)
+        let moreMenu = UIMenu(title: "More About Text".localized(), children: elements)
         
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }

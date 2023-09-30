@@ -58,7 +58,7 @@ final class SuggestionsResponseViewModel {
         self.selectedSuggestion = selectedSuggestion
         self.openAIChatService = openAIChatService
         self.currentModel = selectedGPTModel
-        let userFirstMessage = UIMessage(id: UUID(), role: .user, content: selectedSuggestion.suggestionQueryPrompt, createAt: Date())
+        let userFirstMessage = UIMessage(id: UUID(), role: .user, content: selectedSuggestion.suggestionQueryPrompt + LanguageManager.getSuggestionEndPointPromptForCurrentLanguage(), createAt: Date())
         self.mainMessages.append(userFirstMessage)
     }
     

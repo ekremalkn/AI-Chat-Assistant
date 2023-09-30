@@ -326,7 +326,7 @@ extension AssistantsViewController: AssistantsViewInterface {
     }
     
     func didOccurWhileFetchingAssistants(errorMsg: String) {
-        ProgressHUD.showError("Something went wrong", image: .init(named: "chat_shocked"), interaction: false, delay: 1.5)
+        ProgressHUD.showError("Something went wrong".localized(), image: .init(named: "chat_shocked"), interaction: false, delay: 1.5)
     }
     
     func showNoInternetView() {

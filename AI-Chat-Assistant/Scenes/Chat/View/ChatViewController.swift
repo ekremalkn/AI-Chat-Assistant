@@ -108,20 +108,20 @@ final class ChatViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
-            let alertController = UIAlertController(title: "Save this chat", message: "Would you like to save this chat before starting a new one?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Save this chat".localized(), message: "Would you like to save this chat before starting a new one?".localized(), preferredStyle: .alert)
             
-            let saveChatAction = UIAlertAction(title: "Save", style: .default) { _ in
+            let saveChatAction = UIAlertAction(title: "Save".localized(), style: .default) { _ in
                 self.viewModel.saveChatToCoreData()
                 self.viewModel.clearChat()
                 
                 ProgressHUD.colorHUD = .vcBackground
                 ProgressHUD.colorStatus = .vcBackground
                 ProgressHUD.colorAnimation = .main
-                ProgressHUD.showSucceed("Saved Chat", interaction: false)
+                ProgressHUD.showSucceed("Saved Chat".localized(), interaction: false)
                 
             }
             
-            let deleteChatAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            let deleteChatAction = UIAlertAction(title: "Delete".localized(), style: .destructive) { _ in
                 self.viewModel.deleteChat()
             }
             
@@ -137,9 +137,9 @@ final class ChatViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
-            let alertController = UIAlertController(title: "Empty Chat", message: "Please start a chat to perform this operation", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Empty Chat".localized(), message: "Please start a chat to perform this operation".localized(), preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let okAction = UIAlertAction(title: "OK".localized(), style: .cancel, handler: nil)
             
             alertController.addAction(okAction)
             
@@ -160,7 +160,7 @@ extension ChatViewController {
         moreButton.showsMenuAsPrimaryAction = true
         moreButton.isEnabled = false
         
-        let shareChat = UIAction(title: "Share Chat", image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
+        let shareChat = UIAction(title: "Share Chat".localized(), image: .init(systemName: "square.and.arrow.up")) { [weak self] _ in
             guard let self else { return }
             if !viewModel.uiMessages.isEmpty {
                 shareChatButtonTapped()
@@ -169,7 +169,7 @@ extension ChatViewController {
             }
         }
         
-        let newChat = UIAction(title: "Create Chat", image: .init(systemName: "plus.square")) { [weak self] _ in
+        let newChat = UIAction(title: "Create a New Chat".localized(), image: .init(systemName: "plus.square")) { [weak self] _ in
             guard let self else { return }
             if !viewModel.uiMessages.isEmpty {
                 showAlertBeforeCreateChat()
@@ -178,13 +178,13 @@ extension ChatViewController {
             }
         }
         
-        let settinsgChat = UIAction(title: "Settings", image: .init(named: "chat_setting")) { [weak self] _ in
+        let settinsgChat = UIAction(title: "Settings".localized(), image: .init(named: "chat_setting")) { [weak self] _ in
             guard let self else { return }
             chatCoordinator?.openSettingsVC()
             
         }
         
-        let deleteChat = UIAction(title: "Clear Chat", image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+        let deleteChat = UIAction(title: "Clear Chat".localized(), image: .init(systemName: "trash"), attributes: .destructive) { [weak self] _ in
             guard let self else { return }
             if !viewModel.uiMessages.isEmpty {
                 viewModel.clearChat()

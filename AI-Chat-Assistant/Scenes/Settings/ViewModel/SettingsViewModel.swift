@@ -25,15 +25,15 @@ final class SettingsViewModel {
     //MARK: - Variables
     var settingsSections: [SettingsSection] = [
         .init(sectionCategory: .support, sectionItems: [
-            .init(itemCategory: .contactUs, itemImage: "chat_contact_us", itemTitle: "Contact Us"),
-            .init(itemCategory: .restorePurchase, itemImage: "chat_restore_purchases", itemTitle: "Restore Purchases"),
-            .init(itemCategory: .requestAFeature, itemImage: "chat_request_a_feature", itemTitle: "Request a Feature")
+            .init(itemCategory: .contactUs, itemImage: "chat_contact_us", itemTitle: "Contact Us".localized()),
+            .init(itemCategory: .restorePurchase, itemImage: "chat_restore_purchases", itemTitle: "Restore Purchases".localized()),
+            .init(itemCategory: .requestAFeature, itemImage: "chat_request_a_feature", itemTitle: "Request a Feature".localized())
         ]),
         .init(sectionCategory: .about, sectionItems: [
-            .init(itemCategory: .rateApp, itemImage: "chat_rate_app", itemTitle: "Rate App"),
-            .init(itemCategory: .shareWithFriends, itemImage: "chat_share_with_friends", itemTitle: "Share with Friends"),
-            .init(itemCategory: .termOfUse, itemImage: "chat_term_of_use", itemTitle: "Term of Use"),
-            .init(itemCategory: .privacyPolicy, itemImage: "chat_privacy_policy", itemTitle: "Privacy Policy")
+            .init(itemCategory: .rateApp, itemImage: "chat_rate_app", itemTitle: "Rate App".localized()),
+            .init(itemCategory: .shareWithFriends, itemImage: "chat_share_with_friends", itemTitle: "Share with Friends".localized()),
+            .init(itemCategory: .termOfUse, itemImage: "chat_term_of_use", itemTitle: "Term of Use".localized()),
+            .init(itemCategory: .privacyPolicy, itemImage: "chat_privacy_policy", itemTitle: "Privacy Policy".localized())
         ])
     ]
     

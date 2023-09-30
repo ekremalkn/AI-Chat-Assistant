@@ -31,7 +31,7 @@ final class AssistantsResponseView: UIView {
     
     private lazy var continuneChatButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Continue Chatting", for: .normal)
+        button.setTitle("Continue Chatting".localized(), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .main
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .medium)
@@ -49,7 +49,7 @@ final class AssistantsResponseView: UIView {
         textView.backgroundColor = .textViewBackground
         textView.isHidden = true
         textView.autocorrectionType = .no
-        textView.placeholder = "Write a message"
+        textView.placeholder = NSString(string: "Write a message".localized())
         textView.placeholderColor = .white.withAlphaComponent(0.6)
         return textView
     }()
@@ -122,7 +122,7 @@ final class AssistantsResponseView: UIView {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+                freeMessageCountLabel.text = "You have".localized() + " \(freeMessageCount) " + "free message left.".localized()
             }
         }
     }
@@ -205,7 +205,7 @@ extension AssistantsResponseView {
         freeMessageCountStackView.snp.makeConstraints { make in
             make.bottom.equalTo(messageTextView.snp.top).offset(-5)
             make.leading.equalTo(messageTextView.snp.leading).offset(6)
-            make.trailing.lessThanOrEqualTo(messageTextView.snp.trailing).offset(-6)
+            make.trailing.lessThanOrEqualTo(sendButton.snp.trailing).offset(-6)
             make.height.equalTo(20)
         }
     }

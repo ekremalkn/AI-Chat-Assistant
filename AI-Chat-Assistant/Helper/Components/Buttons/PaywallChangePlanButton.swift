@@ -16,18 +16,6 @@ final class PaywallChangePlanButton: UIButton {
         return view
     }()
 
-    private lazy var buttonTitleLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.numberOfLines = 0
-        label.textColor = .main
-        label.text = "Change Plan"
-        return label
-    }()
-
-
     //MARK: - Init Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,11 +39,6 @@ extension PaywallChangePlanButton {
             make.leading.trailing.equalTo(self.safeAreaLayoutGuide)
             make.height.equalTo(2.5)
         }
-        
-//        buttonTitleLabel.snp.makeConstraints { make in
-//            make.center.equalTo(self.safeAreaLayoutGuide.snp.center)
-//            make.height.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.height).offset(-2.5)
-//            make.width.lessThanOrEqualTo(self.safeAreaLayoutGuide.snp.width)
-//        }
+
     }
 }

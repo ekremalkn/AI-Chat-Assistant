@@ -45,7 +45,7 @@ final class GiftPaywallView: UIView {
     
     private lazy var restoreButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Restore", for: .normal)
+        button.setTitle("Restore".localized(), for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(restoreButtonTapped), for: .touchUpInside)
@@ -86,7 +86,7 @@ final class GiftPaywallView: UIView {
         label.textColor = .white.withAlphaComponent(0.6)
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.numberOfLines = 0
-        label.text = "Use this gift offer and have GPT-4, UnlimitesQuestions & Answer, Gain Access to Potent Assistants,  Ads Free Experience"
+        label.text = "Use this gift offer and have GPT-4, Unlimited Questions & Answer, Gain Access to Potent Assistants, Ads Free Experience".localized()
         return label
     }()
     
@@ -107,13 +107,13 @@ final class GiftPaywallView: UIView {
         label.textColor = .white.withAlphaComponent(0.5)
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 0
-        label.text = "Cancel anytime"
+        label.text = "Cancel anytime".localized()
         return label
     }()
     
     private lazy var purchaseButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Subscribe To Unlock", for: .normal)
+        button.setTitle("Continue with gift plan".localized(), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .main
@@ -130,7 +130,7 @@ final class GiftPaywallView: UIView {
     
     private lazy var termOfServiceButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Term of Service", for: .normal)
+        button.setTitle("Term of Service".localized(), for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(termOfServiceButtonTapped), for: .touchUpInside)
@@ -139,7 +139,7 @@ final class GiftPaywallView: UIView {
     
     private lazy var privacyPolicyButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Privacy Policy", for: .normal)
+        button.setTitle("Privacy Policy".localized(), for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(privacyPolicyButtonTapped), for: .touchUpInside)

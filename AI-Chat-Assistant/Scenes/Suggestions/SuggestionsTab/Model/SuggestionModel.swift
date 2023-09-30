@@ -50,33 +50,33 @@ extension SuggestionCategory {
     var suggestionCategoryTitle: String {
         switch self {
         case .travel:
-            return "🧳 Travel & Explore"
+            return "🧳 Travel & Explore".localized()
         case .creativeIdeas:
-            return "💡 Creative Ideas"
+            return "💡 Creative Ideas".localized()
         case .beautyLifestyle:
-            return "🌞 Beauty & Lifestyle"
+            return "🌞 Beauty & Lifestyle".localized()
         case .education:
-            return "🧑‍🎓 Education"
+            return "🧑‍🎓 Education".localized()
         case .fun:
-            return "😹 Fun"
+            return "😹 Fun".localized()
         case .healthNutrition:
-            return "🥗 Health & Nutrition"
+            return "🥗 Health & Nutrition".localized()
         case .astrology:
-            return "🔮 Astrology"
+            return "🔮 Astrology".localized()
         case .art:
-            return "🎨 Art"
+            return "🎨 Art".localized()
         case .businessMarketing:
-            return "📈 Business & Marketing"
+            return "📈 Business & Marketing".localized()
         case .fashion:
-            return "👯‍♂️ Fashion"
+            return "👯‍♂️ Fashion".localized()
         case .career:
-            return "🧑‍💼 Career"
+            return "🧑‍💼 Career".localized()
         case .email:
-            return "✉️ E-Mail"
+            return "✉️ E-Mail".localized()
         case .socialMedia:
-            return "🌍 Social Media"
+            return "🌍 Social Media".localized()
         case .mostUsed:
-            return "Most Used"
+            return "Most Used".localized()
         }
     }
 }

@@ -40,7 +40,7 @@ final class SuggestionsResponseView: UIView {
         textView.isScrollEnabled = false
         textView.isEditable = true
         textView.autocorrectionType = .no
-        textView.placeholder = "Write a message"
+        textView.placeholder = NSString(string: "Write a message".localized())
         textView.placeholderColor = .white.withAlphaComponent(0.6)
         textView.backgroundColor = .textViewBackground
         return textView
@@ -109,7 +109,7 @@ final class SuggestionsResponseView: UIView {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+                freeMessageCountLabel.text = "You have".localized() + " \(freeMessageCount) " + "free message left.".localized()
             }
         }
     }

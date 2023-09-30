@@ -23,7 +23,7 @@ final class GetPremiumTextButton: UIButton {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.numberOfLines = 0
         label.textColor = .init(hex: "FBBE3B")
-        label.text = "Get Pro"
+        label.text = "Get Pro".localized()
         return label
     }()
 

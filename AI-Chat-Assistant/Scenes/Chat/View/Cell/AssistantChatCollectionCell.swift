@@ -89,17 +89,17 @@ final class AssistantChatCollectionCell: UICollectionViewCell {
 //MARK: - Configure More Button
 extension AssistantChatCollectionCell {
     func setMoreButtonToMenu(_ showReGenerateButton: Bool) {
-        let share = UIAction(title: "Share", image: .init(systemName: "square.and.arrow.up.fill")) { [weak self] _ in
+        let share = UIAction(title: "Share".localized(), image: .init(systemName: "square.and.arrow.up.fill")) { [weak self] _ in
             guard let self, let text = assistantTextLabel.text else { return }
             delegate?.assistantChatCollectionCell(self, shareButtonTapped: text)
         }
         
-        let copy = UIAction(title: "Copy", image: .init(systemName: "doc.on.doc.fill")) { [weak self] _ in
+        let copy = UIAction(title: "Copy".localized(), image: .init(systemName: "doc.on.doc.fill")) { [weak self] _ in
             guard let self, let text = assistantTextLabel.text else { return }
             delegate?.assistantChatCollectionCell(self, copyButtonTapped: text)
         }
         
-        let feedback = UIAction(title: "Feedback", image: .init(systemName: "hand.thumbsup.fill")) { [weak self] _ in
+        let feedback = UIAction(title: "Feedback".localized(), image: .init(systemName: "hand.thumbsup.fill")) { [weak self] _ in
             guard let self else { return }
             delegate?.assistantChatCollectionCell(self, feedBackButtonTapped: ())
             
@@ -107,7 +107,7 @@ extension AssistantChatCollectionCell {
         var elements: [UIAction] = [copy, share, feedback]
         
         if showReGenerateButton {
-            let reGenerate = UIAction(title: "Re-Generate", image: .init(systemName: "arrow.triangle.2.circlepath")) { [weak self] _ in
+            let reGenerate = UIAction(title: "Re-Generate".localized(), image: .init(systemName: "arrow.triangle.2.circlepath")) { [weak self] _ in
                 guard let self else { return }
                 delegate?.assistantChatCollectionCell(self, reGenerateButtonTapped: ())
             }
@@ -115,7 +115,7 @@ extension AssistantChatCollectionCell {
             elements.insert(reGenerate, at: 0)
         }
         
-        let moreMenu = UIMenu(title: "More About Text", children: elements)
+        let moreMenu = UIMenu(title: "More About Text".localized(), children: elements)
         
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }

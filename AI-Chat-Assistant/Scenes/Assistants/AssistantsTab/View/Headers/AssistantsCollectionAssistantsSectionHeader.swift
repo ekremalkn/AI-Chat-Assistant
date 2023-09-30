@@ -17,7 +17,7 @@ final class AssistantsCollectionAssistantsSectionHeader: UICollectionReusableVie
     //MARK: - Creating UI Elements
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Assistants"
+        label.text = "Assistants".localized()
         label.textAlignment = .left
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .medium)

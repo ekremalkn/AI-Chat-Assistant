@@ -20,7 +20,7 @@ final class SubmitButtonPromptEditScreen: UIButton {
     
     private lazy var buttonTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Submit"
+        label.text = "Submit".localized()
         label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0

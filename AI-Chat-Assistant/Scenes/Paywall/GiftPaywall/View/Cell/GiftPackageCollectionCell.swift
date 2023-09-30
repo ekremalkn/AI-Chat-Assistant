@@ -87,19 +87,19 @@ final class GiftPackageCollectionCell: UICollectionViewCell {
             guard let self else { return }
             switch packageTuple.cheapPackage.packageType {
             case .weekly:
-                packageTitleLabel.text = "Weekly"
+                packageTitleLabel.text = "Weekly".localized()
 
                 expensivePackageLabel.strikeThroughText = packageTuple.expensivePackage.localizedPriceString
 
                 cheapPackageLabel.text = packageTuple.cheapPackage.localizedPriceString
             case .monthly:
-                packageTitleLabel.text = "Monthly"
+                packageTitleLabel.text = "Monthly".localized()
 
                 expensivePackageLabel.strikeThroughText = packageTuple.expensivePackage.localizedPriceString
 
                 cheapPackageLabel.text = packageTuple.cheapPackage.localizedPriceString
             case .annual:
-                packageTitleLabel.text = "Yearly"
+                packageTitleLabel.text = "Yearly".localized()
 
                 expensivePackageLabel.strikeThroughText = packageTuple.expensivePackage.localizedPriceString
 

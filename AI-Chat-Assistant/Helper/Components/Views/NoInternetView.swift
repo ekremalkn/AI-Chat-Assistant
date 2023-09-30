@@ -28,19 +28,21 @@ final class NoInternetView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "No Internet Connection"
+        label.text = "No Internet Connection".localized()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
     private lazy var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Please connect to a mobile or Wi-Fi network"
+        label.text = "Please connect to a mobile or Wi-Fi network".localized()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white.withAlphaComponent(0.5)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -49,7 +51,7 @@ final class NoInternetView: UIView {
         button.backgroundColor = .main
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("Try Again", for: .normal)
+        button.setTitle("Try Again".localized(), for: .normal)
         return button
     }()
     

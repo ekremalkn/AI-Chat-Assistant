@@ -25,7 +25,7 @@ final class SuggestionsCoordinator: Coordinator {
         let suggestionsVM = SuggestionsViewModel()
         let suggestionsVC = SuggestionsViewController(viewModel: suggestionsVM)
         suggestionsVC.suggestionsCoordinator = self
-        suggestionsVC.tabBarItem = .init(title: "Suggestions", image: .init(named: "chat_lightbulb"), selectedImage: .init(named: "chat_lightbulb_fill"))
+        suggestionsVC.tabBarItem = .init(title: "Suggestions".localized(), image: .init(named: "chat_lightbulb"), selectedImage: .init(named: "chat_lightbulb_fill"))
         navigationController.setViewControllers([suggestionsVC], animated: false)
     }
     

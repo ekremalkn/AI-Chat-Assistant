@@ -17,7 +17,7 @@ final class SuggestionsCollectionAllSuggestionsSectionHeader: UICollectionReusab
     //MARK: - Creating UI Elements
     private lazy var sectionTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Suggestions"
+        label.text = "Suggestions".localized()
         label.textAlignment = .left
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .medium)

@@ -144,11 +144,11 @@ extension GiftPaywallViewController: GiftPaywallViewInterface {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.showSucceed("Restore successfully completed")
+        ProgressHUD.showSucceed("Restore successfully completed".localized())
     }
     
     func didOccurErrorWhileRestoringPurchase(_ errorMsg: String) {
-        ProgressHUD.showError("You don't have an active subscription now", image: .init(named: "chat_shocked"))
+        ProgressHUD.showError("You don't have an active subscription now".localized(), image: .init(named: "chat_shocked"))
     }
     
     func startingToPurchase() {
@@ -166,7 +166,7 @@ extension GiftPaywallViewController: GiftPaywallViewInterface {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.showSucceed("Purchase successfully completed")
+        ProgressHUD.showSucceed("Purchase successfully completed".localized())
     }
     
     func didOccurErrorWhilePurchasing(_ errorMsg: String) {

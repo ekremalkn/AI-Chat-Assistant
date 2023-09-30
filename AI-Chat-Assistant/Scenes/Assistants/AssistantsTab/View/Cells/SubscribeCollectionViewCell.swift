@@ -43,12 +43,12 @@ final class SubscribeCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.numberOfLines = 0
         
-        let fullText = "We've sent you a special gift. \nTap to receive"
+        let fullText = "We've sent you a special gift. \nTap to receive".localized()
 
         // "Premium gift" metnini özelleştirmek için bir NSAttributedString oluşturun
         let attributedText = NSMutableAttributedString(string: fullText)
-        let specialGiftRange = (fullText as NSString).range(of: "special gift")
-        let tapToReceiveRange = (fullText as NSString).range(of: "Tap to receive")
+        let specialGiftRange = (fullText as NSString).range(of: "special gift".localized())
+        let tapToReceiveRange = (fullText as NSString).range(of: "Tap to receive".localized())
         
         attributedText.addAttribute(.font, value: UIFont.systemFont(ofSize: 14), range: tapToReceiveRange)
         attributedText.addAttribute(.foregroundColor, value: UIColor.lightGray, range: tapToReceiveRange)
@@ -85,7 +85,7 @@ final class SubscribeCollectionViewCell: UICollectionViewCell {
         
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+            freeMessageCountLabel.text = "You have".localized() + " \(freeMessageCount) " + "free message left.".localized()
         }
     }
 }

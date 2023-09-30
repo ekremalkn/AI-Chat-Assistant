@@ -36,7 +36,7 @@ final class SettingsCoordinator: NSObject, Coordinator {
     func openMail() {
         let mailVC = MFMailComposeViewController()
         mailVC.mailComposeDelegate = self
-        mailVC.setSubject("\(AppInfo.name) Support")
+        mailVC.setSubject("\(AppInfo.name)" + "Support".localized())
         mailVC.setToRecipients(["\(AppInfo.appEmail)"])
         
         var messageBody = ""

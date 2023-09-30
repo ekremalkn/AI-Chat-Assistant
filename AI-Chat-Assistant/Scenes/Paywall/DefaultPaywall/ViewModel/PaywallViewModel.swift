@@ -39,7 +39,7 @@ final class PaywallViewModel {
     
     //MARK: - Init Methods
     init() {
-        getPackages()
+        
     }
 
     //MARK: - Methods
@@ -67,6 +67,7 @@ final class PaywallViewModel {
 extension PaywallViewModel: PaywallViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
+        getPackages()
     }
     
     func viewWillAppear() {
@@ -86,7 +87,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
                 view?.restoredPurchase()
                 view?.disMissPaywall()
             case .didNotRestore(let errMsg):
-                view?.didOccurErrorWhileRestoringPurchase(errMsg ?? "You don't have an active subscription now")
+                view?.didOccurErrorWhileRestoringPurchase(errMsg ?? "You don't have an active subscription now".localized())
             }
         }
     }
@@ -103,7 +104,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
                     view?.purchasedSuccessfuly()
                     view?.disMissPaywall()
                 case .didNotPurchase:
-                    view?.didOccurErrorWhilePurchasing("Did occur error. Please try again")
+                    view?.didOccurErrorWhilePurchasing("Did occur error. Please try again".localized())
                 case .userCancelled:
                     view?.userCancelledWhilePurchase()
                 }
@@ -111,7 +112,7 @@ extension PaywallViewModel: PaywallViewModelInterface {
             }
 
         } else {
-            view?.didOccurErrorWhilePurchasing("Please try again.")
+            view?.didOccurErrorWhilePurchasing("Please try again.".localized())
         }
     }
 

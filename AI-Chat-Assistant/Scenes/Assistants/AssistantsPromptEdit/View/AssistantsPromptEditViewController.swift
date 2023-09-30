@@ -8,6 +8,7 @@
 import UIKit
 import ProgressHUD
 import BetterSegmentedControl
+import Lottie
 
 protocol AssistantsPromptEditViewInterface: AnyObject {
     func configureViewController()
@@ -51,9 +52,10 @@ final class AssistantsPromptEditViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         assistantsPromptEditView.updateFreeMessageCountLabel()
+        updateSegmentedControlTitle()
         navigationController?.tabBarController?.tabBar.isTranslucent = true
         navigationController?.tabBarController?.tabBar.isHidden = true
-        KeyboardManager.shared.setKeyboardToolbar(enable: true, doneButtonText: "Apply Edit")
+        KeyboardManager.shared.setKeyboardToolbar(enable: true, doneButtonText: "Apply Edit".localized())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -178,18 +180,53 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
 //MARK: - Configure Segmented Control
 extension AssistantsPromptEditViewController {
     private func setupSegmentedControl() {
-        let navigationSegmentedControl = BetterSegmentedControl(
-            frame: CGRect(x: 0, y: 0, width: 200.0, height: 30.0),
-            segments: LabelSegment.segments(withTitles: viewModel.gptModels.map { $0.modelUIName },
-                                            normalTextColor: .white.withAlphaComponent(0.6),selectedTextColor: .white),
-            options: [.backgroundColor(.cellBackground),
-                      .indicatorViewBackgroundColor(.main),
-                      .cornerRadius(6),
-                      .animationSpringDamping(1.0)]
-        )
+        var titles: [String] = []
         
-        navigationSegmentedControl.addTarget(self,action: #selector(navigationSegmentedControlValueChanged),for: .valueChanged)
-        navigationItem.titleView = navigationSegmentedControl
+        if RevenueCatManager.shared.isSubscribe {
+            let newTitles = viewModel.gptModels.map { $0.modelUIName }
+            titles = newTitles
+        } else {
+            let newTitles = viewModel.gptModels.map { $0.segmentedControlUIName }
+            titles = newTitles
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let navigationSegmentedControl = BetterSegmentedControl(
+                frame: CGRect(x: 0, y: 0, width: 200.0, height: 30.0),
+                segments: LabelSegment.segments(withTitles: titles,
+                                                normalTextColor: .white.withAlphaComponent(0.6),selectedTextColor: .white),
+                options: [.backgroundColor(.cellBackground),
+                          .indicatorViewBackgroundColor(.main),
+                          .cornerRadius(6),
+                          .animationSpringDamping(1.0)]
+            )
+            
+            
+            navigationSegmentedControl.addTarget(self,action: #selector(navigationSegmentedControlValueChanged),for: .valueChanged)
+            navigationItem.titleView = navigationSegmentedControl
+            
+        }
+    }
+    
+    private func updateSegmentedControlTitle() {
+        var titles: [String]
+        
+        if RevenueCatManager.shared.isSubscribe {
+            let newTitles = viewModel.gptModels.map { $0.modelUIName }
+            titles = newTitles
+        } else {
+            let newTitles = viewModel.gptModels.map { $0.segmentedControlUIName }
+            titles = newTitles
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            if let segmentedControl = navigationItem.titleView as? BetterSegmentedControl {
+                segmentedControl.segments = LabelSegment.segments(withTitles: titles,
+                                                                  normalTextColor: .white.withAlphaComponent(0.6),selectedTextColor: .white)
+            }
+        }
     }
     
     @objc private func navigationSegmentedControlValueChanged(_ sender: BetterSegmentedControl) {
@@ -249,7 +286,7 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
     func didOccurErrorWhileChatServiceResponding(_ errorMsg: String) {
         ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
         ProgressHUD.colorStatus = .darkGray
-        ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
+        ProgressHUD.showError("Assistant confused \n Please ask again".localized(), image: .init(named: "chat_confused"), interaction: false)
     }
     
     func openAssistantsResponseVC(with uiMessages: [UIMessage]) {
@@ -298,7 +335,7 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditCollectionCell
                 textView.isEditable = false
                 textView.isSelectable = false
                 textView.resignFirstResponder()
-                cell.promptEditButton.setTitle("Edit Prompt", for: .normal)
+                cell.promptEditButton.setTitle("Edit Prompt".localized(), for: .normal)
                 viewModel.promptIsEditing = false
             } else {
                 textView.isEditable = true

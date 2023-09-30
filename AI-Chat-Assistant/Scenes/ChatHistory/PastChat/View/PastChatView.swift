@@ -42,7 +42,7 @@ final class PastChatView: UIView {
         textView.backgroundColor = .textViewBackground
         textView.isHidden = true
         textView.autocorrectionType = .no
-        textView.placeholder = "Write a message"
+        textView.placeholder = NSString(string: "Write a message".localized())
         textView.placeholderColor = .white.withAlphaComponent(0.6)
         return textView
     }()
@@ -76,8 +76,10 @@ final class PastChatView: UIView {
     
     private lazy var continueChatButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Continue Chat", for: .normal)
+        button.setTitle("Continue Chat".localized(), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.titleLabel?.numberOfLines = 2
+        button.contentEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.backgroundColor = .main
         button.tintColor = .white
         button.addTarget(self, action: #selector(continueChatButtonTapped), for: .touchUpInside)
@@ -86,10 +88,12 @@ final class PastChatView: UIView {
     
     private lazy var shareChatButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Share Chat", for: .normal)
+        button.setTitle("Share Chat".localized(), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.titleLabel?.numberOfLines = 2
         button.tintColor = .white
         button.layer.borderWidth = 1.5
+        button.contentEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
         button.addTarget(self, action: #selector(shareChatButtonTapped), for: .touchUpInside)
         return button
@@ -180,7 +184,7 @@ extension PastChatView {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+                freeMessageCountLabel.text = "You have".localized() + " \(freeMessageCount) " + "free message left.".localized()
             }
         }
     }
@@ -255,7 +259,7 @@ extension PastChatView {
         freeMessageCountStackView.snp.makeConstraints { make in
             make.bottom.equalTo(messageTextView.snp.top).offset(-5)
             make.leading.equalTo(messageTextView.snp.leading).offset(6)
-            make.trailing.lessThanOrEqualTo(messageTextView.snp.trailing).offset(-6)
+            make.trailing.lessThanOrEqualTo(sendButton.snp.trailing).offset(-6)
             make.height.equalTo(20)
         }
         

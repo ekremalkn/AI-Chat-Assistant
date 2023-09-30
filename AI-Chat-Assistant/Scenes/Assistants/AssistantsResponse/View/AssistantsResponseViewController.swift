@@ -239,7 +239,7 @@ extension AssistantsResponseViewController: AssistantsResponseViewInterface {
                 shareBarButton.isEnabled = true
             }
             ProgressHUD.colorHUD = .black.withAlphaComponent(0.5)
-            ProgressHUD.showError("Assistant confused \n Please ask again", image: .init(named: "chat_confused"), interaction: false)
+            ProgressHUD.showError("Assistant confused \n Please ask again".localized(), image: .init(named: "chat_confused"), interaction: false)
             
         }
         

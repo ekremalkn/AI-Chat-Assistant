@@ -38,7 +38,7 @@ final class PaywallView: UIView {
     
     private lazy var restoreButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Restore", for: .normal)
+        button.setTitle("Restore".localized(), for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(restoreButtonTapped), for: .touchUpInside)
@@ -79,13 +79,13 @@ final class PaywallView: UIView {
         label.textColor = .white.withAlphaComponent(0.6)
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.numberOfLines = 0
-        label.text = "Unlock Full Potential of AI Chatvantage"
+        label.text = "Unlock Full Potential of AI Chatvantage".localized()
         return label
     }()
 
     private lazy var proFeaturesLabel: TypewriterLabel = {
         let label = TypewriterLabel()
-        label.text = "🚀 Powered by ChatGPT-3.5 & GPT-4\n\n💬 UnlimitesQuestions & Answer \n\n👩‍💼🧑‍💼 Gain Access to Potent Assistants\n\n🆓 Ads Free Experience"
+        label.text = "🚀  " + "Powered by ChatGPT-3.5 & GPT-4".localized() + "\n\n💬 " + "Unlimited Questions & Answer".localized()  + "\n\n👩‍💼🧑‍💼 " + "Gain Access to Potent Assistants".localized() + "\n\n🆓 " + "Ads Free Experience".localized()
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
         label.textColor = .white
@@ -102,7 +102,7 @@ final class PaywallView: UIView {
     
     private lazy var purchaseButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Start Free Trial and Plan", for: .normal)
+        button.setTitle("Start Free Trial".localized(), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .main
@@ -116,13 +116,13 @@ final class PaywallView: UIView {
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 0
-        label.text = "Cancel anytime."
+        label.text = "Cancel anytime.".localized()
         return label
     }()
     
     private lazy var changePlanButton: PaywallChangePlanButton = {
         let button = PaywallChangePlanButton(type: .system)
-        button.setTitle("Change Plan", for: .normal)
+        button.setTitle("Change Plan".localized(), for: .normal)
         button.setTitleColor(.main, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .clear
@@ -139,7 +139,7 @@ final class PaywallView: UIView {
     
     private lazy var termOfServiceButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Term of Service", for: .normal)
+        button.setTitle("Term of Service".localized(), for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(termOfServiceButtonTapped), for: .touchUpInside)
@@ -148,7 +148,7 @@ final class PaywallView: UIView {
     
     private lazy var privacyPolicyButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Privacy Policy", for: .normal)
+        button.setTitle("Privacy Policy".localized(), for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(privacyPolicyButtonTapped), for: .touchUpInside)
@@ -179,11 +179,11 @@ final class PaywallView: UIView {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             if package.packageType == .weekly {
-                planInfoLabel.text = "Start your 3 days trial. Then \(package.localizedPriceString)/week. Cancel anytime. No payment now"
-                purchaseButton.setTitle("Start Free Trial and Plan", for: .normal)
+                planInfoLabel.text = "Start your 3 days trial. Then".localized() + " \(package.localizedPriceString)" + "/week. ".localized() + "Cancel anytime. No payment now".localized()
+                purchaseButton.setTitle("Start Free Trial".localized(), for: .normal)
             } else if package.packageType == .annual {
-                planInfoLabel.text = "Yearly Access \(package.localizedPriceString)/year. Cancel anytime."
-                purchaseButton.setTitle("Continue", for: .normal)
+                planInfoLabel.text = "Yearly Access".localized() + " \(package.localizedPriceString)" + "/year. ".localized() + "Cancel anytime.".localized()
+                purchaseButton.setTitle("Continue".localized(), for: .normal)
             }
         }
     }
@@ -272,7 +272,7 @@ extension PaywallView {
         }
         
         titleLabelStackView.snp.makeConstraints { make in
-            make.bottom.equalTo(paywallAnimationView.snp.bottom).offset(-60)
+            make.bottom.lessThanOrEqualTo(paywallAnimationView.snp.bottom).offset(-60)
             make.centerX.equalTo(paywallAnimationView.snp.centerX)
             make.width.lessThanOrEqualTo(paywallAnimationView.snp.width).offset(-40)
         }
@@ -292,7 +292,7 @@ extension PaywallView {
         
         changePlanButton.snp.makeConstraints { make in
             make.bottom.equalTo(planInfoLabel.snp.top).offset(-10)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
+            make.width.greaterThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.height.equalTo(40)
         }

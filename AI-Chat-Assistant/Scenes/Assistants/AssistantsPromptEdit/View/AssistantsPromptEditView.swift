@@ -82,7 +82,7 @@ final class AssistantsPromptEditView: UIView {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
-                freeMessageCountLabel.text = "You have \(freeMessageCount) free message left."
+                freeMessageCountLabel.text = "You have".localized() + " \(freeMessageCount) " + "free message left.".localized()
             }
         }
     }

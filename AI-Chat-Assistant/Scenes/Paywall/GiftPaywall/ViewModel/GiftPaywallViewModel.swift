@@ -29,14 +29,13 @@ final class GiftPaywallViewModel {
     
     //MARK: - Init Methods
     init() {
-        getPackages()
+        
     }
     
     //MARK: - Methods
     func getPackages() {
         RevenueCatManager.shared.getOfferings(for: .giftOffering) { [weak self] cheapPackages in
             guard let self else { return }
-            
             
             var sortedPackages: [(expensivePackage: Package, cheapPackage: Package)] = []
             
@@ -78,6 +77,7 @@ final class GiftPaywallViewModel {
 extension GiftPaywallViewModel: GiftPaywallViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
+        getPackages()
     }
     
     func viewWillAppear() {
@@ -105,7 +105,7 @@ extension GiftPaywallViewModel: GiftPaywallViewModelInterface {
                 view?.restoredPurchase()
                 view?.disMissPaywall()
             case .didNotRestore(let errMsg):
-                view?.didOccurErrorWhileRestoringPurchase(errMsg ?? "You don't have an active subscription now")
+                view?.didOccurErrorWhileRestoringPurchase(errMsg ?? "You don't have an active subscription now".localized())
             }
         }
     }
@@ -123,7 +123,7 @@ extension GiftPaywallViewModel: GiftPaywallViewModelInterface {
                 view?.purchasedSuccessfuly()
                 view?.disMissPaywall()
             case .didNotPurchase:
-                view?.didOccurErrorWhilePurchasing("Did occur error. Please try again")
+                view?.didOccurErrorWhilePurchasing("Did occur error. Please try again".localized())
             case .userCancelled:
                 view?.userCancelledWhilePurchase()
             }

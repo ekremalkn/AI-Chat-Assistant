@@ -52,7 +52,7 @@ final class ChatHistoryViewController: UIViewController {
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let label = UILabel()
-        label.text = "Chat History"
+        label.text = "Chat History".localized()
         label.numberOfLines = 2
         label.textColor = .white
         label.adjustsFontSizeToFitWidth = true

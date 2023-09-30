@@ -76,7 +76,7 @@ extension AssistantsPromptEditViewModel: AssistantsPromptEditViewModelInterface 
                         MessageManager.shared.updateMessageLimit()
                         
                     } else {
-                        view?.didOccurErrorWhileChatServiceResponding("Assistant Confused")
+                        view?.didOccurErrorWhileChatServiceResponding("Assistant Confused".localized())
                     }
                 case .failure(let failure):
                     view?.didOccurErrorWhileChatServiceResponding(failure.localizedDescription)

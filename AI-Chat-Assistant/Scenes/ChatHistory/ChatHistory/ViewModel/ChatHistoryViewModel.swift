@@ -63,7 +63,7 @@ extension ChatHistoryViewModel: ChatHistoryViewModelInterface {
                     return UIMessage(id: uuid, role: senderRole, content: content, createAt: createAt)
                 }
                 
-                return UIMessage(id: UUID(), role: .assistant, content: "Hi, how can i help you", createAt: Date())
+                return UIMessage(id: UUID(), role: .assistant, content: "Hi, how can i help you".localized(), createAt: Date())
             }
             
             let sortedUIMessages = uiMessages.sorted { $0.createAt < $1.createAt }

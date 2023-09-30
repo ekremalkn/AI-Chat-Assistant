@@ -21,7 +21,7 @@ final class AssistantsCoordinator: Coordinator {
         let assistantsVM = AssistantsViewModel(assistantsService: assistantService)
         let assistantsVC = AssistantsViewController(viewModel: assistantsVM)
         assistantsVC.assistantsCoordinator = self
-        assistantsVC.tabBarItem = .init(title: "Assistants", image: .init(named: "chat_assistants"), selectedImage: .init(named: "chat_assistants"))
+        assistantsVC.tabBarItem = .init(title: "Assistants".localized(), image: .init(named: "chat_assistants"), selectedImage: .init(named: "chat_assistants"))
         navigationController.setViewControllers([assistantsVC], animated: false)
     }
 

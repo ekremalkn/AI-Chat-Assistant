@@ -94,7 +94,7 @@ final class AssistantsResponseViewModel {
                         uiMessages.removeLast()
                         mainMessages.removeLast()
                         view?.reloadMessages()
-                        view?.didOccurErrorWhileResponsing("Assistant Confused")
+                        view?.didOccurErrorWhileResponsing("Assistant Confused".localized())
                         assistantAnswered = true
                         print("No recieved Message from assistant")
                     }
@@ -163,7 +163,7 @@ extension AssistantsResponseViewModel: AssistantsResponseViewModelInterface {
                 return chatMessageItem
             }
             
-            chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: assistant.title ?? "Assistant", chatSubTitleText: "Assistant, \(assistant.tag ?? AppInfo.name)", gptModel: currentModel, chatMessages: chatMessages)
+            chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: assistant.title?.localizedCapitalized ?? "Assistant", chatSubTitleText: "Assistant, \(assistant.tag ?? AppInfo.name)", gptModel: currentModel, chatMessages: chatMessages)
         }
     }
 }

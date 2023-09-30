@@ -90,11 +90,11 @@ extension PaywallViewController: PaywallViewInterface {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.showSucceed("Restore successfully completed")
+        ProgressHUD.showSucceed("Restore successfully completed".localized())
     }
     
     func didOccurErrorWhileRestoringPurchase(_ errorMsg: String) {
-        ProgressHUD.showError("You don't have an active subscription now", image: .init(named: "chat_shocked"))
+        ProgressHUD.showError("You don't have an active subscription now".localized(), image: .init(named: "chat_shocked"))
     }
     
     func startingToPurchase() {
@@ -112,7 +112,7 @@ extension PaywallViewController: PaywallViewInterface {
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .main
-        ProgressHUD.showSucceed("Purchase successfully completed")
+        ProgressHUD.showSucceed("Purchase successfully completed".localized())
     }
     
     func didOccurErrorWhilePurchasing(_ errorMsg: String) {
@@ -148,19 +148,19 @@ extension PaywallViewController: PaywallViewDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
-            let changePlanController = UIAlertController(title: "Change Plan \n", message: nil, preferredStyle: .actionSheet)
+            let changePlanController = UIAlertController(title: "Change Plan".localized() + "\n", message: nil, preferredStyle: .actionSheet)
             
             
             viewModel.packages.forEach { package in
                 switch package.packageType {
                 case .annual:
-                    let yearlyPlanAction = UIAlertAction(title: "Yearly Access \(package.localizedPriceString)/year", style: .default) { [weak self] _ in
+                    let yearlyPlanAction = UIAlertAction(title: "Yearly Access".localized() + " \(package.localizedPriceString)" + "/year".localized(), style: .default) { [weak self] _ in
                         guard let self else { return }
                         viewModel.currentPackage = package
                     }
                     changePlanController.addAction(yearlyPlanAction)
                 case .weekly:
-                    let weekylPlanAction = UIAlertAction(title: "3 Days Trial. Then \(package.localizedPriceString)/week", style: .default) { [weak self] _ in
+                    let weekylPlanAction = UIAlertAction(title: "3 Days Trial. Then".localized() + " \(package.localizedPriceString)" + "/week".localized(), style: .default) { [weak self] _ in
                         guard let self else { return }
                         viewModel.currentPackage = package
                     }
@@ -170,7 +170,7 @@ extension PaywallViewController: PaywallViewDelegate {
                 }
             }
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: nil)
             changePlanController.addAction(cancelAction)
             
             self.present(changePlanController, animated: true)
