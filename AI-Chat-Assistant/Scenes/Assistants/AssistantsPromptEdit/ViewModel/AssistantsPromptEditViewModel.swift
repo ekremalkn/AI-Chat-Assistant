@@ -23,27 +23,44 @@ final class AssistantsPromptEditViewModel {
     private let openAIChatService: OpenAIChatService
     
     //MARK: - Variables
-    var assistant: Assistant
+    var originalAssistant: Assistant
+    var updatedAssistant: Assistant?
+    var translatedAssistant: TranslatedAssistant
     var promptIsEditing: Bool = false
     var gptModels: [GPTModel] = GPTModel.allCases
     var currentModel: GPTModel = .gpt3_5Turbo
     
     //MARK: - Init Methods
-    init(openAIChatService: OpenAIChatService, assistant: Assistant) {
+    init(openAIChatService: OpenAIChatService, assistant: Assistant, translatedAssitant: TranslatedAssistant) {
         self.openAIChatService = openAIChatService
-        self.assistant = assistant
+        self.translatedAssistant = translatedAssitant
+        self.originalAssistant = assistant
     }
     
+    func changeAssistantPrompt(assistant: Assistant) {
+        LanguageManager.translate(text: assistant.prompt ?? "") { [weak self] translatedText in
+            guard let self else { return }
+            var newAssistant = assistant
+            
+            newAssistant.title = translatedAssistant.title
+            newAssistant.prompt = translatedText
+            newAssistant.tag = translatedAssistant.tag
+            self.updatedAssistant = newAssistant
+            
+            view?.updateMessageTextViewText(translatedPrompt: translatedText)
+        }
+    }
 }
 
 //MARK: - AssistantsPromptEditViewModelInterface
 extension AssistantsPromptEditViewModel: AssistantsPromptEditViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
+        changeAssistantPrompt(assistant: originalAssistant)
     }
     
     func promptTextDidChange(newPromptText: String) {
-        assistant.prompt = newPromptText
+        updatedAssistant?.prompt = newPromptText
     }
     
     func submitButtonTapped() {
@@ -54,7 +71,7 @@ extension AssistantsPromptEditViewModel: AssistantsPromptEditViewModelInterface 
         case .canSendMessage:
             var uiMessages: [UIMessage] = []
             
-            if let prompt = assistant.prompt {
+            if let prompt = updatedAssistant?.prompt {
                 let message = UIMessage(id: UUID(), role: .user, content: prompt, createAt: Date())
                 
                 uiMessages.append(message)

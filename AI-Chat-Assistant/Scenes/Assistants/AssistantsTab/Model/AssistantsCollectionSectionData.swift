@@ -9,7 +9,12 @@ import Foundation
 
 struct AssistantsCollectionSectionData {
     var sectionType: AssistantsCollectionSectionType
-    var assistants: [Assistant]
+    var assistants: [(originalAssistant: Assistant, translatedAssitant: TranslatedAssistant)]
+}
+
+struct TranslatedAssistant {
+    var title: String?
+    var tag: String?
 }
 
 enum AssistantsCollectionSectionType {

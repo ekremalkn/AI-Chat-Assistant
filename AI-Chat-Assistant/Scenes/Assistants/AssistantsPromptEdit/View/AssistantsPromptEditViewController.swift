@@ -17,7 +17,7 @@ protocol AssistantsPromptEditViewInterface: AnyObject {
     func chatServiceResponded()
     func didOccurErrorWhileChatServiceResponding(_ errorMsg: String)
     func openAssistantsResponseVC(with uiMessages: [UIMessage])
-    
+    func updateMessageTextViewText(translatedPrompt: String)
     func openPaywall()
 }
 
@@ -93,7 +93,9 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
             return .init()
         }
         
-        cell.configure(with: viewModel.assistant)
+        if let prompt = viewModel.updatedAssistant?.prompt {
+            cell.configure(with: prompt)
+        }
         cell.delegate = self
         cell.promptTextView.delegate = self
         
@@ -116,13 +118,13 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
         sectionTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         sectionTitleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         
-        let sectionTitleText = viewModel.assistant.title
+        let sectionTitleText = viewModel.translatedAssistant.title
         sectionTitleLabel.text = sectionTitleText
         sectionTitleLabel.sizeToFit()
         
         // textview frame height
         let textView: UITextView = UITextView(frame: CGRect(x: 0, y: 0, width: cellWidth - 20, height: CGFloat.greatestFiniteMagnitude))
-        textView.text = viewModel.assistant.prompt
+        textView.text = viewModel.updatedAssistant?.prompt
         textView.font = .systemFont(ofSize: 16, weight: .medium)
         
         let fixedWidth = textView.frame.size.width
@@ -146,7 +148,7 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
                 return .init()
             }
             
-            header.configure(assistant: viewModel.assistant)
+            header.configure(assistant: viewModel.translatedAssistant)
             
             return header
         case UICollectionView.elementKindSectionFooter:
@@ -166,7 +168,7 @@ extension AssistantsPromptEditViewController: UICollectionViewDelegate, UICollec
         sectionTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         sectionTitleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         
-        let sectionTitleText = viewModel.assistant.title
+        let sectionTitleText = viewModel.updatedAssistant?.title
         sectionTitleLabel.text = sectionTitleText
         sectionTitleLabel.sizeToFit()
         
@@ -290,9 +292,22 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
     }
     
     func openAssistantsResponseVC(with uiMessages: [UIMessage]) {
-        assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages, selectedGPTModel: viewModel.currentModel)
+        if let updatedAssistant = viewModel.updatedAssistant {
+            assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages, updatedAssitant: updatedAssistant, selectedGPTModel: viewModel.currentModel)
+        } else {
+            assistantsPromptEditCoordinator?.openAssistantsResponseVC(with: uiMessages, updatedAssitant: viewModel.originalAssistant, selectedGPTModel: viewModel.currentModel)
+        }
     }
     
+    func updateMessageTextViewText(translatedPrompt: String) {
+        let collectionView = assistantsPromptEditView.assistantsPromptEditCollectionView
+        
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates {
+                collectionView.reloadSections(.init(integer: 0))
+            }
+        }
+    }
     func openPaywall() {
         assistantsPromptEditCoordinator?.openPaywall()
     }

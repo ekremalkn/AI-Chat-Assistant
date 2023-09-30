@@ -36,7 +36,7 @@ final class AssistantsCollectionCell: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
     
-    func configure(with assistant: Assistant) {
+    func configure(with assistant: TranslatedAssistant) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             assistantsTitleLabel.text = assistant.title?.localizedCapitalized

@@ -67,12 +67,13 @@ final class AssistantsPromptEditCollectionCell: UICollectionViewCell {
         
         promptEditButton.layer.cornerRadius = 8
         promptEditButton.layer.masksToBounds = true
+        
     }
     
-    func configure(with assistant: Assistant) {
+    func configure(with prompt: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            promptTextView.text = assistant.prompt
+            promptTextView.text = prompt
         }
     }
 }
@@ -94,6 +95,10 @@ extension AssistantsPromptEditCollectionCell {
             guard let self else { return }
             promptEditInfoButton.menu = infoMenu
         }
+    }
+    
+    @objc private func promptTranslateButtonTapped() {
+        
     }
 }
 
@@ -126,10 +131,10 @@ extension AssistantsPromptEditCollectionCell {
             make.width.greaterThanOrEqualTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.35)
             make.height.equalTo(40)
         }
-        
+
         promptEditInfoButton.snp.makeConstraints { make in
             make.centerY.equalTo(promptEditButton.snp.centerY)
-            make.trailing.equalTo(promptEditButton.snp.leading).offset(-10)
+            make.trailing.lessThanOrEqualTo(promptEditButton.snp.leading).offset(-10)
             make.height.width.equalTo(promptEditButton.snp.height)
         }
         

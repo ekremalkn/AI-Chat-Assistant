@@ -32,7 +32,7 @@ final class AssistantsViewModel {
     
     var isInternetConnectionLost: Bool = false
     
-    var assistantTags: [AssistantTag] = [] {
+    var assistantTags: [(originalAssistantTag: AssistantTag, translatedAssistantTag: String)] = [] {
         didSet {
             view?.reloadTags()
         }
@@ -45,7 +45,7 @@ final class AssistantsViewModel {
     var selectedAssistantCategoryCellIndexPath: IndexPath = .init(item: 0, section: 0) {
         didSet {
             if !(selectedAssistantCategoryCellIndexPath == oldValue) {
-                if let tag = assistantTags[selectedAssistantCategoryCellIndexPath.item].name {
+                if let tag = assistantTags[selectedAssistantCategoryCellIndexPath.item].originalAssistantTag.name {
                     fetchPromptsList(for: tag)
                 }
             }
@@ -68,12 +68,32 @@ final class AssistantsViewModel {
                 switch result {
                 case .success(let assistantModel):
                     if let assistantTags = assistantModel?.data {
-                        self.assistantTags = assistantTags
                         
-                        view?.fetchedTags()
-                        if let tag = assistantTags[selectedAssistantCategoryCellIndexPath.item].name {
-                            fetchPromptsList(for: tag)
+                        let dispatchQueue = DispatchQueue(label: "translateTags", qos: .userInteractive, attributes: .concurrent)
+                        let dispatchGroup = DispatchGroup()
+                        
+                        var assistantTagTuple: [(originalAssistantTag: AssistantTag, translatedAssistantTag: String)] = []
+                        
+                        assistantTags.forEach { originalAssistantTag in
+                            dispatchGroup.enter()
+                            dispatchQueue.async {
+                                LanguageManager.translate(text: originalAssistantTag.name ?? "") { translatedText in
+                                    assistantTagTuple.append((originalAssistantTag, translatedText))
+                                    dispatchGroup.leave()
+                                }
+                            }
                         }
+                        
+                        dispatchGroup.notify(queue: dispatchQueue) { [weak self] in
+                            guard let self else { return }
+                            self.assistantTags = assistantTagTuple
+                            
+                            view?.fetchedTags()
+                            if let tag = assistantTagTuple[selectedAssistantCategoryCellIndexPath.item].originalAssistantTag.name {
+                                fetchPromptsList(for: tag)
+                            }
+                        }
+
                     }
                 case .failure(let failure):
                     view?.didOccurWhileFetchingTags(errorMsg: failure.localizedDescription)
@@ -92,9 +112,34 @@ final class AssistantsViewModel {
                 case .success(let assistantModel):
                     if let assistants = assistantModel?.data {
                         if let assistantsIndex = assistantsCollectionSectionData.firstIndex(where: { $0.sectionType == .assistants }){
-                            assistantsCollectionSectionData[assistantsIndex].assistants = assistants
-                            view?.reloadAssistants()
-                            view?.fetchedAssistants()
+                            
+                            var assistantTuple: [(Assistant, TranslatedAssistant)] = []
+                            
+                            let dispatchQueue = DispatchQueue(label: "translateAssistantTitle", qos: .userInteractive, attributes: .concurrent)
+                            let dispatchGroup = DispatchGroup()
+                            
+                            assistants.forEach { originalAssistant in
+                            
+                                dispatchGroup.enter()
+                                dispatchQueue.async {
+                                    LanguageManager.translate(text: originalAssistant.title ?? "") { translatedText in
+                                        let assistantTag = self.assistantTags[self.selectedAssistantCategoryCellIndexPath.item].translatedAssistantTag
+                                        
+                                        let translatedAssistant = TranslatedAssistant(title: translatedText, tag: assistantTag)
+                                        assistantTuple.append((originalAssistant, translatedAssistant))
+                                        
+                                        dispatchGroup.leave()
+                                    }
+                                }
+                            }
+                            
+                            dispatchGroup.notify(queue: dispatchQueue) { [weak self] in
+                                guard let self else { return }
+                                
+                                assistantsCollectionSectionData[assistantsIndex].assistants = assistantTuple
+                                view?.reloadAssistants()
+                                view?.fetchedAssistants()
+                            }
                         }
                     }
                 case .failure(let failure):

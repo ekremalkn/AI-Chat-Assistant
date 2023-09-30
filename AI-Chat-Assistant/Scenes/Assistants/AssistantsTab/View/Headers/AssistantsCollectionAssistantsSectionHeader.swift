@@ -39,7 +39,7 @@ final class AssistantsCollectionAssistantsSectionHeader: UICollectionReusableVie
     weak var delegate: AssistantsCollectionAssistantsSectionHeaderDelegate?
     
     //MARK: - Variabes
-    var assistantTags: [AssistantTag] = [] {
+    var assistantTags: [(originalAssistantTag: AssistantTag, translatedAssistantTag: String)] = [] {
         didSet {
             reloadTags()
         }
@@ -66,7 +66,7 @@ final class AssistantsCollectionAssistantsSectionHeader: UICollectionReusableVie
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with assistantTags: [AssistantTag], selectedAssistantCategoryCellIndexPath: IndexPath) {
+    func configure(with assistantTags: [(originalAssistantTag: AssistantTag, translatedAssistantTag: String)], selectedAssistantCategoryCellIndexPath: IndexPath) {
         self.assistantTags = assistantTags
         self.selectedAssisantCategoryCellIndexPath = selectedAssistantCategoryCellIndexPath
     }
@@ -114,7 +114,7 @@ extension AssistantsCollectionAssistantsSectionHeader: UICollectionViewDelegate,
             }
             
             let assistant = assistantTags[indexPath.item]
-            cell.configure(assistant: assistant)
+            cell.configure(translatedAssistantTag: assistant.translatedAssistantTag)
             return cell
         }
     }
@@ -140,7 +140,7 @@ extension AssistantsCollectionAssistantsSectionHeader: UICollectionViewDelegate,
             
             return .init(width: cellWidth, height: cellHeight)
         } else {
-            let assistantTitle = assistantTags[indexPath.item].name ?? ""
+            let assistantTitle = assistantTags[indexPath.item].translatedAssistantTag
             let assistantsTitleWidth = assistantTitle.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]).width
             
             let cellWidth: CGFloat = assistantsTitleWidth + (2 * 15)

@@ -17,7 +17,7 @@ struct AssistantModel: Codable {
 // MARK: - Datum
 struct Assistant: Codable {
     let uuid: String?
-    let tag: String?
+    var tag: String?
     var title, prompt, promptID: String?
 
     enum CodingKeys: String, CodingKey {

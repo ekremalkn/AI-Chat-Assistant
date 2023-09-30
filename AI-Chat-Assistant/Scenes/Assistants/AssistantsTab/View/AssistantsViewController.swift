@@ -201,7 +201,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
             
             let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
             let assistant = assistants[indexPath.item]
-            cell.configure(with: assistant)
+            cell.configure(with: assistant.translatedAssitant)
             
             return cell
         }
@@ -218,7 +218,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
             let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
             let assistant = assistants[indexPath.item]
             
-            assistantsCoordinator?.openAssistantsPromptEdit(with: assistant)
+            assistantsCoordinator?.openAssistantsPromptEdit(with: assistant.originalAssistant, translatedAssistant: assistant.translatedAssitant)
         }
     }
     
@@ -240,7 +240,7 @@ extension AssistantsViewController: UICollectionViewDelegate, UICollectionViewDa
             label.font = .systemFont(ofSize: 16, weight: .medium)
             
             let assistants = viewModel.assistantsCollectionSectionData[indexPath.section].assistants
-            let assistantTitle = assistants[indexPath.item].title
+            let assistantTitle = assistants[indexPath.item].translatedAssitant.title
             
             label.text = assistantTitle
             label.sizeToFit()
@@ -315,14 +315,19 @@ extension AssistantsViewController: AssistantsViewInterface {
     }
     
     func fetchingAssistants() {
-        ProgressHUD.colorHUD = .vcBackground
-        ProgressHUD.colorStatus = .vcBackground
-        ProgressHUD.colorAnimation = .main
-        ProgressHUD.show(interaction: false)
+        DispatchQueue.main.async {
+            ProgressHUD.colorHUD = .vcBackground
+            ProgressHUD.colorStatus = .vcBackground
+            ProgressHUD.colorAnimation = .main
+            ProgressHUD.show(interaction: false)
+        }
+
     }
     
     func fetchedAssistants() {
-        ProgressHUD.remove()
+        DispatchQueue.main.async {
+            ProgressHUD.remove()
+        }
     }
     
     func didOccurWhileFetchingAssistants(errorMsg: String) {
@@ -354,7 +359,7 @@ extension AssistantsViewController: AssistantsViewInterface {
             collectionView.performBatchUpdates { [weak self] in
                 guard let self else { return }
                 
-                let subsrcibeSectionData = AssistantsCollectionSectionData(sectionType: .subscribe, assistants: [.init(uuid: nil, tag: nil)])
+                let subsrcibeSectionData = AssistantsCollectionSectionData(sectionType: .subscribe, assistants: [(.init(uuid: nil, tag: nil), .init(title: nil, tag: nil))])
                 viewModel.assistantsCollectionSectionData.insert(subsrcibeSectionData, at: 0)
                 
                 collectionView.insertSections(.init(integer: section))

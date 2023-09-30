@@ -16,24 +16,26 @@ final class AssistantsPromptEditCoordinator: Coordinator {
     //MARK: - Variables
     var childCoordinators: [Coordinator] = []
     private let assistant: Assistant
+    private let translatedAssitant: TranslatedAssistant
     
     //MARK: - Init Methods
-    init(navigationController: UINavigationController, assistant: Assistant) {
+    init(navigationController: UINavigationController, assistant: Assistant, translatedAssistant: TranslatedAssistant) {
         self.navigationController = navigationController
         self.assistant = assistant
+        self.translatedAssitant = translatedAssistant
     }
     
     //MARK: - Methods
     func start() {
         let openAIChatService: OpenAIChatService = NetworkService()
-        let assistantsPromptEditVM = AssistantsPromptEditViewModel(openAIChatService: openAIChatService, assistant: assistant)
+        let assistantsPromptEditVM = AssistantsPromptEditViewModel(openAIChatService: openAIChatService, assistant: assistant, translatedAssitant: translatedAssitant)
         let assistantsPromptEditVC = AssistantsPromptEditViewController(viewModel: assistantsPromptEditVM)
         assistantsPromptEditVC.assistantsPromptEditCoordinator = self
         navigationController.pushViewController(assistantsPromptEditVC, animated: true)
     }
     
-    func openAssistantsResponseVC(with uiMessages: [UIMessage], selectedGPTModel: GPTModel) {
-        let assistantsResponseCoordinator = AssistantsResponseCoordinator(navigationController: navigationController, mainMessages: uiMessages, selectedGPTModel: selectedGPTModel, selectedAssistant: assistant)
+    func openAssistantsResponseVC(with uiMessages: [UIMessage], updatedAssitant: Assistant, selectedGPTModel: GPTModel) {
+        let assistantsResponseCoordinator = AssistantsResponseCoordinator(navigationController: navigationController, mainMessages: uiMessages, selectedGPTModel: selectedGPTModel, selectedAssistant: updatedAssitant)
         childCoordinators.append(assistantsResponseCoordinator)
         assistantsResponseCoordinator.assistantsPromptEditParentCoordinator = self
         assistantsResponseCoordinator.start()

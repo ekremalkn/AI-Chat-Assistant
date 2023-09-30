@@ -31,7 +31,7 @@ final class AssistantsPromptEditCollectionSectionHeader: UICollectionReusableVie
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(assistant: Assistant) {
+    func configure(assistant: TranslatedAssistant) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             sectionTitleLabel.text = assistant.title?.localizedCapitalized

@@ -47,10 +47,12 @@ final class AssistantsCategoryCollectionCell: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
     
-    func configure(assistant: AssistantTag) {
+    func configure(translatedAssistantTag: String?) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            assistantCategoryTitleLabel.text = assistant.name
+            if let translatedAssistantTag {
+                assistantCategoryTitleLabel.text = translatedAssistantTag
+            }
         }
     }
     

@@ -154,13 +154,13 @@ extension PaywallViewController: PaywallViewDelegate {
             viewModel.packages.forEach { package in
                 switch package.packageType {
                 case .annual:
-                    let yearlyPlanAction = UIAlertAction(title: "Yearly Access".localized() + " \(package.localizedPriceString)" + "/year".localized(), style: .default) { [weak self] _ in
+                    let yearlyPlanAction = UIAlertAction(title: "Yearly Access".localized() + " \(package.localizedPriceString)" + "/year. ".localized(), style: .default) { [weak self] _ in
                         guard let self else { return }
                         viewModel.currentPackage = package
                     }
                     changePlanController.addAction(yearlyPlanAction)
                 case .weekly:
-                    let weekylPlanAction = UIAlertAction(title: "3 Days Trial. Then".localized() + " \(package.localizedPriceString)" + "/week".localized(), style: .default) { [weak self] _ in
+                    let weekylPlanAction = UIAlertAction(title: "3 Days Trial. Then".localized() + " \(package.localizedPriceString)" + "/week. ".localized(), style: .default) { [weak self] _ in
                         guard let self else { return }
                         viewModel.currentPackage = package
                     }
