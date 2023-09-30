@@ -50,6 +50,10 @@
 		F050D3BB2AC806460015766F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F050D3BD2AC806460015766F /* Localizable.strings */; };
 		F050D3D92AC865D60015766F /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050D3D82AC865D60015766F /* LanguageManager.swift */; };
 		F050D3DC2AC86AB80015766F /* SwiftyTranslate in Frameworks */ = {isa = PBXBuildFile; productRef = F050D3DB2AC86AB80015766F /* SwiftyTranslate */; };
+		F050D3DF2AC89CBC0015766F /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050D3DE2AC89CBC0015766F /* OnboardingCoordinator.swift */; };
+		F050D3E22AC89D120015766F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050D3E12AC89D120015766F /* OnboardingView.swift */; };
+		F050D3E42AC89D230015766F /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050D3E32AC89D230015766F /* OnboardingViewController.swift */; };
+		F050D3E72AC89D400015766F /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050D3E62AC89D400015766F /* OnboardingViewModel.swift */; };
 		F05A155E2ABF1B980071AABD /* SettingsCollectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A155D2ABF1B980071AABD /* SettingsCollectionFooter.swift */; };
 		F05A15602ABF29710071AABD /* NavigationLeftAppTitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */; };
 		F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */; };
@@ -220,6 +224,10 @@
 		F050D3D62AC85FF60015766F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F050D3D72AC861720015766F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F050D3D82AC865D60015766F /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		F050D3DE2AC89CBC0015766F /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		F050D3E12AC89D120015766F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F050D3E32AC89D230015766F /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		F050D3E62AC89D400015766F /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		F05A155D2ABF1B980071AABD /* SettingsCollectionFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionFooter.swift; sourceTree = "<group>"; };
 		F05A155F2ABF29710071AABD /* NavigationLeftAppTitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLeftAppTitleButton.swift; sourceTree = "<group>"; };
 		F066E99B2A9B8F61004A6964 /* ModelSelectCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectCoordinator.swift; sourceTree = "<group>"; };
@@ -635,6 +643,33 @@
 			path = Labels;
 			sourceTree = "<group>";
 		};
+		F050D3DD2AC89CAE0015766F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F050D3DE2AC89CBC0015766F /* OnboardingCoordinator.swift */,
+				F050D3E02AC89CFF0015766F /* View */,
+				F050D3E52AC89D2C0015766F /* ViewModel */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F050D3E02AC89CFF0015766F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F050D3E12AC89D120015766F /* OnboardingView.swift */,
+				F050D3E32AC89D230015766F /* OnboardingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F050D3E52AC89D2C0015766F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F050D3E62AC89D400015766F /* OnboardingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F05A155C2ABF1B7F0071AABD /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -793,6 +828,7 @@
 		F07FBDCC2A7FBB5800ACA10F /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F050D3DD2AC89CAE0015766F /* Onboarding */,
 				F07FBDCD2A7FBB5F00ACA10F /* TabBar */,
 				F0817FEE2A9BCE510054C15E /* Suggestions */,
 				F027532E2AB0C1CA003220B9 /* Assistants */,
@@ -1448,6 +1484,7 @@
 				F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */,
 				F07FBDEB2A7FD28400ACA10F /* NetworkConstants.swift in Sources */,
 				F07FBDCB2A7FBADF00ACA10F /* AppCoordinator.swift in Sources */,
+				F050D3E22AC89D120015766F /* OnboardingView.swift in Sources */,
 				F089448F2AC0376E00BA4958 /* ChatMessageItem+CoreDataProperties.swift in Sources */,
 				F0AE4BC32AC6F7E400F48598 /* GiftPaywallViewModel.swift in Sources */,
 				F04EC4932ABED5B9005FC184 /* SettingsModel.swift in Sources */,
@@ -1491,6 +1528,7 @@
 				F0F3FFFE2ABB4CF600868CDF /* PastChatViewController.swift in Sources */,
 				F07FBDB02A7FBA1C00ACA10F /* AppDelegate.swift in Sources */,
 				F0AE4BCA2AC6FCF300F48598 /* GiftPackageCollectionCell.swift in Sources */,
+				F050D3E72AC89D400015766F /* OnboardingViewModel.swift in Sources */,
 				F08944992AC0870700BA4958 /* RevenueCatManager.swift in Sources */,
 				F066E9A32A9B9654004A6964 /* ModelConstants.swift in Sources */,
 				F0D468D92AC4867200F12BEC /* AssistantsCollectionSectionData.swift in Sources */,
@@ -1519,6 +1557,7 @@
 				F08944A52AC0915E00BA4958 /* PaywallViewController.swift in Sources */,
 				F0ADEFA52AA65CB9008403CA /* BusinessMarketingSuggestions.swift in Sources */,
 				F0F272EB2AB215BF00D63259 /* AssistantsCollectionCell.swift in Sources */,
+				F050D3E42AC89D230015766F /* OnboardingViewController.swift in Sources */,
 				F02753332AB0C4DD003220B9 /* AssistantsViewController.swift in Sources */,
 				F0ADEF972AA65B2F008403CA /* EducationSuggestions.swift in Sources */,
 				F07FBDFF2A7FE37E00ACA10F /* UserChatCollectionCell.swift in Sources */,
@@ -1570,6 +1609,7 @@
 				F08D00622AB8C2710071E324 /* ChatHistoryViewController.swift in Sources */,
 				F07FBDF72A7FD74B00ACA10F /* OpenAIChatService.swift in Sources */,
 				F04879D72AB5991B0075A0C6 /* AssistantsPromptEditViewModel.swift in Sources */,
+				F050D3DF2AC89CBC0015766F /* OnboardingCoordinator.swift in Sources */,
 				F0AE4BC52AC6F7F600F48598 /* GiftPaywallView.swift in Sources */,
 				F04879EF2AB5E9590075A0C6 /* AssistantsResponseViewController.swift in Sources */,
 				F0817FF02A9BCEBB0054C15E /* SuggestionsCoordinator.swift in Sources */,
