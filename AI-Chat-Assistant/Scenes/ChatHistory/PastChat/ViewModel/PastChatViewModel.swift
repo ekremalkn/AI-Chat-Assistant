@@ -18,6 +18,8 @@ protocol PastChatViewModelInterface {
     func reGenerateButtonTapped()
     
     func deleteChatFromCoreData()
+    
+    func checkUsedMessageCount()
 }
 
 final class PastChatViewModel {
@@ -35,19 +37,6 @@ final class PastChatViewModel {
     
     var assistantAnswered: Bool?
     var currentInputText = ""
-    
-    var currentMessageCount = 0 {
-        didSet {
-            if (currentMessageCount != 0 && currentMessageCount % 3 == 0) {
-                if !RevenueCatManager.shared.isSubscribe {
-                    view?.showAd()
-                }
-            } else if currentMessageCount % 5 == 0 {
-                // check if review alert showed
-                view?.showReviewAlert()
-            }
-        }
-    }
     
     //MARK: - Init Methods
     init(uiMessages: [UIMessage], chatHistoryItem: ChatHistoryItem, openAIChatService: OpenAIChatService) {
@@ -85,8 +74,7 @@ final class PastChatViewModel {
                         view?.assistantResponsed()
                         assistantAnswered = true
                         
-                        MessageManager.shared.updateMessageLimit()
-                        currentMessageCount += 1
+                        checkUsedMessageCount()
                         view?.updateFreeMessageCountLabel()
                     } else {
                         uiMessages.removeLast()
@@ -188,4 +176,16 @@ extension PastChatViewModel: PastChatViewModelInterface {
         }
     }
     
+    func checkUsedMessageCount() {
+        MessageManager.shared.updateMessageLimit()
+        
+        if (MessageManager.shared.usedMessageCount != 0 && MessageManager.shared.usedMessageCount % 3 == 0) {
+            if !RevenueCatManager.shared.isSubscribe {
+                view?.showAd()
+            }
+        } else if MessageManager.shared.usedMessageCount % 5 == 0 {
+            // check if review alert showed
+            view?.showReviewAlert()
+        }
+    }
 }

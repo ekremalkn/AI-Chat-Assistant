@@ -1,0 +1,140 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
+        "version" : "5.8.0"
+      }
+    },
+    {
+      "identity" : "bettersegmentedcontrol",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gmarm/BetterSegmentedControl.git",
+      "state" : {
+        "revision" : "a2b2116761f71320cee7e69b4249863f0f372c71",
+        "version" : "2.0.1"
+      }
+    },
+    {
+      "identity" : "ghosttypewriter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wibosco/GhostTypewriter.git",
+      "state" : {
+        "revision" : "878f4785c805b332454beedeaa145c524d059f64",
+        "version" : "2.1.0"
+      }
+    },
+    {
+      "identity" : "iqkeyboardmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hackiftekhar/IQKeyboardManager.git",
+      "state" : {
+        "revision" : "47548c2cdde7a2282a64b9b5fa0a6aeb2397c37b",
+        "version" : "6.5.13"
+      }
+    },
+    {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios.git",
+      "state" : {
+        "revision" : "45517c3cfec9469bbdd4f86e32393c28ae9df0bc",
+        "version" : "4.3.3"
+      }
+    },
+    {
+      "identity" : "ltmorphinglabel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lexrus/LTMorphingLabel.git",
+      "state" : {
+        "revision" : "cbde73b207ac5cfcde289a09685ad0e62b75dc04",
+        "version" : "0.9.3"
+      }
+    },
+    {
+      "identity" : "moya",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/Moya.git",
+      "state" : {
+        "revision" : "c263811c1f3dbf002be9bd83107f7cdc38992b26",
+        "version" : "15.0.3"
+      }
+    },
+    {
+      "identity" : "progresshud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/relatedcode/ProgressHUD",
+      "state" : {
+        "revision" : "8ebb3b21b0c68d966f8476d914c8bc6ec48893fa",
+        "version" : "13.8.3"
+      }
+    },
+    {
+      "identity" : "purchases-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RevenueCat/purchases-ios.git",
+      "state" : {
+        "revision" : "02a7da2dae8ca74c97ae0130b87a2787a4f36edf",
+        "version" : "4.26.1"
+      }
+    },
+    {
+      "identity" : "reachability.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ashleymills/Reachability.swift",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a81b7367f2c46875f29577e03a60c39cdfad0c8d"
+      }
+    },
+    {
+      "identity" : "reactiveswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+      "state" : {
+        "revision" : "c43bae3dac73fdd3cb906bd5a1914686ca71ed3c",
+        "version" : "6.7.0"
+      }
+    },
+    {
+      "identity" : "rskplaceholdertextview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ruslanskorb/RSKPlaceholderTextView.git",
+      "state" : {
+        "revision" : "941b263de5344c03b89c46c30e85ad48b0da24a1",
+        "version" : "6.1.0"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "9dcaa4b333db437b0fbfaf453fad29069044a8b4",
+        "version" : "6.6.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "swiftytranslate",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cpageler93/SwiftyTranslate.git",
+      "state" : {
+        "revision" : "96e6faf61cc6d7fbd65620c02ba1e081985f6a00",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

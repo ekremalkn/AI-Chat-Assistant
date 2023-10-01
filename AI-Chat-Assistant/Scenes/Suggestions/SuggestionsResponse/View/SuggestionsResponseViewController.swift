@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 import ProgressHUD
 
 protocol SuggestionsResponseViewInterface: AnyObject {
@@ -218,6 +219,7 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
+        configureAds()
     }
     
     func assistantResponsing() {
@@ -288,11 +290,41 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewInterface {
     }
     
     func showAd() {
-        
+        if suggestionsResponseView.interstitial != nil {
+            suggestionsResponseView.interstitial?.present(fromRootViewController: self)
+        } else {
+            suggestionsResponseView.loadInterstitialAd()
+        }
     }
     
     func showReviewAlert() {
+        if UserDefaults.standard.object(forKey: "isUserReviewed") == nil {
+            UserDefaults.standard.set(false, forKey: "isUserReviewed")
+        }
         
+        let isUserReviewed = UserDefaults.standard.bool(forKey: "isUserReviewed")
+        
+        if !isUserReviewed {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                
+                let alertController = UIAlertController(title: "Write a Review".localized(), message: "Please share your feedback and help us improve. Than you for using our app.".localized(), preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "OK".localized(), style: .default) { _ in
+                    if let appStoreReviewUrl = URL(string: "itms-apps://itunes.apple.com/gb/app/id\(AppInfo.appID)?action=write-review&mt=8") {
+                        UIApplication.shared.open(appStoreReviewUrl, options: [:], completionHandler: nil)
+                        UserDefaults.standard.set(true, forKey: "isUserReviewed")
+                    }
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel".localized(), style: .cancel)
+                
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                
+                self.present(alertController, animated: true)
+            }
+        }
     }
     
     func updateFreeMessageCountLabel() {
@@ -436,3 +468,33 @@ extension SuggestionsResponseViewController {
     }
 }
 
+//MARK: - AdMob Ad Configures
+extension SuggestionsResponseViewController {
+    private func configureAds() {
+        suggestionsResponseView.loadInterstitialAd { [weak self] isLoaded in
+            guard let self else { return }
+            if isLoaded {
+                suggestionsResponseView.interstitial?.fullScreenContentDelegate = self
+            }
+        }
+    }
+}
+
+//MARK: - GADFullScreenContentDelegate
+extension SuggestionsResponseViewController: GADFullScreenContentDelegate {
+    /// Tells the delegate that the ad failed to present full screen content.
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+      print("Ad did fail to present full screen content.")
+    }
+
+    /// Tells the delegate that the ad will present full screen content.
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+      print("Ad will present full screen content.")
+    }
+
+    /// Tells the delegate that the ad dismissed full screen content.
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+      print("Ad did dismiss full screen content.")
+        suggestionsResponseView.loadInterstitialAd()
+    }
+}

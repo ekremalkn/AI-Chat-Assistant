@@ -7,6 +7,7 @@
 
 import UIKit
 import RevenueCat
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Purchases.configure(withAPIKey: RevenueCatConstants.revenueCatAPIKey)
         RevenueCatManager.shared.checkSubscriptionStatus { _ in }
         
+        //MARK: - AdMob Init
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+
+
         //MARK: - Core Data Init
         CoreDataManager.shared.load()
         

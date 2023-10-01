@@ -24,6 +24,8 @@ protocol ChatViewModelInterface {
     func createNewChat()
     func clearChat()
     func deleteChat()
+    
+    func checkUsedMessageCount()
 }
 
 final class ChatViewModel {
@@ -35,19 +37,6 @@ final class ChatViewModel {
     
     //MARK: - Variables
     let reachability = try! Reachability()
-    
-    var currentMessageCount = 0 {
-        didSet {
-            if (currentMessageCount != 0 && currentMessageCount % 3 == 0) {
-                if !RevenueCatManager.shared.isSubscribe {
-                    view?.showAd()
-                }
-            } else if currentMessageCount % 5 == 0 {
-                // check if review alert showed
-                view?.showReviewAlert()
-            }
-        }
-    }
     
     var currentModel: GPTModel = .gpt3_5Turbo {
         didSet {
@@ -101,8 +90,8 @@ final class ChatViewModel {
                         view?.assistantResponsed()
                         assistantAnswered = true
                         
-                        MessageManager.shared.updateMessageLimit()
-                        currentMessageCount += 1
+                        checkUsedMessageCount()
+
                         view?.updateFreeMessageCountLabel()
                         
                     } else {
@@ -212,6 +201,18 @@ extension ChatViewModel: ChatViewModelInterface {
         }
     }
     
+    func checkUsedMessageCount() {
+        MessageManager.shared.updateMessageLimit()
+        
+        if (MessageManager.shared.usedMessageCount != 0 && MessageManager.shared.usedMessageCount % 3 == 0) {
+            if !RevenueCatManager.shared.isSubscribe {
+                view?.showAd()
+            }
+        } else if MessageManager.shared.usedMessageCount % 5 == 0 {
+            // check if review alert showed
+            view?.showReviewAlert()
+        }
+    }
 }
 
 //MARK: - Reachability Methods

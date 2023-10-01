@@ -242,7 +242,7 @@
 "Save this chat" = "Bu sohbeti kaydet";
 "Would you like to save this chat before starting a new one?" = "Yeni bir sohbet başlatmadan önce bu sohbeti kaydetmek ister misiniz?";
 "Save" = "Kaydet";
-"Saved Chat" = "Kaydedilen Sohbet";
+"Saved Chat" = "Sohbet Kaydedildi";
 "Delete" = "Sil";
 "Empty Chat" = "Boş Sohbet";
 "Please start a chat to perform this operation" = "Bu işlemi gerçekleştirmek için lütfen bir sohbet başlatın";
@@ -315,3 +315,6 @@
 "Supports all languages" = "Tüm dilleri destekler";
 "Multiple assistants & suggestions" = "Çoklu asistanlar ve öneriler";
 "Fastest responses" = "En hızlı yanıtlar";
+
+"Write a Review" = "Bir İnceleme Yaz";
+"Please share your feedback and help us improve. Than you for using our app." = "Lütfen geri bildiriminizi paylaşın ve bize geliştirmemiz konusunda yardımcı olun. Uygulamamızı kullandığınız için teşekkür ederiz.";

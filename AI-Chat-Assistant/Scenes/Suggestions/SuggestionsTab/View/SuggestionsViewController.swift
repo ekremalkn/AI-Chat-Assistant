@@ -5,7 +5,9 @@
 //  Created by Ekrem Alkan on 27.08.2023.
 //
 
+
 import UIKit
+import GoogleMobileAds
 
 protocol SuggestionsViewInterface: AnyObject {
     func configureViewController()
@@ -51,8 +53,14 @@ final class SuggestionsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+        suggestionsView.removeBannerView()
         navigationController?.tabBarController?.tabBar.isTranslucent = false
         navigationController?.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showInterstitialAdIfNeeded()
     }
     
     //MARK: - Configure Nav Items
@@ -99,7 +107,6 @@ final class SuggestionsViewController: UIViewController {
         suggestionsView.suggestionsCollectionView.delegate = self
         suggestionsView.suggestionsCollectionView.dataSource = self
     }
-    
     
     
 }
@@ -249,6 +256,7 @@ extension SuggestionsViewController: SuggestionsViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
+        configureAds()
     }
     
     func reloadSuggestions() {
@@ -323,3 +331,45 @@ extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
     
 }
 
+//MARK: - AdMob Ad Configures
+extension SuggestionsViewController {
+    private func configureAds() {
+        if !RevenueCatManager.shared.isSubscribe {
+            suggestionsView.bannerView.delegate = self
+            suggestionsView.bannerView.adUnitID = AdMobConstants.testBannerAdUnitID
+            suggestionsView.bannerView.rootViewController = self
+            suggestionsView.bannerView.load(GADRequest())
+        }
+    }
+}
+
+//MARK: - GADBannerViewDelegate
+extension SuggestionsViewController: GADBannerViewDelegate {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("bannerViewDidReceiveAd")
+        bannerView.alpha = 0
+          UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+          })
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+
+    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+      print("bannerViewDidRecordImpression")
+    }
+
+    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillPresentScreen")
+    }
+
+    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillDIsmissScreen")
+    }
+
+    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewDidDismissScreen")
+    }
+}

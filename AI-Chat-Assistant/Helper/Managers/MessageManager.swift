@@ -33,6 +33,14 @@ final class MessageManager {
         }
     }
     
+    var usedMessageCount: Int {
+        get {
+            let currentMessageCount = UserDefaults.standard.integer(forKey: currentAssistantMessageCountKey)
+            
+            return currentMessageCount
+        }
+    }
+    
     private init() {
         
     }

@@ -5,6 +5,7 @@
 //  Created by Ekrem Alkan on 6.08.2023.
 //
 
+import GoogleMobileAds
 import UIKit
 import RSKPlaceholderTextView
 
@@ -78,6 +79,9 @@ final class ChatView: UIView {
         return button
     }()
     
+    //MARK: - Interstitial AD
+    var interstitial: GADInterstitialAd?
+
     //MARK: - References
     weak var delegate: ChatViewDelegate?
     
@@ -142,6 +146,25 @@ extension ChatView {
     }
 }
 
+//MARK: - AdMob Ads Configure
+extension ChatView {
+    func loadInterstitialAd(completion: ((Bool) -> Void)? = nil) {
+        if !RevenueCatManager.shared.isSubscribe {
+            let request = GADRequest()
+            GADInterstitialAd.load(withAdUnitID: AdMobConstants.testInterstitialAdUnitID, request: request) { [weak self] ad, error in
+                guard let self else { return }
+                
+                if let error {
+                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                    completion?(false)
+                } else {
+                    self.interstitial = ad
+                    completion?(true)
+                }
+            }
+        }
+    }
+}
 
 //MARK: - Setup UI
 extension ChatView {

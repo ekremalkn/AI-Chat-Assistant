@@ -5,6 +5,7 @@
 //  Created by Ekrem Alkan on 20.09.2023.
 //
 
+import GoogleMobileAds
 import UIKit
 import RSKPlaceholderTextView
 
@@ -122,6 +123,9 @@ final class PastChatView: UIView {
         return button
     }()
     
+    //MARK: - Interstitial AD
+    var interstitial: GADInterstitialAd?
+    
     //MARK: - References
     weak var delegate: PastChatViewDelegate?
 
@@ -207,6 +211,26 @@ extension PastChatView {
     
     @objc private func getPremiumButtonTapped() {
         delegate?.pastChatView(self, getPremiumButtonTapped: getPremiumTextButton)
+    }
+}
+
+//MARK: - AdMob Ads Configure
+extension PastChatView {
+    func loadInterstitialAd(completion: ((Bool) -> Void)? = nil) {
+        if !RevenueCatManager.shared.isSubscribe {
+            let request = GADRequest()
+            GADInterstitialAd.load(withAdUnitID: AdMobConstants.testInterstitialAdUnitID, request: request) { [weak self] ad, error in
+                guard let self else { return }
+                
+                if let error {
+                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                    completion?(false)
+                } else {
+                    self.interstitial = ad
+                    completion?(true)
+                }
+            }
+        }
     }
 }
 

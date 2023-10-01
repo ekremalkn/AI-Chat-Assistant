@@ -17,6 +17,8 @@ protocol AssistantsResponseViewModelInterface {
     func sendButtonTapped()
     func reGenerateButtonTapped()
     func saveChatToCoreData()
+    
+    func checkUsedMessageCount()
 }
 
 final class AssistantsResponseViewModel {
@@ -35,19 +37,6 @@ final class AssistantsResponseViewModel {
     var assistantAnswered: Bool?
     
     var currentInputText: String = ""
-    
-    var currentMessageCount = 0 {
-        didSet {
-            if (currentMessageCount != 0 && currentMessageCount % 3 == 0) {
-                if !RevenueCatManager.shared.isSubscribe {
-                    view?.showAd()
-                }
-            } else if currentMessageCount % 5 == 0 {
-                // check if review alert showed
-                view?.showReviewAlert()
-            }
-        }
-    }
     
     //MARK: - Init Methods
     init(mainMessages: [UIMessage], openAIChatService: OpenAIChatService, selectedGPTModel: GPTModel, assistant: Assistant) {
@@ -87,8 +76,7 @@ final class AssistantsResponseViewModel {
                         view?.assistantResponsed()
                         assistantAnswered = true
                         
-                        MessageManager.shared.updateMessageLimit()
-                        currentMessageCount += 1
+                        checkUsedMessageCount()
                         view?.updateFreeMessageCountLabel()
                     } else {
                         uiMessages.removeLast()
@@ -164,6 +152,19 @@ extension AssistantsResponseViewModel: AssistantsResponseViewModelInterface {
             }
             
             chatHistoryService.addChatHistoryToCoreData(chatCreationDate: Date(), chatTitleText: assistant.title?.localizedCapitalized ?? "Assistant", chatSubTitleText: "Assistant, \(assistant.tag ?? AppInfo.name)", gptModel: currentModel, chatMessages: chatMessages)
+        }
+    }
+    
+    func checkUsedMessageCount() {
+        MessageManager.shared.updateMessageLimit()
+        
+        if (MessageManager.shared.usedMessageCount != 0 && MessageManager.shared.usedMessageCount % 3 == 0) {
+            if !RevenueCatManager.shared.isSubscribe {
+                view?.showAd()
+            }
+        } else if MessageManager.shared.usedMessageCount % 5 == 0 {
+            // check if review alert showed
+            view?.showReviewAlert()
         }
     }
 }

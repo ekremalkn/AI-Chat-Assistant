@@ -58,6 +58,11 @@ final class AssistantsPromptEditViewController: UIViewController {
         KeyboardManager.shared.setKeyboardToolbar(enable: true, doneButtonText: "Apply Edit".localized())
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showInterstitialAdIfNeeded()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         KeyboardManager.shared.setKeyboardToolbar(enable: false, doneButtonText: nil)

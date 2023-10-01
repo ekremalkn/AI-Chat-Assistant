@@ -5,7 +5,9 @@
 //  Created by Ekrem Alkan on 12.09.2023.
 //
 
+
 import UIKit
+import GoogleMobileAds
 import ProgressHUD
 
 protocol AssistantsViewInterface: AnyObject {
@@ -62,6 +64,7 @@ final class AssistantsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+        assistantsView.removeBannerView()
         navigationController?.tabBarController?.tabBar.isHidden = false
         navigationController?.tabBarController?.tabBar.isTranslucent = false
     }
@@ -69,8 +72,10 @@ final class AssistantsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
+        showInterstitialAdIfNeeded()
     }
     
+
     //MARK: - Configure Nav Items
     private func configureNavItems() {
         let leftTitleButton = NavigationLeftAppTitleButton()
@@ -261,6 +266,7 @@ extension AssistantsViewController: AssistantsViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
+        configureAds()
     }
     
     func reloadAssistants() {
@@ -386,10 +392,54 @@ extension AssistantsViewController: AssistantsViewInterface {
     
 }
 
+//MARK: - AssistantsCollectionAssistantsSectionHeaderDelegate
 extension AssistantsViewController: AssistantsCollectionAssistantsSectionHeaderDelegate {
     func assistantsCollectionAssistantsSectionHeader(_ header: AssistantsCollectionAssistantsSectionHeader, didSelectAssistantCategory cellIndexPath: IndexPath) {
         viewModel.didSelectAssistantCategoryCellInHeader(assistantCategoryCellIndexPath: cellIndexPath)
     }
     
     
+}
+
+//MARK: - AdMob Ad Configures
+extension AssistantsViewController {
+    private func configureAds() {
+        if !RevenueCatManager.shared.isSubscribe {
+            assistantsView.bannerView.delegate = self
+            assistantsView.bannerView.adUnitID = AdMobConstants.testBannerAdUnitID
+            assistantsView.bannerView.rootViewController = self
+            assistantsView.bannerView.load(GADRequest())
+        }
+    }
+}
+
+//MARK: - GADBannerViewDelegate
+extension AssistantsViewController: GADBannerViewDelegate {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("bannerViewDidReceiveAd")
+        bannerView.alpha = 0
+          UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+          })
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+
+    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+      print("bannerViewDidRecordImpression")
+    }
+
+    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillPresentScreen")
+    }
+
+    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillDIsmissScreen")
+    }
+
+    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewDidDismissScreen")
+    }
 }
