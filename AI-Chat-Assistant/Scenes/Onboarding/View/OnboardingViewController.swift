@@ -11,14 +11,12 @@ final class OnboardingViewController: UIViewController {
     
     //MARK: - References
     weak var onboardingCoordinator: OnboardingCoordinator?
-    private let viewModel: OnboardingViewModel
     private let onboardingView = OnboardingView()
     
     //MARK: - Life Cycle Methods
-    init(viewModel: OnboardingViewModel) {
-        self.viewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
-    }
+    } 
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -31,11 +29,30 @@ final class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupDelegates()
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        onboardingView.startLabelAnimations {
+            
+        }
+    }
+    
+    //MARK: - Setup Delegates
+    private func setupDelegates() {
+        onboardingView.delegate = self
+    }
+
     
     
+}
+
+//MARK: - OnboardingViewDelegate
+extension OnboardingViewController: OnboardingViewDelegate {
+    func onboardingView(_ view: OnboardingView, continueButtonTapped button: UIButton) {
+        onboardingCoordinator?.setRootViewControllerToMainTabBarController()
+    }
     
 }

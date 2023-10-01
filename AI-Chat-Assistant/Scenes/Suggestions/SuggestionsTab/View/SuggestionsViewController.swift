@@ -17,6 +17,7 @@ protocol SuggestionsViewInterface: AnyObject {
     func showNoInternetView()
     func deleteNoInternetView()
     
+    func openPaywall()
 }
 
 final class SuggestionsViewController: UIViewController {
@@ -268,6 +269,10 @@ extension SuggestionsViewController: SuggestionsViewInterface {
     
     func deleteNoInternetView() {
         removeNoInternetView()
+    }
+    
+    func openPaywall() {
+        suggestionsCoordinator?.openPaywall()
     }
     
 }

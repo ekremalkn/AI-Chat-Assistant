@@ -34,6 +34,8 @@ final class MainCoordinator: Coordinator {
             chatCoordinator.navigationController,
             assistantsCoordinator.navigationController
         ]
+        
+        UserDefaults.standard.set(true, forKey: "isOpenedBefore")
     }
     
     

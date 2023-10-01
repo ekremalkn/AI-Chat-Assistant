@@ -46,6 +46,15 @@
       }
     },
     {
+      "identity" : "ltmorphinglabel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lexrus/LTMorphingLabel.git",
+      "state" : {
+        "revision" : "cbde73b207ac5cfcde289a09685ad0e62b75dc04",
+        "version" : "0.9.3"
+      }
+    },
+    {
       "identity" : "moya",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Moya/Moya.git",

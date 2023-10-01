@@ -10,19 +10,19 @@ import UIKit
 final class OnboardingCoordinator: Coordinator {
     
     //MARK: - References
-    private let navigationController: UINavigationController
-
+    weak var appParentCoordinator: AppCoordinator?
+    var rootViewController = OnboardingViewController()
+    
     //MARK: - Variables
     var childCoordinators: [Coordinator] = []
-
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-        
-    }
     
     //MARK: - Methods
     func start() {
-        
+        rootViewController.onboardingCoordinator = self
     }
-
+    
+    func setRootViewControllerToMainTabBarController() {
+        appParentCoordinator?.delegate?.setRootViewControllerToMainTabBarController()
+    }
+    
 }

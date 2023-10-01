@@ -95,7 +95,12 @@ final class ModelSelectCollectionCell: UICollectionViewCell {
                 premiumAnimationView.isHidden = true
             case .gpt4:
                 modelImageView.backgroundColor = .chatGPT4Background
-                premiumAnimationView.isHidden = false
+                if RevenueCatManager.shared.isSubscribe {
+                    premiumAnimationView.isHidden = true
+
+                } else {
+                    premiumAnimationView.isHidden = false
+                }
             }
         }
     }

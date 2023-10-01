@@ -21,6 +21,8 @@ protocol  SuggestionsViewModelInterface {
     
     func didSelectSuggestionFromAllSuggestionsHeaderAt(indexPath: IndexPath)
     func didSelectSuggestionFromMostUsedSuggestionsHeaderAt(indexPath: IndexPath)
+    
+    func checkSubscribeAndOpenPaywall()
 }
 
 final class SuggestionsViewModel {
@@ -69,13 +71,13 @@ final class SuggestionsViewModel {
         
     }
     
-    
 }
 
 //MARK: - SuggestionsViewModelInterface
 extension SuggestionsViewModel: SuggestionsViewModelInterface {
     func viewDidLoad() {
         view?.configureViewController()
+        checkSubscribeAndOpenPaywall()
     }
     
     func viewWillAppear() {
@@ -115,6 +117,11 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
         view?.openModelSelectToSelectGPTModel()
     }
     
+    func checkSubscribeAndOpenPaywall() {
+        if !RevenueCatManager.shared.isSubscribe {
+            view?.openPaywall()
+        }
+    }
     
 }
 
