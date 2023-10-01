@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import SafariServices
 
+protocol PaywallCoordinatorDelegate: AnyObject {
+    func paywallCoordinator(_ coordinator: PaywallCoordinator, dismissedPaywall paywall: PaywallViewController)
+}
+
 final class PaywallCoordinator: Coordinator {
 
     //MARK: - References
@@ -22,6 +26,8 @@ final class PaywallCoordinator: Coordinator {
     weak var assistantsParentCoordinator: AssistantsCoordinator?
     private let navigationController: UINavigationController
 
+    weak var delegate: PaywallCoordinatorDelegate?
+    
     //MARK: - Variables
     var childCoordinators: [Coordinator] = []
 
@@ -44,6 +50,10 @@ final class PaywallCoordinator: Coordinator {
             safariViewController.modalPresentationStyle = .pageSheet
             onVC.present(safariViewController, animated: true)
         }
+    }
+    
+    func dismissedPaywall(paywallVC: PaywallViewController) {
+        delegate?.paywallCoordinator(self, dismissedPaywall: paywallVC)
     }
 
 }

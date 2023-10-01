@@ -9,6 +9,7 @@ import UIKit
 
 protocol SuggestionsCoordinatorDelegate: AnyObject {
     func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectModel model: GPTModel)
+    func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, dismissedPaywall paywall: PaywallViewController)
 }
 
 final class SuggestionsCoordinator: Coordinator {
@@ -66,6 +67,7 @@ final class SuggestionsCoordinator: Coordinator {
         let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
         childCoordinators.append(paywallCoordinator)
         paywallCoordinator.suggestionsParentCoordinator = self
+        paywallCoordinator.delegate = self
         paywallCoordinator.start()
     }
 
@@ -74,6 +76,13 @@ final class SuggestionsCoordinator: Coordinator {
 extension SuggestionsCoordinator: ModelSelectCoordinatorDelegate {
     func modelSelectCoordinator(_ coordinator: ModelSelectCoordinator, didSelectModel model: GPTModel) {
         delegate?.suggestionsCoordinator(self, didSelectModel: model)
+    }
+    
+}
+
+extension SuggestionsCoordinator: PaywallCoordinatorDelegate {
+    func paywallCoordinator(_ coordinator: PaywallCoordinator, dismissedPaywall paywall: PaywallViewController) {
+        delegate?.suggestionsCoordinator(self, dismissedPaywall: paywall)
     }
     
     

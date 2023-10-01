@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import AppTrackingTransparency
 
 protocol SuggestionsViewInterface: AnyObject {
     func configureViewController()
@@ -256,7 +257,6 @@ extension SuggestionsViewController: SuggestionsViewInterface {
     func configureViewController() {
         configureNavItems()
         setupDelegates()
-        configureAds()
     }
     
     func reloadSuggestions() {
@@ -328,6 +328,9 @@ extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
         
     }
     
+    func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, dismissedPaywall paywall: PaywallViewController) {
+        configureAds()
+    }
     
 }
 
@@ -335,10 +338,13 @@ extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
 extension SuggestionsViewController {
     private func configureAds() {
         if !RevenueCatManager.shared.isSubscribe {
-            suggestionsView.bannerView.delegate = self
-            suggestionsView.bannerView.adUnitID = AdMobConstants.testBannerAdUnitID
-            suggestionsView.bannerView.rootViewController = self
-            suggestionsView.bannerView.load(GADRequest())
+            ATTrackingManager.requestTrackingAuthorization { [weak self] status in
+                guard let self else { return }
+                suggestionsView.bannerView.delegate = self
+                suggestionsView.bannerView.adUnitID = AdMobConstants.testBannerAdUnitID
+                suggestionsView.bannerView.rootViewController = self
+                suggestionsView.bannerView.load(GADRequest())
+            }
         }
     }
 }

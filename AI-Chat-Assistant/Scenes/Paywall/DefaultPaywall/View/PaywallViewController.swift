@@ -122,6 +122,7 @@ extension PaywallViewController: PaywallViewInterface {
     func disMissPaywall() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            self.paywallCoordinator?.dismissedPaywall(paywallVC: self)
             self.dismiss(animated: true)
         }
     }
@@ -136,6 +137,7 @@ extension PaywallViewController: PaywallViewDelegate {
     func paywallView(_ view: PaywallView, closeButtonTapped button: UIButton) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            self.paywallCoordinator?.dismissedPaywall(paywallVC: self)
             self.dismiss(animated: true)
         }
     }

@@ -9,6 +9,7 @@ import UIKit
 import RevenueCat
 import GoogleMobileAds
 
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -24,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - AdMob Init
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-
 
         //MARK: - Core Data Init
         CoreDataManager.shared.load()
