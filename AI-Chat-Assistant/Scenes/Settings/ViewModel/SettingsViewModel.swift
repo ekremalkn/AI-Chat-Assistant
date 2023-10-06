@@ -63,7 +63,7 @@ extension SettingsViewModel: SettingsViewModelInterface {
             case .rateApp:
                 view?.openAppStoreToWriteReview()
             case .shareWithFriends:
-                view?.openShareSheetVCToShareApp()
+                view?.openShareSheetVCToShareApp(at: indexPath)
             case .privacyPolicy:
                 view?.openSafariToShowPrivacyPolicy()
             case .termOfUse:

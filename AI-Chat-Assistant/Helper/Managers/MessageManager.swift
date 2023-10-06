@@ -23,13 +23,16 @@ final class MessageManager {
     private let currentAssistantMessageCountKey = "currentAssistantMessageCount"
     private let lastResetDateKey = "lastResetDate"
     
-    let maxMessageCount = 10
+    let maxMessageCount = 5
     
     var freeMessageCount: Int {
         get {
             let currentMessageCount = UserDefaults.standard.integer(forKey: currentAssistantMessageCountKey)
-            
-            return maxMessageCount - currentMessageCount
+            if currentMessageCount > maxMessageCount {
+                return 0
+            } else {
+                return maxMessageCount - currentMessageCount
+            }
         }
     }
     

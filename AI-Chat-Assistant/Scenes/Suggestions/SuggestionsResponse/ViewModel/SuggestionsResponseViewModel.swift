@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GoogleMobileAds
 
 protocol SuggestionsResponseViewModelInterface {
     var view: SuggestionsResponseViewInterface? { get set }
@@ -19,6 +20,8 @@ protocol SuggestionsResponseViewModelInterface {
     
     func saveChatToCoreData()
     func checkUsedMessageCount()
+    
+    func loadRewardedAd(completion: ((Bool) -> Void)?)
 }
 
 final class SuggestionsResponseViewModel {
@@ -40,6 +43,8 @@ final class SuggestionsResponseViewModel {
     var assistantAnswered: Bool?
     
     var currentInputText: String = ""
+    
+    var rewardedAd: GADRewardedAd?
     
     //MARK: - Init Methods
     init(openAIChatService: OpenAIChatService, selectedSuggestion: Suggestion, selectedGPTModel: GPTModel) {
@@ -163,6 +168,27 @@ extension SuggestionsResponseViewModel: SuggestionsResponseViewModelInterface {
         } else if MessageManager.shared.usedMessageCount % 5 == 0 {
             // check if review alert showed
             view?.showReviewAlert()
+        }
+    }
+    
+    func loadRewardedAd(completion: ((Bool) -> Void)? = nil) {
+        if !RevenueCatManager.shared.isSubscribe {
+            let request = GADRequest()
+            let extras = GADExtras()
+            extras.additionalParameters = ["suppress_test_label": "1"]
+            request.register(extras)
+            
+            GADRewardedAd.load(withAdUnitID: AdMobConstants.rewardedAdUnitID, request: request) { rewardedAd, error in
+                if let error {
+                    print("Failed to load rewarded ad with error: \(error.localizedDescription)")
+                    completion?(false)
+                } else {
+                    self.rewardedAd = rewardedAd
+                    print("Rewarded ad loaded.")
+                    completion?(true)
+                }
+                
+            }
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 import ProgressHUD
 import BetterSegmentedControl
 import Lottie
@@ -18,7 +19,11 @@ protocol AssistantsPromptEditViewInterface: AnyObject {
     func didOccurErrorWhileChatServiceResponding(_ errorMsg: String)
     func openAssistantsResponseVC(with uiMessages: [UIMessage])
     func updateMessageTextViewText(translatedPrompt: String)
+    
+    func openRewardedAdAlert()
     func openPaywall()
+    
+    func showRewardedAd()
 }
 
 final class AssistantsPromptEditViewController: UIViewController {
@@ -81,6 +86,8 @@ final class AssistantsPromptEditViewController: UIViewController {
         
         assistantsPromptEditView.assistantsPromptEditCollectionView.delegate = self
         assistantsPromptEditView.assistantsPromptEditCollectionView.dataSource = self
+        
+        assistantsPromptEditCoordinator?.delegate = self
     }
     
 }
@@ -277,6 +284,7 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
         configureNavItems()
         setupSegmentedControl()
         setupDelegates()
+        configureAds()
     }
     
     func chatServiceResponding() {
@@ -313,8 +321,28 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
             }
         }
     }
+    
+    func openRewardedAdAlert() {
+        assistantsPromptEditCoordinator?.openRewardedAdAlert()
+    }
+    
     func openPaywall() {
         assistantsPromptEditCoordinator?.openPaywall()
+    }
+    
+    func showRewardedAd() {
+        if let ad = viewModel.rewardedAd {
+            DispatchQueue.main.async {
+                ad.present(fromRootViewController: self) {
+                    let reward = ad.adReward
+                    print("Reward received with currency \(reward.amount), amount \(reward.amount.doubleValue)")
+                }
+            }
+        } else {
+            // send assistant message
+            viewModel.sendAssistantMessage()
+            print("Ad wasn't ready")
+        }
     }
     
 }
@@ -388,5 +416,51 @@ extension AssistantsPromptEditViewController {
         }
     }
     
+}
+
+//MARK: - AssistantsPromptEditCoordinatorDelegate
+extension AssistantsPromptEditViewController: AssistantsPromptEditCoordinatorDelegate {
+    func assistantsPromptEditCoordinator(_ coordinator: AssistantsPromptEditCoordinator, didSelectButtonFromRewardedAdAlert buttonType: RewardedAdAlertButtonType) {
+        switch buttonType {
+        case .showRewardedAd:
+            showRewardedAd()
+        case .openPaywall:
+            openPaywall()
+        }
+    }
+    
+    
+}
+
+//MARK: - Admob Rewarded Ad Configures
+extension AssistantsPromptEditViewController {
+    private func configureAds() {
+        viewModel.loadRewardedAd { [weak self] isLoaded in
+            guard let self else { return }
+            if isLoaded {
+                viewModel.rewardedAd?.fullScreenContentDelegate = self
+            }
+        }
+    }
+}
+
+//MARK: - GADFullScreenContentDelegate
+extension AssistantsPromptEditViewController: GADFullScreenContentDelegate {
+    /// Tells the delegate that the ad failed to present full screen content.
+     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+       print("Ad did fail to present full screen content.")
+     }
+
+     /// Tells the delegate that the ad will present full screen content.
+     func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+       print("Ad will present full screen content.")
+     }
+
+     /// Tells the delegate that the ad dismissed full screen content.
+     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+       print("Ad did dismiss full screen content.")
+         configureAds()
+         viewModel.sendAssistantMessage()
+     }
 }
 

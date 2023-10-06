@@ -58,7 +58,9 @@ extension SuggestionsView {
     
     func removeBannerView() {
         if RevenueCatManager.shared.isSubscribe {
-            bannerView.removeFromSuperview()
+            if bannerView != nil {
+                bannerView.removeFromSuperview()
+            }
         }
     }
     

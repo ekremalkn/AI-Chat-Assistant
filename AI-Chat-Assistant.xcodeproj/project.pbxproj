@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7154ABFD399EC79C6B6B21DE /* Pods_AI_Chat_Assistant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D120611065A1830663FAD78 /* Pods_AI_Chat_Assistant.framework */; };
+		F00FF0B02AD038D7004C5C10 /* RewardedAdAlertCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00FF0AF2AD038D7004C5C10 /* RewardedAdAlertCoordinator.swift */; };
+		F00FF0B32AD03A17004C5C10 /* RewardedAdAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00FF0B22AD03A17004C5C10 /* RewardedAdAlertModel.swift */; };
+		F00FF0B62AD03ABA004C5C10 /* RewardedAdAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00FF0B52AD03ABA004C5C10 /* RewardedAdAlertView.swift */; };
+		F00FF0B82AD03ADB004C5C10 /* RewardedAdAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00FF0B72AD03ADB004C5C10 /* RewardedAdAlertViewController.swift */; };
+		F00FF0BB2AD04084004C5C10 /* RewardedAdAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00FF0BA2AD04084004C5C10 /* RewardedAdAlertViewModel.swift */; };
+		F00FF0BE2AD04109004C5C10 /* RewardedAdAlertButtonCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00FF0BD2AD04109004C5C10 /* RewardedAdAlertButtonCollectionCell.swift */; };
 		F01BA7F12A968E2C008E0DA3 /* String+CopyToClipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */; };
 		F01BA7F32A968F5C008E0DA3 /* UIViewController+ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */; };
 		F024E4102ABF47E4008F0A32 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = F024E40F2ABF47E4008F0A32 /* Reachability */; };
@@ -187,6 +193,12 @@
 		3D120611065A1830663FAD78 /* Pods_AI_Chat_Assistant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AI_Chat_Assistant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54C6B987034F1903FE2EFA77 /* Pods-AI-Chat-Assistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Chat-Assistant.debug.xcconfig"; path = "Target Support Files/Pods-AI-Chat-Assistant/Pods-AI-Chat-Assistant.debug.xcconfig"; sourceTree = "<group>"; };
 		B7DF77C274A43C89BA722BA0 /* Pods-AI-Chat-Assistant.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Chat-Assistant.release.xcconfig"; path = "Target Support Files/Pods-AI-Chat-Assistant/Pods-AI-Chat-Assistant.release.xcconfig"; sourceTree = "<group>"; };
+		F00FF0AF2AD038D7004C5C10 /* RewardedAdAlertCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdAlertCoordinator.swift; sourceTree = "<group>"; };
+		F00FF0B22AD03A17004C5C10 /* RewardedAdAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdAlertModel.swift; sourceTree = "<group>"; };
+		F00FF0B52AD03ABA004C5C10 /* RewardedAdAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdAlertView.swift; sourceTree = "<group>"; };
+		F00FF0B72AD03ADB004C5C10 /* RewardedAdAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdAlertViewController.swift; sourceTree = "<group>"; };
+		F00FF0BA2AD04084004C5C10 /* RewardedAdAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdAlertViewModel.swift; sourceTree = "<group>"; };
+		F00FF0BD2AD04109004C5C10 /* RewardedAdAlertButtonCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedAdAlertButtonCollectionCell.swift; sourceTree = "<group>"; };
 		F01BA7F02A968E2C008E0DA3 /* String+CopyToClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CopyToClipboard.swift"; sourceTree = "<group>"; };
 		F01BA7F22A968F5C008E0DA3 /* UIViewController+ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowToast.swift"; sourceTree = "<group>"; };
 		F024E4112ABF4961008F0A32 /* NoInternetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
@@ -332,8 +344,6 @@
 		F0ADEFAA2AA65D23008403CA /* CareerSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFAC2AA65D47008403CA /* EmailSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSuggestions.swift; sourceTree = "<group>"; };
 		F0ADEFB02AA65D7C008403CA /* CreativeIdeaSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeIdeaSuggestions.swift; sourceTree = "<group>"; };
-		F0AE4BB82AC6DC2000F48598 /* ChatvantageStoreKitTest1.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChatvantageStoreKitTest1.storekit; sourceTree = "<group>"; };
-		F0AE4BB92AC6DD4900F48598 /* StoreKitTestCertificate1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate1.cer; path = ../../StoreKitTestCertificate1.cer; sourceTree = "<group>"; };
 		F0AE4BBA2AC6F1AB00F48598 /* PaywallChangePlanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallChangePlanButton.swift; sourceTree = "<group>"; };
 		F0AE4BBE2AC6F75600F48598 /* GiftPaywallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPaywallCoordinator.swift; sourceTree = "<group>"; };
 		F0AE4BC22AC6F7E400F48598 /* GiftPaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPaywallViewModel.swift; sourceTree = "<group>"; };
@@ -393,6 +403,59 @@
 				3D120611065A1830663FAD78 /* Pods_AI_Chat_Assistant.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F00FF0AB2AD020C5004C5C10 /* Admob */ = {
+			isa = PBXGroup;
+			children = (
+				F04CEA0F2AC9991E00A8AF53 /* AdMobConstants.swift */,
+			);
+			path = Admob;
+			sourceTree = "<group>";
+		};
+		F00FF0AE2AD038A3004C5C10 /* RewardedAdAlert */ = {
+			isa = PBXGroup;
+			children = (
+				F00FF0AF2AD038D7004C5C10 /* RewardedAdAlertCoordinator.swift */,
+				F00FF0B12AD03A09004C5C10 /* Model */,
+				F00FF0B42AD03AA0004C5C10 /* View */,
+				F00FF0B92AD04063004C5C10 /* ViewModel */,
+			);
+			path = RewardedAdAlert;
+			sourceTree = "<group>";
+		};
+		F00FF0B12AD03A09004C5C10 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F00FF0B22AD03A17004C5C10 /* RewardedAdAlertModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F00FF0B42AD03AA0004C5C10 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F00FF0BC2AD040F5004C5C10 /* Cell */,
+				F00FF0B52AD03ABA004C5C10 /* RewardedAdAlertView.swift */,
+				F00FF0B72AD03ADB004C5C10 /* RewardedAdAlertViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F00FF0B92AD04063004C5C10 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F00FF0BA2AD04084004C5C10 /* RewardedAdAlertViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F00FF0BC2AD040F5004C5C10 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F00FF0BD2AD04109004C5C10 /* RewardedAdAlertButtonCollectionCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		F024E4172ABF5856008F0A32 /* Header */ = {
@@ -783,7 +846,6 @@
 			isa = PBXGroup;
 			children = (
 				F07F3E792AA7934500075CE5 /* AppInfo.swift */,
-				F04CEA0F2AC9991E00A8AF53 /* AdMobConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -791,8 +853,6 @@
 		F07FBDA32A7FBA1C00ACA10F = {
 			isa = PBXGroup;
 			children = (
-				F0AE4BB82AC6DC2000F48598 /* ChatvantageStoreKitTest1.storekit */,
-				F0AE4BB92AC6DD4900F48598 /* StoreKitTestCertificate1.cer */,
 				F07FBDAE2A7FBA1C00ACA10F /* AI-Chat-Assistant */,
 				F07FBDAD2A7FBA1C00ACA10F /* Products */,
 				F5983385C4F062318DADBB30 /* Pods */,
@@ -818,6 +878,7 @@
 				F07F3E782AA7932600075CE5 /* Constants */,
 				F08D006E2AB8CC720071E324 /* CoreData */,
 				F07FBDC52A7FBA5500ACA10F /* Support */,
+				F00FF0AB2AD020C5004C5C10 /* Admob */,
 				F08944972AC086E600BA4958 /* RevenueCat */,
 				F07FBDC42A7FBA4700ACA10F /* Resources */,
 			);
@@ -886,6 +947,7 @@
 				F0915E842ABE1A9B004F9FE8 /* Settings */,
 				F089449C2AC0907400BA4958 /* Paywall */,
 				F066E9992A9B8EB9004A6964 /* ModelSelect */,
+				F00FF0AE2AD038A3004C5C10 /* RewardedAdAlert */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -1586,6 +1648,7 @@
 				F024E4212ABF6340008F0A32 /* SuggestionsCollectionMostUsedSuggestionsSectionHeader.swift in Sources */,
 				F066E9A82A9B9994004A6964 /* ModelSelectViewModel.swift in Sources */,
 				F0F3FFFB2ABB4C9E00868CDF /* PastChatCoordinator.swift in Sources */,
+				F00FF0BE2AD04109004C5C10 /* RewardedAdAlertButtonCollectionCell.swift in Sources */,
 				F050D3D92AC865D60015766F /* LanguageManager.swift in Sources */,
 				F04879E92AB5D8FD0075A0C6 /* KeyboardManager.swift in Sources */,
 				F07FBDEB2A7FD28400ACA10F /* NetworkConstants.swift in Sources */,
@@ -1601,6 +1664,7 @@
 				F07FBDE72A7FD1B900ACA10F /* OpenAIChatBody.swift in Sources */,
 				F02563E22AB7497E00D10150 /* SuggestionsResponseViewController.swift in Sources */,
 				F04879DB2AB5997C0075A0C6 /* AssistantsPromptEditView.swift in Sources */,
+				F00FF0B02AD038D7004C5C10 /* RewardedAdAlertCoordinator.swift in Sources */,
 				F02753302AB0C474003220B9 /* AssistantsCoordinator.swift in Sources */,
 				F0ADEFB12AA65D7C008403CA /* CreativeIdeaSuggestions.swift in Sources */,
 				F04CEA102AC9991E00A8AF53 /* AdMobConstants.swift in Sources */,
@@ -1626,11 +1690,13 @@
 				F0AE4BC72AC6F80900F48598 /* GiftPaywallViewController.swift in Sources */,
 				F0ADEFA92AA65CFD008403CA /* SocialMediaSuggestions.swift in Sources */,
 				F08D006D2AB8C6A10071E324 /* ChatHistorySenderView.swift in Sources */,
+				F00FF0BB2AD04084004C5C10 /* RewardedAdAlertViewModel.swift in Sources */,
 				F08D005C2AB8B4630071E324 /* SuggestionsChatCollectionHeader.swift in Sources */,
 				F0817FFB2A9BD5090054C15E /* SuggestionsViewModel.swift in Sources */,
 				F0E493772AB3887800767FF2 /* UIColor+HEXString.swift in Sources */,
 				F0F5C1132AC60937009DC1CC /* GetPremiumTextButton.swift in Sources */,
 				F089449B2AC0881B00BA4958 /* RevenueCatConstants.swift in Sources */,
+				F00FF0B62AD03ABA004C5C10 /* RewardedAdAlertView.swift in Sources */,
 				F08D00802AB8D8360071E324 /* CoreDataService.swift in Sources */,
 				F08D005F2AB8C1DC0071E324 /* ChatHistoryCoordinator.swift in Sources */,
 				F08D00742AB8CCDC0071E324 /* CoreDataManager.swift in Sources */,
@@ -1647,6 +1713,7 @@
 				F0AE4BBB2AC6F1AB00F48598 /* PaywallChangePlanButton.swift in Sources */,
 				F02563E52AB7499300D10150 /* SuggestionsResponseViewModel.swift in Sources */,
 				F04879D92AB5992F0075A0C6 /* AssistantsPromptEditViewController.swift in Sources */,
+				F00FF0B82AD03ADB004C5C10 /* RewardedAdAlertViewController.swift in Sources */,
 				F050D3B72AC803070015766F /* String+Localized.swift in Sources */,
 				F0ADEF9B2AA65BF3008403CA /* BeautyLifestyleSuggestions.swift in Sources */,
 				F066E99C2A9B8F61004A6964 /* ModelSelectCoordinator.swift in Sources */,
@@ -1681,6 +1748,7 @@
 				F08944902AC0376E00BA4958 /* ChatHistoryItem+CoreDataClass.swift in Sources */,
 				F07FBDE22A7FD03E00ACA10F /* NetworkEndPointCases.swift in Sources */,
 				F0F3001B2ABB7F6500868CDF /* ChatCollectionModelSelectCell.swift in Sources */,
+				F00FF0B32AD03A17004C5C10 /* RewardedAdAlertModel.swift in Sources */,
 				F07FBDF52A7FD72100ACA10F /* NetworkService.swift in Sources */,
 				F0ADEF9D2AA65C26008403CA /* HealthNutritionSuggestions.swift in Sources */,
 				F0817FF82A9BD49B0054C15E /* SuggestionsViewController.swift in Sources */,
@@ -1897,7 +1965,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ekremalkan.Chatvantage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1931,7 +1999,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ekremalkan.Chatvantage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

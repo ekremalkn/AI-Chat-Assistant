@@ -7,6 +7,7 @@
 
 import Foundation
 import Reachability
+import GoogleMobileAds
 
 protocol  SuggestionsViewModelInterface {
     var view: SuggestionsViewInterface? { get set }
@@ -23,6 +24,7 @@ protocol  SuggestionsViewModelInterface {
     func didSelectSuggestionFromMostUsedSuggestionsHeaderAt(indexPath: IndexPath)
     
     func checkSubscribeAndOpenPaywall()
+    
 }
 
 final class SuggestionsViewModel {
@@ -66,6 +68,7 @@ final class SuggestionsViewModel {
     }
     
     
+    
     //MARK: - Init Methods
     init() {
         
@@ -106,7 +109,12 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
         
         self.selectedSuggestion = selectedSuggestion
         
-        view?.openModelSelectToSelectGPTModel()
+        if RevenueCatManager.shared.isSubscribe {
+            view?.openModelSelectToSelectGPTModel()
+        } else {
+            view?.openRewardedAdAlert()
+        }
+
     }
     
     func didSelectSuggestionFromMostUsedSuggestionsHeaderAt(indexPath: IndexPath) {
@@ -114,7 +122,12 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
         
         self.selectedSuggestion = selectedSuggestion
         
-        view?.openModelSelectToSelectGPTModel()
+        if RevenueCatManager.shared.isSubscribe {
+            view?.openModelSelectToSelectGPTModel()
+        } else {
+            view?.openRewardedAdAlert()
+        }
+        
     }
     
     func checkSubscribeAndOpenPaywall() {
@@ -122,6 +135,7 @@ extension SuggestionsViewModel: SuggestionsViewModelInterface {
             view?.openPaywall()
         }
     }
+
     
 }
 

@@ -14,8 +14,7 @@ enum AdMobConstants {
     static let interstitialAdUnitID = "ca-app-pub-2414621456139261/2358211274"
     static let rewardedAdUnitID = "ca-app-pub-2414621456139261/1881938242"
     
-    static let testBannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
-    static let testInterstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
-    static let testRewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
-    
+//    static let testBannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+//    static let testInterstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
+//    static let testRewardedAdUnitID = "ca-app-pub-3940256099942544/1712485313"
 }

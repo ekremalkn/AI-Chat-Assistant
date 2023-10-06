@@ -220,6 +220,7 @@ extension SuggestionsResponseViewController: SuggestionsResponseViewInterface {
         configureNavItems()
         setupDelegates()
         configureAds()
+        showRewardedAd()
     }
     
     func assistantResponsing() {
@@ -449,7 +450,7 @@ extension SuggestionsResponseViewController {
                     
                     // Paylaşım işlemi için dosya URL'sini kullanın
                     let activityViewController = UIActivityViewController(activityItems: [temporaryFileURL], applicationActivities: nil)
-                    
+                    activityViewController.popoverPresentationController?.sourceView = suggestionsResponseView.messageTextView
                     activityViewController.completionWithItemsHandler = { _, _, _, _ in
                         try? FileManager.default.removeItem(at: temporaryFileURL)
                         
@@ -478,23 +479,41 @@ extension SuggestionsResponseViewController {
             }
         }
     }
+    
+    private func showRewardedAd() {
+        if !RevenueCatManager.shared.isSubscribe {
+            viewModel.loadRewardedAd { [weak self] isLoaded in
+                guard let self else { return }
+                if let rewardedAd = viewModel.rewardedAd, isLoaded {
+                    DispatchQueue.main.async {
+                        rewardedAd.present(fromRootViewController: self) {
+                            let reward = rewardedAd.adReward
+                            print("Reward received with currency \(reward.amount), amount \(reward.amount.doubleValue)")
+                        }
+                    }
+                } else {
+                    print("Rewarded Ad wasn't ready")
+                }
+            }
+        }
+    }
 }
 
 //MARK: - GADFullScreenContentDelegate
 extension SuggestionsResponseViewController: GADFullScreenContentDelegate {
     /// Tells the delegate that the ad failed to present full screen content.
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-      print("Ad did fail to present full screen content.")
+        print("Ad did fail to present full screen content.")
     }
-
+    
     /// Tells the delegate that the ad will present full screen content.
     func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-      print("Ad will present full screen content.")
+        print("Ad will present full screen content.")
     }
-
+    
     /// Tells the delegate that the ad dismissed full screen content.
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-      print("Ad did dismiss full screen content.")
+        print("Ad did dismiss full screen content.")
         suggestionsResponseView.loadInterstitialAd()
     }
 }

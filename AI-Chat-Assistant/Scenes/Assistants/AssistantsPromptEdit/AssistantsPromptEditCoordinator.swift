@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol AssistantsPromptEditCoordinatorDelegate: AnyObject {
+    func assistantsPromptEditCoordinator(_ coordinator: AssistantsPromptEditCoordinator, didSelectButtonFromRewardedAdAlert buttonType: RewardedAdAlertButtonType)
+}
+
 final class AssistantsPromptEditCoordinator: Coordinator {
     
     //MARK: - References
     weak var assistantsParentCoordinator: AssistantsCoordinator?
     private let navigationController: UINavigationController
+    weak var delegate: AssistantsPromptEditCoordinatorDelegate?
     
     //MARK: - Variables
     var childCoordinators: [Coordinator] = []
@@ -41,11 +46,28 @@ final class AssistantsPromptEditCoordinator: Coordinator {
         assistantsResponseCoordinator.start()
     }
     
+    func openRewardedAdAlert() {
+        let rewardedAdAlertCoordinator = RewardedAdAlertCoordinator(navigationController: navigationController)
+        childCoordinators.append(rewardedAdAlertCoordinator)
+        rewardedAdAlertCoordinator.assistantsPromptEditParentCoordinator = self
+        rewardedAdAlertCoordinator.delegate = self
+        rewardedAdAlertCoordinator.start()
+    }
+    
     func openPaywall() {
         let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
         childCoordinators.append(paywallCoordinator)
         paywallCoordinator.assistantsPromptEditParentCoordinator = self
         paywallCoordinator.start()
     }
+    
+}
+
+//MARK: - RewardedAdAlertCoordinatorDelegate
+extension AssistantsPromptEditCoordinator: RewardedAdAlertCoordinatorDelegate {
+    func rewardedAdAlertCoordinator(_ coordinator: RewardedAdAlertCoordinator, didSelectButton buttonType: RewardedAdAlertButtonType) {
+        delegate?.assistantsPromptEditCoordinator(self, didSelectButtonFromRewardedAdAlert: buttonType)
+    }
+    
     
 }

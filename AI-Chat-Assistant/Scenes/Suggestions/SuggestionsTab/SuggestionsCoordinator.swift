@@ -10,6 +10,7 @@ import UIKit
 protocol SuggestionsCoordinatorDelegate: AnyObject {
     func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectModel model: GPTModel)
     func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, dismissedPaywall paywall: PaywallViewController)
+    func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectButtonFromRewardedAdAlert buttonType: RewardedAdAlertButtonType)
 }
 
 final class SuggestionsCoordinator: Coordinator {
@@ -63,6 +64,14 @@ final class SuggestionsCoordinator: Coordinator {
         settingsCoordinator.start()
     }
     
+    func openRewardedAdAlert() {
+        let rewardedAdAlertCoordinator = RewardedAdAlertCoordinator(navigationController: navigationController)
+        childCoordinators.append(rewardedAdAlertCoordinator)
+        rewardedAdAlertCoordinator.suggestionsParentCoordinator = self
+        rewardedAdAlertCoordinator.delegate = self
+        rewardedAdAlertCoordinator.start()
+    }
+    
     func openPaywall() {
         let paywallCoordinator = PaywallCoordinator(navigationController: navigationController)
         childCoordinators.append(paywallCoordinator)
@@ -83,6 +92,15 @@ extension SuggestionsCoordinator: ModelSelectCoordinatorDelegate {
 extension SuggestionsCoordinator: PaywallCoordinatorDelegate {
     func paywallCoordinator(_ coordinator: PaywallCoordinator, dismissedPaywall paywall: PaywallViewController) {
         delegate?.suggestionsCoordinator(self, dismissedPaywall: paywall)
+    }
+    
+    
+}
+
+//MARK: - RewardedAdAlertCoordinatorDelegate
+extension SuggestionsCoordinator: RewardedAdAlertCoordinatorDelegate {
+    func rewardedAdAlertCoordinator(_ coordinator: RewardedAdAlertCoordinator, didSelectButton buttonType: RewardedAdAlertButtonType) {
+        delegate?.suggestionsCoordinator(self, didSelectButtonFromRewardedAdAlert: buttonType)
     }
     
     

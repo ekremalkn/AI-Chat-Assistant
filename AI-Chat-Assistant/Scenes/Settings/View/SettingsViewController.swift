@@ -14,7 +14,7 @@ protocol SettingsViewInterface: AnyObject {
     
     func openMailToSendUS()
     func openAppStoreToWriteReview()
-    func openShareSheetVCToShareApp()
+    func openShareSheetVCToShareApp(at indexPath: IndexPath)
     func openSafariToShowPrivacyPolicy()
     func openSafariToShowTermOfUse()
     func openPaywall()
@@ -242,9 +242,15 @@ extension SettingsViewController: SettingsViewInterface {
         }
     }
     
-    func openShareSheetVCToShareApp() {
+    func openShareSheetVCToShareApp(at indexPath: IndexPath) {
         if let appstoreUrl = URL(string: "https://apps.apple.com/app/id\(AppInfo.appID)"), !appstoreUrl.absoluteString.isEmpty {
-            settingsCoordinator?.openShareSheetVC(with: appstoreUrl)
+            let collectionView = settingsView.settingsCollectionView
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                guard let cell = collectionView.cellForItem(at: indexPath) as? SettingsCollectionCell else { return }
+                settingsCoordinator?.openShareSheetVC(with: appstoreUrl, cell: cell)
+            }
         }
     }
     

@@ -325,7 +325,7 @@ extension AssistantsViewController: AssistantsViewInterface {
             ProgressHUD.colorHUD = .vcBackground
             ProgressHUD.colorStatus = .vcBackground
             ProgressHUD.colorAnimation = .main
-            ProgressHUD.show(interaction: false)
+            ProgressHUD.show()
         }
 
     }
@@ -406,9 +406,13 @@ extension AssistantsViewController {
     private func configureAds() {
         if !RevenueCatManager.shared.isSubscribe {
             assistantsView.bannerView.delegate = self
-            assistantsView.bannerView.adUnitID = AdMobConstants.testBannerAdUnitID
+            assistantsView.bannerView.adUnitID = AdMobConstants.home2TabBannerAdUnitID
             assistantsView.bannerView.rootViewController = self
-            assistantsView.bannerView.load(GADRequest())
+            let request = GADRequest()
+            let extras = GADExtras()
+            extras.additionalParameters = ["suppress_test_label": "1"]
+            request.register(extras)
+            assistantsView.bannerView.load(request)
         }
     }
 }

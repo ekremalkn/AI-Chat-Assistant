@@ -151,7 +151,7 @@ extension PaywallViewController: PaywallViewDelegate {
             guard let self else { return }
             
             let changePlanController = UIAlertController(title: "Change Plan".localized() + "\n", message: nil, preferredStyle: .actionSheet)
-            
+            changePlanController.popoverPresentationController?.sourceView = button
             
             viewModel.packages.forEach { package in
                 switch package.packageType {

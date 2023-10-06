@@ -442,7 +442,7 @@ extension AssistantsResponseViewController {
                     
                     // Paylaşım işlemi için dosya URL'sini kullanın
                     let activityViewController = UIActivityViewController(activityItems: [temporaryFileURL], applicationActivities: nil)
-                    
+                    activityViewController.popoverPresentationController?.sourceView = assistantsResponseView.messageTextView
                     activityViewController.completionWithItemsHandler = { _, _, _, _ in
                         try? FileManager.default.removeItem(at: temporaryFileURL)
                         

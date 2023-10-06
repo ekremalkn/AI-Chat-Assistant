@@ -20,6 +20,7 @@ protocol SuggestionsViewInterface: AnyObject {
     func showNoInternetView()
     func deleteNoInternetView()
     
+    func openRewardedAdAlert()
     func openPaywall()
 }
 
@@ -279,6 +280,10 @@ extension SuggestionsViewController: SuggestionsViewInterface {
         removeNoInternetView()
     }
     
+    func openRewardedAdAlert() {
+        suggestionsCoordinator?.openRewardedAdAlert()
+    }
+    
     func openPaywall() {
         suggestionsCoordinator?.openPaywall()
     }
@@ -332,6 +337,17 @@ extension SuggestionsViewController: SuggestionsCoordinatorDelegate {
         configureAds()
     }
     
+    func suggestionsCoordinator(_ coordinator: SuggestionsCoordinator, didSelectButtonFromRewardedAdAlert buttonType: RewardedAdAlertButtonType) {
+        switch buttonType {
+        case .showRewardedAd:
+            openModelSelectToSelectGPTModel()
+        case .openPaywall:
+            suggestionsCoordinator?.openPaywall()
+        }
+    }
+    
+    
+    
 }
 
 //MARK: - AdMob Ad Configures
@@ -341,9 +357,14 @@ extension SuggestionsViewController {
             ATTrackingManager.requestTrackingAuthorization { [weak self] status in
                 guard let self else { return }
                 suggestionsView.bannerView.delegate = self
-                suggestionsView.bannerView.adUnitID = AdMobConstants.testBannerAdUnitID
+                suggestionsView.bannerView.adUnitID = AdMobConstants.home0TabBannerAdUnitID
                 suggestionsView.bannerView.rootViewController = self
-                suggestionsView.bannerView.load(GADRequest())
+                let request = GADRequest()
+                let extras = GADExtras()
+                extras.additionalParameters = ["suppress_test_label": "1"]
+                request.register(extras)
+                
+                suggestionsView.bannerView.load(request)
             }
         }
     }

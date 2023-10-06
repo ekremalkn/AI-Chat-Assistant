@@ -56,7 +56,9 @@ extension AssistantsView {
     
     func removeBannerView() {
         if RevenueCatManager.shared.isSubscribe {
-            bannerView.removeFromSuperview()
+            if bannerView != nil {
+                bannerView.removeFromSuperview()
+            }
         }
     }
     

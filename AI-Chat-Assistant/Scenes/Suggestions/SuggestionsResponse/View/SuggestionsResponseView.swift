@@ -152,7 +152,11 @@ extension SuggestionsResponseView {
     func loadInterstitialAd(completion: ((Bool) -> Void)? = nil) {
         if !RevenueCatManager.shared.isSubscribe {
             let request = GADRequest()
-            GADInterstitialAd.load(withAdUnitID: AdMobConstants.testInterstitialAdUnitID, request: request) { [weak self] ad, error in
+            let extras = GADExtras()
+            extras.additionalParameters = ["suppress_test_label": "1"]
+            request.register(extras)
+            
+            GADInterstitialAd.load(withAdUnitID: AdMobConstants.interstitialAdUnitID, request: request) { [weak self] ad, error in
                 guard let self else { return }
                 
                 if let error {

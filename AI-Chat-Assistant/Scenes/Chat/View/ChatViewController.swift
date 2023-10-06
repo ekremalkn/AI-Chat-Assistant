@@ -474,7 +474,10 @@ extension ChatViewController: ChatViewInterface {
     
     func showAd() {
         if chatView.interstitial != nil {
-            chatView.interstitial?.present(fromRootViewController: self)
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                chatView.interstitial?.present(fromRootViewController: self)
+            }
         } else {
             chatView.loadInterstitialAd()
         }
@@ -671,7 +674,7 @@ extension ChatViewController {
                     
                     // Paylaşım işlemi için dosya URL'sini kullanın
                     let activityViewController = UIActivityViewController(activityItems: [temporaryFileURL], applicationActivities: nil)
-                    
+                    activityViewController.popoverPresentationController?.sourceView = chatView.messageTextView
                     activityViewController.completionWithItemsHandler = { _, _, _, _ in
                         try? FileManager.default.removeItem(at: temporaryFileURL)
                         
@@ -706,17 +709,17 @@ extension ChatViewController {
 extension ChatViewController: GADFullScreenContentDelegate {
     /// Tells the delegate that the ad failed to present full screen content.
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-      print("Ad did fail to present full screen content.")
+        print("Ad did fail to present full screen content.")
     }
-
+    
     /// Tells the delegate that the ad will present full screen content.
     func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-      print("Ad will present full screen content.")
+        print("Ad will present full screen content.")
     }
-
+    
     /// Tells the delegate that the ad dismissed full screen content.
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-      print("Ad did dismiss full screen content.")
+        print("Ad did dismiss full screen content.")
         chatView.loadInterstitialAd()
     }
 }

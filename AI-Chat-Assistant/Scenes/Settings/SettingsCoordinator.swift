@@ -51,11 +51,11 @@ final class SettingsCoordinator: NSObject, Coordinator {
         navigationController.present(mailVC, animated: true)
     }
     
-    func openShareSheetVC(with data: Any) {
+    func openShareSheetVC(with data: Any, cell: SettingsCollectionCell) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             let shareSheetVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
-            shareSheetVC.popoverPresentationController?.sourceView = navigationController.view
+            shareSheetVC.popoverPresentationController?.sourceView = cell
             navigationController.present(shareSheetVC, animated: true)
         }
     }

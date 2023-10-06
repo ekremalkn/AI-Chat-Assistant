@@ -28,13 +28,19 @@ extension UIViewController {
             if adCounter >= 15 {
                 // 10 ekran açılışına ulaştığında reklamı göster
                 let request = GADRequest()
-                GADInterstitialAd.load(withAdUnitID: AdMobConstants.testInterstitialAdUnitID, request: request) { [weak self] ad, error in
+                let extras = GADExtras()
+                extras.additionalParameters = ["suppress_test_label": "1"]
+                request.register(extras)
+                
+                GADInterstitialAd.load(withAdUnitID: AdMobConstants.interstitialAdUnitID, request: request) { [weak self] ad, error in
                     guard let self else { return }
                     
                     if let error {
                         print("Failed to load interstitial ad with error: \(error.localizedDescription)")
                     } else {
-                        ad?.present(fromRootViewController: self)
+                        DispatchQueue.main.async {
+                            ad?.present(fromRootViewController: self)
+                        }
                     }
                 }
                 print("InterstitialAd'I GOSTER")
