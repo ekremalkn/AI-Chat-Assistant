@@ -80,6 +80,7 @@ extension PaywallViewController: PaywallViewInterface {
     }
     
     func restoringPurchase() {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .vcBackground
@@ -98,6 +99,7 @@ extension PaywallViewController: PaywallViewInterface {
     }
     
     func startingToPurchase() {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .vcBackground
@@ -162,7 +164,7 @@ extension PaywallViewController: PaywallViewDelegate {
                     }
                     changePlanController.addAction(yearlyPlanAction)
                 case .weekly:
-                    let weekylPlanAction = UIAlertAction(title: "3 Days Trial. Then".localized() + " \(package.localizedPriceString)" + "/week. ".localized(), style: .default) { [weak self] _ in
+                    let weekylPlanAction = UIAlertAction(title: "Weekly Access".localized() + " \(package.localizedPriceString)" + "/week. ".localized(), style: .default) { [weak self] _ in
                         guard let self else { return }
                         viewModel.currentPackage = package
                     }

@@ -97,9 +97,17 @@ final class SuggestionsResponseViewModel {
                     }
                     
                 case .failure(let failure):
-                    uiMessages.removeLast(2)
+                    if uiMessages.count >= 2 {
+                        uiMessages.removeLast(2)
+                    } else {
+                        uiMessages.removeAll()
+                    }
+                    
+                    if mainMessages.count >= 2 {
+                        mainMessages.removeLast(2)
+                    }
+                    
                     view?.reloadMessages()
-                    mainMessages.removeLast(2)
                     view?.didOccurErrorWhileResponsing(failure.localizedDescription)
                     assistantAnswered = true
                 }

@@ -322,6 +322,7 @@ extension AssistantsViewController: AssistantsViewInterface {
     
     func fetchingAssistants() {
         DispatchQueue.main.async {
+            ProgressHUD.animationType = .circleStrokeSpin
             ProgressHUD.colorHUD = .vcBackground
             ProgressHUD.colorStatus = .vcBackground
             ProgressHUD.colorAnimation = .main

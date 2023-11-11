@@ -102,8 +102,9 @@ final class PaywallView: UIView {
     
     private lazy var purchaseButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Start Free Trial".localized(), for: .normal)
+        button.setTitle("Get Chatvantage Pro".localized(), for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.numberOfLines = 2
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .main
         button.addTarget(self, action: #selector(purchaseButtonTapped), for: .touchUpInside)
@@ -179,11 +180,11 @@ final class PaywallView: UIView {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             if package.packageType == .weekly {
-                planInfoLabel.text = "Start your 3 days trial. Then".localized() + " \(package.localizedPriceString)" + "/week. ".localized() + "Cancel anytime. No payment now".localized()
-                purchaseButton.setTitle("Start Free Trial".localized(), for: .normal)
+                planInfoLabel.text = "Weekly Access".localized() + " \(package.localizedPriceString)" + "/week. ".localized() + "Cancel anytime.".localized()
+                purchaseButton.setTitle("Get Chatvantage Pro".localized(), for: .normal)
             } else if package.packageType == .annual {
                 planInfoLabel.text = "Yearly Access".localized() + " \(package.localizedPriceString)" + "/year. ".localized() + "Cancel anytime.".localized()
-                purchaseButton.setTitle("Continue".localized(), for: .normal)
+                purchaseButton.setTitle("Get Chatvantage Pro".localized(), for: .normal)
             }
         }
     }

@@ -8,7 +8,6 @@
 import Foundation
 
 enum RevenueCatConstants {
-    static let revenueCatAPIKey = "appl_CCXmaGunavrWWXvhtRkSDipuuCA"
     static let entitlement = "pro_entitlement"
     static let weeklyYearlyOfferingIdentifier = "Weekly/Yearly"
     static let chatvantageGiftOfferingIdentifier = "ChatvantageGift"

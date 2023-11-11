@@ -54,7 +54,8 @@ extension NetworkEndPointCases: TargetType {
         switch self {
         case .sendMessage(let messages, let model):
             let requestMessages = messages.map({OpenAIChatMessages(role: $0.role, content: $0.content)})
-            let requestBody = OpenAIChatRequestBody(model: model.modelRequestName, messages: requestMessages)
+            let requestBody = OpenAIChatRequestBody(model: model.modelRequestName,
+                                                    messages: requestMessages)
             return .requestJSONEncodable(requestBody)
         case .fetchAssistantTags:
             return .requestPlain
@@ -68,13 +69,18 @@ extension NetworkEndPointCases: TargetType {
     }
     
     var headers: [String : String]? {
+        
         switch self {
         case .sendMessage:
-            return [
-                "Content-Type": "application/json",
-                "Authorization": "Bearer \(NetworkConstants.openAIapiKey)"
-            ]
-        case .fetchAssistantTags, .fetchPromptsList:
+            if let customValue = Bundle.main.object(forInfoDictionaryKey: "EAAE") as? String {
+                return [
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer \(customValue)"
+                ]
+            } else {
+                return nil
+            }
+        case .fetchAssistantTags, . fetchPromptsList:
             return ["Content-Type": "application/json"]
         }
     }

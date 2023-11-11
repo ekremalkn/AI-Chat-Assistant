@@ -267,6 +267,7 @@ extension SettingsViewController: SettingsViewInterface {
     }
     
     func restoringPurchase() {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .vcBackground

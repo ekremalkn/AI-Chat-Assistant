@@ -8,6 +8,7 @@
 import UIKit
 import RevenueCat
 import GoogleMobileAds
+import ProgressHUD
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,15 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - Revenue Cat
         Purchases.logLevel = .debug
-        Purchases.configure(withAPIKey: RevenueCatConstants.revenueCatAPIKey)
-        RevenueCatManager.shared.checkSubscriptionStatus { _ in }
+        if let customValue = Bundle.main.object(forInfoDictionaryKey: "RevenueCatAPIKey") as? String {
+            Purchases.configure(withAPIKey: customValue)
+            RevenueCatManager.shared.checkSubscriptionStatus { _ in }
+        }
         
         //MARK: - AdMob Init
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "c59450b07318dc57a0013843cd8b9d6e" ]
+//                GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "c59450b07318dc57a0013843cd8b9d6e" ]
         
         //MARK: - Core Data Init
         CoreDataManager.shared.load()
+        
         
         //MARK: - Setup Keyboard Manager
         KeyboardManager.shared.setupKeyboard()

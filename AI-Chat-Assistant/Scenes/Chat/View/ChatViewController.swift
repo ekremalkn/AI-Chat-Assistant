@@ -120,6 +120,7 @@ final class ChatViewController: UIViewController {
                 self.viewModel.saveChatToCoreData()
                 self.viewModel.clearChat()
                 
+                ProgressHUD.animationType = .circleStrokeSpin
                 ProgressHUD.colorHUD = .vcBackground
                 ProgressHUD.colorStatus = .vcBackground
                 ProgressHUD.colorAnimation = .main
@@ -569,6 +570,7 @@ extension ChatViewController: AssistantChatCollectionCellDelegate {
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String) {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorAnimation = .lightGray
         ProgressHUD.show(interaction: false)
         

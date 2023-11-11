@@ -288,6 +288,7 @@ extension AssistantsPromptEditViewController: AssistantsPromptEditViewInterface 
     }
     
     func chatServiceResponding() {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorHUD = .main
         ProgressHUD.colorStatus = .main
         ProgressHUD.colorAnimation = .main

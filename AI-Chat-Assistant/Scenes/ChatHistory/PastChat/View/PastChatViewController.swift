@@ -465,6 +465,7 @@ extension PastChatViewController: AssistantChatCollectionCellDelegate {
     }
     
     func assistantChatCollectionCell(_ cell: AssistantChatCollectionCell, shareButtonTapped textToShare: String) {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorAnimation = .lightGray
         ProgressHUD.show(interaction: false)
         

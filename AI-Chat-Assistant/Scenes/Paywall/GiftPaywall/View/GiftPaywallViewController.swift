@@ -134,6 +134,7 @@ extension GiftPaywallViewController: GiftPaywallViewInterface {
     }
     
     func restoringPurchase() {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .vcBackground
@@ -152,6 +153,7 @@ extension GiftPaywallViewController: GiftPaywallViewInterface {
     }
     
     func startingToPurchase() {
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.colorHUD = .vcBackground
         ProgressHUD.colorStatus = .vcBackground
         ProgressHUD.colorAnimation = .vcBackground
