@@ -26,9 +26,11 @@ final class SplashViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        splashView.animateAppLogo(duration: 0.75) { [weak self] in
+        splashView.animateAppLogo(duration: 0.5) { [weak self] in
             guard let self else { return }
-            splashCoordinator?.setRootViewControllerToMainTabBarController()
+            RemoteConfigManager.shared.fetchAndActiveValues { _ in
+                self.splashCoordinator?.setRootViewControllerToMainTabBarController()
+            }
         }
     }
     

@@ -89,7 +89,7 @@ final class RevenueCatManager {
             } else {
                 completion(.notSubscriber)
 //                false
-                self.isSubscribe = false
+                self.isSubscribe = true
             }
         }
     }

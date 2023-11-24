@@ -41,18 +41,27 @@ final class AppCoordinator: Coordinator {
 
 extension AppCoordinator: AppCoordinatorDelegate {
     func setRootViewControllerToMainTabBarController() {
-        let mainCoordinator = MainCoordinator()
-        childCoordinators.append(mainCoordinator)
-        window.rootViewController = mainCoordinator.rootViewController
-        mainCoordinator.start()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let mainCoordinator = MainCoordinator()
+            childCoordinators.append(mainCoordinator)
+            window.rootViewController = mainCoordinator.rootViewController
+            mainCoordinator.start()
+        }
+
     }
     
     func setRootViewControllerToOnboardingVC() {
-        let onboardingCoordinator = OnboardingCoordinator()
-        onboardingCoordinator.appParentCoordinator = self
-        childCoordinators.append(onboardingCoordinator)
-        window.rootViewController = onboardingCoordinator.rootViewController
-        onboardingCoordinator.start()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let onboardingCoordinator = OnboardingCoordinator()
+            onboardingCoordinator.appParentCoordinator = self
+            childCoordinators.append(onboardingCoordinator)
+            window.rootViewController = onboardingCoordinator.rootViewController
+            onboardingCoordinator.start()
+        }
+        
+        
     }
     
     

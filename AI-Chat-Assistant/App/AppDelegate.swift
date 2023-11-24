@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseCore
 import RevenueCat
 import GoogleMobileAds
 import ProgressHUD
@@ -16,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //MARK: - Firebase
+        FirebaseApp.configure()
+
         //MARK: - Revenue Cat
         Purchases.logLevel = .debug
         if let customValue = Bundle.main.object(forInfoDictionaryKey: "RevenueCatAPIKey") as? String {
