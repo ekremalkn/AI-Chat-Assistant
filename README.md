@@ -1,4 +1,4 @@
-# Chatvantage - AI Chat Bot
+# Chatvantage - AI Chat Bot (Removed From AppStore)
 Developed with MVVM-C architecture. UI created programmatically using SnapKit. Moya library for a clean and generic network layer. Firebase Remote Config integration for dynamic prompt updates. GET request to an API for pre-made prompts on the Assistants screen. CoreData for storing and listing chats on the history tab. Integrated Firebase Remote Config, AdMob (Ad), and RevenueCat.
 
 ## Screenshots
